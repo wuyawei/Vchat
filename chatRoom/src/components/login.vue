@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="input-box">
-            <input type="text" placeholder="输入昵称">
+            <input type="text" placeholder="输入昵称" v-model="username">
             <div class="animation-box">
                 <div class="btn-box" :class="{active: showadd}">
                     <button @click="toChat">创建聊天室</button>
@@ -24,25 +24,25 @@
 <script>
     export default {
         name: 'login',
+        username: '',
         data() {
             return {
-                showadd: false
+                showadd: false,
+                username: ''
             }
         },
         sockets:{
             connect: function(val){
-                console.log('connect', val);
-                this.$socket.on('news', r => {
-                    console.log('news', r)
-                })
+                console.log('连接成功');
             },
             customEmit: function(val){
-                console.log('连接失败')
+                console.log('连接失败');
             }
         },
         methods: {
             toChat() {
-                this.$socket.emit('go', '我是一条消息');
+                this.$socket.emit('login', {username: this.username});
+                window.localStorage.username = this.username;
                 this.$router.push('/chat')
             },
             chose() {

@@ -39,8 +39,16 @@ app.get('/', function (req, res) {
 
 io.on('connection', function (socket) {
     console.log('启动了Socket.io');
-    socket.on('go', function(value){
-        socket.emit('news', { hello: 'world' });
+
+    socket.on('login', function(val){
+        io.emit('org', val);
+    });
+    socket.on('mes', function(val){
+        socket.broadcast.emit('mes', val);
+        console.log('mess', val);
+    });
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
     });
 });
 

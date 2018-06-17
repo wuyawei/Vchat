@@ -4,7 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueSocketio from 'vue-socket.io';
-Vue.use(VueSocketio, 'http://192.168.13.28:9988');
+import socketio from 'socket.io-client';
+
+Vue.use(VueSocketio, socketio('http://localhost:9988/'));
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

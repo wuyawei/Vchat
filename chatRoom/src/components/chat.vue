@@ -4,68 +4,34 @@
         <div class="chat-l">
             <div class="chat-l-top">
                 <ul>
-                    <li class="other">
-                        <p>1</p>
-                        <div>
-                            <span>111 <i> 2018-06-07 14:12:56 </i></span>
-                            <p>
-                                看到明年房价不能分开就是
+                    <li :class="[{other: v.type==='other'},{mine: v.type==='mine'},{org: v.type==='org'}]" v-for="(v,i) in List" :key="i">
+                        <template v-if="v.type==='other'">
+                            <p>{{v.username ? v.username.slice(0,1) : ''}}</p>
+                            <div>
+                                <span>{{v.username}}<i> 2018-06-07 14:12:56 </i></span>
+                                <p>
+                                    {{v.mes}}
                             </p>
-                        </div>
-                    </li>
-                    <li class="mine">
-                        <div>
-                            <span>222 <i> 2018-06-07 14:18:56 </i></span>
-                            <p>
-                                大不了广佛看了看大V发
+                            </div>
+                        </template>
+                        <template v-if="v.type==='mine'">
+                            <div>
+                                <span>{{v.username}}<i> 2018-06-07 14:18:56 </i></span>
+                                <p>
+                                    {{v.mes}}
                             </p>
-                        </div>
-                        <p>2</p>
-                    </li>
-                    <li class="other">
-                        <p>1</p>
-                        <div>
-                            <span>111 <i> 2018-06-07 14:12:56 </i></span>
-                            <p>
-                                看到明年房价不能分开就是
-                            </p>
-                        </div>
-                    </li>
-                    <li class="mine">
-                        <div>
-                            <span>222 <i> 2018-06-07 14:18:56 </i></span>
-                            <p>
-                                大不了广佛看了看大V发
-                            </p>
-                        </div>
-                        <p>2</p>
-                    </li>
-                    <li class="other">
-                        <p>1</p>
-                        <div>
-                            <span>111 <i> 2018-06-07 14:12:56 </i></span>
-                            <p>
-                                看到明年房价不能分开就是
-                            </p>
-                        </div>
-                    </li>
-                    <li class="mine">
-                        <div>
-                            <span>222 <i> 2018-06-07 14:18:56 </i></span>
-                            <p>
-                                大不了广佛看了看大V发
-                            </p>
-                        </div>
-                        <p>2</p>
-                    </li>
-                    <li class="org">
-                        系统消息：<span>222</span>加入聊天室！
+                            </div>
+                            <p>{{v.username ? v.username.slice(0,1) : ''}}</p>
+                        </template>
+                        <template v-if="v.type==='org'">
+                            系统消息：<span>{{v.username}}</span>加入聊天室！
+                        </template>
                     </li>
                 </ul>
             </div>
             <div class="chat-l-bottom">
-                <textarea name=""></textarea>
-                <span>发送</span>
+                <textarea v-model="mes"></textarea>
+                <span @click="send">发送</span>
             </div>
         </div>
         <div class="chat-r">
@@ -88,11 +54,38 @@
     export default {
         name: 'chat',
         data() {
-            return {}
+            return {
+                List: [],
+                username: window.localStorage.username,
+                mes: ''
+            }
+        },
+        watch: {
+            List(list){
+                console.log('list', list);
+            }
+        },
+        sockets:{
+            connect: function(val){
+            },
+            customEmit: function(val){
+            },
+            org(r) {
+                this.List.push(Object.assign({},r, {type: 'org'}));
+            },
+            mes(r) {
+                this.List.push(Object.assign({},r, {type: 'other'}));
+            }
         },
         methods: {
             exit() {
                 this.$router.push('/')
+            },
+            send() {
+                let val = {username: this.username, mes: this.mes};
+                this.List.push(Object.assign({},val,{type: 'mine'}));
+                this.$socket.emit('mes', val);
+                this.mes = '';
             }
         }
     }
@@ -103,10 +96,14 @@
     .chat{
         width:850px;
         height: 600px;
-        margin:  0 auto;
+        margin: auto;
         display: flex;
         justify-content: flex-start;
-        position: relative;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
     }
     .chat h3{
         position: absolute;

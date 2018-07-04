@@ -1,16 +1,17 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+let express = require('express');
+let path = require('path');
+let favicon = require('serve-favicon');
+let logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+let user = require('./controller/init');
 
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+let app = express();
+let server = require('http').Server(app);
+let io = require('socket.io')(server);
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+let index = require('./routes/index');
+let users = require('./routes/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,7 +37,6 @@ app.use('/users', users);
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
 });
-
 io.on('connection', function (socket) {
     console.log('启动了Socket.io');
 
@@ -54,7 +54,7 @@ io.on('connection', function (socket) {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

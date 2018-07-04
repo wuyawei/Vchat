@@ -24,6 +24,7 @@
         background-image: url(./assets/1.jpg);
         background-repeat: no-repeat;
         background-size: cover;
+        background-position-y: -140px;
     }
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;

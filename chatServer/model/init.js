@@ -1,20 +1,63 @@
 const db = require('../utils/database.js'); // 初始化数据库表
 
-let users = db.model("users",{ // user
+let users = db.model("users",{ // 用户
     name: String,
-    pass: String
+    pass: String,
+    photo: String
 });
 
-const inituser = (callback) => {
+const initUser = (callback) => {
     let user = new users({
         name: 'admin',
-        pass: '123456'
+        pass: '123456',
+        photo: ''
     });
     user.save().then((res) => {
         callback(res)
     })
 };
 
+let rooms = db.model("rooms",{ // 房间
+    title: String
+});
+
+const initRoom = (callback) => {
+    let room = new rooms({
+        title: '第一聊天室'
+    });
+    room.save().then((res) => {
+        callback(res)
+    })
+};
+
+let msgSchema = new db.Schema(
+    { // 消息
+        roomid: String,
+        roomtitle: String,
+        userid: String,
+        username: String,
+        content: String,
+    },
+    { timestamps: true }
+);
+let messages = db.model("message", msgSchema);
+
+const initMessage = (callback, conf) => {
+    console.log('conf', conf);
+    let message = new messages({
+        roomid: conf.roomid,
+        roomtitle: '第一聊天室',
+        userid: conf.userid,
+        username: 'admin',
+        content: '我是admin ^_^'
+    });
+    message.save().then((res) => {
+        callback(res)
+    })
+};
+
 module.exports = {
-    inituser
+    initUser,
+    initRoom,
+    initMessage
 };

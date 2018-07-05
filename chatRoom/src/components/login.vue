@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         name: 'login',
         username: '',
@@ -56,11 +57,14 @@
             }
         },
         mounted() {
-            fetch('/api/getUser').then(res=>res.json()).then(r=>{
-                if(r.code === 0){
-                    console.log(r);
-                }
-            });
+//            fetch('/api/getUser').then(res=>res.json()).then(r=>{
+//                if(r.code === 0){
+//                    console.log(r);
+//                }
+//            });
+//            axios.get('/api/getUser').then(r => {
+//                console.log(r);
+//            })
         }
     }
 </script>

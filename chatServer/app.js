@@ -4,14 +4,12 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-let user = require('./controller/init');
 
 let app = express();
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
 
-let index = require('./routes/index');
-let users = require('./routes/users');
+let api = require('./routes/api');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,19 +22,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', me.options);
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
-app.use('/', index);
-app.use('/users', users);
+
+app.use('/api', api);
 
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
 });
+
+// 后端解决跨域的方式 , 现选择前端代理
+// app.all('*', function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header('Access-Control-Allow-Methods', me.options);
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     next();
+// });
+
 io.on('connection', function (socket) {
     console.log('启动了Socket.io');
 

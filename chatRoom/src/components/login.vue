@@ -54,6 +54,13 @@
             back() {
                 this.showadd = false;
             }
+        },
+        mounted() {
+            fetch('/api/getUser').then(res=>res.json()).then(r=>{
+                if(r.code === 0){
+                    console.log(r);
+                }
+            });
         }
     }
 </script>

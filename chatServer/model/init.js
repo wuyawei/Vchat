@@ -38,7 +38,7 @@ let msgSchema = new db.Schema(
         username: String,
         content: String,
     },
-    { timestamps: true }
+    { timestamps: true } // 设置timestamps为true，schema映射的文档document会自动添加createdAt和updatedAt这两个字段，代表创建时间和更新时间
 );
 let messages = db.model("message", msgSchema);
 

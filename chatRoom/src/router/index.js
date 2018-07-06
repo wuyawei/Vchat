@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/components/login'
-import chat from '@/components/chat'
+import login from '@/views/login'
+import chat from '@/views/chat'
 
 Vue.use(Router);
 

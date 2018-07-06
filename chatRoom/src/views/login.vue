@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="input-box">
-            <input type="text" placeholder="输入昵称" v-model="username">
+            <input type="text" placeholder="输入昵称" v-model="name">
             <div class="animation-box">
                 <div class="btn-box" :class="{active: showadd}">
                     <button @click="toChat">创建聊天室</button>
@@ -25,11 +25,11 @@
     import api from '../api';
     export default {
         name: 'login',
-        username: '',
+        name: '',
         data() {
             return {
                 showadd: false,
-                username: ''
+                name: ''
             }
         },
         sockets:{
@@ -42,9 +42,21 @@
         },
         methods: {
             toChat() {
-                this.$socket.emit('login', {username: this.username});
-                window.localStorage.username = this.username;
-                this.$router.push('/chat')
+                let params = {
+                    name: this.name
+                };
+                api.login(params).then(r => {
+                    if(r.code === 0){
+                        alert('加入成功');
+                        this.$socket.emit('login', r.data);
+                        window.localStorage.name = this.name;
+                        this.$router.push('/chat')
+                    } else if (r.code === 1) {
+                        alert('用户名已存在')
+                    } else {
+                        alert('加入失败')
+                    }
+                });
             },
             chose() {
                 this.showadd = true;
@@ -62,7 +74,7 @@
                     console.log(r);
                 }
             });*/
-            api.getUser().then(r => {console.log(r)});
+            /*api.getUser().then(r => {console.log(r)});*/
         }
     }
 </script>

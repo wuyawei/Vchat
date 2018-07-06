@@ -6,9 +6,9 @@
                 <ul>
                     <li :class="[{other: v.type==='other'},{mine: v.type==='mine'},{org: v.type==='org'}]" v-for="(v,i) in List" :key="i">
                         <template v-if="v.type==='other'">
-                            <p>{{v.username ? v.username.slice(0,1) : ''}}</p>
+                            <p>{{v.name ? v.name.slice(0,1) : ''}}</p>
                             <div>
-                                <span>{{v.username}}<i> 2018-06-07 14:12:56 </i></span>
+                                <span>{{v.name}}<i> 2018-06-07 14:12:56 </i></span>
                                 <p>
                                     {{v.mes}}
                             </p>
@@ -16,15 +16,15 @@
                         </template>
                         <template v-if="v.type==='mine'">
                             <div>
-                                <span>{{v.username}}<i> 2018-06-07 14:18:56 </i></span>
+                                <span>{{v.name}}<i> 2018-06-07 14:18:56 </i></span>
                                 <p>
                                     {{v.mes}}
                             </p>
                             </div>
-                            <p>{{v.username ? v.username.slice(0,1) : ''}}</p>
+                            <p>{{v.name ? v.name.slice(0,1) : ''}}</p>
                         </template>
                         <template v-if="v.type==='org'">
-                            系统消息：<span>{{v.username}}</span>加入聊天室！
+                            系统消息：<span>{{v.name}}</span>加入聊天室！
                         </template>
                     </li>
                 </ul>
@@ -56,7 +56,7 @@
         data() {
             return {
                 List: [],
-                username: window.localStorage.username,
+                name: window.localStorage.name,
                 mes: ''
             }
         },
@@ -82,7 +82,7 @@
                 this.$router.push('/')
             },
             send() {
-                let val = {username: this.username, mes: this.mes};
+                let val = {name: this.name, mes: this.mes};
                 this.List.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);
                 this.mes = '';

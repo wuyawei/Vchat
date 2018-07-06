@@ -10,7 +10,24 @@ const getUser = (callback) => {
         callback(r);
     })
 };
+const login = (params, callback) => {
+    users.find({name: params.name}).then(r => {
+        if (r.length) {
+            callback({code: 1});
+        } else {
+            users.create({name: params.name}).then(r => {
+                if (r['_id']) {
+                    callback(r);
+                } else {
+                    callback({code: -1});
+                }
+            })
+        }
+
+    })
+};
 
 module.exports = {
-    getUser
+    getUser,
+    login
 };

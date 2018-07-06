@@ -47,14 +47,14 @@
                 };
                 api.login(params).then(r => {
                     if(r.code === 0){
-                        alert('加入成功');
+                        this.$message.success('加入成功');
                         this.$socket.emit('login', r.data);
                         window.localStorage.name = this.name;
                         this.$router.push('/chat')
                     } else if (r.code === 1) {
-                        alert('用户名已存在')
+                        this.$message.error('用户名已存在')
                     } else {
-                        alert('加入失败')
+                        this.$message.error('加入失败')
                     }
                 });
             },

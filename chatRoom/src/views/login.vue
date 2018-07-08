@@ -25,7 +25,6 @@
     import api from '../api';
     export default {
         name: 'login',
-        name: '',
         data() {
             return {
                 showadd: false,
@@ -34,6 +33,7 @@
         },
         sockets:{
             connect: function(val){
+                console.log(this.$socket.id);
                 console.log('连接成功');
             },
             customEmit: function(val){
@@ -42,6 +42,10 @@
         },
         methods: {
             toChat() {
+                if (!this.name) {
+                    this.$message.error('登录名不能为空');
+                    return;
+                }
                 let params = {
                     name: this.name
                 };

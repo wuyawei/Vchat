@@ -41,8 +41,9 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
     console.log('启动了Socket.io');
 
-    socket.on('login', function(val){
-        io.emit('org', val);
+    socket.on('login', function(id, val){
+        console.log('id', id);
+        socket.to(id).emit('org', val);
     });
     socket.on('mes', function(val){
         socket.broadcast.emit('mes', val);

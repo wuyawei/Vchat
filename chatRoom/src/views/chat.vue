@@ -3,7 +3,7 @@
         <h3>111聊天室 <span @click="exit">[退出]</span></h3>
         <div class="chat-l">
             <div class="chat-l-top">
-                <ul>
+                <ul ref="msglist">
                     <li :class="[{other: v.type==='other'},{mine: v.type==='mine'},{org: v.type==='org'}]" v-for="(v,i) in List" :key="i">
                         <template v-if="v.type==='other'">
                             <p>{{v.name ? v.name.slice(0,1) : ''}}</p>
@@ -63,6 +63,7 @@
         watch: {
             List(list){
                 console.log('list', list);
+                this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
             }
         },
         sockets:{
@@ -84,7 +85,7 @@
             send() {
                 let val = {name: this.name, mes: this.mes};
                 this.List.push(Object.assign({},val,{type: 'mine'}));
-                this.$socket.emit('mes', val);
+                this.$socket.emit('mes', this.$socket.id, val);
                 this.mes = '';
             }
         }

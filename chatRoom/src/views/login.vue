@@ -1,23 +1,25 @@
 <template>
     <div class="login">
-        <div class="input-box">
-            <input type="text" placeholder="输入昵称" v-model="name">
-            <div class="animation-box">
-                <div class="btn-box" :class="{active: showadd}">
-                    <button @click="toChat">创建聊天室</button>
-                    <button @click="chose">加入已有聊天室</button>
-                </div>
-                <div class="select-box" :class="{active: !showadd}">
-                    <select name="" id="">
-                        <option value="">醉了醉了</option>
-                        <option value="">101聊天室</option>
-                        <option value="">102聊天室</option>
-                    </select>
-                    <button @click="sure">确定</button>
-                    <span>没有合适的？<i @click="back">返回</i> 创建</span>
-                </div>
-            </div>
-        </div>
+        <!--<div class="input-box">-->
+            <!--<input type="text" placeholder="输入昵称" v-model="name">-->
+            <!--<div class="animation-box">-->
+                <!--<div class="btn-box" :class="{active: showadd}">-->
+                    <!--<button @click="toChat">创建聊天室</button>-->
+                    <!--<button @click="chose">加入已有聊天室</button>-->
+                <!--</div>-->
+                <!--<div class="select-box" :class="{active: !showadd}">-->
+                    <!--<select name="" id="">-->
+                        <!--<option value="">醉了醉了</option>-->
+                        <!--<option value="">101聊天室</option>-->
+                        <!--<option value="">102聊天室</option>-->
+                    <!--</select>-->
+                    <!--<button @click="sure">确定</button>-->
+                    <!--<span>没有合适的？<i @click="back">返回</i> 创建</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <h3 class="title">Hi, vChat !</h3>
+        <span class="begain">立即体验</span>
     </div>
 </template>
 
@@ -149,5 +151,35 @@
         color: #00b4f0;
         font-style: normal;
         cursor: pointer;
+    }
+    h3.title{
+        font-size: 38px;
+        color: #fff;
+        text-align: center;
+        margin-top: 15%;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
+    span.begain{
+        color: #fff;
+        font-size: 20px;
+        animation: fide 2s infinite;
+        cursor: pointer;
+    }
+    span.begain:hover{
+        opacity: 1;
+        animation-play-state:paused;
+        -webkit-animation-play-state:paused;
+    }
+    @keyframes fide {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.3;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 </style>

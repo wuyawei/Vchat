@@ -12,6 +12,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.4.3",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "scss": "^0.2.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^2.1.1-b",

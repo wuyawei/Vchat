@@ -62,43 +62,43 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .logo{
         margin-top: 15%;
         transform: translateY(0%);
         transition: transform 0.5s;
+        h3.title{
+            font-size: 38px;
+            color: #fff;
+            text-align: center;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        span.begain{
+            color: #fff;
+            font-size: 20px;
+            animation: fide 2s infinite;
+            cursor: pointer;
+        }
+        span.begain:hover{
+            opacity: 1;
+            animation-play-state:paused;
+            -webkit-animation-play-state:paused;
+        }
+        @keyframes fide {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     }
     .logo.active{
         transform: translateY(-100%);
-    }
-    h3.title{
-        font-size: 38px;
-        color: #fff;
-        text-align: center;
-        font-weight: 400;
-        margin-bottom: 20px;
-    }
-    span.begain{
-        color: #fff;
-        font-size: 20px;
-        animation: fide 2s infinite;
-        cursor: pointer;
-    }
-    span.begain:hover{
-        opacity: 1;
-        animation-play-state:paused;
-        -webkit-animation-play-state:paused;
-    }
-    @keyframes fide {
-        0% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0.3;
-        }
-        100% {
-            opacity: 1;
-        }
     }
     .sign{
         width: 350px;

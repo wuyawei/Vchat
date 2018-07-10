@@ -14,6 +14,11 @@ export default new Router({
             path: '/chat',
             name: 'chat',
             component: _import('chat')
+        },
+        {
+            path: '/roomList',
+            name: 'roomList',
+            component: _import('roomList')
         }
     ]
 })

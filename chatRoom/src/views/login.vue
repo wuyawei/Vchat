@@ -18,8 +18,10 @@
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
-        <h3 class="title">Hi, vChat !</h3>
-        <span class="begain" @click="experience">立即体验</span>
+        <div class="logo" :class="{active: showSign}">
+            <h3 class="title">Hi, vChat !</h3>
+            <span class="begain" @click="experience">立即体验</span>
+        </div>
         <div class="sign" v-if="showSign">
             <div class="title">
                 <span :class="{active: islogin}" @click="choose(true)">登录</span>
@@ -56,8 +58,8 @@
                 name: '',
                 pass: '',
                 repass: '',
-                islogin: true,
-                showSign: false
+                islogin: true, // 登录 or 注册
+                showSign: false // 登录框显示
             }
         },
         sockets:{
@@ -185,11 +187,18 @@
         font-style: normal;
         cursor: pointer;
     }
+    .logo{
+        margin-top: 15%;
+        transform: translateY(0%);
+        transition: transform 0.5s;
+    }
+    .logo.active{
+        transform: translateY(-100%);
+    }
     h3.title{
         font-size: 38px;
         color: #fff;
         text-align: center;
-        margin-top: 15%;
         font-weight: 400;
         margin-bottom: 20px;
     }
@@ -227,6 +236,27 @@
         top:50%;
         margin-left: -175px;
         margin-top: -175px;
+        animation: move 1.2s;
+    }
+    @keyframes move {
+        0% {
+            left: 0
+        }
+        40% {
+            left: 50%;
+        }
+        40%, 100% {
+            -webkit-transform: translate(0, 0);
+        }
+        50%,
+        70%,
+        90% {
+            -webkit-transform: translate(-5px, -5px);
+        }
+        60%,
+        80% {
+            -webkit-transform: translate(5px, 5px);
+        }
     }
     .sign .title{
         display: flex;

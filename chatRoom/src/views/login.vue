@@ -19,7 +19,30 @@
             <!--</div>-->
         <!--</div>-->
         <h3 class="title">Hi, vChat !</h3>
-        <span class="begain">立即体验</span>
+        <span class="begain" @click="experience">立即体验</span>
+        <div class="sign" v-if="showSign">
+            <div class="title">
+                <span :class="{active: islogin}" @click="choose(true)">登录</span>
+                <span :class="{active: !islogin}" @click="choose(false)">注册</span>
+            </div>
+            <el-form ref="signForm" label-width="100px" class="signForm">
+                <el-input v-model="name" placeholder="账号">
+                    <i class="el-icon-news" slot="prepend"></i>
+                </el-input>
+                <el-input v-model="pass" placeholder="密码">
+                    <i class="el-icon-news" slot="prepend"></i>
+                </el-input>
+                <el-input v-model="repass" placeholder="确认密码" v-if="!islogin">
+                    <i class="el-icon-news" slot="prepend"></i>
+                </el-input>
+            </el-form>
+            <button>{{islogin ? '登录' : '注册'}}</button>
+            <div class="login-foot" v-if="islogin">
+                <span></span>
+                第三方登录
+                <span></span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -30,7 +53,11 @@
         data() {
             return {
                 showadd: false,
-                name: ''
+                name: '',
+                pass: '',
+                repass: '',
+                islogin: true,
+                showSign: false
             }
         },
         sockets:{
@@ -72,6 +99,12 @@
             },
             back() {
                 this.showadd = false;
+            },
+            choose(flag) {
+                this.islogin = flag;
+            },
+            experience() {
+                this.showSign = true;
             }
         },
         mounted() {
@@ -84,7 +117,7 @@
         }
     }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
     .input-box{
         margin-top: 10%;
@@ -181,5 +214,69 @@
         100% {
             opacity: 1;
         }
+    }
+    .sign{
+        width: 350px;
+        height: 350px;
+        padding: 15px 25px 0;
+        background-color: #fff;
+        border-radius: 10px;
+        box-sizing: border-box;
+        position: absolute;
+        left:50%;
+        top:50%;
+        margin-left: -175px;
+        margin-top: -175px;
+    }
+    .sign .title{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    .sign .title span{
+        width:100px;
+        border-right: 1px solid #d5d5d5;
+        cursor: pointer;
+    }
+    .sign .title span:nth-of-type(2){
+        border-right: none;
+    }
+    .sign .title span.active{
+        color: #69c8f4;
+    }
+    .signForm .el-input{
+        margin-bottom: 15px;
+    }
+    .sign button{
+        width:100%;
+        background-color: #69c8f4;
+        border: none;
+        outline: none;
+        height: 36px;
+        color: #fff;
+        border-radius: 25px;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .sign button:hover{
+        background-color: rgba(19, 164, 192, 0.61);
+        color: #fff;
+    }
+    .login-foot{
+        width:100%;
+        font-size: 12px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #d5d5d5;
+    }
+    .login-foot span{
+        width:100px;
+        height: 1px;
+        background-color: #d5d5d5;
+        display: inline-block;
+        margin: 0 10px;
     }
 </style>

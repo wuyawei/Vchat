@@ -20,7 +20,7 @@
                     <i class="iconfont icon-mima2" slot="prepend"></i>
                 </el-input>
             </el-form>
-            <button>{{islogin ? '登录' : '注册'}}</button>
+            <button @click="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
             <div class="login-foot" v-if="islogin">
                 <span></span>
                 第三方登录
@@ -49,6 +49,11 @@
             },
             experience() {
                 this.showSign = true;
+            },
+            enter(f) {
+                if (f) {
+                    this.$router.push('/roomList');
+                } else {}
             }
         },
         mounted() {

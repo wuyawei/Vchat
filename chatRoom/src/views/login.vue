@@ -9,15 +9,15 @@
                 <span :class="{active: islogin}" @click="choose(true)">登录</span>
                 <span :class="{active: !islogin}" @click="choose(false)">注册</span>
             </div>
-            <el-form ref="signForm" label-width="100px" class="signForm">
+            <el-form ref="signForm" label-width="80px" class="signForm">
                 <el-input v-model="name" placeholder="账号">
-                    <i class="el-icon-news" slot="prepend"></i>
+                    <i class="iconfont icon-zhanghao" slot="prepend"></i>
                 </el-input>
                 <el-input v-model="pass" placeholder="密码">
-                    <i class="el-icon-news" slot="prepend"></i>
+                    <i class="iconfont icon-mima3" slot="prepend"></i>
                 </el-input>
                 <el-input v-model="repass" placeholder="确认密码" v-if="!islogin">
-                    <i class="el-icon-news" slot="prepend"></i>
+                    <i class="iconfont icon-mima2" slot="prepend"></i>
                 </el-input>
             </el-form>
             <button>{{islogin ? '登录' : '注册'}}</button>

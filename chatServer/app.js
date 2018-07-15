@@ -8,6 +8,7 @@ let bodyParser = require('body-parser');
 let app = express();
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
+let onconnection = require('./socket');
 
 let api = require('./routes/api');
 
@@ -15,8 +16,6 @@ let api = require('./routes/api');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,21 +37,7 @@ app.get('/', function (req, res) {
 //     next();
 // });
 
-io.on('connection', function (socket) {
-    console.log('启动了Socket.io');
-
-    socket.on('login', function(id, val){
-        console.log('id', id);
-        socket.to(id).emit('org', val);
-    });
-    socket.on('mes', function(val){
-        socket.broadcast.emit('mes', val);
-        console.log('mess', val);
-    });
-    socket.on('disconnect', function(){
-        console.log('user disconnected');
-    });
-});
+io.on('connection', onconnection);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

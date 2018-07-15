@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="vchat-login">
         <div class="logo" :class="{active: showSign}">
             <h3 class="title">Hi, vChat !</h3>
             <span class="begain" @click="experience">立即体验</span>
@@ -52,7 +52,22 @@
             },
             enter(f) {
                 if (f) {
-                    this.$router.push('/roomList');
+//                    let params = {
+//                        name: this.name
+//                    };
+//                    api.login(params).then(r => {
+//                        if (r.code === 0) {
+//                            this.$message.success('加入成功');
+//                            this.$socket.emit('login', r.data);
+//                            window.localStorage.name = this.name;
+//                            this.$router.push('/chat')
+//                        } else if (r.code === 1) {
+//                            this.$message.error('用户名已存在')
+//                        } else {
+//                            this.$message.error('加入失败')
+//                        }
+//                    });
+                    this.$router.push('/personalMain');
                 } else {}
             }
         },
@@ -68,6 +83,15 @@
 </script>
 
 <style scoped lang="scss">
+    .vchat-login{
+        width:100%;
+        height: 100%;
+        background-image: url(../assets/img/1.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-y: -140px;
+        overflow: hidden;
+    }
     .logo{
         margin-top: 15%;
         transform: translateY(0%);
@@ -153,14 +177,14 @@
         border-right: none;
     }
     .sign .title span.active{
-        color: #69c8f4;
+        color: #1fbeca;
     }
     .signForm .el-input{
         margin-bottom: 15px;
     }
     .sign button{
         width:100%;
-        background-color: #69c8f4;
+        background-color: #1fbeca;
         border: none;
         outline: none;
         height: 36px;

@@ -10,6 +10,6 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     @import "../static/css/base.scss";
 </style>

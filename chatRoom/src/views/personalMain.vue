@@ -1,5 +1,28 @@
 <template>
     <div class="vchat-personalMain">
+        <div class="vchat-header">
+            <div class="vchat-logo">vchat</div>
+            <div class="vchat-mine">
+                <a href="">
+                    <img src="../assets/img/6.jpg" alt="">
+                </a>
+                <div>
+                    <p>吴所谓呀</p>
+                    <p>在线</p>
+                </div>
+            </div>
+        </div>
+        <div class="vchat-content">
+            <div class="vchat-content-nav">
+                <ul>
+                    <li v-for="v in nav" :key="v.id" @click="setCurrNav(v.id)" :class="{active: currNav === v.id}">
+                        <i class="iconfont" :class="[currNav !== v.id ? v.class : v.activeClass]"></i>
+                        <p>{{v.name}}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="vchat-content-view"></div>
+        </div>
     </div>
 </template>
 <script>
@@ -7,6 +30,12 @@
         name: '',
         data() {
             return {
+                nav: [
+                    {name: '会话', class: 'icon-message', activeClass: 'icon-message_fill', id: 1},
+                    {name: '好友', class: 'icon-people', activeClass: 'icon-people_fill', id: 2},
+                    {name: '群组', class: 'icon-group', activeClass: 'icon-group_fill', id: 3}
+                ],
+                currNav: 1
             }
         },
         sockets:{
@@ -19,8 +48,90 @@
             }
         },
         methods: {
+            setCurrNav(id) {
+                this.currNav = id;
+            }
         }
     }
 </script>
-<style scoped>
+<style scoped lang="scss">
+    .vchat-personalMain{
+        width:100%;
+        height: 100%;
+        .vchat-header{
+            width:100%;
+            height: 80px;
+            background-color: #27cac7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .vchat-logo{
+                width:120px;
+                height: 80px;
+                color: #fff;
+                font-size: 28px;
+                line-height: 80px;
+            }
+            .vchat-mine{
+                min-width:300px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                >a{
+                    display: block;
+                    width:60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    background-color: #00ffff;
+                    margin-right: 20px;
+                    img{
+                        width:100%;
+                    }
+                }
+                >div{
+                    height: 50px;
+                    font-size: 16px;
+                    color: #fff;
+                    p:nth-of-type(1) {
+                        margin-bottom: 5px;
+                    }
+                    p:nth-of-type(2) {
+                        font-size: 14px;
+                        color: #1cffc5;
+                    }
+                }
+            }
+        }
+        .vchat-content{
+            width:100%;
+            height: calc(100% - 80px);
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: flex-start;
+            .vchat-content-nav{
+                width:120px;
+                height: 100%;
+                background-color: #fff;
+                box-shadow: 2px 0 10px #d5d5d5;
+                ul{
+                    width:100%;
+                    li{
+                        padding: 15px 0;
+                        color: #d5d5d5;
+                        cursor: pointer;
+                        i{
+                            font-size: 32px;
+                        }
+                        p{
+                            font-size: 12px;
+                        }
+                    }
+                    li.active{
+                        color: #27cac7;
+                    }
+                }
+            }
+        }
+    }
 </style>

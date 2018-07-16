@@ -18,7 +18,15 @@ export default new Router({
         {
             path: '/personalMain',
             name: 'personalMain',
-            component: _import('personalMain')
+            component: _import('personalMain'),
+            redirect: 'personalMain/group',
+            children: [
+                {
+                    path: 'group',
+                    name: 'group',
+                    component: _import('model/group')
+                }
+            ]
         }
     ]
 })

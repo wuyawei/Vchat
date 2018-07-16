@@ -15,13 +15,17 @@
         <div class="vchat-content">
             <div class="vchat-content-nav">
                 <ul>
-                    <li v-for="v in nav" :key="v.id" @click="setCurrNav(v.id)" :class="{active: currNav === v.id}">
-                        <i class="iconfont" :class="[currNav !== v.id ? v.class : v.activeClass]"></i>
-                        <p>{{v.name}}</p>
+                    <li v-for="v in nav" :key="v.id" :class="{active: currNav === v.link}">
+                        <router-link :to="{path: v.link}">
+                            <i class="iconfont" :class="[currNav !== v.link ? v.class : v.activeClass]"></i>
+                            <p>{{v.name}}</p>
+                        </router-link>
                     </li>
                 </ul>
             </div>
-            <div class="vchat-content-view"></div>
+            <div class="vchat-content-view">
+                <router-view></router-view>
+            </div>
         </div>
     </div>
 </template>
@@ -31,11 +35,11 @@
         data() {
             return {
                 nav: [
-                    {name: '会话', class: 'icon-message', activeClass: 'icon-message_fill', id: 1},
-                    {name: '好友', class: 'icon-people', activeClass: 'icon-people_fill', id: 2},
-                    {name: '群组', class: 'icon-group', activeClass: 'icon-group_fill', id: 3}
+                    {name: '会话', class: 'icon-message', activeClass: 'icon-message_fill', id: 1, link: '/personalMain/1'},
+                    {name: '好友', class: 'icon-people', activeClass: 'icon-people_fill', id: 2, link: '/personalMain/2'},
+                    {name: '群组', class: 'icon-group', activeClass: 'icon-group_fill', id: 3, link: '/personalMain/group'}
                 ],
-                currNav: 1
+                currNav: '/personalMain/group'
             }
         },
         sockets:{
@@ -118,19 +122,30 @@
                     width:100%;
                     li{
                         padding: 15px 0;
-                        color: #d5d5d5;
                         cursor: pointer;
-                        i{
-                            font-size: 32px;
-                        }
-                        p{
-                            font-size: 12px;
+                        a{
+                            display: block;
+                            color: #d5d5d5;
+                            text-decoration: none;
+                            i{
+                                font-size: 32px;
+                                margin-bottom: 5px;
+                            }
+                            p{
+                                font-size: 12px;
+                            }
                         }
                     }
                     li.active{
-                        color: #27cac7;
+                        a{
+                            color: #27cac7;
+                        }
                     }
                 }
+            }
+            .vchat-content-view{
+                width:calc(100% - 120px);
+                height: 100%;
             }
         }
     }

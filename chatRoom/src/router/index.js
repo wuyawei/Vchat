@@ -25,6 +25,16 @@ export default new Router({
                     path: 'group',
                     name: 'group',
                     component: _import('model/group')
+                },
+                {
+                    path: 'conversation',
+                    name: 'conversation',
+                    component: _import('model/conversation')
+                },
+                {
+                    path: 'friendly',
+                    name: 'friendly',
+                    component: _import('model/friendly')
                 }
             ]
         }

@@ -7,7 +7,7 @@
                     <img src="../assets/img/6.jpg" alt="">
                 </a>
                 <div>
-                    <p>吴所谓呀</p>
+                    <p>吴所谓呀 <span @click="loginOut">[退出]</span></p>
                     <p>在线</p>
                 </div>
             </div>
@@ -15,9 +15,9 @@
         <div class="vchat-content">
             <div class="vchat-content-nav">
                 <ul>
-                    <li v-for="v in nav" :key="v.id" :class="{active: currNav === v.link}">
+                    <li v-for="v in nav" :key="v.id" :class="{active: $route.path === v.link}">
                         <router-link :to="{path: v.link}">
-                            <i class="iconfont" :class="[currNav !== v.link ? v.class : v.activeClass]"></i>
+                            <i class="iconfont" :class="[$route.path !== v.link ? v.class : v.activeClass]"></i>
                             <p>{{v.name}}</p>
                         </router-link>
                     </li>
@@ -35,11 +35,10 @@
         data() {
             return {
                 nav: [
-                    {name: '会话', class: 'icon-message', activeClass: 'icon-message_fill', id: 1, link: '/personalMain/1'},
-                    {name: '好友', class: 'icon-people', activeClass: 'icon-people_fill', id: 2, link: '/personalMain/2'},
+                    {name: '会话', class: 'icon-message', activeClass: 'icon-message_fill', id: 1, link: '/personalMain/conversation'},
+                    {name: '好友', class: 'icon-people', activeClass: 'icon-people_fill', id: 2, link: '/personalMain/friendly'},
                     {name: '群组', class: 'icon-group', activeClass: 'icon-group_fill', id: 3, link: '/personalMain/group'}
-                ],
-                currNav: '/personalMain/group'
+                ]
             }
         },
         sockets:{
@@ -52,8 +51,8 @@
             }
         },
         methods: {
-            setCurrNav(id) {
-                this.currNav = id;
+            loginOut() {
+                this.$router.replace('/');
             }
         }
     }
@@ -97,8 +96,17 @@
                     height: 50px;
                     font-size: 16px;
                     color: #fff;
+                    text-align: left;
                     p:nth-of-type(1) {
                         margin-bottom: 5px;
+                        span{
+                            margin-left: 10px;
+                            color: #a4f5f6;
+                            cursor: pointer;
+                        }
+                        span:hover{
+                            color: #63f6f5;
+                        }
                     }
                     p:nth-of-type(2) {
                         font-size: 14px;

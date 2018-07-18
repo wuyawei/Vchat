@@ -154,6 +154,8 @@
             .vchat-content-view{
                 width:calc(100% - 120px);
                 height: 100%;
+                padding: 20px 30px 30px;
+                box-sizing: border-box;
             }
         }
     }

@@ -1,0 +1,88 @@
+<template>
+    <div class="vChat-comm-list">
+        <div class="vChat-list-search" :class="{active: is_focus}">
+            <input type="text" placeholder="群聊" @focus="focus" @blur="blur">
+            <i class="el-icon-search"></i>
+        </div>
+        <ul class="search-list">
+            <li>
+                <img src="" alt="">
+            </li>
+        </ul>
+        <p class="new-build">
+            没有找到想要的，<router-link :to="'/'"> 新建 </router-link>一个吧！
+        </p>
+    </div>
+</template>
+
+<script>
+    export default{
+        name: 'commList',
+        data() {
+            return {
+                is_focus: false
+            }
+        },
+        methods: {
+            focus() {
+                this.is_focus = true;
+            },
+            blur() {
+                this.is_focus = false;
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .vChat-comm-list{
+        width:100%;
+        height: 100%;
+        .vChat-list-search{
+            width:60%;
+            height: 42px;
+            position: relative;
+            transition: all 0.5s;
+            transform: scale(0.8);
+            input{
+                position: absolute;
+                left:0;
+                width:calc(100% - 21px);
+                height: 100%;
+                border: none;
+                border-bottom: 1px solid #d5d5d5;
+                outline: none;
+                padding-left: 10px;
+                box-sizing: border-box;
+            }
+            i{
+                width:42px;
+                height: 42px;
+                position: absolute;
+                right: 0;
+                top:0;
+                text-align: center;
+                line-height: 42px;
+                font-size: 24px;
+                display: block;
+                cursor: pointer;
+                color: #FFF;
+                background-color: #27cac7;
+                border-radius: 50%;
+            }
+        }
+        .vChat-list-search.active{
+            transform: scale(1);
+            width:100%;
+        }
+        .new-build{
+            font-size: 12px;
+            text-align: left;
+            padding: 5px 15px;
+            box-sizing: border-box;
+            a{
+                color: #27cac7;
+            }
+        }
+    }
+</style>

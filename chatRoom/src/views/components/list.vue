@@ -1,12 +1,25 @@
 <template>
     <div class="vChat-comm-list">
         <div class="vChat-list-search" :class="{active: is_focus}">
-            <input type="text" placeholder="群聊" @focus="focus" @blur="blur">
+            <input type="text" placeholder="查找群聊" @focus="focus" @blur="blur">
             <i class="el-icon-search"></i>
         </div>
-        <ul class="search-list">
-            <li>
-                <img src="" alt="">
+        <ul class="group-list">
+            <li v-for="v in 5" :key="v">
+                <a href="javascript:;">
+                    <img src="../../assets/img/7.jpg" alt="">
+                </a>
+                <div>
+                    <p>
+                        <span>飞翔的鸟 </span>
+                        <el-badge :value="12" class="item">
+                        </el-badge>
+                    </p>
+                    <p>
+                        <span>德玛西亚啊啊啊</span>
+                        <span>3分钟</span>
+                    </p>
+                </div>
             </li>
         </ul>
         <p class="new-build">
@@ -44,6 +57,7 @@
             position: relative;
             transition: all 0.5s;
             transform: scale(0.8);
+            margin-bottom: 20px;
             input{
                 position: absolute;
                 left:0;
@@ -82,6 +96,53 @@
             box-sizing: border-box;
             a{
                 color: #27cac7;
+            }
+        }
+        .group-list{
+            width:100%;
+            max-height: calc(100% - 100px);
+            overflow-y: auto;
+            margin-bottom: 10px;
+            li{
+                width:100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 10px 15px 6px;
+                box-sizing: border-box;
+                border-bottom: 1px solid #e5e5e5;
+                cursor: pointer;
+                >a{
+                    width:42px;
+                    height: 42px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin-right: 10px;
+                    img{
+                        width:42px;
+                    }
+                }
+                >div{
+                    width:calc(100% - 52px);
+                    font-size: 12px;
+                    color: #a3a3a3;
+                    p{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 5px;
+                    }
+                    p:nth-of-type(1) {
+                        span:first-child{
+                            font-size: 14px;
+                            color: #323232;
+                        }
+                    }
+                }
+            }
+            li:hover{
+                background-color: #cdeff8;
+                opacity: 0.8;
             }
         }
     }

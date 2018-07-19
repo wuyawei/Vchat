@@ -1,22 +1,33 @@
 <template>
     <div class="vChat-group">
         <div class="vChat-group-list">
-            <commList></commList>
+            <ownGroup @tomore="toMore" v-if="isOwn"></ownGroup>
+            <searchGroup v-else @back="back"></searchGroup>
         </div>
         <div class="vChat-group-chat"></div>
     </div>
 </template>
 
 <script>
-    import commList from '../components/list.vue';
+    import ownGroup from '../components/ownGroup.vue';
+    import searchGroup from '../components/searchGroup.vue';
     export default{
         data() {
             return {
-
+                isOwn: true
             }
         },
         components: {
-            commList
+            ownGroup,
+            searchGroup
+        },
+        methods: {
+            toMore() {
+                this.isOwn = false;
+            },
+            back() {
+                this.isOwn = true;
+            }
         }
     }
 </script>

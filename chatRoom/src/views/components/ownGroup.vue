@@ -1,9 +1,6 @@
 <template>
     <div class="vChat-comm-list">
-        <div class="vChat-list-search" :class="{active: is_focus}">
-            <input type="text" placeholder="查找群聊" @focus="focus" @blur="blur">
-            <i class="el-icon-search"></i>
-        </div>
+        <h3><i class="icon-qunzu iconfont"></i>我的群聊</h3>
         <ul class="group-list">
             <li v-for="v in 5" :key="v">
                 <a href="javascript:;">
@@ -22,26 +19,23 @@
                 </div>
             </li>
         </ul>
-        <p class="new-build">
-            没有找到想要的，<router-link :to="'/'"> 新建 </router-link>一个吧！
+        <p class="more" @click="toMore">
+            更多群聊 <i class="icon-enter iconfont"></i>
         </p>
     </div>
 </template>
 
 <script>
     export default{
-        name: 'commList',
+        name: 'ownGroup',
         data() {
             return {
                 is_focus: false
             }
         },
         methods: {
-            focus() {
-                this.is_focus = true;
-            },
-            blur() {
-                this.is_focus = false;
+            toMore() {
+                this.$emit('tomore')
             }
         }
     }
@@ -51,52 +45,33 @@
     .vChat-comm-list{
         width:100%;
         height: 100%;
-        .vChat-list-search{
-            width:60%;
-            height: 42px;
-            position: relative;
-            transition: all 0.5s;
-            transform: scale(0.8);
-            margin-bottom: 20px;
-            input{
-                position: absolute;
-                left:0;
-                width:calc(100% - 21px);
-                height: 100%;
-                border: none;
-                border-bottom: 1px solid #d5d5d5;
-                outline: none;
-                padding-left: 10px;
-                box-sizing: border-box;
-            }
+        h3{
+            font-size: 14px;
+            color: #27cac7;
+            text-align: center;
+            padding: 10px 15px 15px;
+            box-sizing: border-box;
+            font-weight: 400;
             i{
-                width:42px;
-                height: 42px;
-                position: absolute;
-                right: 0;
-                top:0;
-                text-align: center;
-                line-height: 42px;
-                font-size: 24px;
-                display: block;
-                cursor: pointer;
-                color: #FFF;
-                background-color: #27cac7;
-                border-radius: 50%;
+                font-size: 26px;
+                margin-right: 5px;
+                vertical-align: middle;
             }
         }
-        .vChat-list-search.active{
-            transform: scale(1);
-            width:100%;
-        }
-        .new-build{
-            font-size: 12px;
-            text-align: left;
+        .more{
+            font-size: 14px;
+            text-align: right;
             padding: 5px 15px;
             box-sizing: border-box;
-            a{
-                color: #27cac7;
+            line-height: 18px;
+            cursor: pointer;
+            i{
+                font-size: 18px;
+                vertical-align: text-bottom;
             }
+        }
+        .more:hover{
+            color: #1fbeca;
         }
         .group-list{
             width:100%;

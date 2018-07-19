@@ -106,6 +106,11 @@
                         justify-content: space-between;
                         align-items: center;
                         margin-bottom: 5px;
+                        span{
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                        }
                     }
                     p:nth-of-type(1) {
                         span:first-child{

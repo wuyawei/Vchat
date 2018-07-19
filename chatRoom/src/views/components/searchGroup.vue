@@ -1,24 +1,28 @@
 <template>
     <div class="vChat-comm-list">
-        <p class="back"><i class="iconfont icon-fanhui" @click="back"></i></p>
+        <p class="back">
+            <i class="iconfont icon-fanhui" @click="back"></i>
+            <span>查找群聊</span>
+        </p>
         <div class="vChat-list-search" :class="{active: is_focus}">
             <input type="text" placeholder="查找群聊" @focus="focus" @blur="blur">
             <i class="el-icon-search"></i>
         </div>
-        <ul class="group-list">
+        <ul class="search-group-list">
             <li v-for="v in 5" :key="v">
                 <a href="javascript:;">
                     <img src="../../assets/img/7.jpg" alt="">
                 </a>
                 <div>
                     <p>
-                        <span>飞翔的鸟 </span>
-                        <el-badge :value="12" class="item">
-                        </el-badge>
+                        飞翔的鸟
                     </p>
                     <p>
-                        <span>德玛西亚啊啊啊</span>
-                        <span>3分钟</span>
+                        <i class="icon-zhanghao iconfont"></i>
+                        1221
+                    </p>
+                    <p>
+                        德玛西亚大道群啊啊啊
                     </p>
                 </div>
             </li>
@@ -56,11 +60,20 @@
         width:100%;
         height: 100%;
         .back{
-            text-align: left;
+            display: flex;
+            justify-content: center;
             padding: 10px 15px;
             box-sizing: border-box;
+            position: relative;
+            margin-bottom: 10px;
+            span{
+                color: #27cac7;
+            }
             i{
-                display: block;
+                position: absolute;
+                left:15px;
+                top:10px;
+                display: inline-block;
                 width:24px;
                 height: 24px;
                 cursor: pointer;
@@ -114,9 +127,9 @@
                 color: #27cac7;
             }
         }
-        .group-list{
+        .search-group-list{
             width:100%;
-            max-height: calc(100% - 100px);
+            max-height: calc(100% - 150px);
             overflow-y: auto;
             margin-bottom: 10px;
             li{
@@ -129,29 +142,42 @@
                 border-bottom: 1px solid #e5e5e5;
                 cursor: pointer;
                 >a{
-                    width:42px;
-                    height: 42px;
+                    width:46px;
+                    height: 46px;
                     border-radius: 50%;
                     overflow: hidden;
                     margin-right: 10px;
                     img{
-                        width:42px;
+                        width:46px;
                     }
                 }
                 >div{
                     width:calc(100% - 52px);
                     font-size: 12px;
                     color: #a3a3a3;
+                    text-align: left;
                     p{
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
+                        text-align: left;
                         margin-bottom: 5px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
                     }
                     p:nth-of-type(1) {
-                        span:first-child{
+                        font-size: 14px;
+                        color: #323232;
+                    }
+                    p:nth-of-type(2) {
+                        background-color: #1fbeca;
+                        color: #fff;
+                        border-radius: 2px;
+                        display: inline-block;
+                        padding: 1px 5px;
+                        line-height: 16px;
+                        font-size: 12px;
+                        i{
                             font-size: 14px;
-                            color: #323232;
+                            vertical-align: middle;
                         }
                     }
                 }

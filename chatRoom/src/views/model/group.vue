@@ -14,7 +14,9 @@
                     @toOwn="toOwn"
             ></setGroup>
         </div>
-        <div class="vChat-group-chat"></div>
+        <div class="vChat-group-chat">
+            <chat></chat>
+        </div>
     </div>
 </template>
 
@@ -22,6 +24,7 @@
     import ownGroup from '../components/ownGroup.vue';
     import searchGroup from '../components/searchGroup.vue';
     import setGroup from '../components/setGroup.vue';
+    import chat from '../components/chat.vue';
     export default{
         data() {
             return {
@@ -31,7 +34,8 @@
         components: {
             ownGroup,
             searchGroup,
-            setGroup
+            setGroup,
+            chat
         },
         methods: {
             toMore() {
@@ -52,18 +56,17 @@
         width:100%;
         height: 100%;
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-around;
         .vChat-group-list{
             width: 20%;
-            min-width: 200px;
+            min-width: 300px;
             height: 100%;
             background-color: #fff;
             box-shadow: 0 0 1px 1px #d5d5d5;
-            margin-right: 50px;
         }
         .vChat-group-chat{
-            width:70%;
-            min-width: 800px;
+            width:74%;
+            min-width: 820px;
             height: 100%;
             background-color: #fff;
             box-shadow: 0 0 1px 1px #d5d5d5;

@@ -118,6 +118,7 @@
         .vchat-content{
             width:100%;
             height: calc(100% - 80px);
+            min-height: 600px;
             background-color: #f5f5f5;
             display: flex;
             justify-content: flex-start;
@@ -153,6 +154,7 @@
             }
             .vchat-content-view{
                 width:calc(100% - 120px);
+                min-width: 1125px;
                 height: 100%;
                 padding: 20px 30px 30px;
                 box-sizing: border-box;

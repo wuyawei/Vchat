@@ -1,6 +1,5 @@
 <template>
     <div class="chat">
-        <h3>111聊天室 <span @click="exit">[退出]</span></h3>
         <div class="chat-l">
             <div class="chat-l-top">
                 <ul ref="msglist">
@@ -93,32 +92,13 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
     .chat{
-        width:850px;
-        height: 600px;
+        width:100%;
+        height: 100%;
         margin: auto;
         display: flex;
         justify-content: flex-start;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-    }
-    .chat h3{
-        position: absolute;
-        color: #fff;
-        top:-50px;
-    }
-    .chat h3 span{
-        color: #00b4f0;
-        font-size: 16px;
-        font-weight: 400;
-        cursor: pointer;
-    }
-    .chat h3 span:hover{
-        color: #0EDCD0;
     }
     .chat-l:before{
         content: '';
@@ -128,19 +108,21 @@
         top:0;
         width:100%;
         height: 100%;
-        background-image: url(../assets/img/6.jpg);
+        background-image: url(../../assets/img/6.jpg);
         background-repeat: no-repeat;
         background-size: cover;
     }
     .chat-l{
-        width:650px;
-        height: 600px;
+        width:78%;
+        min-width:620px;
+        min-height: 500px;
         position: relative;
         background-color: rgba(0,0,0,0.8);
     }
     .chat-r{
-        width:200px;
-        height: 600px;
+        width:22%;
+        min-width:200px;
+        min-height: 500px;
         background-color: rgba(0,0,0,0.5);
         color: #ddd;
     }
@@ -149,7 +131,8 @@
     }
     .chat-l-top{
         width:100%;
-        height: 380px;
+        height: calc(100% - 220px);
+        min-height: 320px;
         position: relative;
     }
     .chat-l-top ul{
@@ -158,6 +141,7 @@
         overflow: auto;
         padding: 5px;
         box-sizing: border-box;
+        position: relative;
     }
     .chat-l-top ul::-webkit-scrollbar, .chat-r ul::-webkit-scrollbar {
         display: none;
@@ -169,12 +153,12 @@
         margin: 20px 0;
     }
     .other{
-        position: relative;
-        left:0;
+        position: absolute;
+        left:10px;
     }
     .mine{
-        position: relative;
-        left: 340px;
+        position: absolute;
+        right: 10px;
     }
     .other >p, .mine>p{
         width:42px;
@@ -251,6 +235,7 @@
     .chat-l-bottom{
         width:100%;
         height: 220px;
+        min-height: 180px;
         position: relative;
     }
     .chat-l-bottom textarea{

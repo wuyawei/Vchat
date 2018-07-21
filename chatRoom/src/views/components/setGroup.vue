@@ -4,7 +4,7 @@
             <i class="iconfont icon-fanhui" @click="toOwn"></i>
             <span>新建群聊</span>
         </p>
-        <el-form ref="groupForm" label-width="80px" class="groupForm">
+        <el-form ref="groupForm" label-width="65px" class="groupForm">
             <el-form-item label="群头像">
                 <el-upload
                         action=""
@@ -61,7 +61,7 @@
             }
             i {
                 position: absolute;
-                left: 15px;
+                left: 5px;
                 top: 10px;
                 display: inline-block;
                 width: 24px;

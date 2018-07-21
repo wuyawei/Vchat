@@ -74,7 +74,7 @@
             }
             i{
                 position: absolute;
-                left:15px;
+                left:5px;
                 top:10px;
                 display: inline-block;
                 width:24px;

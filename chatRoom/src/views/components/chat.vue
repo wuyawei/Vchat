@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="chat-r">
-            <h4>在线人数 (12)</h4>
+            <h4>群成员 (12)</h4>
             <ul>
                 <li>
                     <p>1</p>
@@ -264,7 +264,7 @@
     }
     .chat-r ul{
         width:100%;
-        height: 100%;
+        height: calc(100% - 50px);
         overflow: auto;
         padding: 5px;
         box-sizing: border-box;

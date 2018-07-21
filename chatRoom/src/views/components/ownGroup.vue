@@ -1,6 +1,9 @@
 <template>
     <div class="vChat-comm-list">
-        <h3><i class="icon-qunzu iconfont"></i>我的群聊</h3>
+        <h3>
+            <i class="icon-qunzu iconfont"></i>我的群聊
+            <span class="iconfont icon-jia2" @click="newSet"></span>
+        </h3>
         <ul class="group-list">
             <li v-for="v in 5" :key="v">
                 <a href="javascript:;">
@@ -36,6 +39,9 @@
         methods: {
             toMore() {
                 this.$emit('tomore')
+            },
+            newSet() {
+                this.$emit('newSet')
             }
         }
     }
@@ -52,10 +58,22 @@
             padding: 10px 15px 15px;
             box-sizing: border-box;
             font-weight: 400;
+            position: relative;
             i{
                 font-size: 26px;
                 margin-right: 5px;
                 vertical-align: middle;
+            }
+            span{
+                position: absolute;
+                font-size: 28px;
+                right:10px;
+                top:5px;
+                color: #323232;
+                cursor: pointer;
+            }
+            span:hover{
+                color: #1fbeca;
             }
         }
         .more{

@@ -1,8 +1,18 @@
 <template>
     <div class="vChat-group">
         <div class="vChat-group-list">
-            <ownGroup @tomore="toMore" v-if="isOwn"></ownGroup>
-            <searchGroup v-else @back="back"></searchGroup>
+            <ownGroup @tomore="toMore"
+                      v-if="isOwn === 'own'"
+                      @newSet="newSet"
+            ></ownGroup>
+            <searchGroup v-if="isOwn === 'more'"
+                         @toOwn="toOwn"
+                         @newSet="newSet"
+            ></searchGroup>
+            <setGroup
+                    v-if="isOwn === 'set'"
+                    @toOwn="toOwn"
+            ></setGroup>
         </div>
         <div class="vChat-group-chat"></div>
     </div>
@@ -11,22 +21,27 @@
 <script>
     import ownGroup from '../components/ownGroup.vue';
     import searchGroup from '../components/searchGroup.vue';
+    import setGroup from '../components/setGroup.vue';
     export default{
         data() {
             return {
-                isOwn: true
+                isOwn: 'own'
             }
         },
         components: {
             ownGroup,
-            searchGroup
+            searchGroup,
+            setGroup
         },
         methods: {
             toMore() {
-                this.isOwn = false;
+                this.isOwn = 'more';
             },
-            back() {
-                this.isOwn = true;
+            toOwn() {
+                this.isOwn = 'own';
+            },
+            newSet() {
+                this.isOwn = 'set';
             }
         }
     }

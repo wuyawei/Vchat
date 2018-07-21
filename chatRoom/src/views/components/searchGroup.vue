@@ -1,7 +1,7 @@
 <template>
     <div class="vChat-comm-list">
         <p class="back">
-            <i class="iconfont icon-fanhui" @click="back"></i>
+            <i class="iconfont icon-fanhui" @click="toOwn"></i>
             <span>查找群聊</span>
         </p>
         <div class="vChat-list-search" :class="{active: is_focus}">
@@ -28,7 +28,7 @@
             </li>
         </ul>
         <p class="new-build">
-            没有找到想要的，<router-link :to="'/'"> 新建 </router-link>一个吧！
+            没有找到想要的，<span @click="newSet"> 新建 </span>一个吧！
         </p>
     </div>
 </template>
@@ -48,8 +48,11 @@
             blur() {
                 this.is_focus = false;
             },
-            back() {
-                this.$emit('back');
+            toOwn() {
+                this.$emit('toOwn');
+            },
+            newSet() {
+                this.$emit('newSet')
             }
         }
     }
@@ -123,8 +126,9 @@
             text-align: left;
             padding: 5px 15px;
             box-sizing: border-box;
-            a{
+            span{
                 color: #27cac7;
+                cursor: pointer;
             }
         }
         .search-group-list{

@@ -21,7 +21,7 @@ const login = (req, res) => {
         } else {
             res.json({
                 code : -1,
-                data : '账号或密码错误'
+                data : '账号不存在或密码错误'
             })
         }
     })

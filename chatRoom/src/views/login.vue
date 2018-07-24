@@ -71,7 +71,7 @@
                 if (value === '') {
                     callback(new Error('请输入确认密码'));
                 } else {
-                    if (value === this.signForm.pass) {
+                    if (value !== this.signForm.pass) {
                         callback(new Error('两次密码输入不一致'));
                         return;
                     }
@@ -111,6 +111,7 @@
                 this.$refs['signForm'].validate((valid) => {
                     if (valid) {
                         if (f) {
+                            this.login();
                         } else {
                             this.signUp();
                         }
@@ -121,30 +122,31 @@
             },
             login() {
                 let params = {
-                    name: this.name
+                    name: this.signForm.name,
+                    pass: this.signForm.pass
                 };
                 api.login(params).then(r => {
                     if (r.code === 0) {
-                        this.$message.success('加入成功');
-                        this.$socket.emit('login', r.data);
-                        window.localStorage.name = this.name;
-                        this.$router.push('/chat')
-                    } else if (r.code === 1) {
-                        this.$message.error('用户名已存在')
+                        this.$message.success('登录成功');
+                        // vuex
+                        this.$router.push('/personalMain');
+                    } else if (r.code === -1) {
+                        this.$message.error('账号不存在或密码错误');
                     } else {
-                        this.$message.error('加入失败')
+                        this.$message.error('登录失败');
                     }
                 });
-                this.$router.push('/personalMain');
             },
             signUp() {
                 let params = {
-                    name: this.name,
-                    pass: this.pass
+                    name: this.signForm.name,
+                    pass: this.signForm.pass
                 };
                 api.signUp(params).then(r => {
                     if (r.code === 0) {
                         this.$message.success('注册成功');
+                        this.$refs['signForm'].resetFields();
+                        this.islogin = true;
                     } else if (r.code === 1) {
                         this.$message.error('账号已存在')
                     } else {

@@ -13,10 +13,10 @@
                 <el-input v-model="name" placeholder="账号">
                     <i class="iconfont icon-zhanghao" slot="prepend"></i>
                 </el-input>
-                <el-input v-model="pass" placeholder="密码">
+                <el-input v-model="pass" placeholder="密码" type="password">
                     <i class="iconfont icon-mima3" slot="prepend"></i>
                 </el-input>
-                <el-input v-model="repass" placeholder="确认密码" v-if="!islogin">
+                <el-input v-model="repass" placeholder="确认密码" type="password" v-if="!islogin">
                     <i class="iconfont icon-mima2" slot="prepend"></i>
                 </el-input>
             </el-form>

@@ -43,7 +43,6 @@ let msgSchema = new db.Schema(
 let messages = db.model("message", msgSchema);
 
 const initMessage = (callback, conf) => {
-    console.log('conf', conf);
     let message = new messages({
         roomid: conf.roomid,
         roomtitle: '第一聊天室',

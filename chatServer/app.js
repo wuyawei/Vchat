@@ -3,7 +3,7 @@ let path = require('path');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
-let bodyParser = require('body-parser');
+let bodyParser = require('body-parser'); // post请求需要的中间件
 
 let app = express();
 let server = require('http').Server(app);
@@ -20,7 +20,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // 静态资源中间件
 
 app.use('/api', api);
 

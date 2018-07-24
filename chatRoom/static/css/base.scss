@@ -25,3 +25,8 @@ body, html{
   padding-top: 1px;
   box-sizing: border-box;
 }
+.el-form-item{
+  .el-form-item__content{
+    margin-left: 0!important;
+  }
+}

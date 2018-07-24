@@ -32,7 +32,8 @@ const signUp = (params, callback) => {
         if (r.length) {
             callback({code: 1});
         } else {
-            users.create({name: params.name, pass: params.pass}).then(r => {
+            let pass = md5.update(params.pass).digest("hex");
+            users.create({name: params.name, pass: pass}).then(r => {
                 if (r['_id']) {
                     callback(r);
                 } else {

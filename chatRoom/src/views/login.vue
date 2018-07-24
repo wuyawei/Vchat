@@ -9,16 +9,24 @@
                 <span :class="{active: islogin}" @click="choose(true)">登录</span>
                 <span :class="{active: !islogin}" @click="choose(false)">注册</span>
             </div>
-            <el-form ref="signForm" label-width="80px" class="signForm">
-                <el-input v-model="name" placeholder="账号">
-                    <i class="iconfont icon-zhanghao" slot="prepend"></i>
-                </el-input>
-                <el-input v-model="pass" placeholder="密码" type="password">
-                    <i class="iconfont icon-mima3" slot="prepend"></i>
-                </el-input>
-                <el-input v-model="repass" placeholder="确认密码" type="password" v-if="!islogin">
-                    <i class="iconfont icon-mima2" slot="prepend"></i>
-                </el-input>
+            <el-form ref="signForm" label-width="80px" class="signForm" :rules="signRules" :model="signForm">
+                <el-form-item prop="name">
+                    <el-input v-model="signForm.name" placeholder="账号">
+                        <i class="iconfont icon-zhanghao" slot="prepend"></i>
+                    </el-input>
+                </el-form-item>
+
+                <el-form-item prop="pass">
+                    <el-input v-model="signForm.pass" placeholder="密码" type="password">
+                        <i class="iconfont icon-mima3" slot="prepend"></i>
+                    </el-input>
+                </el-form-item>
+
+                <el-form-item prop="repass" v-if="!islogin">
+                    <el-input v-model="signForm.repass" placeholder="确认密码" type="password">
+                        <i class="iconfont icon-mima2" slot="prepend"></i>
+                    </el-input>
+                </el-form-item>
             </el-form>
             <button @click="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
             <div class="login-foot" v-if="islogin">
@@ -35,40 +43,114 @@
     export default {
         name: 'login',
         data() {
+            let validateName = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入账号'));
+                } else {
+                    let reg = /^[a-zA-Z0-9_]{2,8}$/;
+                    if (!reg.test(value)) {
+                        callback(new Error('请输入2~8位数字字母下划线'));
+                        return;
+                    }
+                    callback();
+                }
+            };
+            let validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    let reg = /^[a-zA-Z0-9]{6,12}$/;
+                    if (!reg.test(value)) {
+                        callback(new Error('请输入6~12位数字字母组合'));
+                        return;
+                    }
+                    callback();
+                }
+            };
+            let validateRePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入确认密码'));
+                } else {
+                    if (value === this.signForm.pass) {
+                        callback(new Error('两次密码输入不一致'));
+                        return;
+                    }
+                    callback();
+                }
+            };
             return {
-                name: '',
-                pass: '',
-                repass: '',
+                signForm: {
+                    name: '',
+                    pass: '',
+                    repass: ''
+                },
                 islogin: true, // 登录 or 注册
-                showSign: false // 登录框显示
+                showSign: false, // 登录框显示
+                signRules: {
+                    name: [
+                        { validator: validateName, trigger: 'blur' }
+                    ],
+                    pass: [
+                        { validator: validatePass, trigger: 'blur' }
+                    ],
+                    repass: [
+                        { validator: validateRePass, trigger: 'blur' }
+                    ]
+                }
             }
         },
         methods: {
             choose(flag) {
+                this.$refs['signForm'].resetFields();
                 this.islogin = flag;
             },
             experience() {
                 this.showSign = true;
             },
             enter(f) {
-                if (f) {
-//                    let params = {
-//                        name: this.name
-//                    };
-//                    api.login(params).then(r => {
-//                        if (r.code === 0) {
-//                            this.$message.success('加入成功');
-//                            this.$socket.emit('login', r.data);
-//                            window.localStorage.name = this.name;
-//                            this.$router.push('/chat')
-//                        } else if (r.code === 1) {
-//                            this.$message.error('用户名已存在')
-//                        } else {
-//                            this.$message.error('加入失败')
-//                        }
-//                    });
-                    this.$router.push('/personalMain');
-                } else {}
+                this.$refs['signForm'].validate((valid) => {
+                    if (valid) {
+                        if (f) {
+                        } else {
+                            this.signUp();
+                        }
+                    } else {
+                        return false;
+                    }
+                });
+            },
+            login() {
+                let params = {
+                    name: this.name
+                };
+                api.login(params).then(r => {
+                    if (r.code === 0) {
+                        this.$message.success('加入成功');
+                        this.$socket.emit('login', r.data);
+                        window.localStorage.name = this.name;
+                        this.$router.push('/chat')
+                    } else if (r.code === 1) {
+                        this.$message.error('用户名已存在')
+                    } else {
+                        this.$message.error('加入失败')
+                    }
+                });
+                this.$router.push('/personalMain');
+            },
+            signUp() {
+                let params = {
+                    name: this.name,
+                    pass: this.pass
+                };
+                api.signUp(params).then(r => {
+                    if (r.code === 0) {
+                        this.$message.success('注册成功');
+                    } else if (r.code === 1) {
+                        this.$message.error('账号已存在')
+                    } else {
+                        this.$message.error('注册失败')
+                    }
+                });
             }
         },
         mounted() {
@@ -178,9 +260,6 @@
     }
     .sign .title span.active{
         color: #1fbeca;
-    }
-    .signForm .el-input{
-        margin-bottom: 15px;
     }
     .sign button{
         width:100%;

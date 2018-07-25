@@ -9,5 +9,8 @@ export default {
     },
     signUp(params) { // 注册
         return fetch.post('/signUp', params);
+    },
+    loginOut(params) { // 注册
+        return fetch.post('/loginOut', params);
     }
 }

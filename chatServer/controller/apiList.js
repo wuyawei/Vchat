@@ -14,9 +14,11 @@ const login = (req, res) => {
     let params = req.body;
     apiModel.login(params, (r) => { // 登录
         if (r.code === 0) {
+            req.session.login = params.name;
             res.json({
                 code : 0,
-                data : '登录成功'
+                data : r,
+                msg: '登录成功'
             })
         } else {
             res.json({
@@ -27,9 +29,9 @@ const login = (req, res) => {
     })
 };
 
-const signUp = (req,res) => {
+const signUp = (req, res) => {
     let params = req.body;
-    apiModel.signUp(params, (r) => { // 添加用户
+    apiModel.signUp(params, (r) => { // 注册
         if (r.code === 1) {
             res.json({
                 code : 1,
@@ -38,7 +40,7 @@ const signUp = (req,res) => {
         } else if (r['_id']) {
             res.json({
                 code : 0,
-                data : r
+                data : '注册成功'
             })
         } else {
             res.json({
@@ -49,8 +51,17 @@ const signUp = (req,res) => {
     })
 };
 
+const loginOut = (req, res) => {
+    req.session.destroy();
+    res.json({
+        code: 0,
+        data: '退出成功'
+    })
+};
+
 module.exports = {
     getUser,
     login,
-    signUp
+    signUp,
+    loginOut
 };

@@ -1,6 +1,9 @@
 const db = require('../utils/database');
 const crypto = require('crypto'); // 加密
-const md5 = crypto.createHash('md5');
+const md5 = pass => { // 避免多次调用MD5报错
+    let md5 = crypto.createHash('md5');
+    return md5.update(pass).digest("hex");
+};
 
 let users = db.model("users", {
     name: String,
@@ -15,9 +18,9 @@ const getUser = (callback) => {
 const login = (params, callback) => {
     users.find({name: params.name}).then(r => {
         if (r.length) {
-            let pass = md5.update(params.pass).digest("hex");
+            let pass = md5(params.pass);
             if (r[0]['pass'] === pass) {
-                callback({code: 0});
+                callback({code: 0, data: {name: r[0].name, photo: r[0].photo}});
             } else {
                 callback({code: -1});
             }

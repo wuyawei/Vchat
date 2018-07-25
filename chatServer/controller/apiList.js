@@ -59,9 +59,26 @@ const loginOut = (req, res) => {
     })
 };
 
+const getUserInfo = (req, res) => {
+    apiModel.getUserInfo(req.session.login, (r) => { // 登录
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : ''
+            })
+        }
+    })
+};
+
 module.exports = {
     getUser,
     login,
     signUp,
-    loginOut
+    loginOut,
+    getUserInfo
 };

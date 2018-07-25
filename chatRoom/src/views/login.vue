@@ -129,6 +129,7 @@
                     if (r.code === 0) {
                         this.$message.success('登录成功');
                         this.$store.commit('setUser', r.data);
+                        this.$store.commit('setIslogin', false);
                         this.$router.push('/personalMain');
                     } else if (r.code === -1) {
                         this.$message.error('账号不存在或密码错误');

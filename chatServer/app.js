@@ -30,7 +30,6 @@ app.use(session({
 
 app.use('/*', (req, res, next) => {
     if (req.session.login) {
-        console.log(req.session.login);
         next();
     } else {
         if (req.originalUrl === '/api/login' || req.originalUrl === '/api/signUp') {

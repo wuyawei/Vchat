@@ -10,7 +10,10 @@ export default {
     signUp(params) { // 注册
         return fetch.post('/signUp', params);
     },
-    loginOut(params) { // 注册
-        return fetch.post('/loginOut', params);
+    loginOut() { // 注册
+        return fetch.post('/loginOut');
+    },
+    getUserInfo() { //是否登录
+        return fetch.post('/getUserInfo');
     }
 }

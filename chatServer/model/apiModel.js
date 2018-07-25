@@ -35,8 +35,8 @@ const signUp = (params, callback) => {
         if (r.length) {
             callback({code: 1});
         } else {
-            let pass = md5.update(params.pass).digest("hex");
-            users.create({name: params.name, pass: pass}).then(r => {
+            let pass = md5(params.pass);
+            users.create({name: params.name, pass: pass, photo: ''}).then(r => {
                 if (r['_id']) {
                     callback(r);
                 } else {
@@ -48,8 +48,19 @@ const signUp = (params, callback) => {
     })
 };
 
+const getUserInfo = (params, callback) => {
+    users.find({name: params}).then(r => {
+        if (r.length) {
+            callback({code: 0, data: {name: r[0].name, photo: r[0].photo}});
+        } else {
+            callback({code: -1});
+        }
+    })
+};
+
 module.exports = {
     getUser,
     login,
-    signUp
+    signUp,
+    getUserInfo
 };

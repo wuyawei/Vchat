@@ -11,13 +11,13 @@ let users = db.model("users", {
     pass: String,
     photo: String
 });
-const getUser = (callback) => {
+const getUser = (callback) => { // 测试
     users.find().then(r => {
         callback(r);
     })
 };
 
-const login = (params, callback) => {
+const login = (params, callback) => { // 登录
     users.find({name: params.name}).then(r => {
         if (r.length) {
             let pass = md5(params.pass);
@@ -33,7 +33,7 @@ const login = (params, callback) => {
     })
 };
 
-const signUp = (params, callback) => {
+const signUp = (params, callback) => { // 注册
     users.find({name: params.name}).then(r => {
         if (r.length) {
             callback({code: 1});
@@ -51,10 +51,26 @@ const signUp = (params, callback) => {
     })
 };
 
-const getUserInfo = (params, callback) => {
+const getUserInfo = (params, callback) => { // 获取登录用户信息
     users.find({name: params}).then(r => {
         if (r.length) {
             callback({code: 0, data: {name: r[0].name, photo: r[0].photo}});
+        } else {
+            callback({code: -1});
+        }
+    })
+};
+
+let groups = db.model("groups", {
+    title: String,
+    desc: String,
+    img: String
+});
+
+const createGroup = (params, callback) => { // 新建群
+    groups.create({name: params.title, desc: params.desc, img: params.img}).then(r => {
+        if (r['_id']) {
+            callback({code: 0, data: r});
         } else {
             callback({code: -1});
         }
@@ -65,5 +81,6 @@ module.exports = {
     getUser,
     login,
     signUp,
-    getUserInfo
+    getUserInfo,
+    createGroup
 };

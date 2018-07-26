@@ -51,7 +51,7 @@ const signUp = (req, res) => {
     })
 };
 
-const loginOut = (req, res) => {
+const loginOut = (req, res) => { // 登出
     req.session.destroy();
     res.json({
         code: 0,
@@ -60,7 +60,7 @@ const loginOut = (req, res) => {
 };
 
 const getUserInfo = (req, res) => {
-    apiModel.getUserInfo(req.session.login, (r) => { // 登录
+    apiModel.getUserInfo(req.session.login, (r) => { // 获取登录用户信息
         if (r.code === 0) {
             res.json({
                 code : 0,
@@ -70,6 +70,23 @@ const getUserInfo = (req, res) => {
             res.json({
                 code : -1,
                 data : ''
+            })
+        }
+    })
+};
+
+const createGroup = (req, res) => {
+    let params = req.body;
+    apiModel.getUserInfo(params, (r) => { // 新建群
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data['_id']
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '创建失败'
             })
         }
     })

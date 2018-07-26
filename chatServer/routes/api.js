@@ -16,6 +16,8 @@ router.post('/signUp', api.signUp); // 注册
 router.post('/loginOut', api.loginOut); // 退出
 router.post('/getUserInfo', api.getUserInfo); // 登录状态获取用户信息
 
+
+
 // 新路径要写真实路径，文件夹不存在multer不会主动创建
 // const uploadInmage = (req, res)=>{ // 第一种上传方案所需
 //     fs.rename(

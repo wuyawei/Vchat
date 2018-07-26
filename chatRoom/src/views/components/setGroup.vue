@@ -7,8 +7,15 @@
         <el-form ref="groupForm" label-width="65px" class="groupForm">
             <el-form-item label="群头像">
                 <el-upload
-                        action=""
-                        list-type="picture-card">
+                        class="avatar-uploader"
+                        action="/api/uploadInmage"
+                        list-type="picture-card"
+                        :show-file-list="false"
+                        name="f"
+                        :on-change="handleAvatarChange"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
                     <i class="el-icon-plus"></i>
                 </el-upload>
             </el-form-item>
@@ -29,11 +36,30 @@
         name: 'setGroup',
         data() {
             return {
+                imageUrl: '',
                 groupName: '',
                 groupDesc: ''
             }
         },
         methods: {
+            handleAvatarChange(file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            handleAvatarSuccess(res, file) {
+                console.log('res', res);
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
             toOwn() {
                 this.$emit('toOwn');
             },
@@ -87,6 +113,15 @@
         button:hover{
             background-color: rgba(19, 164, 192, 0.61);
             color: #fff;
+        }
+        .avatar-uploader{
+            .el-upload--picture-card{
+                overflow: hidden;
+            }
+        }
+        .avatar {
+            width: 100%;
+            display: block;
         }
     }
 </style>

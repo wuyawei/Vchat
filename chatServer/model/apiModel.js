@@ -1,5 +1,6 @@
 const db = require('../utils/database');
 const crypto = require('crypto'); // 加密
+
 const md5 = pass => { // 避免多次调用MD5报错
     let md5 = crypto.createHash('md5');
     return md5.update(pass).digest("hex");
@@ -15,6 +16,7 @@ const getUser = (callback) => {
         callback(r);
     })
 };
+
 const login = (params, callback) => {
     users.find({name: params.name}).then(r => {
         if (r.length) {
@@ -30,6 +32,7 @@ const login = (params, callback) => {
 
     })
 };
+
 const signUp = (params, callback) => {
     users.find({name: params.name}).then(r => {
         if (r.length) {

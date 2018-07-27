@@ -77,6 +77,7 @@ const getUserInfo = (req, res) => {
 
 const createGroup = (req, res) => {
     let params = req.body;
+    params.userName = req.session.login;
     apiModel.getUserInfo(params, (r) => { // 新建群
         if (r.code === 0) {
             res.json({
@@ -97,5 +98,6 @@ module.exports = {
     login,
     signUp,
     loginOut,
-    getUserInfo
+    getUserInfo,
+    createGroup
 };

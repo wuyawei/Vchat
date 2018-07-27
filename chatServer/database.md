@@ -11,8 +11,10 @@
 * img 群头像
 ### groupUser 群成员
 * id
-* roomid 
-* userid
+* roomid 群
+* userName 用户名
+* manager 管理员 0/1
+* holder 群主 0/1
 ### frendly 好友
 * id
 * userAid

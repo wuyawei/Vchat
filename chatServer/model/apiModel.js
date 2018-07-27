@@ -6,7 +6,7 @@ const md5 = pass => { // 避免多次调用MD5报错
     return md5.update(pass).digest("hex");
 };
 
-let users = db.model("users", {
+let users = db.model("users", { //Schema
     name: String,
     pass: String,
     photo: String
@@ -67,10 +67,24 @@ let groups = db.model("groups", {
     img: String
 });
 
+let groupUser = db.model("groupUser", {
+    roomid: String,
+    userid: String,
+    manager: { type: Number, default: 0 },
+    holder: { type: Number, default: 0 }
+});
+
 const createGroup = (params, callback) => { // 新建群
     groups.create({name: params.title, desc: params.desc, img: params.img}).then(r => {
         if (r['_id']) {
-            callback({code: 0, data: r});
+            groupUser.create({userName: params.userName, manager: 0, holder: 1, roomid: r['_id']}).then(rs => { // 建群后创建群主
+                if (rs['_id']) {
+                    callback({code: 0, data: r});
+                } else {
+                    groups.remove({'_id':r['_id']}, 1);
+                    callback({code: -1});
+                }
+            });
         } else {
             callback({code: -1});
         }

@@ -86,6 +86,17 @@
                     callback();
                 }
             };
+            let validateRegcode = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入验证码'));
+                } else {
+                    if (value.toLowerCase() !== this.regcode.toLowerCase()) {
+                        callback(new Error('验证码错误'));
+                        return;
+                    }
+                    callback();
+                }
+            };
             return {
                 signForm: {
                     name: '',
@@ -105,7 +116,10 @@
                     ],
                     repass: [
                         { validator: validateRePass, trigger: 'blur' }
-                    ]
+                    ],
+                    regcode: [
+                        { validator: validateRegcode, trigger: 'blur' }
+                    ],
                 }
             }
         },

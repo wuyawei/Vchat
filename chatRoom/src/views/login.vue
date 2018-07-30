@@ -22,6 +22,13 @@
                     </el-input>
                 </el-form-item>
 
+                <el-form-item prop="regcode" class="regcode-box" v-show="islogin">
+                    <el-input v-model="signForm.regcode" placeholder="验证码">
+                        <i class="iconfont icon-mima3" slot="prepend"></i>
+                    </el-input>
+                    <canvas ref="regcode" width="90" height="38"></canvas>
+                </el-form-item>
+
                 <el-form-item prop="repass" v-if="!islogin">
                     <el-input v-model="signForm.repass" placeholder="确认密码" type="password">
                         <i class="iconfont icon-mima2" slot="prepend"></i>
@@ -40,6 +47,7 @@
 
 <script>
     import api from '../api';
+    import Canvas from 'vchat-regcode';
     export default {
         name: 'login',
         data() {
@@ -82,10 +90,12 @@
                 signForm: {
                     name: '',
                     pass: '',
+                    regcode: '',
                     repass: ''
                 },
                 islogin: true, // 登录 or 注册
                 showSign: false, // 登录框显示
+                regcode: '',
                 signRules: {
                     name: [
                         { validator: validateName, trigger: 'blur' }
@@ -96,6 +106,22 @@
                     repass: [
                         { validator: validateRePass, trigger: 'blur' }
                     ]
+                }
+            }
+        },
+        watch: {
+            showSign() {
+                if (this.showSign) {
+                    this.$nextTick(() => {
+                        let regcode = new Canvas(this.$refs['regcode'],{
+                            fontSize: 20,
+                            lineNum: 2,
+                            dotNum: 10
+                        });
+                        regcode.draw((r) => {
+                            this.regcode = r;
+                        });
+                    })
                 }
             }
         },
@@ -216,7 +242,7 @@
     }
     .sign{
         width: 350px;
-        height: 350px;
+        height: 370px;
         padding: 15px 25px 0;
         background-color: #fff;
         border-radius: 10px;
@@ -295,5 +321,14 @@
         background-color: #d5d5d5;
         display: inline-block;
         margin: 0 10px;
+    }
+    .regcode-box{
+        .el-input{
+            width:205px;
+        }
+        canvas{
+            display: inline-block;
+            vertical-align: middle;
+        }
     }
 </style>

@@ -15,5 +15,8 @@ export default {
     },
     getUserInfo() { //是否登录
         return fetch.post('/getUserInfo');
+    },
+    createGroup(params) { //新建群
+        return fetch.post('/createGroup', params);
     }
 }

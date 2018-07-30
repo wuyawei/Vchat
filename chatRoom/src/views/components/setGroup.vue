@@ -32,13 +32,15 @@
     </div>
 </template>
 <script>
+    import api from '../../api';
     export  default {
         name: 'setGroup',
         data() {
             return {
-                imageUrl: '',
+                imageUrl: '', // 显示图片路径
                 groupName: '',
-                groupDesc: ''
+                groupDesc: '',
+                groupImage: ''
             }
         },
         methods: {
@@ -46,7 +48,9 @@
                 this.imageUrl = URL.createObjectURL(file.raw);
             },
             handleAvatarSuccess(res, file) {
-                console.log('res', res);
+                if (res.code === 0) {
+                    this.groupImage = res.data;
+                }
             },
             beforeAvatarUpload(file) {
                 const isJPG = file.type === 'image/jpeg';
@@ -64,7 +68,17 @@
                 this.$emit('toOwn');
             },
             enter() {
-                this.$emit('toOwn');
+                let params = {
+                    groupImage: this.groupImage,
+                    groupName: this.groupName,
+                    groupDesc: this.groupDesc,
+                };
+                api.createGroup(params).then(r => {
+                    if (r.code === 0) {
+                        console.log(r.data);
+                        this.$emit('toOwn');
+                    }
+                });
             }
         }
     }

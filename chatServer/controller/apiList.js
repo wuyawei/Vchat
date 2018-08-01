@@ -99,7 +99,7 @@ const getMyGroup = (req, res) => {
         if (r.code === 0) {
             res.json({
                 code : 0,
-                data : r
+                data : r.data
             })
         } else {
             res.json({

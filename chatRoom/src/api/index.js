@@ -18,5 +18,8 @@ export default {
     },
     createGroup(params) { //新建群
         return fetch.post('/createGroup', params);
+    },
+    getMyGroup() { //查找群
+        return fetch.post('/getMyGroup');
     }
 }

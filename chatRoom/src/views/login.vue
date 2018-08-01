@@ -35,7 +35,7 @@
                     </el-input>
                 </el-form-item>
             </el-form>
-            <button @click="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
+            <button @click="enter(islogin)" @keyup.enter="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
             <div class="login-foot" v-if="islogin">
                 <span></span>
                 第三方登录

@@ -5,18 +5,18 @@
             <span class="iconfont icon-jia2" @click="newSet"></span>
         </h3>
         <ul class="group-list">
-            <li v-for="v in 5" :key="v">
+            <li v-for="v in Groups" :key="v._id">
                 <a href="javascript:;">
                     <img src="../../assets/img/7.jpg" alt="">
                 </a>
                 <div>
                     <p>
-                        <span>飞翔的鸟 </span>
+                        <span>{{v.groupId.title}}</span>
                         <el-badge :value="12" class="item">
                         </el-badge>
                     </p>
                     <p>
-                        <span>德玛西亚啊啊啊</span>
+                        <span>{{v.groupId.desc}}</span>
                         <span>3分钟</span>
                     </p>
                 </div>
@@ -29,20 +29,40 @@
 </template>
 
 <script>
+    import api from '../../api';
     export default{
         name: 'ownGroup',
+        props: ['setOk'],
         data() {
             return {
-                is_focus: false
+                is_focus: false,
+                Groups: []
+            }
+        },
+        watch: {
+            setOk(f) {
+                if (f) {
+                    this.getMyGroup();
+                }
             }
         },
         methods: {
+            getMyGroup() {
+                api.getMyGroup().then(r => {
+                    if (r.code === 0) {
+                        this.Groups = r.data;
+                    }
+                });
+            },
             toMore() {
                 this.$emit('tomore')
             },
             newSet() {
                 this.$emit('newSet')
             }
+        },
+        mounted() {
+            this.getMyGroup();
         }
     }
 </script>

@@ -75,8 +75,8 @@
                 };
                 api.createGroup(params).then(r => {
                     if (r.code === 0) {
-                        console.log(r.data);
-                        this.$emit('toOwn');
+                        this.$message.error('新建成功');
+                        this.$emit('toOwn', 'setOk');
                     }
                 });
             }

@@ -67,7 +67,7 @@ let groups = db.model("groups", {
     img: String
 });
 
-let groupUserSchema = {
+let groupUserSchema = new db.Schema({
     groupId: {
         type : db.Schema.ObjectId,
         ref : 'groups'
@@ -75,7 +75,7 @@ let groupUserSchema = {
     userName: String,
     manager: { type: Number, default: 0 },
     holder: { type: Number, default: 0 }
-};
+});
 
 groupUserSchema.statics = { // 通过用户名查找所在群聊列表
     findGroupByUserId:function(userName, callback){

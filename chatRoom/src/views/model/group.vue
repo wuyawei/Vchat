@@ -4,6 +4,7 @@
             <ownGroup @tomore="toMore"
                       v-if="isOwn === 'own'"
                       @newSet="newSet"
+                      :setOk="setOk"
             ></ownGroup>
             <searchGroup v-if="isOwn === 'more'"
                          @toOwn="toOwn"
@@ -28,7 +29,8 @@
     export default{
         data() {
             return {
-                isOwn: 'own'
+                isOwn: 'own',
+                setOk: false
             }
         },
         components: {
@@ -41,7 +43,10 @@
             toMore() {
                 this.isOwn = 'more';
             },
-            toOwn() {
+            toOwn(f) {
+                if (f === 'setOk') {
+                    this.setOk = true;
+                }
                 this.isOwn = 'own';
             },
             newSet() {

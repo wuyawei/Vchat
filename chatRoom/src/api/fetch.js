@@ -17,8 +17,7 @@ let instance = axios.create({
 
 // http response 服务器响应拦截器，这里拦截401错误，并重新跳入登页重新获取token
 instance.interceptors.response.use(
-    response => {
-        console.log(response);
+    response => { // 拦截未登录
         if (response.data.status === 0) {
             router.replace('/');
         }

@@ -15,7 +15,7 @@ router.post('/login', api.login); // 登录
 router.post('/signUp', api.signUp); // 注册
 router.post('/loginOut', api.loginOut); // 退出
 router.post('/getUserInfo', api.getUserInfo); // 登录状态获取用户信息
-
+router.post('/createGroup', api.createGroup); // 新建群
 
 
 // 新路径要写真实路径，文件夹不存在multer不会主动创建

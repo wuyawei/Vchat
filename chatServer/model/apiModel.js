@@ -69,13 +69,13 @@ let groups = db.model("groups", {
 
 let groupUser = db.model("groupUser", {
     roomid: String,
-    userid: String,
+    userName: String,
     manager: { type: Number, default: 0 },
     holder: { type: Number, default: 0 }
 });
 
 const createGroup = (params, callback) => { // 新建群
-    groups.create({name: params.title, desc: params.desc, img: params.img}).then(r => {
+    groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage}).then(r => {
         if (r['_id']) {
             groupUser.create({userName: params.userName, manager: 0, holder: 1, roomid: r['_id']}).then(rs => { // 建群后创建群主
                 if (rs['_id']) {

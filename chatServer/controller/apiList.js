@@ -75,10 +75,10 @@ const getUserInfo = (req, res) => {
     })
 };
 
-const createGroup = (req, res) => {
+const createGroup = (req, res) => { // 新建群
     let params = req.body;
     params.userName = req.session.login;
-    apiModel.getUserInfo(params, (r) => { // 新建群
+    apiModel.createGroup(params, (r) => {
         if (r.code === 0) {
             res.json({
                 code : 0,

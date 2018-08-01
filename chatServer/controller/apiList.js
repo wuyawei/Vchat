@@ -78,7 +78,7 @@ const getUserInfo = (req, res) => {
 const createGroup = (req, res) => { // 新建群
     let params = req.body;
     params.userName = req.session.login;
-    apiModel.createGroup(params, (r) => {
+    apiModel.createGroup(params, r => {
         if (r.code === 0) {
             res.json({
                 code : 0,
@@ -93,11 +93,29 @@ const createGroup = (req, res) => { // 新建群
     })
 };
 
+const getMyGroup = (req, res) => {
+    let params = {userName: req.session.login};
+    apiModel.getMyGroup(params, r => {
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '查询失败'
+            })
+        }
+    })
+};
+
 module.exports = {
     getUser,
     login,
     signUp,
     loginOut,
     getUserInfo,
-    createGroup
+    createGroup,
+    getMyGroup
 };

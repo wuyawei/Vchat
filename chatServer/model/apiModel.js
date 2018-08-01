@@ -67,17 +67,30 @@ let groups = db.model("groups", {
     img: String
 });
 
-let groupUser = db.model("groupUser", {
-    roomid: String,
+let groupUserSchema = {
+    groupId: {
+        type : db.Schema.ObjectId,
+        ref : 'groups'
+    },
     userName: String,
     manager: { type: Number, default: 0 },
     holder: { type: Number, default: 0 }
-});
+};
+
+groupUserSchema.statics = { // 通过用户名查找所在群聊列表
+    findGroupByUserId:function(userName, callback){
+        return this
+            .find({userName : userName}).populate('groupId')  // 关联查询
+            .exec(callback)
+    }
+};
+
+let groupUser = db.model("groupUser", groupUserSchema);
 
 const createGroup = (params, callback) => { // 新建群
     groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage}).then(r => {
         if (r['_id']) {
-            groupUser.create({userName: params.userName, manager: 0, holder: 1, roomid: r['_id']}).then(rs => { // 建群后创建群主
+            groupUser.create({userName: params.userName, manager: 0, holder: 1, groupId: r['_id']}).then(rs => { // 建群后创建群主
                 if (rs['_id']) {
                     callback({code: 0, data: r});
                 } else {
@@ -91,10 +104,22 @@ const createGroup = (params, callback) => { // 新建群
     })
 };
 
+const getMyGroup = (params, callback) => { // 查找我的群
+    groupUser.findGroupByUserId(params.userName, (err, groups) => {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log('groups=====>', groups);
+            callback({code: 0, data: groups})
+        }
+    })
+};
+
 module.exports = {
     getUser,
     login,
     signUp,
     getUserInfo,
-    createGroup
+    createGroup,
+    getMyGroup
 };

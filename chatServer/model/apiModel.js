@@ -109,7 +109,6 @@ const getMyGroup = (params, callback) => { // 查找我的群
         if(err) {
             console.log(err);
         } else {
-            console.log('groups=====>', groups);
             callback({code: 0, data: groups})
         }
     })

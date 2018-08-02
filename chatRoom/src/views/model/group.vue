@@ -4,6 +4,7 @@
             <ownGroup @tomore="toMore"
                       v-if="isOwn === 'own'"
                       @newSet="newSet"
+                      @currGroup="getCurrGroup"
                       :setOk="setOk"
             ></ownGroup>
             <searchGroup v-if="isOwn === 'more'"
@@ -16,7 +17,7 @@
             ></setGroup>
         </div>
         <div class="vChat-group-chat">
-            <chat></chat>
+            <chat :currGroup="currGroup"></chat>
         </div>
     </div>
 </template>
@@ -30,7 +31,8 @@
         data() {
             return {
                 isOwn: 'own',
-                setOk: false
+                setOk: false,
+                currGroup: '' //  当前展示群聊id
             }
         },
         components: {
@@ -51,6 +53,9 @@
             },
             newSet() {
                 this.isOwn = 'set';
+            },
+            getCurrGroup(id) {
+                this.currGroup = id;
             }
         }
     }

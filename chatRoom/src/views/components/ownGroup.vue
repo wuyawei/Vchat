@@ -5,9 +5,9 @@
             <span class="iconfont icon-jia2" @click="newSet"></span>
         </h3>
         <ul class="group-list">
-            <li v-for="v in Groups" :key="v._id">
+            <li v-for="v in Groups" :key="v._id" :class="{active: currGroup === v._id}" @click="setCurrGroup(v._id)">
                 <a href="javascript:;">
-                    <img src="../../assets/img/7.jpg" alt="">
+                    <img :src="'http://localhost:9988' + v.groupId.img" alt="">
                 </a>
                 <div>
                     <p>
@@ -36,7 +36,8 @@
         data() {
             return {
                 is_focus: false,
-                Groups: []
+                Groups: [],
+                currGroup: ''
             }
         },
         watch: {
@@ -44,13 +45,20 @@
                 if (f) {
                     this.getMyGroup();
                 }
+            },
+            currGroup(i) {
+                this.$emit('currGroup', i);
             }
         },
         methods: {
+            setCurrGroup(id) {
+                this.currGroup = id;
+            },
             getMyGroup() {
                 api.getMyGroup().then(r => {
                     if (r.code === 0) {
                         this.Groups = r.data;
+                        this.currGroup = this.Groups[0] ? this.Groups[0]._id : '';
                     }
                 });
             },
@@ -131,6 +139,8 @@
                     border-radius: 50%;
                     overflow: hidden;
                     margin-right: 10px;
+                    border: 1px solid #d5d5d5;
+                    box-sizing: border-box;
                     img{
                         width:42px;
                     }
@@ -159,6 +169,10 @@
                 }
             }
             li:hover{
+                background-color: #cdeff8;
+                opacity: 0.8;
+            }
+            li.active{
                 background-color: #cdeff8;
                 opacity: 0.8;
             }

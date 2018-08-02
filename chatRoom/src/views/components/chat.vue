@@ -52,6 +52,7 @@
 <script>
     export default {
         name: 'chat',
+        props: ['currGroup'],
         data() {
             return {
                 List: [],
@@ -63,6 +64,11 @@
             List(list){
                 console.log('list', list);
                 this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
+            },
+            currGroup(id) {
+                if (id) {
+                    this.getGroupUsers();
+                }
             }
         },
         sockets:{
@@ -86,6 +92,9 @@
                 this.List.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', this.$socket.id, val);
                 this.mes = '';
+            },
+            getGroupUsers() {
+
             }
         }
     }

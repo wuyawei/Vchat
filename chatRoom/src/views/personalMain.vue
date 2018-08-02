@@ -81,8 +81,7 @@
             }
         },
         mounted() {
-            api.getUser().then(r => {
-            });
+            this.$store.dispatch('getUserInfo');
         }
     }
 </script>

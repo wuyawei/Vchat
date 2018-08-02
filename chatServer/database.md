@@ -3,6 +3,7 @@
 * name 账号
 * pass 密码
 * photo 头像
+* signature 个性签名
 * id 主键
 ### groups 群聊
 * id 主键

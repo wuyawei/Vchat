@@ -9,7 +9,8 @@ const md5 = pass => { // 避免多次调用MD5报错
 let users = db.model("users", { //Schema
     name: String,
     pass: String,
-    photo: String
+    photo: String,
+    signature: { type: String, default: '这个人很懒，暂时没有签名哦！' }
 });
 const getUser = (callback) => { // 测试
     users.find().then(r => {
@@ -72,15 +73,23 @@ let groupUserSchema = new db.Schema({
         type : db.Schema.ObjectId,
         ref : 'groups'
     },
-    userName: String,
+    userName: {
+        type : String,
+        ref : 'users'
+    },
     manager: { type: Number, default: 0 },
     holder: { type: Number, default: 0 }
 });
 
-groupUserSchema.statics = { // 通过用户名查找所在群聊列表
-    findGroupByUserId:function(userName, callback){
+groupUserSchema.statics = {
+    findGroupByUserName:function(userName, callback){ // 通过用户名查找所在群聊列表
         return this
             .find({userName : userName}).populate('groupId')  // 关联查询
+            .exec(callback)
+    },
+    findGroupUsersByGroupId:function(groupId, callback){ // 通过群id查找用户信息
+        return this
+            .find({groupId : groupId}).populate({path: 'userName', select: 'signature'})  // 关联查询
             .exec(callback)
     }
 };
@@ -105,11 +114,21 @@ const createGroup = (params, callback) => { // 新建群
 };
 
 const getMyGroup = (params, callback) => { // 查找我的群
-    groupUser.findGroupByUserId(params.userName, (err, groups) => {
+    groupUser.findGroupByUserName(params.userName, (err, groups) => {
         if(err) {
             console.log(err);
         } else {
             callback({code: 0, data: groups})
+        }
+    })
+};
+
+const getGroupUsers = (params, callback) => { // 查找指定群聊成员
+    groupUser.findGroupUsersByGroupId(params.groupId, (err, users) => {
+        if(err) {
+            console.log(err);
+        } else {
+            callback({code: 0, data: users})
         }
     })
 };
@@ -120,5 +139,6 @@ module.exports = {
     signUp,
     getUserInfo,
     createGroup,
-    getMyGroup
+    getMyGroup,
+    getGroupUsers
 };

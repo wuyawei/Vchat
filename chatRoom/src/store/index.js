@@ -21,7 +21,6 @@ const store = new Vuex.Store({
         getUserInfo({commit}) {
             api.getUserInfo().then(r => {
                 if (r.code === 0) {
-                    console.log('r', r);
                     commit('setUser', r.data);
                     commit('setIslogin', true);
                 } else {

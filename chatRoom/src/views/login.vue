@@ -22,7 +22,7 @@
                     </el-input>
                 </el-form-item>
 
-                <el-form-item prop="regcode" class="regcode-box" v-show="islogin">
+                <el-form-item prop="regcode" class="regcode-box" v-if="islogin">
                     <el-input v-model="signForm.regcode" placeholder="验证码">
                         <i class="iconfont icon-mima3" slot="prepend"></i>
                     </el-input>
@@ -119,27 +119,35 @@
                     ],
                     regcode: [
                         { validator: validateRegcode, trigger: 'blur' }
-                    ],
+                    ]
                 }
             }
         },
         watch: {
+            islogin() {
+                if (this.islogin) {
+                    this.initRegcode();
+                }
+            },
             showSign() {
                 if (this.showSign) {
-                    this.$nextTick(() => {
-                        let regcode = new Canvas(this.$refs['regcode'],{
-                            fontSize: 20,
-                            lineNum: 2,
-                            dotNum: 10
-                        });
-                        regcode.draw((r) => {
-                            this.regcode = r;
-                        });
-                    })
+                    this.initRegcode();
                 }
             }
         },
         methods: {
+            initRegcode() {
+                this.$nextTick(() => {
+                    let regcode = new Canvas(this.$refs['regcode'],{
+                        fontSize: 20,
+                        lineNum: 2,
+                        dotNum: 10
+                    });
+                    regcode.draw((r) => {
+                        this.regcode = r;
+                    });
+                })
+            },
             choose(flag) {
                 this.$refs['signForm'].resetFields();
                 this.islogin = flag;

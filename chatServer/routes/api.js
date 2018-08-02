@@ -17,6 +17,8 @@ router.post('/loginOut', api.loginOut); // 退出
 router.post('/getUserInfo', api.getUserInfo); // 登录状态获取用户信息
 router.post('/createGroup', api.createGroup); // 新建群
 router.post('/getMyGroup', api.getMyGroup); // 查找我的群聊
+router.post('/getGroupUsers', api.getGroupUsers); // 查找指定群聊成员
+
 
 // 新路径要写真实路径，文件夹不存在multer不会主动创建
 // const uploadInmage = (req, res)=>{ // 第一种上传方案所需

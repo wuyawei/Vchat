@@ -36,13 +36,9 @@
         <div class="chat-r">
             <h4>群成员 (12)</h4>
             <ul>
-                <li>
-                    <p>1</p>
-                    <span>111</span>
-                </li>
-                <li>
-                    <p>2</p>
-                    <span>非即日付款吧成绩单速度快办公费</span>
+                <li v-for="v in groupUsers" :key="v.userName">
+                    <p>{{v.userName}}</p>
+                    <span>{{v.userName}}</span>
                 </li>
             </ul>
         </div>
@@ -50,6 +46,7 @@
 </template>
 
 <script>
+    import api from '@/api';
     export default {
         name: 'chat',
         props: ['currGroup'],
@@ -57,7 +54,8 @@
             return {
                 List: [],
                 name: window.localStorage.name,
-                mes: ''
+                mes: '',
+                groupUsers: []
             }
         },
         watch: {
@@ -94,7 +92,14 @@
                 this.mes = '';
             },
             getGroupUsers() {
-
+                let params = {
+                    groupId: this.currGroup
+                };
+                api.getGroupUsers(params).then(r => {
+                    if (r.code === 0) {
+                        this.groupUsers = r.data;
+                    }
+                })
             }
         }
     }

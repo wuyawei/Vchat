@@ -5,7 +5,7 @@
             <span class="iconfont icon-jia2" @click="newSet"></span>
         </h3>
         <ul class="group-list">
-            <li v-for="v in Groups" :key="v._id" :class="{active: currGroup === v._id}" @click="setCurrGroup(v._id)">
+            <li v-for="v in Groups" :key="v._id" :class="{active: currGroup === v.groupId._id}" @click="setCurrGroup(v.groupId._id)">
                 <a href="javascript:;">
                     <img :src="'http://localhost:9988' + v.groupId.img" alt="">
                 </a>
@@ -23,7 +23,7 @@
             </li>
         </ul>
         <p class="more" @click="toMore">
-            更多群聊 <i class="icon-enter iconfont"></i>
+            查找群聊 <i class="icon-enter iconfont"></i>
         </p>
     </div>
 </template>
@@ -58,7 +58,7 @@
                 api.getMyGroup().then(r => {
                     if (r.code === 0) {
                         this.Groups = r.data;
-                        this.currGroup = this.Groups[0] ? this.Groups[0]._id : '';
+                        this.currGroup = this.Groups[0] ? this.Groups[0].groupId._id : '';
                     }
                 });
             },

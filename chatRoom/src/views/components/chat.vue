@@ -34,10 +34,12 @@
             </div>
         </div>
         <div class="chat-r">
-            <h4>群成员 (12)</h4>
+            <h4>群成员 ({{groupUsers.length}})</h4>
             <ul>
-                <li v-for="v in groupUsers" :key="v.userName">
-                    <p>{{v.userName}}</p>
+                <li v-for="v in groupUsers" :key="v.userId._id">
+                    <p>
+                        <img :src="v.userId.photo || '/static/img/5.a9ad8f2.jpg'" alt="">
+                    </p>
                     <span>{{v.userName}}</span>
                 </li>
             </ul>
@@ -292,13 +294,18 @@
     .chat-r ul li p{
         width:42px;
         height: 42px;
-        background-color: #00b4f0;
+        background-color: #27cac7;
         color: #fff;
         font-size: 18px;
         text-align: center;
         line-height: 42px;
         border-radius: 50%;
-        margin-right: 5px;
+        margin-right: 10px;
+        overflow: hidden;
+        border: 1px solid #d5d5d5;
+        img{
+            width:100%;
+        }
     }
     .chat-r ul li span{
         width:135px;

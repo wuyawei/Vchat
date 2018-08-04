@@ -4,6 +4,14 @@
 * pass 密码
 * photo 头像
 * signature 个性签名
+* nickname 昵称
+* email 邮件
+* phone 手机
+* sex 性别
+* bubble 气泡
+* chatTheme 聊天主题
+* projectTheme 项目主题
+* wallpaper 聊天壁纸
 * id 主键
 ### groups 群聊
 * id 主键

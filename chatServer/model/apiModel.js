@@ -10,7 +10,15 @@ let users = db.model("users", { //Schema
     name: String,
     pass: String,
     photo: String,
-    signature: { type: String, default: '这个人很懒，暂时没有签名哦！' }
+    signature: { type: String, default: '这个人很懒，暂时没有签名哦！' },
+    nickname: { type: String, default: 'vChat-' + Date.now()},
+    email: String,
+    phone: String,
+    sex: { type: String, default: '3' }, // 0 男 1 女 3 保密
+    bubble: { type: String, default: 'vchat' }, // 气泡
+    chatTheme: { type: String, default: 'vchat' }, // 聊天主题
+    projectTheme: { type: String, default: 'vchat' }, // 项目主题
+    wallpaper: { type: String, default: 'vchat' } // 聊天壁纸
 });
 const getUser = (callback) => { // 测试
     users.find().then(r => {

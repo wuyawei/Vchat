@@ -18,7 +18,9 @@ let users = db.model("users", { //Schema
     bubble: { type: String, default: 'vchat' }, // 气泡
     chatTheme: { type: String, default: 'vchat' }, // 聊天主题
     projectTheme: { type: String, default: 'vchat' }, // 项目主题
-    wallpaper: { type: String, default: 'vchat' } // 聊天壁纸
+    wallpaper: { type: String, default: 'vchat' }, // 聊天壁纸
+    signUpTime: { type: Date, default: Date.now }, // 注册时间
+    lastLoginTime: { type: Date, default: Date.now } // 最后一次登录
 });
 const getUser = (callback) => { // 测试
     users.find().then(r => {

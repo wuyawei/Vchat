@@ -4,7 +4,7 @@
             <div class="vchat-logo">vchat</div>
             <div class="vchat-mine">
                 <a href="">
-                    <img src="../assets/img/6.jpg" alt="">
+                    <img src="../assets/img/picture.png" alt="">
                 </a>
                 <div>
                     <p>吴所谓呀 <span @click="loginOut">[退出]</span></p>
@@ -116,6 +116,8 @@
                     overflow: hidden;
                     background-color: #00ffff;
                     margin-right: 20px;
+                    border: 1px solid #d5d5d5;
+                    box-sizing: border-box;
                     img {
                         width: 100%;
                     }

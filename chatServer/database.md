@@ -12,6 +12,8 @@
 * chatTheme 聊天主题
 * projectTheme 项目主题
 * wallpaper 聊天壁纸
+* signUpTime 注册时间
+* lastLoginTime 最后一次登录时间
 * id 主键
 ### groups 群聊
 * id 主键

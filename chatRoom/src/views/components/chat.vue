@@ -286,10 +286,11 @@
         box-sizing: border-box;
     }
     .chat-r ul li {
-        margin: 10px 0;
+        padding: 5px 0 10px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 10px;
     }
     .chat-r ul li p{
         width:42px;

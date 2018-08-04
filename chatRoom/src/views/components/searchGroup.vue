@@ -11,7 +11,7 @@
         <ul class="search-group-list">
             <li v-for="v in 5" :key="v">
                 <a href="javascript:;">
-                    <img src="../../assets/img/7.jpg" alt="">
+                    <img src="../../assets/img/1.jpg" alt="">
                 </a>
                 <div>
                     <p>
@@ -151,6 +151,7 @@
                     border-radius: 50%;
                     overflow: hidden;
                     margin-right: 10px;
+                    border: 1px solid #d5d5d5;
                     img{
                         width:46px;
                     }

@@ -1,20 +1,26 @@
 <template>
     <div class="vChat-group">
         <div class="vChat-group-list">
-            <ownGroup @tomore="toMore"
-                      v-if="isOwn === 'own'"
-                      @newSet="newSet"
-                      @currGroup="getCurrGroup"
-                      :setOk="setOk"
-            ></ownGroup>
-            <searchGroup v-if="isOwn === 'more'"
-                         @toOwn="toOwn"
-                         @newSet="newSet"
-            ></searchGroup>
-            <setGroup
-                    v-if="isOwn === 'set'"
-                    @toOwn="toOwn"
-            ></setGroup>
+            <transition name="move">
+                <ownGroup @tomore="toMore"
+                          v-show="isOwn === 'own'"
+                          @newSet="newSet"
+                          @currGroup="getCurrGroup"
+                          :setOk="setOk"
+                ></ownGroup>
+            </transition>
+            <transition name="move">
+                <searchGroup v-show="isOwn === 'more'"
+                             @toOwn="toOwn"
+                             @newSet="newSet"
+                ></searchGroup>
+            </transition>
+            <transition name="move">
+                <setGroup
+                        v-show="isOwn === 'set'"
+                        @toOwn="toOwn"
+                ></setGroup>
+            </transition>
         </div>
         <div class="vChat-group-chat">
             <chat :currGroup="currGroup"></chat>
@@ -73,6 +79,8 @@
             height: 100%;
             background-color: #fff;
             box-shadow: 0 0 1px 1px #d5d5d5;
+            overflow: hidden;
+            position: relative;
         }
         .vChat-group-chat{
             width:74%;

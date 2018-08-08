@@ -17,25 +17,25 @@
                 </el-form-item>
 
                 <el-form-item prop="pass">
-                    <el-input v-model="signForm.pass" placeholder="密码" type="password">
+                    <el-input v-model="signForm.pass" placeholder="密码" type="password" @keyup.enter.native="enter(islogin)">
                         <i class="iconfont icon-mima3" slot="prepend"></i>
                     </el-input>
                 </el-form-item>
 
                 <el-form-item prop="regcode" class="regcode-box" v-if="islogin">
-                    <el-input v-model="signForm.regcode" placeholder="验证码">
+                    <el-input v-model="signForm.regcode" placeholder="验证码" @keyup.enter.native="enter(islogin)">
                         <i class="iconfont icon-mima3" slot="prepend"></i>
                     </el-input>
                     <canvas ref="regcode" width="90" height="38"></canvas>
                 </el-form-item>
 
                 <el-form-item prop="repass" v-if="!islogin">
-                    <el-input v-model="signForm.repass" placeholder="确认密码" type="password">
+                    <el-input v-model="signForm.repass" placeholder="确认密码" type="password" @keyup.enter.native="enter(islogin)">
                         <i class="iconfont icon-mima2" slot="prepend"></i>
                     </el-input>
                 </el-form-item>
             </el-form>
-            <button @click="enter(islogin)" @keyup.enter="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
+            <button @click="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
             <div class="login-foot" v-if="islogin">
                 <span></span>
                 第三方登录

@@ -1,2 +1,3 @@
-# vue-chat
-vue+socket.io+node.js实现的在线聊天室
+﻿## vue-chat
+vue + socket.io + node + express 实现的web在线聊天室
+ 

@@ -77,7 +77,7 @@
                     {
                         name: '设置',
                         icon: 'icon-shezhi1',
-                        link: '/setting'
+                        link: '/mySetting'
                     }
                 ]
             }

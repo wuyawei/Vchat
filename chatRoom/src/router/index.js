@@ -37,6 +37,16 @@ export default new Router({
                     component: _import('model/friendly')
                 }
             ]
+        },
+        {
+            path: '/mine',
+            name: 'mine',
+            component: _import('mine')
+        },
+        {
+            path: '/mySetting',
+            name: 'mySetting',
+            component: _import('mySetting')
         }
     ]
 })

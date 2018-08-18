@@ -70,7 +70,7 @@
                 ],
                 handleList: [
                     {
-                        name: '个人中心',
+                        name: '个人主页',
                         icon: 'icon-zhanghaoguanli1',
                         link: '/mine'
                     },

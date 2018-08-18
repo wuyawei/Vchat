@@ -1,0 +1,48 @@
+.vChat-line1{ // 单行文字超出省略号
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.vChat-line2{ // 2行文字超出省略号
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical; // 参考 https://github.com/postcss/autoprefixer/issues/776
+  /* autoprefixer: on */
+}
+.vChat-noUser{ // 禁止用户选中
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.vChat-breakAll{ // 强制换行 只对英文起作用，以字母作为换行依据。
+  word-break: break-all;
+}
+.vChat-breakWord{ // 强制换行 只对英文起作用，以单词作为换行依据。
+  word-wrap: break-word
+}
+.vChat-preWord{ // 强制换行 只对中文起作用，强制换行。
+  white-space: pre-wrap;
+}
+.vChat-noWarp{ // 禁止换行
+  white-space:nowrap;
+}
+.vChat-flexCenter{ // 居中
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vChat-flexBetween{ // 两端
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vChat-flexAround{ // 均分
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

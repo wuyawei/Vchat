@@ -28,6 +28,11 @@
                         class: ''
                     },
                     {
+                        name: '聊天壁纸',
+                        link: '',
+                        class: ''
+                    },
+                    {
                         name: '聊天气泡',
                         link: '',
                         class: ''

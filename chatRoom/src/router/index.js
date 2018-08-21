@@ -24,17 +24,17 @@ export default new Router({
                 {
                     path: 'group',
                     name: 'group',
-                    component: _import('model/group')
+                    component: _import('personalModel/group')
                 },
                 {
                     path: 'conversation',
                     name: 'conversation',
-                    component: _import('model/conversation')
+                    component: _import('personalModel/conversation')
                 },
                 {
                     path: 'friendly',
                     name: 'friendly',
-                    component: _import('model/friendly')
+                    component: _import('personalModel/friendly')
                 }
             ]
         },
@@ -46,7 +46,30 @@ export default new Router({
         {
             path: '/mySetting',
             name: 'mySetting',
-            component: _import('mySetting')
+            component: _import('mySetting'),
+            redirect: 'mySetting/means',
+            children: [
+                {
+                    path: 'means',
+                    name: 'means',
+                    component: _import('settingModel/means')
+                },
+                {
+                    path: 'bubble',
+                    name: 'bubble',
+                    component: _import('settingModel/bubble')
+                },
+                {
+                    path: 'theme',
+                    name: 'theme',
+                    component: _import('settingModel/theme')
+                },
+                {
+                    path: 'wallpaper',
+                    name: 'wallpaper',
+                    component: _import('settingModel/wallpaper')
+                }
+            ]
         }
     ]
 })

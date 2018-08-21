@@ -1,9 +1,11 @@
 <template>
     <div class="vchat-mySetting vchat-flexBetween">
         <ul class="vchat-setingList">
-            <li v-for="(v, i) in setingList" :key="i">
-                <i class="iconfont" :class="[v.class ? v.class : '']"></i>
-                <span>{{v.name}}</span>
+            <li v-for="(v, i) in setingList" :key="i" :class="{active: $route.path === v.link}">
+                <router-link :to="v.link">
+                    <i class="iconfont" :class="[v.class ? v.class : '']"></i>
+                    <span>{{v.name}}</span>
+                </router-link>
             </li>
         </ul>
         <div class="vchat-seting-container">
@@ -19,22 +21,22 @@
                 setingList: [
                     {
                         name: '个人资料',
-                        link: '',
+                        link: '/mySetting/means',
                         class: 'icon-gerenziliao3'
                     },
                     {
                         name: '主题设置',
-                        link: '',
+                        link: '/mySetting/theme',
                         class: 'icon-zhuti'
                     },
                     {
                         name: '聊天壁纸',
-                        link: '',
+                        link: '/mySetting/wallpaper',
                         class: 'icon-huanbeijing'
                     },
                     {
                         name: '聊天气泡',
-                        link: '',
+                        link: '/mySetting/bubble',
                         class: 'icon-yuyin'
                     }
                 ]
@@ -59,12 +61,16 @@
             box-sizing: border-box;
             li{
                 width:100%;
-                padding: 15px 0;
+                padding: 12px 0;
                 cursor: pointer;
                 border-radius: 5px;
                 padding-left: 20px;
                 box-sizing: border-box;
                 text-align: left;
+                a{
+                    display: block;
+                    color: #323232;
+                }
                 i{
                     font-size: 28px;
                     margin-right: 6px;
@@ -74,9 +80,16 @@
             li:hover{
                 background-color: #f0f0f0;
             }
+            li.active{
+                background-color: #27cac7;
+            }
+            li.active a{
+                color: #fff;
+            }
         }
         .vchat-seting-container{
             width:880px;
+            background-color: #f5f5f5;
         }
     }
 </style>

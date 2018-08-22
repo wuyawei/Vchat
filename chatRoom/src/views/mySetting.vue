@@ -63,7 +63,7 @@
                 width:100%;
                 padding: 12px 0;
                 cursor: pointer;
-                border-radius: 5px;
+                border-radius: 2px;
                 padding-left: 20px;
                 box-sizing: border-box;
                 text-align: left;
@@ -90,6 +90,7 @@
         .vchat-seting-container{
             width:880px;
             background-color: #f5f5f5;
+            border-radius: 2px;
         }
     }
 </style>

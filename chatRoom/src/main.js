@@ -6,7 +6,7 @@ import router from './router';
 import store from './store';
 import './api/fetch';
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import '../static/css/element_ui.scss';
 import VueSocketio from 'vue-socket.io';
 import socketio from 'socket.io-client';
 

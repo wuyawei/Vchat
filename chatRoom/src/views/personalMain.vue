@@ -5,7 +5,7 @@
             <div class="vchat-mine">
                 <div>
                     <a href="">
-                        <img src="../assets/img/picture.png" alt="">
+                        <img :src="IMG_URL + '/img/picture.png'" alt="">
                     </a>
                     <ul class="handleList">
                         <li v-for="(v, i) in handleList" :key="i">
@@ -45,6 +45,7 @@
         name: '',
         data() {
             return {
+                IMG_URL: process.env.IMG_URL,
                 nav: [
                     {
                         name: '会话',

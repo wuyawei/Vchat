@@ -18,8 +18,20 @@
                 <el-input v-model="nickname" placeholder="名称">
                 </el-input>
             </el-form-item>
+            <el-form-item label="性别">
+                <el-radio v-model="sex" label="1">男</el-radio>
+                <el-radio v-model="sex" label="2">女</el-radio>
+            </el-form-item>
             <el-form-item label="个性签名">
                 <el-input v-model="signature" placeholder="签名">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="手机">
+                <el-input v-model="phone" placeholder="手机">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="电子邮箱">
+                <el-input v-model="email" placeholder="电子邮箱">
                 </el-input>
             </el-form-item>
         </el-form>
@@ -33,7 +45,10 @@
                 imageUrl: process.env.IMG_URL + '/img/picture.png', // 显示图片路径
                 avatar: '', // 存储地址
                 nickname: '',
-                signature: ''
+                signature: '',
+                sex: '1',
+                email: '',
+                phone: ''
             }
         },
         methods: {
@@ -66,11 +81,6 @@
         box-sizing: border-box;
         .el-input{
             width:300px;
-        }
-        .avatar-uploader{
-            .el-upload--picture-card{
-                overflow: hidden;
-            }
         }
         .avatar {
             width: 100%;

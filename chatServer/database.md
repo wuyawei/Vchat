@@ -2,7 +2,7 @@
 ### users 用户表
 * name 账号
 * pass 密码
-* photo 头像
+* avatar 头像
 * signature 个性签名
 * nickname 昵称
 * email 邮件

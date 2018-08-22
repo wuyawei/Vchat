@@ -1,6 +1,33 @@
 @import 'element-ui/lib/theme-chalk/index.css';
-.personForm{ // 个人资料页
-  .el-form-item__label{
+
+.personForm { // 个人资料页
+  width: 600px;
+  .el-form-item__label {
     text-align: left;
+  }
+
+  .avatar-uploader {
+    .el-upload--picture-card {
+      overflow: hidden;
+      border-radius: 50%;
+    }
+  }
+
+  .el-radio__input.is-checked .el-radio__inner {
+    border-color: #7e7e7e;
+    background: #7e7e7e;
+  }
+  .el-radio__input.is-checked + .el-radio__label {
+    color: #606266;
+  }
+  .el-form-item:first-child .el-form-item__content{
+    display: flex;
+    margin-left: 150px !important;
+  }
+  .el-form-item:not(:first-child) .el-form-item__content{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-left: 150px !important;
   }
 }

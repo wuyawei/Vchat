@@ -14,13 +14,13 @@
                     <img v-if="imageUrl" :src="imageUrl" class="avatar">
                 </el-upload>
             </el-form-item>
-            <el-form-item label="昵称">
-                <el-input v-model="nickname" placeholder="名称">
-                </el-input>
-            </el-form-item>
             <el-form-item label="性别">
                 <el-radio v-model="sex" label="1">男</el-radio>
                 <el-radio v-model="sex" label="2">女</el-radio>
+            </el-form-item>
+            <el-form-item label="昵称">
+                <el-input v-model="nickname" placeholder="名称">
+                </el-input>
             </el-form-item>
             <el-form-item label="个性签名">
                 <el-input v-model="signature" placeholder="签名">

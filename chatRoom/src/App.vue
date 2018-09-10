@@ -13,5 +13,6 @@
 </script>
 
 <style lang="scss">
-    @import "../static/css/base.scss";
+    @import "../static/css/base";
+    @import "../static/theme/index";
 </style>

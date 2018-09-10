@@ -1,0 +1,57 @@
+// personalMain.vue
+#theme-#{$theme} {
+    .vchat-personalMain {
+        .vchat-header { // 头部
+            background-color: $vchat-header-backgroudColor;
+            .vchat-logo{
+                color: $vchat-logo-color;
+            }
+            .handleList li {
+                i {
+                    color: $vchat-header-handleList-i-color;
+                }
+            }
+            .handleList li a{
+                color: $vchat-header-handleList-a-color;
+            }
+            .handleList li:hover{
+                background-color: $vchat-header-handleList-hover-bgcolor;
+            }
+            .handleList li:hover i, .handleList li:hover a{
+                color: $vchat-header-handleList-hover-color;
+            }
+            > div:nth-of-type(2) {
+                p:nth-of-type(1) {
+                    span {
+                        color: #a4f5f6;
+                    }
+                    span:hover {
+                        color: #63f6f5;
+                    }
+                }
+                p:nth-of-type(2) {
+                    color: #1cffc5;
+                }
+            }
+        }
+        .vchat-content{
+            background-color: #f5f5f5;
+            .vchat-content-nav{
+                background-color: #fff;
+                box-shadow: 2px 0 10px #d5d5d5;
+                ul {
+                    li {
+                        a {
+                            color: #d5d5d5;
+                        }
+                    }
+                    li.active {
+                        a {
+                            color: #27cac7;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

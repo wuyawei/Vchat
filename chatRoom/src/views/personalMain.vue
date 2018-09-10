@@ -118,7 +118,6 @@
         .vchat-header {
             width: 100%;
             height: 80px;
-            // background-color: #27cac7;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -181,19 +180,11 @@
                     i{
                         font-size: 18px;
                         margin-right: 10px;
-                        // color: #1fbeca;
                     }
                 }
                 .handleList li a{
                     display: block;
-                    // color: #595959;
                 }
-                /*.handleList li:hover{*/
-                    /*background-color: #1fbeca;*/
-                /*}*/
-                /*.handleList li:hover i, .handleList li:hover a{*/
-                    /*color: #fff;*/
-                /*}*/
                 >div:nth-of-type(1):hover .handleList{
                     display: block;
                 }
@@ -206,16 +197,13 @@
                         margin-bottom: 5px;
                         span {
                             margin-left: 10px;
-                            // color: #a4f5f6;
                             cursor: pointer;
                         }
                         span:hover {
-                            // color: #63f6f5;
                         }
                     }
                     p:nth-of-type(2) {
                         font-size: 14px;
-                        // color: #1cffc5;
                     }
                 }
             }
@@ -224,14 +212,11 @@
             width: 100%;
             height: calc(100% - 80px);
             min-height: 600px;
-            // background-color: #f5f5f5;
             display: flex;
             justify-content: flex-start;
             .vchat-content-nav {
                 width: 120px;
                 height: 100%;
-                /*background-color: #fff;*/
-                /*box-shadow: 2px 0 10px #d5d5d5;*/
                 ul {
                     width: 100%;
                     li {
@@ -239,7 +224,6 @@
                         cursor: pointer;
                         a {
                             display: block;
-                            // color: #d5d5d5;
                             text-decoration: none;
                             i {
                                 font-size: 32px;
@@ -248,11 +232,6 @@
                             p {
                                 font-size: 12px;
                             }
-                        }
-                    }
-                    li.active {
-                        a {
-                            // color: #27cac7;
                         }
                     }
                 }

@@ -31,7 +31,7 @@
             }
         }
         .vchat-content{
-            background-color: $vchat-content-bgcolor;
+            //background-color: $vchat-content-bgcolor;
             .vchat-content-nav{
                 background-color: $vchat-content-nav-bgcolor;
                 box-shadow: $vchat-content-nav-box-shadow;
@@ -48,6 +48,9 @@
                     }
                 }
             }
+        }
+        .vchat-content-view{
+            background-color: #f5f5f5;
         }
     }
 }

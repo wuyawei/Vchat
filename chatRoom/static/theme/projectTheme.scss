@@ -20,34 +20,30 @@
             .handleList li:hover i, .handleList li:hover a{
                 color: $vchat-header-handleList-hover-color;
             }
-            > div:nth-of-type(2) {
-                p:nth-of-type(1) {
-                    span {
-                        color: #a4f5f6;
-                    }
-                    span:hover {
-                        color: #63f6f5;
-                    }
-                }
-                p:nth-of-type(2) {
-                    color: #1cffc5;
-                }
+            .logout{
+                color: $vchat-header-logout;
+            }
+            .logout:hover{
+                color: $vchat-header-logout-hover;
+            }
+            .online{
+                color: $vchat-header-online;
             }
         }
         .vchat-content{
-            background-color: #f5f5f5;
+            background-color: $vchat-content-bgcolor;
             .vchat-content-nav{
-                background-color: #fff;
-                box-shadow: 2px 0 10px #d5d5d5;
+                background-color: $vchat-content-nav-bgcolor;
+                box-shadow: $vchat-content-nav-box-shadow;
                 ul {
                     li {
                         a {
-                            color: #d5d5d5;
+                            color: $vchat-content-nav-color;
                         }
                     }
                     li.active {
                         a {
-                            color: #27cac7;
+                            color: $vchat-content-nav-active-color;
                         }
                     }
                 }

@@ -17,8 +17,8 @@
                     </ul>
                 </div>
                 <div>
-                    <p>吴所谓呀 <span @click="loginOut">[退出]</span></p>
-                    <p>在线</p>
+                    <p>吴所谓呀 <span @click="loginOut" class="logout">[退出]</span></p>
+                    <p class="online">在线</p>
                 </div>
             </div>
         </div>

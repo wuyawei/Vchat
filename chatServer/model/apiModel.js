@@ -19,8 +19,8 @@ let users = db.model("users", { //Schema
     chatTheme: { type: String, default: 'vchat' }, // 聊天主题
     projectTheme: { type: String, default: 'vchat' }, // 项目主题
     wallpaper: { type: String, default: 'vchat' }, // 聊天壁纸
-    signUpTime: { type: Date, default: Date.now }, // 注册时间
-    lastLoginTime: { type: Date, default: Date.now } // 最后一次登录
+    signUpTime: { type: Date, default: Date.now() }, // 注册时间
+    lastLoginTime: { type: Date, default: Date.now() } // 最后一次登录
 });
 const getUser = (callback) => { // 测试
     users.find().then(r => {
@@ -33,6 +33,10 @@ const login = (params, callback) => { // 登录
         if (r.length) {
             let pass = md5(params.pass);
             if (r[0]['pass'] === pass) {
+                // 此处直接写Date.now 会报错 需要Date.now()!!!;
+                users.update({name: params.name}, {lastLoginTime: Date.now()}).then(raw => {
+                    console.log(raw);
+                });
                 callback({code: 0, data: {name: r[0].name, photo: r[0].photo}});
             } else {
                 callback({code: -1});
@@ -42,6 +46,22 @@ const login = (params, callback) => { // 登录
         }
 
     })
+};
+
+const upTheme = (params, callback) => { //修改主题
+    let {bubble, projectTheme, wallpaper, chatTheme} = params;
+    let upParams = {};
+    bubble ? upParams.bubble = bubble : '';
+    projectTheme ? upParams.projectTheme = projectTheme : '';
+    wallpaper ? upParams.wallpaper = wallpaper : '';
+    chatTheme ? upParams.chatTheme = chatTheme : '';
+    users.update({name: params.name}, upParams).then(raw => {
+        if (raw.nModified > 0) {
+            callback({code: 0});
+        } else {
+            callback({code: -1});
+        }
+    });
 };
 
 const signUp = (params, callback) => { // 注册
@@ -154,6 +174,7 @@ const getGroupUsers = (params, callback) => { // 查找指定群聊成员
 module.exports = {
     getUser,
     login,
+    upTheme,
     signUp,
     getUserInfo,
     createGroup,

@@ -193,7 +193,7 @@
                 };
                 api.signUp(params).then(r => {
                     if (r.code === 0) {
-                        this.$message.success('注册成功');
+                        this.$message.success('注册成功，请登录');
                         this.$refs['signForm'].resetFields();
                         this.islogin = true;
                     } else if (r.code === 1) {

@@ -29,6 +29,24 @@ const login = (req, res) => {
     })
 };
 
+const upTheme = (req, res) => { // 修改主题
+    let params = req.body;
+    params.userName = req.session.login;
+    apiModel.upTheme(params, r => {
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : '设置成功'
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '设置失败'
+            })
+        }
+    })
+};
+
 const signUp = (req, res) => {
     let params = req.body;
     apiModel.signUp(params, (r) => { // 注册
@@ -130,6 +148,7 @@ const getGroupUsers = (req, res) => { // 查找指定群聊成员
 module.exports = {
     getUser,
     login,
+    upTheme,
     signUp,
     loginOut,
     getUserInfo,

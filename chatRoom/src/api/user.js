@@ -15,6 +15,9 @@ export default {
     },
     getUserInfo() { //是否登录
         return fetch.post('/getUserInfo');
+    },
+    upTheme(params) { // 设置主题
+        return fetch.post('/upTheme', params);
     }
 }
 

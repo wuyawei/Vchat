@@ -5,9 +5,9 @@
                 <div class="theme-style">
                     Vchat
                 </div>
-                <el-button type="info" :loading="false">
-                    <i class="el-icon-success el-icon--right"></i>
-                    已激活
+                <el-button :type="projectTheme === 'vchat' ? 'success' : 'info'" :loading="setThemeIng === 'vchat'" @click="setTheme('vchat')">
+                    <i class="el-icon-success el-icon--right" v-if="projectTheme === 'vchat'"></i>
+                    {{getText('vchat')}}
                 </el-button>
             </li>
         </ul>
@@ -16,11 +16,30 @@
 <script>
     export default{
         data() {
-            return {};
+            return {
+                projectTheme: JSON.parse(window.sessionStorage.theme).projectTheme,
+                setThemeIng: ''
+            };
         },
-        methods: {},
+        methods: {
+            setTheme(t) {
+                this.setThemeIng = t;
+                setTimeout(() => {
+                    this.projectTheme = 'vchat';
+                },2000)
+            },
+            getText(t) {
+                if (this.setThemeIng === t) {
+                    return '激活中';
+                }
+                if (this.projectTheme === t) {
+                    return '已激活';
+                } else {
+                    return '激活';
+                }
+            }
+        },
         mounted() {
-
         }
     }
 </script>

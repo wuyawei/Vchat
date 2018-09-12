@@ -65,6 +65,7 @@
         background-color: #27cac7;
         padding-left: 30px;
         text-align: left;
+        box-sizing: border-box;
         a{
             font-size: 20px;
             line-height: 40px;

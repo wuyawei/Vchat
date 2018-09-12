@@ -14,6 +14,7 @@
     </div>
 </template>
 <script>
+    import api from '@/api';
     export default{
         data() {
             return {
@@ -23,10 +24,27 @@
         },
         methods: {
             setTheme(t) {
+                if (this.projectTheme === t) {
+                    return;
+                }
                 this.setThemeIng = t;
-                setTimeout(() => {
-                    this.projectTheme = 'vchat';
-                },2000)
+                api.upTheme({projectTheme: t}).then(r => {
+                    if (r.code === 0) {
+                        this.projectTheme = t;
+                        this.setThemeIng = '';
+                        this.$message({
+                            message: '设置成功',
+                            type: 'success'
+                        })
+                    } else {
+                        this.projectTheme = JSON.parse(window.sessionStorage.theme).projectTheme;
+                        this.setThemeIng = '';
+                        this.$message({
+                            message: '设置失败',
+                            type: 'warning'
+                        })
+                    }
+                });
             },
             getText(t) {
                 if (this.setThemeIng === t) {

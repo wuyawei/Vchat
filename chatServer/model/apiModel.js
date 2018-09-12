@@ -55,13 +55,13 @@ const upTheme = (params, callback) => { //修改主题
     projectTheme ? upParams.projectTheme = projectTheme : '';
     wallpaper ? upParams.wallpaper = wallpaper : '';
     chatTheme ? upParams.chatTheme = chatTheme : '';
-    users.update({name: params.name}, upParams).then(raw => {
+    users.update({name: params.userName}, upParams).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});
         } else {
             callback({code: -1});
         }
-    });
+    })
 };
 
 const signUp = (params, callback) => { // 注册

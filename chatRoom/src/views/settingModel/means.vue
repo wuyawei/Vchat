@@ -1,6 +1,6 @@
 <template>
     <div class="person-means">
-        <el-form ref="personForm" label-width="80px" class="personForm">
+        <el-form ref="personForm" label-width="80px" class="personForm" :model="personForm" :rules="personRules">
             <el-form-item label="头像">
                 <el-upload
                         class="avatar-uploader"
@@ -15,23 +15,24 @@
                 </el-upload>
             </el-form-item>
             <el-form-item label="性别">
-                <el-radio v-model="sex" label="1">男</el-radio>
-                <el-radio v-model="sex" label="2">女</el-radio>
+                <el-radio v-model="personForm.sex" label="1">男</el-radio>
+                <el-radio v-model="personForm.sex" label="2">女</el-radio>
+                <el-radio v-model="personForm.sex" label="3">保密</el-radio>
             </el-form-item>
-            <el-form-item label="昵称">
-                <el-input v-model="nickname" placeholder="名称">
+            <el-form-item label="昵称" prop="nickname">
+                <el-input v-model="personForm.nickname" placeholder="名称">
                 </el-input>
             </el-form-item>
-            <el-form-item label="个性签名">
-                <el-input v-model="signature" placeholder="签名">
+            <el-form-item label="个性签名" prop="signature">
+                <el-input v-model="personForm.signature" placeholder="签名">
                 </el-input>
             </el-form-item>
-            <el-form-item label="手机">
-                <el-input v-model="phone" placeholder="手机">
+            <el-form-item label="手机" prop="phone">
+                <el-input v-model="personForm.phone" placeholder="手机">
                 </el-input>
             </el-form-item>
-            <el-form-item label="电子邮箱">
-                <el-input v-model="email" placeholder="电子邮箱">
+            <el-form-item label="电子邮箱" prop="email">
+                <el-input v-model="personForm.email" placeholder="电子邮箱">
                 </el-input>
             </el-form-item>
         </el-form>
@@ -44,11 +45,15 @@
             return {
                 imageUrl: process.env.IMG_URL + this.$store.state.user.photo, // 显示图片路径
                 avatar: '', // 存储地址
-                nickname: '',
-                signature: '',
-                sex: '1',
-                email: '',
-                phone: ''
+                personForm: {
+                    nickname: '',
+                    signature: '',
+                    sex: '1',
+                    email: '',
+                    phone: ''
+                },
+                personRules: {
+                }
             }
         },
         methods: {

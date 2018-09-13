@@ -13,5 +13,8 @@ export default {
                 commit('setIslogin', false);
             }
         });
+    },
+    setTheme({state}) {
+        document.body.id = 'theme-' + state.user.projectTheme;
     }
 }

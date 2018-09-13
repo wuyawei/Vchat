@@ -18,7 +18,7 @@
     export default{
         data() {
             return {
-                projectTheme: JSON.parse(window.sessionStorage.theme).projectTheme,
+                projectTheme: this.$store.state.user.projectTheme,
                 setThemeIng: ''
             };
         },
@@ -32,12 +32,14 @@
                     if (r.code === 0) {
                         this.projectTheme = t;
                         this.setThemeIng = '';
+                        this.$store.commit('setUser', {projectTheme: t});
+                        this.$store.dispatch('setTheme');
                         this.$message({
                             message: '设置成功',
                             type: 'success'
                         })
                     } else {
-                        this.projectTheme = JSON.parse(window.sessionStorage.theme).projectTheme;
+                        this.projectTheme = this.$store.state.user.projectTheme;
                         this.setThemeIng = '';
                         this.$message({
                             message: '设置失败',

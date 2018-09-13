@@ -104,6 +104,7 @@
             }
         },
         mounted() {
+            this.$store.dispatch('setTheme');
             this.$store.dispatch('getUserInfo');
         }
     }

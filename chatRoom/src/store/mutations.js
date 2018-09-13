@@ -3,14 +3,7 @@
  */
 export default {
     setUser(state, data) {
-        state.user = data;
-        let {bubble, chatTheme, projectTheme, wallpaper} = data;
-        window.sessionStorage.theme = JSON.stringify({
-            bubble,
-            chatTheme,
-            projectTheme,
-            wallpaper
-        })
+        state.user = Object.assign(state.user, data);
     },
     setIslogin(state, data) {
         state.isLogin = data;

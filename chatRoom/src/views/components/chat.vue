@@ -38,7 +38,7 @@
             <ul>
                 <li v-for="v in groupUsers" :key="v.userId._id">
                     <p>
-                        <img :src="v.userId.photo || '/static/img/5.a9ad8f2.jpg'" alt="">
+                        <img :src="IMG_URL + v.userId.photo" alt="">
                     </p>
                     <span>{{v.userName}}</span>
                 </li>
@@ -54,6 +54,7 @@
         props: ['currGroup'],
         data() {
             return {
+                IMG_URL: process.env.IMG_URL,
                 List: [],
                 name: window.localStorage.name,
                 mes: '',

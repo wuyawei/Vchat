@@ -4,7 +4,7 @@
             <router-link to="/personalMain">vchat</router-link>
             <div class="avtor">
                 <a href="javascipt:;">
-                    <img :src="IMG_URL + '/img/picture.png'" alt="">
+                    <img :src="IMG_URL + $store.state.user.photo" alt="">
                 </a>
                 <span @click="loginOut" class="logout">[退出]</span>
             </div>

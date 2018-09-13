@@ -4,7 +4,7 @@
             <i class="iconfont icon-fanhui" @click="toOwn"></i>
             <span>新建群聊</span>
         </p>
-        <el-form ref="groupForm" label-width="65px" class="groupForm">
+        <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
             <el-form-item label="群头像">
                 <el-upload
                         class="avatar-uploader"
@@ -19,12 +19,12 @@
                     <i class="el-icon-plus"></i>
                 </el-upload>
             </el-form-item>
-            <el-form-item label="群名称">
-                <el-input v-model="groupName" placeholder="名称">
+            <el-form-item label="群名称" prop="groupName">
+                <el-input v-model="groupForm.groupName" placeholder="名称">
                 </el-input>
             </el-form-item>
-            <el-form-item label="群简介">
-                <el-input v-model="groupDesc" placeholder="简介">
+            <el-form-item label="群简介" prop="groupDesc">
+                <el-input v-model="groupForm.groupDesc" placeholder="请输入不超过100个字符" type="textarea" aotusize resize="none" :maxlength="100">
                 </el-input>
             </el-form-item>
         </el-form>
@@ -36,11 +36,44 @@
     export  default {
         name: 'setGroup',
         data() {
+            let validateName = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入群名称'));
+                } else {
+                    let reg = /^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,10}$/;
+                    if (!reg.test(value)) {
+                        callback(new Error('请输入2~10位中文、数字、字母、下划线'));
+                        return;
+                    }
+                    callback();
+                }
+            };
+            let validateDesc = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入群简介'));
+                } else {
+                    if (value.length > 100) {
+                        callback(new Error('请输入不超过100位'));
+                        return;
+                    }
+                    callback();
+                }
+            };
             return {
                 imageUrl: '', // 显示图片路径
-                groupName: '',
-                groupDesc: '',
-                groupImage: ''
+                groupForm: {
+                    groupName: '',
+                    groupDesc: ''
+                },
+                groupImage: '',
+                groupRules: {
+                    groupName: [
+                        { validator: validateName, trigger: 'blur' }
+                    ],
+                    groupDesc: [
+                        { validator: validateDesc, trigger: 'blur' }
+                    ]
+                }
             }
         },
         methods: {
@@ -68,15 +101,21 @@
                 this.$emit('toOwn');
             },
             enter() {
-                let params = {
-                    groupImage: this.groupImage,
-                    groupName: this.groupName,
-                    groupDesc: this.groupDesc,
-                };
-                api.createGroup(params).then(r => {
-                    if (r.code === 0) {
-                        this.$message.success('新建成功');
-                        this.$emit('toOwn', 'setOk');
+                this.$refs['groupForm'].validate((valid) => {
+                    if (valid) {
+                        let params = {
+                            groupImage: this.groupImage,
+                            groupName: this.groupForm.groupName,
+                            groupDesc: this.groupForm.groupDesc,
+                        };
+                        api.createGroup(params).then(r => {
+                            if (r.code === 0) {
+                                this.$message.success('新建成功');
+                                this.$emit('toOwn', 'setOk');
+                            }
+                        });
+                    } else {
+                        return false;
                     }
                 });
             }

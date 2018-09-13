@@ -9,7 +9,7 @@ const md5 = pass => { // 避免多次调用MD5报错
 let users = db.model("users", { //Schema
     name: String,
     pass: String,
-    photo: String,
+    photo: {type: String, default: '/img/picture.png'}, // 默认头像
     signature: { type: String, default: '这个人很懒，暂时没有签名哦！' },
     nickname: { type: String, default: 'vChat-' + Date.now()},
     email: String,

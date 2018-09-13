@@ -42,7 +42,7 @@
         name: 'means',
         data() {
             return {
-                imageUrl: process.env.IMG_URL + '/img/picture.png', // 显示图片路径
+                imageUrl: process.env.IMG_URL + this.$store.state.user.photo, // 显示图片路径
                 avatar: '', // 存储地址
                 nickname: '',
                 signature: '',

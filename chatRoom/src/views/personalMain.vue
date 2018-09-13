@@ -5,7 +5,7 @@
             <div class="vchat-mine">
                 <div>
                     <a href="javascript:;">
-                        <img :src="IMG_URL + '/img/picture.png'" alt="">
+                        <img :src="IMG_URL + $store.state.user.photo" alt="">
                     </a>
                     <ul class="handleList">
                         <li v-for="(v, i) in handleList" :key="i">

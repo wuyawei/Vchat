@@ -4,7 +4,7 @@
             <div class="vchat-logo">vchat</div>
             <div class="vchat-mine">
                 <div>
-                    <a href="">
+                    <a href="javascript:;">
                         <img :src="IMG_URL + '/img/picture.png'" alt="">
                     </a>
                     <ul class="handleList">
@@ -97,15 +97,13 @@
                 api.loginOut().then(r => {
                     if (r.code === 0) {
                         this.$message.success('退出成功');
-                        this.$store.commit('setUser', '');
+                        this.$store.commit('setUser', 'out');
                         this.$router.replace('/');
                     }
                 });
             }
         },
         mounted() {
-            this.$store.dispatch('setTheme');
-            this.$store.dispatch('getUserInfo');
         }
     }
 </script>
@@ -199,8 +197,6 @@
                         span {
                             margin-left: 10px;
                             cursor: pointer;
-                        }
-                        span:hover {
                         }
                     }
                     p:nth-of-type(2) {

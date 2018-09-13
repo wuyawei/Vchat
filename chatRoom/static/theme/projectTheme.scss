@@ -1,5 +1,5 @@
-// personalMain.vue
 #theme-#{$theme} {
+    // personalMain.vue
     .vchat-personalMain {
         .vchat-header { // 头部
             background-color: $vchat-header-backgroudColor;
@@ -50,7 +50,17 @@
             }
         }
         .vchat-content-view{
-            background-color: #f5f5f5;
+            background-color: $vchat-content-view-bgcolor;
+        }
+    }
+    // mySetting.vue
+    .vchat-mySetting-header{
+        background-color: $vchat-mySetting-header-bgcolor;
+        .logout{
+            color: $vchat-header-logout;
+        }
+        .logout:hover{
+            color: $vchat-header-logout-hover;
         }
     }
 }

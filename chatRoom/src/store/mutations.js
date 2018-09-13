@@ -3,6 +3,10 @@
  */
 export default {
     setUser(state, data) {
+        if (data === 'out') {
+            state.user = {};
+            return;
+        }
         state.user = Object.assign(state.user, data);
     },
     setIslogin(state, data) {

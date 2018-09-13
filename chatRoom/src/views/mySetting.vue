@@ -2,6 +2,12 @@
     <div class="vchat-mySetting">
         <div class="vchat-mySetting-header">
             <router-link to="/personalMain">vchat</router-link>
+            <div class="avtor">
+                <a href="javascipt:;">
+                    <img :src="IMG_URL + '/img/picture.png'" alt="">
+                </a>
+                <span @click="loginOut" class="logout">[退出]</span>
+            </div>
         </div>
         <div class="vchat-mySetting-container vchat-flexBetween">
             <ul class="vchat-setingList">
@@ -19,10 +25,12 @@
     </div>
 </template>
 <script>
+    import api from '../api';
     export default{
         name: 'mySetting',
         data() {
             return {
+                IMG_URL: process.env.IMG_URL,
                 setingList: [
                     {
                         name: '个人资料',
@@ -48,7 +56,15 @@
             }
         },
         methods: {
-
+            loginOut() {
+                api.loginOut().then(r => {
+                    if (r.code === 0) {
+                        this.$message.success('退出成功');
+                        this.$store.commit('setUser', 'out');
+                        this.$router.replace('/');
+                    }
+                });
+            }
         },
         mounted() {
 
@@ -62,14 +78,35 @@
     .vchat-mySetting-header{
         width:100%;
         height: 40px;
-        background-color: #27cac7;
-        padding-left: 30px;
+        padding: 0 30px;
         text-align: left;
         box-sizing: border-box;
-        a{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        >a{
             font-size: 20px;
             line-height: 40px;
             color: #fff;
+        }
+        .avtor{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            a{
+                display: block;
+                width:40px;
+                height: 40px;
+                margin-right: 10px;
+                border-radius: 50%;
+                overflow: hidden;
+                img{
+                    width:100%;
+                }
+            }
+        }
+        span{
+            cursor: pointer;
         }
     }
     .vchat-mySetting-container{

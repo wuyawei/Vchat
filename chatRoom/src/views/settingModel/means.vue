@@ -2,17 +2,9 @@
     <div class="person-means">
         <el-form ref="personForm" label-width="80px" class="personForm" :model="personForm" :rules="personRules">
             <el-form-item label="头像">
-                <el-upload
-                        class="avatar-uploader"
-                        action="/api/uploadInmage"
-                        list-type="picture-card"
-                        :show-file-list="false"
-                        name="f"
-                        :on-change="handleAvatarChange"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                </el-upload>
+                <div class="avatar">
+                    <img v-if="imageUrl" :src="imageUrl" ref="avatar-image">
+                </div>
             </el-form-item>
             <el-form-item label="性别">
                 <el-radio v-model="personForm.sex" label="1">男</el-radio>
@@ -39,6 +31,7 @@
     </div>
 </template>
 <script>
+    import Cropper from "cropperjs"
     export default{
         name: 'means',
         data() {
@@ -52,6 +45,7 @@
                     email: '',
                     phone: ''
                 },
+                cropper: null,
                 personRules: {
                 }
             }
@@ -76,7 +70,27 @@
                     this.$message.error('上传头像图片大小不能超过 2MB!');
                 }
                 return isJPG && isLt2M;
+            },
+            initCropper() {
+                this.cropper = new Cropper(this.$refs['avatar-image'], {
+                    aspectRatio: 16 / 9,
+                    viewMode:1,
+                    crop: function (e) {
+                        console.log(e.detail.x);
+                        console.log(e.detail.y);
+                        console.log(e.detail.width);
+                        console.log(e.detail.height);
+                        console.log(e.detail.rotate);
+                        console.log(e.detail.scaleX);
+                        console.log(e.detail.scaleY);
+                    }
+                });
             }
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.initCropper();
+            })
         }
     }
 </script>
@@ -88,8 +102,14 @@
             width:300px;
         }
         .avatar {
-            width: 100%;
-            display: block;
+            width: 120px;
+            height: 120px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            overflow: hidden;
+            img{
+                width:100%;
+            }
         }
     }
 </style>

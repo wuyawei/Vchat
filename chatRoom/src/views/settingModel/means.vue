@@ -2,8 +2,8 @@
     <div class="person-means">
         <el-form ref="personForm" label-width="80px" class="personForm" :model="personForm" :rules="personRules">
             <el-form-item label="头像">
-                <div class="avatar">
-                    <img v-if="imageUrl" :src="imageUrl" ref="avatar-image">
+                <div class="avatar" @click="setShowCrop">
+                    <img :src="imageUrl">
                 </div>
             </el-form-item>
             <el-form-item label="性别">
@@ -28,6 +28,14 @@
                 </el-input>
             </el-form-item>
         </el-form>
+        <el-dialog
+                :visible.sync="showCrop"
+                width="40%"
+                :before-close="handleClose">
+            <div class="crop-box">
+                <img :src="imageUrl" ref="avatar-image">
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -45,6 +53,7 @@
                     email: '',
                     phone: ''
                 },
+                showCrop: false,
                 cropper: null,
                 personRules: {
                 }
@@ -71,9 +80,11 @@
                 }
                 return isJPG && isLt2M;
             },
+            handleClose(done) {
+                done();
+            },
             initCropper() {
                 this.cropper = new Cropper(this.$refs['avatar-image'], {
-                    aspectRatio: 16 / 9,
                     viewMode:1,
                     crop: function (e) {
                         console.log(e.detail.x);
@@ -85,16 +96,20 @@
                         console.log(e.detail.scaleY);
                     }
                 });
+            },
+            setShowCrop() {
+                this.showCrop = true;
+                this.$nextTick(() => {
+                    this.initCropper();
+                })
             }
         },
         mounted() {
-            this.$nextTick(() => {
-                this.initCropper();
-            })
         }
     }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+    @import "../../../static/css/cropper";
     .person-means{
         padding: 20px 30px;
         box-sizing: border-box;

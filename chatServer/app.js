@@ -21,13 +21,25 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public'))); // 静态资源中间件
+let options = { // 解决静态资源跨域问题（或者使用cors模块）
+    setHeaders: function (res, path, stat) {
+        res.set('Access-Control-Allow-Origin', '*')
+    }
+};
+app.use(express.static(path.join(__dirname, 'public'), options)); // 静态资源中间件
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true
 }));
-
+// 后端解决跨域的方式 , 现选择前端代理
+// app.all('*', function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header('Access-Control-Allow-Methods', "PUT,POST,GET,DELETE,OPTIONS");
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     next();
+// });
 app.use('/*', (req, res, next) => {
     if (req.session.login) {
         next();
@@ -46,15 +58,6 @@ app.use('/api', api);
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');
 });
-
-// 后端解决跨域的方式 , 现选择前端代理
-// app.all('*', function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header('Access-Control-Allow-Methods', me.options);
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//     res.header('Access-Control-Allow-Headers', 'Content-Type');
-//     next();
-// });
 
 io.on('connection', onconnection);
 

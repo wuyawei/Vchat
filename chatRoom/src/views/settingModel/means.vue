@@ -32,14 +32,12 @@
                 :visible.sync="showCrop"
                 width="40%"
                 :before-close="handleClose">
-            <div class="crop-box">
-                <img :src="imageUrl" ref="avatar-image">
-            </div>
+            <cropper :url="imageUrl"></cropper>
         </el-dialog>
     </div>
 </template>
 <script>
-    import Cropper from "cropperjs"
+    import cropper from '../components/cropper';
     export default{
         name: 'means',
         data() {
@@ -54,10 +52,12 @@
                     phone: ''
                 },
                 showCrop: false,
-                cropper: null,
                 personRules: {
                 }
             }
+        },
+        components: {
+            cropper
         },
         methods: {
             handleAvatarChange(file) {
@@ -83,25 +83,8 @@
             handleClose(done) {
                 done();
             },
-            initCropper() {
-                this.cropper = new Cropper(this.$refs['avatar-image'], {
-                    viewMode:1,
-                    crop: function (e) {
-                        console.log(e.detail.x);
-                        console.log(e.detail.y);
-                        console.log(e.detail.width);
-                        console.log(e.detail.height);
-                        console.log(e.detail.rotate);
-                        console.log(e.detail.scaleX);
-                        console.log(e.detail.scaleY);
-                    }
-                });
-            },
             setShowCrop() {
                 this.showCrop = true;
-                this.$nextTick(() => {
-                    this.initCropper();
-                })
             }
         },
         mounted() {
@@ -109,7 +92,6 @@
     }
 </script>
 <style lang="scss">
-    @import "../../../static/css/cropper";
     .person-means{
         padding: 20px 30px;
         box-sizing: border-box;

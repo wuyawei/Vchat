@@ -30,9 +30,9 @@
         </el-form>
         <el-dialog
                 :visible.sync="showCrop"
-                width="40%"
+                width="600px"
                 :before-close="handleClose">
-            <cropper :url="imageUrl"></cropper>
+            <cropper :url="cropUrl"></cropper>
         </el-dialog>
     </div>
 </template>
@@ -52,6 +52,7 @@
                     phone: ''
                 },
                 showCrop: false,
+                cropUrl: '', // 裁剪地址
                 personRules: {
                 }
             }
@@ -81,17 +82,19 @@
                 return isJPG && isLt2M;
             },
             handleClose(done) {
+                this.cropUrl = '';
                 done();
             },
             setShowCrop() {
                 this.showCrop = true;
+                this.cropUrl = this.imageUrl;
             }
         },
         mounted() {
         }
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .person-means{
         padding: 20px 30px;
         box-sizing: border-box;

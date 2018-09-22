@@ -5,7 +5,7 @@
             <div class="vchat-mine">
                 <div>
                     <a href="javascript:;">
-                        <img :src="IMG_URL + $store.state.user.photo" alt="">
+                        <img :src="avatar" alt="">
                     </a>
                     <ul class="handleList">
                         <li v-for="(v, i) in handleList" :key="i">
@@ -45,7 +45,7 @@
         name: '',
         data() {
             return {
-                IMG_URL: process.env.IMG_URL,
+                avatar: process.env.IMG_URL + this.$store.state.user.photo, // 用户头像
                 nav: [
                     {
                         name: '会话',
@@ -81,6 +81,14 @@
                         link: '/mySetting'
                     }
                 ]
+            }
+        },
+        watch: {
+            '$store.state.user': {
+                handler(user) {
+                    this.avatar = process.env.IMG_URL + user.photo;
+                },
+                deep: true
             }
         },
         sockets: {

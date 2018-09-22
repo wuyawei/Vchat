@@ -176,7 +176,6 @@
                 api.login(params).then(r => {
                     if (r.code === 0) {
                         this.$message.success('登录成功');
-                        this.$store.commit('setUser', r.data);
                         this.$store.dispatch('getUserInfo');
                         this.$router.push('/personalMain');
                     } else if (r.code === -1) {

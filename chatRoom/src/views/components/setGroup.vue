@@ -8,7 +8,7 @@
             <el-form-item label="群头像">
                 <el-upload
                         class="avatar-uploader"
-                        action="/api/uploadInmage"
+                        action="/api/uploadFile"
                         list-type="picture-card"
                         :show-file-list="false"
                         name="f"

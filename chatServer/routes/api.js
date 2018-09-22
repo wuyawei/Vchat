@@ -44,7 +44,7 @@ router.post('/getGroupUsers', api.getGroupUsers); // 查找指定群聊成员
 
 // f  前端文件上传name必须为f
 // router.post('/uploadInmage', upload.single('f'), uploadInmage); // 第一种上传方案所需
-router.post('/uploadInmage', uploads.single('f'), (req, res) => { // 第二种上传方案
+router.post('/uploadFile', uploads.single('f'), (req, res) => { // 第二种上传方案
     res.json({
         code: 0,
         data: '/uploads/' + req.file.filename

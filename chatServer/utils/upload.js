@@ -20,5 +20,4 @@ let upload = multer({
 //    limits:{}
 // });
 
-// 备用js 暂无使用
 module.exports = upload;

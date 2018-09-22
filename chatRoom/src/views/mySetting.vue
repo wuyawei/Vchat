@@ -2,7 +2,7 @@
     <div class="vchat-mySetting">
         <div class="vchat-mySetting-header">
             <router-link to="/personalMain">vchat</router-link>
-            <div class="avtor">
+            <div class="avatar">
                 <a href="javascipt:;">
                     <img :src="IMG_URL + $store.state.user.photo" alt="">
                 </a>
@@ -71,7 +71,7 @@
         }
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .vchat-mySetting{
         width:100%;
     }
@@ -89,14 +89,14 @@
             line-height: 40px;
             color: #fff;
         }
-        .avtor{
+        .avatar{
             display: flex;
             justify-content: flex-start;
             align-items: center;
             a{
                 display: block;
-                width:40px;
-                height: 40px;
+                width:32px;
+                height: 32px;
                 margin-right: 10px;
                 border-radius: 50%;
                 overflow: hidden;

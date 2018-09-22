@@ -3,7 +3,7 @@
  */
 import api from '../api';
 export default {
-    getUserInfo({commit, state}) {
+    getUserInfo({commit, state}) { // 获取用户登录信息
         api.getUserInfo().then(r => {
             if (r.code === 0) {
                 commit('setUser', r.data);
@@ -15,7 +15,7 @@ export default {
             }
         });
     },
-    setTheme({state}) {
+    setTheme({state}) { // 设置主题
         document.body.id = 'theme-' + state.user.projectTheme;
     }
 }

@@ -28,7 +28,7 @@
                     return;
                 }
                 this.setThemeIng = t;
-                api.upTheme({projectTheme: t}).then(r => {
+                api.upUserInfo({projectTheme: t}).then(r => {
                     if (r.code === 0) {
                         this.projectTheme = t;
                         this.setThemeIng = '';

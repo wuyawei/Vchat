@@ -29,10 +29,10 @@ const login = (req, res) => {
     })
 };
 
-const upTheme = (req, res) => { // 修改主题
+const upUserInfo = (req, res) => { // 修改个人信息、主题等
     let params = req.body;
-    params.userName = req.session.login;
-    apiModel.upTheme(params, r => {
+    let userName = req.session.login;
+    apiModel.upUserInfo(userName, params, r => {
         if (r.code === 0) {
             res.json({
                 code : 0,
@@ -148,7 +148,7 @@ const getGroupUsers = (req, res) => { // 查找指定群聊成员
 module.exports = {
     getUser,
     login,
-    upTheme,
+    upUserInfo,
     signUp,
     loginOut,
     getUserInfo,

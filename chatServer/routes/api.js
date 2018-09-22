@@ -13,7 +13,7 @@ const uploads = require('../utils/upload'); // 上传js
 router.get('/getUser', api.getUser); // 获取用户、测试接口
 router.post('/login', api.login); // 登录
 router.post('/signUp', api.signUp); // 注册
-router.post('/upTheme', api.upTheme); // 设置主题
+router.post('/upUserInfo', api.upUserInfo); // 修改个人信息、主题等
 router.post('/loginOut', api.loginOut); // 退出
 router.post('/getUserInfo', api.getUserInfo); // 登录状态获取用户信息
 router.post('/createGroup', api.createGroup); // 新建群

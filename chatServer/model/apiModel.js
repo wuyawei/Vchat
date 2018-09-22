@@ -48,14 +48,8 @@ const login = (params, callback) => { // 登录
     })
 };
 
-const upTheme = (params, callback) => { //修改主题
-    let {bubble, projectTheme, wallpaper, chatTheme} = params;
-    let upParams = {};
-    bubble ? upParams.bubble = bubble : '';
-    projectTheme ? upParams.projectTheme = projectTheme : '';
-    wallpaper ? upParams.wallpaper = wallpaper : '';
-    chatTheme ? upParams.chatTheme = chatTheme : '';
-    users.update({name: params.userName}, upParams).then(raw => {
+const upUserInfo = (userName, params, callback) => { //修改个人信息、主题等
+    users.update({name: userName}, params).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});
         } else {
@@ -174,7 +168,7 @@ const getGroupUsers = (params, callback) => { // 查找指定群聊成员
 module.exports = {
     getUser,
     login,
-    upTheme,
+    upUserInfo,
     signUp,
     getUserInfo,
     createGroup,

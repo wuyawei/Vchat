@@ -24,11 +24,11 @@
                 </el-input>
             </el-form-item>
             <el-form-item label="个性签名" prop="signature">
-                <el-input v-model="personForm.signature" placeholder="签名">
+                <el-input v-model="personForm.signature" placeholder="签名（不超过100位字符）" type="textarea" aotusize resize="none">
                 </el-input>
             </el-form-item>
         </el-form>
-        <span class="Vchat-button">保存</span>
+        <span class="Vchat-button" @click="saveInfo">保存</span>
         <el-dialog
                 :visible.sync="showCrop"
                 width="750px"
@@ -43,19 +43,77 @@
     export default{
         name: 'means',
         data() {
+            let validateNick = (rule, value, callback) => {
+                if (value === '') {
+                    callback();
+                } else {
+                    if (value.length > 12) {
+                        callback(new Error('请输入不超过12位字符'));
+                        return;
+                    }
+                    callback();
+                }
+            };
+            let validatePhone = (rule, value, callback) => {
+                if (value === '') {
+                    callback();
+                } else {
+                    let reg = /^1[3|4|5|7|8]\d{9}$/;
+                    if (!reg.test(value)) {
+                        callback(new Error('请输入正确的手机格式！'));
+                        return;
+                    }
+                    callback();
+                }
+            };
+            let validateEmail = (rule, value, callback) => {
+                if (value === '') {
+                    callback();
+                } else {
+                    let reg =  /^[A-Za-z0-9._%-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$/;
+                    if (!reg.test(value)) {
+                        callback(new Error('请输入正确的邮箱格式！'));
+                        return;
+                    }
+                    callback();
+                }
+            };
+            let validateSignature = (rule, value, callback) => {
+                if (value === '') {
+                    callback();
+                } else {
+                    if (value.length > 100) {
+                        callback(new Error('请输入不超过100位字符'));
+                        return;
+                    }
+                    callback();
+                }
+            };
             return {
                 imageUrl: process.env.IMG_URL + this.$store.state.user.photo, // 显示图片路径
                 avatar: '', // 存储地址
                 personForm: {
                     nickname: '',
                     signature: '',
-                    sex: '1',
+                    sex: '',
                     email: '',
                     phone: ''
                 },
                 showCrop: false,
                 cropUrl: '', // 裁剪地址
                 personRules: {
+                    nickname: [
+                        { validator: validateNick, trigger: 'blur' }
+                    ],
+                    phone: [
+                        { validator: validatePhone, trigger: 'blur' }
+                    ],
+                    email: [
+                        { validator: validateEmail, trigger: 'blur' }
+                    ],
+                    signature: [
+                        { validator: validateSignature, trigger: 'blur' }
+                    ]
                 }
             }
         },
@@ -88,6 +146,14 @@
             setShowCrop() {
                 this.showCrop = true;
                 this.cropUrl = this.imageUrl;
+            },
+            saveInfo() {
+                this.$refs['personForm'].validate((valid) => {
+                    if (valid) {
+                    } else {
+                        return false;
+                    }
+                });
             }
         },
         mounted() {

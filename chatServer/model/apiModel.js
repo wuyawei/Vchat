@@ -12,8 +12,8 @@ let users = db.model("users", { //Schema
     photo: {type: String, default: '/img/picture.png'}, // 默认头像
     signature: { type: String, default: '这个人很懒，暂时没有签名哦！' },
     nickname: { type: String, default: 'vChat-' + Date.now()},
-    email: String,
-    phone: String,
+    email: { type: String, default: '' },
+    phone: { type: String, default: '' },
     sex: { type: String, default: '3' }, // 0 男 1 女 3 保密
     bubble: { type: String, default: 'vchat' }, // 气泡
     chatTheme: { type: String, default: 'vchat' }, // 聊天主题
@@ -64,7 +64,7 @@ const signUp = (params, callback) => { // 注册
             callback({code: 1});
         } else {
             let pass = md5(params.pass);
-            users.create({name: params.name, pass: pass, photo: ''}).then(r => {
+            users.create({name: params.name, pass: pass}).then(r => {
                 if (r['_id']) {
                     callback(r);
                 } else {

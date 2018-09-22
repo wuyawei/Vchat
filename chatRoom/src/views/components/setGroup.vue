@@ -24,11 +24,11 @@
                 </el-input>
             </el-form-item>
             <el-form-item label="群简介" prop="groupDesc">
-                <el-input v-model="groupForm.groupDesc" placeholder="请输入不超过100个字符" type="textarea" aotusize resize="none" :maxlength="100">
+                <el-input v-model="groupForm.groupDesc" placeholder="请输入不超过200个字符" type="textarea" aotusize resize="none" :maxlength="200">
                 </el-input>
             </el-form-item>
         </el-form>
-        <button @click="enter()">确定</button>
+        <button @click="setUp">创建</button>
     </div>
 </template>
 <script>
@@ -52,8 +52,8 @@
                 if (value === '') {
                     callback(new Error('请输入群简介'));
                 } else {
-                    if (value.length > 100) {
-                        callback(new Error('请输入不超过100位'));
+                    if (value.length > 200) {
+                        callback(new Error('请输入不超过200位字符'));
                         return;
                     }
                     callback();
@@ -100,7 +100,7 @@
             toOwn() {
                 this.$emit('toOwn');
             },
-            enter() {
+            setUp() {
                 this.$refs['groupForm'].validate((valid) => {
                     if (valid) {
                         let params = {

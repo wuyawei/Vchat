@@ -92,6 +92,7 @@
                     callback(new Error('请输入验证码'));
                 } else {
                     if (value.toLowerCase() !== this.regcode.toLowerCase()) {
+                        this.regCodeClass.drawAgain();
                         callback(new Error('验证码错误'));
                         return;
                     }
@@ -107,7 +108,8 @@
                 },
                 islogin: true, // 登录 or 注册
                 showSign: false, // 登录框显示
-                regcode: '',
+                regcode: '', // 验证码
+                regCodeClass: null, // 验证码类
                 signRules: {
                     name: [
                         { validator: validateName, trigger: 'blur' }
@@ -126,7 +128,7 @@
         },
         watch: {
             islogin() {
-                this.initRegcode();
+                this.regCodeClass.drawAgain();
             },
             showSign() {
                 if (this.showSign) {
@@ -137,12 +139,12 @@
         methods: {
             initRegcode() {
                 this.$nextTick(() => {
-                    let regcode = new Canvas(this.$refs['regcode'],{
+                    this.regCodeClass = new Canvas(this.$refs['regcode'],{
                         fontSize: 20,
                         lineNum: 2,
                         dotNum: 10
                     });
-                    regcode.draw((r) => {
+                    this.regCodeClass.draw((r) => {
                         this.regcode = r;
                     });
                 })

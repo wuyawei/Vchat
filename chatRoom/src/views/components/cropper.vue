@@ -59,14 +59,14 @@
                 }
             },
             uploadImage() {
-                let bytes = window.atob(this.cropedUrl.split(',')[1]);
-                let ab = new ArrayBuffer(bytes.length);
+                let bytes = window.atob(this.cropedUrl.split(',')[1]); // 这里对base64串进行操作，去掉url头，并转换为byte
+                let ab = new ArrayBuffer(bytes.length); // 处理异常，将ASCII码小于0的转换为大于0，这里有两种写法
                 let ia = new Uint8Array(ab);
                 for(let i = 0; i < bytes.length; i++){
                     ia[i] = bytes.charCodeAt(i);
                 }
-                let blob = new Blob([ab], {type: 'image/png'}); //type为图片的格式
-                let formdata = new FormData(); //TDOD Ajax或者其他方式上传FormData对象
+                let blob = new Blob([ab], {type: 'image/png'}); // type为图片的格式
+                let formdata = new FormData();
                 formdata.append('f', blob, 'f' + Date.now() + '.png');
                 api.uploadFile(formdata).then(r => {
                     if (r.code === 0) {

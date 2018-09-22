@@ -28,11 +28,12 @@
                 </el-input>
             </el-form-item>
         </el-form>
+        <span class="Vchat-button">保存</span>
         <el-dialog
                 :visible.sync="showCrop"
-                width="600px"
+                width="750px"
                 :before-close="handleClose">
-            <cropper :url="cropUrl"></cropper>
+            <cropper :url="cropUrl" @avatar="getAvatar"></cropper>
         </el-dialog>
     </div>
 </template>
@@ -61,6 +62,10 @@
             cropper
         },
         methods: {
+            getAvatar(url) {
+                this.imageUrl = process.env.IMG_URL + url;
+                this.showCrop = false;
+            },
             handleAvatarChange(file) {
                 this.imageUrl = URL.createObjectURL(file.raw);
             },

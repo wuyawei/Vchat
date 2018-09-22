@@ -10,9 +10,13 @@ let storage = multer.diskStorage({
     }
 });
 //添加配置文件到muler对象。
-let upload = multer({
+let uploadFile = multer({
     storage: storage
 });
+
+const upload = {
+    uploadFile
+};
 
 //如需其他设置，请参考multer的limits,使用方法如下。
 //var upload = multer({

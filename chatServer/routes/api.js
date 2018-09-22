@@ -8,7 +8,7 @@ let express = require('express');
 let router = express.Router();
 // let upload = multer({dest: './public/uploads/'}); // os.tmpdir() 跨磁盘有权限问题 第一种上传方案所需
 
-let uploads = require('../utils/upload'); // 第二种上传所需
+const uploads = require('../utils/upload'); // 上传js
 
 router.get('/getUser', api.getUser); // 获取用户、测试接口
 router.post('/login', api.login); // 登录
@@ -44,7 +44,7 @@ router.post('/getGroupUsers', api.getGroupUsers); // 查找指定群聊成员
 
 // f  前端文件上传name必须为f
 // router.post('/uploadInmage', upload.single('f'), uploadInmage); // 第一种上传方案所需
-router.post('/uploadFile', uploads.single('f'), (req, res) => { // 第二种上传方案
+router.post('/uploadFile', uploads.uploadFile.single('f'), (req, res) => { // 第二种上传方案
     res.json({
         code: 0,
         data: '/uploads/' + req.file.filename

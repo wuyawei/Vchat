@@ -19,6 +19,19 @@
   -ms-user-select: none;
   user-select: none;
 }
+.Vchat-button{
+  display: inline-block;
+  padding: 12px 20px;
+  line-height: 1;
+  background-color: #3aa1ca;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+.Vchat-button:hover{
+  opacity: 0.8;
+}
 .vchat-breakAll{ // 强制换行 只对英文起作用，以字母作为换行依据。
   word-break: break-all;
 }

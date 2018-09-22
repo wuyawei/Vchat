@@ -1,7 +1,7 @@
 import fetch from './fetch';
 
 export default {
-    getUser(params) { // 获取用户
+    getUser(params) { // 获取所有用户
         return fetch.get('/getUser', params);
     },
     login(params) { // 登录
@@ -13,11 +13,14 @@ export default {
     loginOut() { // 注册
         return fetch.post('/loginOut');
     },
-    getUserInfo() { //是否登录
+    getUserInfo() { //获取用户信息
         return fetch.post('/getUserInfo');
     },
     upUserInfo(params) { // 设置主题
         return fetch.post('/upUserInfo', params);
+    },
+    getUserDetail() { // 获取个人设置用户信息
+        return fetch.post('/getUserDetail');
     }
 }
 

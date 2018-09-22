@@ -91,7 +91,6 @@
             };
             return {
                 imageUrl: process.env.IMG_URL + this.$store.state.user.photo, // 显示图片路径
-                avatar: '', // 存储地址
                 personForm: {
                     nickname: '',
                     signature: '',
@@ -127,13 +126,13 @@
                 api.upUserInfo({photo: url}).then(r => {
                     if (r.code === 0) {
                         this.$message({
-                            message: '保存成功',
+                            message: '保存头像成功',
                             type: 'success'
                         });
                         this.$store.commit('setUser', {photo: url});
                     } else {
                         this.$message({
-                            message: '保存失败',
+                            message: '保存头像失败',
                             type: 'success'
                         })
                     }
@@ -143,20 +142,41 @@
                 this.cropUrl = '';
                 done();
             },
-            setShowCrop() {
+            setShowCrop() { // 点击上传图像
                 this.showCrop = true;
                 this.cropUrl = this.imageUrl;
             },
-            saveInfo() {
+            saveInfo() { // 保存修改
                 this.$refs['personForm'].validate((valid) => {
                     if (valid) {
+                        api.upUserInfo(this.personForm).then(r => {
+                            if (r.code === 0) {
+                                this.$message({
+                                    message: '保存成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                this.$message({
+                                    message: '保存失败',
+                                    type: 'success'
+                                })
+                            }
+                        });
                     } else {
                         return false;
+                    }
+                });
+            },
+            getUserDetail() {  // 获取个人设置用户信息
+                api.getUserDetail().then(r => {
+                    if (r.code === 0) {
+                        this.personForm = Object.assign(this.personForm, r.data);
                     }
                 });
             }
         },
         mounted() {
+            this.getUserDetail();
         }
     }
 </script>

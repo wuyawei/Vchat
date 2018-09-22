@@ -89,7 +89,7 @@ const getUserInfo = (userName, callback) => { // 获取登录用户信息
 const getUserDetail = (userName, callback) => { // 获取登录用户详细信息
     users.find({name: userName}).then(r => {
         if (r.length) {
-            callback({code: 0, data: {name: r[0].name, nickname: r[0].nickname, signature: r[0].signature, sex: r[0].sex, phone: r[0].phone, email: r[0].email}});
+            callback({code: 0, data: { nickname: r[0].nickname, signature: r[0].signature, sex: r[0].sex, phone: r[0].phone, email: r[0].email }});
         } else {
             callback({code: -1});
         }

@@ -93,6 +93,22 @@ const getUserInfo = (req, res) => {
     })
 };
 
+const getUserDetail =  (req, res) => {
+    apiModel.getUserDetail(req.session.login, (r) => { // 获取登录用户详细信息
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : ''
+            })
+        }
+    })
+};
+
 const createGroup = (req, res) => { // 新建群
     let params = req.body;
     params.userName = req.session.login;
@@ -152,6 +168,7 @@ module.exports = {
     signUp,
     loginOut,
     getUserInfo,
+    getUserDetail,
     createGroup,
     getMyGroup,
     getGroupUsers

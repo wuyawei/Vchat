@@ -15,16 +15,16 @@
                 <el-input v-model="personForm.nickname" placeholder="名称">
                 </el-input>
             </el-form-item>
-            <el-form-item label="个性签名" prop="signature">
-                <el-input v-model="personForm.signature" placeholder="签名">
-                </el-input>
-            </el-form-item>
             <el-form-item label="手机" prop="phone">
                 <el-input v-model="personForm.phone" placeholder="手机">
                 </el-input>
             </el-form-item>
             <el-form-item label="电子邮箱" prop="email">
                 <el-input v-model="personForm.email" placeholder="电子邮箱">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="个性签名" prop="signature">
+                <el-input v-model="personForm.signature" placeholder="签名">
                 </el-input>
             </el-form-item>
         </el-form>
@@ -73,7 +73,6 @@
                             type: 'success'
                         });
                         this.$store.commit('setUser', {photo: url});
-                        console.log('$store.state.user.photo', this.$store.state.user.photo);
                     } else {
                         this.$message({
                             message: '保存失败',

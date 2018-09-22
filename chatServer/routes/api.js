@@ -16,6 +16,7 @@ router.post('/signUp', api.signUp); // 注册
 router.post('/upUserInfo', api.upUserInfo); // 修改个人信息、主题等
 router.post('/loginOut', api.loginOut); // 退出
 router.post('/getUserInfo', api.getUserInfo); // 登录状态获取用户信息
+router.post('/getUserDetail', api.getUserDetail); // 登录状态获取用户详细信息
 router.post('/createGroup', api.createGroup); // 新建群
 router.post('/getMyGroup', api.getMyGroup); // 查找我的群聊
 router.post('/getGroupUsers', api.getGroupUsers); // 查找指定群聊成员

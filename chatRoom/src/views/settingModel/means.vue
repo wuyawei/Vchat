@@ -38,6 +38,7 @@
     </div>
 </template>
 <script>
+    import api from '@/api';
     import cropper from '../components/cropper';
     export default{
         name: 'means',
@@ -65,6 +66,21 @@
             getAvatar(url) {
                 this.imageUrl = process.env.IMG_URL + url;
                 this.showCrop = false;
+                api.upUserInfo({photo: url}).then(r => {
+                    if (r.code === 0) {
+                        this.$message({
+                            message: '保存成功',
+                            type: 'success'
+                        });
+                        this.$store.commit('setUser', {photo: url});
+                        console.log('$store.state.user.photo', this.$store.state.user.photo);
+                    } else {
+                        this.$message({
+                            message: '保存失败',
+                            type: 'success'
+                        })
+                    }
+                });
             },
             handleAvatarChange(file) {
                 this.imageUrl = URL.createObjectURL(file.raw);

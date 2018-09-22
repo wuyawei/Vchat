@@ -45,7 +45,6 @@
         name: '',
         data() {
             return {
-                avatar: process.env.IMG_URL + this.$store.state.user.photo, // 用户头像
                 nav: [
                     {
                         name: '会话',
@@ -83,12 +82,9 @@
                 ]
             }
         },
-        watch: {
-            '$store.state.user': {
-                handler(user) {
-                    this.avatar = process.env.IMG_URL + user.photo;
-                },
-                deep: true
+        computed: {
+            avatar() {
+                return process.env.IMG_URL + this.$store.state.user.photo; // 用户头像avatar:
             }
         },
         sockets: {

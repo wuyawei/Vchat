@@ -7,7 +7,7 @@
 <script>
     export default {
         name: 'App',
-        mounted() {
+        created() {
             this.$store.dispatch('getUserInfo');
         }
     }

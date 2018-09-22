@@ -7,7 +7,7 @@ export default {
             state.user = {};
             return;
         }
-        state.user = Object.assign(state.user, data);
+        state.user = Object.assign({}, state.user, data);
     },
     setIslogin(state, data) {
         state.isLogin = data;

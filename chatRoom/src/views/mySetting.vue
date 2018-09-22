@@ -4,7 +4,7 @@
             <router-link to="/personalMain">vchat</router-link>
             <div class="avatar">
                 <a href="javascipt:;">
-                    <img :src="IMG_URL + $store.state.user.photo" alt="">
+                    <img :src="avatar" alt="">
                 </a>
                 <span @click="loginOut" class="logout">[退出]</span>
             </div>
@@ -30,7 +30,6 @@
         name: 'mySetting',
         data() {
             return {
-                IMG_URL: process.env.IMG_URL,
                 setingList: [
                     {
                         name: '个人资料',
@@ -55,6 +54,11 @@
                 ]
             }
         },
+        computed: {
+            avatar() {
+                return process.env.IMG_URL + this.$store.state.user.photo; // 用户头像avatar:
+            }
+        },
         methods: {
             loginOut() {
                 api.loginOut().then(r => {
@@ -67,7 +71,6 @@
             }
         },
         mounted() {
-
         }
     }
 </script>

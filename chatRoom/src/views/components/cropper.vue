@@ -70,14 +70,10 @@
                 formdata.append('f', blob, 'f' + Date.now() + '.png');
                 api.uploadFile(formdata).then(r => {
                     if (r.code === 0) {
-                        this.$message({
-                            message: '上传成功',
-                            type: 'success'
-                        });
                         this.$emit('avatar', r.data);
                     } else {
                         this.$message({
-                            message: '上传失败',
+                            message: '保存失败',
                             type: 'success'
                         })
                     }

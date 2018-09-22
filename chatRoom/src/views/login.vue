@@ -22,18 +22,19 @@
                     </el-input>
                 </el-form-item>
 
-                <el-form-item prop="regcode" class="regcode-box" v-if="islogin">
+                <el-form-item prop="repass" v-if="!islogin">
+                    <el-input v-model="signForm.repass" placeholder="确认密码" type="password" @keyup.enter.native="enter(islogin)">
+                        <i class="iconfont icon-mima2" slot="prepend"></i>
+                    </el-input>
+                </el-form-item>
+
+                <el-form-item prop="regcode" class="regcode-box">
                     <el-input v-model="signForm.regcode" placeholder="验证码" @keyup.enter.native="enter(islogin)">
                         <i class="iconfont icon-mima3" slot="prepend"></i>
                     </el-input>
                     <canvas ref="regcode" width="90" height="38"></canvas>
                 </el-form-item>
 
-                <el-form-item prop="repass" v-if="!islogin">
-                    <el-input v-model="signForm.repass" placeholder="确认密码" type="password" @keyup.enter.native="enter(islogin)">
-                        <i class="iconfont icon-mima2" slot="prepend"></i>
-                    </el-input>
-                </el-form-item>
             </el-form>
             <button @click="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
             <div class="login-foot" v-if="islogin">
@@ -125,9 +126,7 @@
         },
         watch: {
             islogin() {
-                if (this.islogin) {
-                    this.initRegcode();
-                }
+                this.initRegcode();
             },
             showSign() {
                 if (this.showSign) {
@@ -263,8 +262,8 @@
     }
     .sign{
         width: 350px;
-        height: 370px;
-        padding: 15px 25px 0;
+        // height: 370px;
+        padding: 15px 25px 25px;
         background-color: #fff;
         border-radius: 10px;
         box-sizing: border-box;

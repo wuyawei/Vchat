@@ -63,7 +63,7 @@
             cropper
         },
         methods: {
-            getAvatar(url) {
+            getAvatar(url) { // 裁剪后的图像路径
                 this.imageUrl = process.env.IMG_URL + url;
                 this.showCrop = false;
                 api.upUserInfo({photo: url}).then(r => {
@@ -80,26 +80,6 @@
                         })
                     }
                 });
-            },
-            handleAvatarChange(file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
-            },
-            handleAvatarSuccess(res, file) {
-                if (res.code === 0) {
-                    this.avatar = res.data;
-                }
-            },
-            beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                if (!isJPG) {
-                    this.$message.error('上传头像图片只能是 JPG 格式!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isJPG && isLt2M;
             },
             handleClose(done) {
                 this.cropUrl = '';

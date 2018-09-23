@@ -1,7 +1,7 @@
 <template>
     <div class="vChat-comm-list">
         <p class="back">
-            <i class="iconfont icon-fanhui" @click="toOwn"></i>
+            <v-icon name="fanhui" cursor="pointer"></v-icon>
             <span>新建群聊</span>
         </p>
         <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">

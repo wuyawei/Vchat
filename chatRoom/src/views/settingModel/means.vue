@@ -155,6 +155,7 @@
                                     message: '保存成功',
                                     type: 'success'
                                 });
+                                this.$store.commit('setUser', {nickname: this.personForm.nickname, signature: this.personForm.signature});
                             } else {
                                 this.$message({
                                     message: '保存失败',

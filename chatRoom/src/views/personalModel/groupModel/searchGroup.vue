@@ -1,7 +1,7 @@
 <template>
     <div class="vChat-comm-list">
         <p class="back">
-            <i class="iconfont icon-fanhui" @click="toOwn"></i>
+            <v-icon name="fanhui" cursor="pointer"></v-icon>
             <span>查找群聊</span>
         </p>
         <div class="vChat-list-search" :class="{active: is_focus}">

@@ -17,8 +17,8 @@
                     </ul>
                 </div>
                 <div>
-                    <p>吴所谓呀 <span @click="loginOut" class="logout">[退出]</span></p>
-                    <p class="online">在线</p>
+                    <p>{{user.nickname}} <span @click="loginOut" class="logout">[退出]</span></p>
+                    <p class="vchat-line2" :title="user.signature">{{user.signature ? '个性签名：' + user.signature : '这个人很懒，暂时没有签名哦！'}}</p>
                 </div>
             </div>
         </div>
@@ -85,6 +85,9 @@
         computed: {
             avatar() {
                 return process.env.IMG_URL + this.$store.state.user.photo; // 用户头像avatar:
+            },
+            user() {
+                return this.$store.state.user;
             }
         },
         sockets: {
@@ -204,7 +207,8 @@
                         }
                     }
                     p:nth-of-type(2) {
-                        font-size: 14px;
+                        font-size: 12px;
+                        max-width: 200px;
                     }
                 }
             }

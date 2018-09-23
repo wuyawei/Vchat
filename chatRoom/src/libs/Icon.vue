@@ -1,5 +1,5 @@
 <template>
-    <i :class="['iconfont', className]" :style="{fontSize: size + 'px', color: color, cursor: cursor}"></i>
+    <i :class="['iconfont', className]" :style="{fontSize: size + 'px', color: color, cursor: cursor}" @click="clickIcon"></i>
 </template>
 <script>
     export default{
@@ -29,6 +29,11 @@
         },
         data() {
             return {};
+        },
+        methods: {
+            clickIcon() {
+                this.$emit('clickIcon')
+            }
         }
     }
 </script>

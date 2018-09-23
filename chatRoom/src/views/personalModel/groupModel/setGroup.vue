@@ -1,7 +1,9 @@
 <template>
     <div class="vChat-comm-list">
         <p class="back">
-            <v-icon name="fanhui" cursor="pointer"></v-icon>
+            <router-link to="/personalMain/group/ownGroup">
+                <v-icon name="fanhui" cursor="pointer"></v-icon>
+            </router-link>
             <span>新建群聊</span>
         </p>
         <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
@@ -97,9 +99,6 @@
                 }
                 return isJPG && isLt2M;
             },
-            toOwn() {
-                this.$emit('toOwn');
-            },
             setUp() {
                 this.$refs['groupForm'].validate((valid) => {
                     if (valid) {
@@ -111,7 +110,6 @@
                         api.createGroup(params).then(r => {
                             if (r.code === 0) {
                                 this.$message.success('新建成功');
-                                this.$emit('toOwn', 'setOk');
                             }
                         });
                     } else {

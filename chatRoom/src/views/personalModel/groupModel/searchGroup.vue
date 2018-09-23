@@ -1,7 +1,9 @@
 <template>
     <div class="vChat-comm-list">
         <p class="back">
-            <v-icon name="fanhui" cursor="pointer"></v-icon>
+            <router-link to="/personalMain/group/ownGroup">
+                <v-icon name="fanhui" cursor="pointer"></v-icon>
+            </router-link>
             <span>查找群聊</span>
         </p>
         <div class="vChat-list-search" :class="{active: is_focus}">
@@ -28,7 +30,7 @@
             </li>
         </ul>
         <p class="Vchat-no-have">
-            没有找到想要的，<span @click="newSet"> 新建 </span>一个吧！
+            没有找到想要的，<router-link to="/personalMain/group/setGroup">新建</router-link> 一个吧！
         </p>
     </div>
 </template>
@@ -47,12 +49,6 @@
             },
             blur() {
                 this.is_focus = false;
-            },
-            toOwn() {
-                this.$emit('toOwn');
-            },
-            newSet() {
-                this.$emit('newSet')
             }
         }
     }

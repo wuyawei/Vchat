@@ -2,11 +2,11 @@
     <div class="vChat-comm-list ownGroup">
         <h3>
             <v-icon name="qunzu" :size="26" color="#27cac7"></v-icon>我的群聊
-            <el-dropdown trigger="click" >
+            <el-dropdown trigger="click" @command="handleCommand">
                 <v-icon cursor="pointer" :size="24"></v-icon>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>新建群聊</el-dropdown-item>
-                    <el-dropdown-item>查找群聊</el-dropdown-item>
+                    <el-dropdown-item command="/personalMain/group/setGroup">新建群聊</el-dropdown-item>
+                    <el-dropdown-item command="/personalMain/group/search">查找群聊</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </h3>
@@ -30,7 +30,7 @@
         </ul>
         <v-nodata v-else>
             <p class="Vchat-no-have">
-                还没有加入群聊哦，去 <span @click="toMore">查找</span>， 去<span @click="newSet">新建</span>。
+                还没有加入群聊哦，去 <router-link to="/personalMain/group/search">查找</router-link>， 去 <router-link to="/personalMain/group/setGroup">新建</router-link>。
             </p>
         </v-nodata>
     </div>
@@ -40,7 +40,6 @@
     import api from '@/api';
     export default{
         name: 'ownGroup',
-        props: ['setOk'],
         data() {
             return {
                 is_focus: false,
@@ -49,16 +48,14 @@
             }
         },
         watch: {
-            setOk(f) {
-                if (f) {
-                    this.getMyGroup();
-                }
-            },
             currGroup(i) {
                 this.$emit('currGroup', i);
             }
         },
         methods: {
+            handleCommand(command) {
+                this.$router.push(command);
+            },
             setCurrGroup(id) {
                 this.currGroup = id;
             },
@@ -69,12 +66,6 @@
                         this.currGroup = this.Groups[0] ? this.Groups[0].groupId._id : '';
                     }
                 });
-            },
-            toMore() {
-                this.$emit('tomore')
-            },
-            newSet() {
-                this.$emit('newSet')
             }
         },
         mounted() {

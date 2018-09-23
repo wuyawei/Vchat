@@ -25,7 +25,7 @@
         <div class="vchat-content">
             <div class="vchat-content-nav">
                 <ul>
-                    <li v-for="v in nav" :key="v.id" :class="{active: $route.path === v.link}">
+                    <li v-for="v in nav" :key="v.id" :class="{active: $route.path.indexOf(v.link) > -1}">
                         <router-link :to="{path: v.link}">
                             <i class="iconfont" :class="[$route.path !== v.link ? v.class : v.activeClass]"></i>
                             <p>{{v.name}}</p>

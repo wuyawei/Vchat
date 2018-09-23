@@ -11,11 +11,6 @@ export default new Router({
             component: _import('login')
         },
         {
-            path: '/chat',
-            name: 'chat',
-            component: _import('chat')
-        },
-        {
             path: '/personalMain',
             name: 'personalMain',
             component: _import('personalMain'),
@@ -24,7 +19,25 @@ export default new Router({
                 {
                     path: 'group',
                     name: 'group',
-                    component: _import('personalModel/group')
+                    component: _import('personalModel/group'),
+                    redirect: 'group/ownGroup',
+                    children: [
+                        {
+                            path: 'setGroup',
+                            name: 'setGroup',
+                            component: _import('personalModel/groupModel/setGroup')
+                        },
+                        {
+                            path: 'ownGroup',
+                            name: 'ownGroup',
+                            component: _import('personalModel/groupModel/ownGroup')
+                        },
+                        {
+                            path: 'search',
+                            name: 'searchGroup',
+                            component: _import('personalModel/groupModel/searchGroup')
+                        }
+                    ]
                 },
                 {
                     path: 'conversation',

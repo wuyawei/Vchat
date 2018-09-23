@@ -1,5 +1,5 @@
 <template>
-    <i :class="['iconfont', className]" :style="{fontSize: size + 'px', color: color, cursor: cursor}" @click="clickIcon"></i>
+    <i :class="['iconfont', 'vchat-noUser', className]" :style="{fontSize: size + 'px', color: color, cursor: cursor}" @click="clickIcon"></i>
 </template>
 <script>
     export default{
@@ -15,7 +15,7 @@
             },
             color: {
                 type: String,
-                default: '#323232'
+                default: '#5b5b5b'
             },
             cursor: {
                 type: String,

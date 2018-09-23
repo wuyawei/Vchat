@@ -3,7 +3,7 @@
         <h3>
             <v-icon name="qunzu" :size="26" color="#27cac7"></v-icon>我的群聊
             <el-dropdown trigger="click" @command="handleCommand">
-                <v-icon cursor="pointer" :size="24"></v-icon>
+                <v-icon cursor="pointer" name="hanbaobao"></v-icon>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="/personalMain/group/setGroup">新建群聊</el-dropdown-item>
                     <el-dropdown-item command="/personalMain/group/search">查找群聊</el-dropdown-item>

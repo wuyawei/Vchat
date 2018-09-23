@@ -4,7 +4,7 @@
             <i class="icon-qunzu iconfont"></i>我的群聊
             <span class="iconfont icon-jia2" @click="newSet"></span>
         </h3>
-        <ul class="group-list">
+        <ul class="group-list" v-if="Groups.length">
             <li v-for="v in Groups" :key="v._id" :class="{active: currGroup === v.groupId._id}" @click="setCurrGroup(v.groupId._id)">
                 <a href="javascript:;">
                     <img :src="'http://localhost:9988' + v.groupId.img" alt="">
@@ -22,14 +22,16 @@
                 </div>
             </li>
         </ul>
-        <p class="more" @click="toMore">
-            查找群聊 <i class="icon-enter iconfont"></i>
-        </p>
+        <vchat-nodata v-else>
+            <p class="Vchat-no-have">
+                还没有加入群聊哦，去 <span @click="toMore">查找</span>， 去<span @click="newSet">新建</span>。
+            </p>
+        </vchat-nodata>
     </div>
 </template>
 
 <script>
-    import api from '../../api';
+    import api from '@/api';
     export default{
         name: 'ownGroup',
         props: ['setOk'],
@@ -103,21 +105,6 @@
             span:hover{
                 color: #1fbeca;
             }
-        }
-        .more{
-            font-size: 14px;
-            text-align: right;
-            padding: 5px 15px;
-            box-sizing: border-box;
-            line-height: 18px;
-            cursor: pointer;
-            i{
-                font-size: 18px;
-                vertical-align: text-bottom;
-            }
-        }
-        .more:hover{
-            color: #1fbeca;
         }
         .group-list{
             width:100%;

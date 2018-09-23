@@ -1,60 +1,82 @@
-.vchat-line1{ // 单行文字超出省略号
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
+.vchat-line1 { // 单行文字超出省略号
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.vchat-line2{ // 2行文字超出省略号
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  /* autoprefixer: off */
-  -webkit-box-orient: vertical; // 参考 https://github.com/postcss/autoprefixer/issues/776
-  /* autoprefixer: on */
+
+.vchat-line2 { // 2行文字超出省略号
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical; // 参考 https://github.com/postcss/autoprefixer/issues/776
+    /* autoprefixer: on */
 }
-.vchat-noUser{ // 禁止用户选中
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+
+.vchat-noUser { // 禁止用户选中
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-.Vchat-button{
-  display: inline-block;
-  padding: 12px 20px;
-  line-height: 1;
-  background-color: #3aa1ca;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
+
+.Vchat-button { // 按钮样式
+    display: inline-block;
+    padding: 12px 20px;
+    line-height: 1;
+    background-color: #3aa1ca;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
 }
-.Vchat-button:hover{
-  opacity: 0.8;
+
+.Vchat-no-have {
+    font-size: 12px;
+    text-align: left;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    span {
+        color: #27cac7;
+        cursor: pointer;
+    }
 }
-.vchat-breakAll{ // 强制换行 只对英文起作用，以字母作为换行依据。
-  word-break: break-all;
+
+.Vchat-button:hover {
+    opacity: 0.8;
 }
-.vchat-breakWord{ // 强制换行 只对英文起作用，以单词作为换行依据。
-  word-wrap: break-word
+
+.vchat-breakAll { // 强制换行 只对英文起作用，以字母作为换行依据。
+    word-break: break-all;
 }
-.vchat-preWord{ // 强制换行 只对中文起作用，强制换行。
-  white-space: pre-wrap;
+
+.vchat-breakWord { // 强制换行 只对英文起作用，以单词作为换行依据。
+    word-wrap: break-word
 }
-.vchat-noWarp{ // 禁止换行
-  white-space:nowrap;
+
+.vchat-preWord { // 强制换行 只对中文起作用，强制换行。
+    white-space: pre-wrap;
 }
-.vchat-flexCenter{ // 居中
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.vchat-noWarp { // 禁止换行
+    white-space: nowrap;
 }
-.vchat-flexBetween{ // 两端
-  display: flex;
-  justify-content: space-between;
+
+.vchat-flexCenter { // 居中
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.vchat-flexAround{ // 均分
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+
+.vchat-flexBetween { // 两端
+    display: flex;
+    justify-content: space-between;
+}
+
+.vchat-flexAround { // 均分
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

@@ -29,9 +29,9 @@
 </template>
 
 <script>
-    import ownGroup from '../components/ownGroup.vue';
-    import searchGroup from '../components/searchGroup.vue';
-    import setGroup from '../components/setGroup.vue';
+    import ownGroup from './groupModel/ownGroup.vue';
+    import searchGroup from './groupModel/searchGroup.vue';
+    import setGroup from './groupModel/setGroup.vue';
     import chat from '../components/chat.vue';
     export default{
         data() {

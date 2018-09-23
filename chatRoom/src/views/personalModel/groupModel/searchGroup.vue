@@ -11,7 +11,7 @@
         <ul class="search-group-list">
             <li v-for="v in 5" :key="v">
                 <a href="javascript:;">
-                    <img src="../../assets/img/1.jpg" alt="">
+                    <img src="../../../assets/img/1.jpg" alt="">
                 </a>
                 <div>
                     <p>
@@ -27,7 +27,7 @@
                 </div>
             </li>
         </ul>
-        <p class="new-build">
+        <p class="Vchat-no-have">
             没有找到想要的，<span @click="newSet"> 新建 </span>一个吧！
         </p>
     </div>
@@ -120,16 +120,6 @@
         }
         .vChat-list-search.active{
             width:100%;
-        }
-        .new-build{
-            font-size: 12px;
-            text-align: left;
-            padding: 5px 15px;
-            box-sizing: border-box;
-            span{
-                color: #27cac7;
-                cursor: pointer;
-            }
         }
         .search-group-list{
             width:100%;

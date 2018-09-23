@@ -28,10 +28,10 @@
                 </el-input>
             </el-form-item>
         </el-form>
-        <span class="Vchat-button" @click="saveInfo">保存</span>
+        <el-button type="primary" @click="saveInfo">保存</el-button>
         <el-dialog
                 :visible.sync="showCrop"
-                width="750px"
+                width="700px"
                 :before-close="handleClose">
             <cropper :url="cropUrl" @avatar="getAvatar"></cropper>
         </el-dialog>

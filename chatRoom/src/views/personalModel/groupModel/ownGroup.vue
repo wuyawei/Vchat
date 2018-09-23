@@ -1,8 +1,14 @@
 <template>
-    <div class="vChat-comm-list">
+    <div class="vChat-comm-list ownGroup">
         <h3>
-            <i class="icon-qunzu iconfont"></i>我的群聊
-            <span class="iconfont icon-jia2" @click="newSet"></span>
+            <v-icon name="qunzu" :size="26" color="#27cac7"></v-icon>我的群聊
+            <el-dropdown trigger="click" >
+                <v-icon cursor="pointer" :size="24"></v-icon>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>新建群聊</el-dropdown-item>
+                    <el-dropdown-item>查找群聊</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
         </h3>
         <ul class="group-list" v-if="Groups.length">
             <li v-for="v in Groups" :key="v._id" :class="{active: currGroup === v.groupId._id}" @click="setCurrGroup(v.groupId._id)">
@@ -22,11 +28,11 @@
                 </div>
             </li>
         </ul>
-        <vchat-nodata v-else>
+        <v-nodata v-else>
             <p class="Vchat-no-have">
                 还没有加入群聊哦，去 <span @click="toMore">查找</span>， 去<span @click="newSet">新建</span>。
             </p>
-        </vchat-nodata>
+        </v-nodata>
     </div>
 </template>
 
@@ -92,18 +98,6 @@
             i{
                 font-size: 26px;
                 margin-right: 5px;
-                vertical-align: middle;
-            }
-            span{
-                position: absolute;
-                font-size: 28px;
-                right:10px;
-                top:5px;
-                color: #323232;
-                cursor: pointer;
-            }
-            span:hover{
-                color: #1fbeca;
             }
         }
         .group-list{

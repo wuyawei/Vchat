@@ -21,6 +21,7 @@
                         @toOwn="toOwn"
                 ></setGroup>
             </transition>
+            <router-view></router-view>
         </div>
         <div class="vChat-group-chat">
             <chat :currGroup="currGroup"></chat>

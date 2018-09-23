@@ -1,4 +1,7 @@
-@import 'element-ui/lib/theme-chalk/index.css';
+// 修改element-ui主题色及样式
+$--color-primary: #27cac7;
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import "~element-ui/packages/theme-chalk/src/index";
 
 .personForm { // 个人资料页
     width: 600px;
@@ -29,5 +32,13 @@
         align-items: center;
         height: 40px;
         margin-left: 150px !important;
+    }
+}
+
+.ownGroup{
+    .el-dropdown{
+        position: absolute;
+        right: 0;
+        top:10px;
     }
 }

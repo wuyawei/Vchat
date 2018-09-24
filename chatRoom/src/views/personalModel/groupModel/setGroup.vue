@@ -1,5 +1,5 @@
 <template>
-    <div class="vChat-comm-list">
+    <div class="vChat-setGroup">
         <p class="back">
             <router-link to="/personalMain/group/ownGroup">
                 <v-icon name="fanhui" cursor="pointer"></v-icon>
@@ -8,18 +8,10 @@
         </p>
         <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
             <el-form-item label="群头像">
-                <el-upload
-                        class="avatar-uploader"
-                        action="/api/uploadFile"
-                        list-type="picture-card"
-                        :show-file-list="false"
-                        name="f"
-                        :on-change="handleAvatarChange"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i class="el-icon-plus"></i>
-                </el-upload>
+                <div class="avatar-container" @click="setShowCrop">
+                    <img v-if="groupImage" :src="groupImage" class="avatar">
+                    <i class="el-icon-plus" v-else></i>
+                </div>
             </el-form-item>
             <el-form-item label="群名称" prop="groupName">
                 <el-input v-model="groupForm.groupName" placeholder="名称">
@@ -30,11 +22,19 @@
                 </el-input>
             </el-form-item>
         </el-form>
-        <button @click="setUp">创建</button>
+        <button @click="setUp" class="Vchat-full-button">创建</button>
+        <el-dialog
+                :visible.sync="showCrop"
+                width="700px"
+                :before-close="handleClose">
+            <cropper :url="cropUrl" @avatar="getAvatar"></cropper>
+        </el-dialog>
     </div>
 </template>
 <script>
     import api from '@/api';
+    import cropper from '@/views/components/cropper';
+    import pic from '../../../assets/img/timg.jpg';
     export  default {
         name: 'setGroup',
         data() {
@@ -62,12 +62,11 @@
                 }
             };
             return {
-                imageUrl: '', // 显示图片路径
                 groupForm: {
                     groupName: '',
                     groupDesc: ''
                 },
-                groupImage: '',
+                groupImage: pic, // 显示图片路径
                 groupRules: {
                     groupName: [
                         { validator: validateName, trigger: 'blur' }
@@ -75,29 +74,25 @@
                     groupDesc: [
                         { validator: validateDesc, trigger: 'blur' }
                     ]
-                }
+                },
+                showCrop: false, // 裁剪框开关
+                cropUrl: '' // 裁剪图片地址
             }
         },
+        components: {
+            cropper
+        },
         methods: {
-            handleAvatarChange(file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
+            setShowCrop() { // 打开裁剪框
+                this.showCrop = true;
+                this.cropUrl = this.groupImage;
             },
-            handleAvatarSuccess(res, file) {
-                if (res.code === 0) {
-                    this.groupImage = res.data;
-                }
+            handleClose(done) { // 关闭裁剪框清空地址
+                this.cropUrl = '';
+                done();
             },
-            beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                if (!isJPG) {
-                    this.$message.error('上传头像图片只能是 JPG 格式!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isJPG && isLt2M;
+            getAvatar(url) { // 裁剪后的地址
+                this.groupImage = process.env.IMG_URL + url;
             },
             setUp() {
                 this.$refs['groupForm'].validate((valid) => {
@@ -120,8 +115,8 @@
         }
     }
 </script>
-<style lang="scss">
-    .vChat-comm-list {
+<style lang="scss" scoped>
+    .vChat-setGroup {
         width: 100%;
         height: 100%;
         padding: 0 15px;
@@ -149,30 +144,25 @@
                 color: #1fbeca;
             }
         }
-        button{
-            width:100%;
-            background-color: #1fbeca;
-            border: none;
-            outline: none;
-            height: 36px;
+        .avatar-container{
+            width:150px;
+            height: 150px;
+            overflow: hidden;
+            background-color: #dfdfdf;
+            border-radius: 4px;
+            border:1px solid #d5d5d5;
+            text-align: center;
+            line-height: 150px;
             color: #fff;
-            border-radius: 25px;
+            font-size: 24px;
             cursor: pointer;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        button:hover{
-            background-color: rgba(19, 164, 192, 0.61);
-            color: #fff;
-        }
-        .avatar-uploader{
-            .el-upload--picture-card{
-                overflow: hidden;
+            .avatar {
+                width: 100%;
+                display: block;
             }
         }
-        .avatar {
-            width: 100%;
-            display: block;
+        .avatar-container:hover{
+            color: #1fbeca;
         }
     }
 </style>

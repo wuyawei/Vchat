@@ -34,8 +34,10 @@
         },
         watch: {
             url(url) {
-                this.$refs['cropFile'].value = '';
-                this.cropper.replace(url);
+                if (this.cropper) {
+                    this.$refs['cropFile'].value = '';
+                    this.cropper.replace(url);
+                }
             }
         },
         methods: {
@@ -102,6 +104,7 @@
             .Vchat-crop-left{
                 width:400px;
                 height: 400px;
+                border: 1px solid #d5d5d5;
                 overflow: hidden;
             }
             .Vchat-crop-right{

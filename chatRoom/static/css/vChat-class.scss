@@ -32,7 +32,22 @@
     cursor: pointer;
     font-size: 14px;
 }
-
+.Vchat-full-button{
+    width:100%;
+    background-color: #3aa1ca;
+    border: none;
+    outline: none;
+    height: 36px;
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.Vchat-full-button:hover{
+    background-color: #43B6DF;
+    color: #fff;
+}
 .Vchat-no-have { // 没有想要的样式
     font-size: 12px;
     text-align: left;

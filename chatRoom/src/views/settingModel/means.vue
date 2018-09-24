@@ -98,8 +98,8 @@
                     email: '',
                     phone: ''
                 },
-                showCrop: false,
-                cropUrl: '', // 裁剪地址
+                showCrop: false, // 裁剪框开关
+                cropUrl: '', // 裁剪图片地址
                 personRules: {
                     nickname: [
                         { validator: validateNick, trigger: 'blur' }
@@ -138,7 +138,7 @@
                     }
                 });
             },
-            handleClose(done) {
+            handleClose(done) {  // 关闭裁剪框清空地址
                 this.cropUrl = '';
                 done();
             },

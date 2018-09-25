@@ -22,7 +22,7 @@
                         </el-badge>
                     </p>
                     <p>
-                        <span>{{v.groupId.desc}}</span>
+                        <span :title="v.groupId.desc">{{v.groupId.desc}}</span>
                         <span>3分钟</span>
                     </p>
                 </div>

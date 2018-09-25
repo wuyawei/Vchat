@@ -9,7 +9,7 @@
         <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
             <el-form-item label="群头像">
                 <div class="avatar-container" @click="setShowCrop">
-                    <img v-if="groupImage" :src="groupImage" class="avatar">
+                    <img v-if="groupImage" :src="InmageUrl + groupImage" class="avatar">
                     <i class="el-icon-plus" v-else></i>
                 </div>
             </el-form-item>
@@ -34,7 +34,6 @@
 <script>
     import api from '@/api';
     import cropper from '@/views/components/cropper';
-    import pic from '../../../assets/img/timg.jpg';
     export  default {
         name: 'setGroup',
         data() {
@@ -42,7 +41,7 @@
                 if (value === '') {
                     callback(new Error('请输入群名称'));
                 } else {
-                    let reg = /^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,10}$/;
+                    let reg = /^[\u4e00-\u9fa5_a-zA-Z0-9!！￥@#$,，.。？?、/;:：；|~·]{2,10}$/;
                     if (!reg.test(value)) {
                         callback(new Error('请输入2~10位中文、数字、字母、下划线'));
                         return;
@@ -66,7 +65,8 @@
                     groupName: '',
                     groupDesc: ''
                 },
-                groupImage: pic, // 显示图片路径
+                InmageUrl: process.env.IMG_URL,
+                groupImage: '/img/zwsj5.png', // 显示图片路径
                 groupRules: {
                     groupName: [
                         { validator: validateName, trigger: 'blur' }
@@ -85,14 +85,15 @@
         methods: {
             setShowCrop() { // 打开裁剪框
                 this.showCrop = true;
-                this.cropUrl = this.groupImage;
+                this.cropUrl = process.env.IMG_URL + this.groupImage;
             },
             handleClose(done) { // 关闭裁剪框清空地址
                 this.cropUrl = '';
                 done();
             },
             getAvatar(url) { // 裁剪后的地址
-                this.groupImage = process.env.IMG_URL + url;
+                this.groupImage = url;
+                this.showCrop = false;
             },
             setUp() {
                 this.$refs['groupForm'].validate((valid) => {
@@ -104,7 +105,10 @@
                         };
                         api.createGroup(params).then(r => {
                             if (r.code === 0) {
-                                this.$message.success('新建成功');
+                                this.$message.success('创建成功');
+                                this.$router.push('/personalMain/group/ownGroup');
+                            } else {
+                                this.$message.success('创建成功');
                             }
                         });
                     } else {

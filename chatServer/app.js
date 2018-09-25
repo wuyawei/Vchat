@@ -11,7 +11,9 @@ let server = require('http').Server(app);
 let io = require('socket.io')(server);
 let onconnection = require('./socket');
 
-let api = require('./routes/api');
+const api = require('./routes/api');
+const user = require('./routes/user');
+const group = require('./routes/group');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,7 +46,7 @@ app.use('/*', (req, res, next) => {
     if (req.session.login) {
         next();
     } else {
-        if (req.originalUrl === '/api/login' || req.originalUrl === '/api/signUp') {
+        if (req.originalUrl === '/user/login' || req.originalUrl === '/user/signUp') {
             next();
         } else {
             res.json({
@@ -54,6 +56,8 @@ app.use('/*', (req, res, next) => {
     }
 });
 app.use('/api', api);
+app.use('/user', user);
+app.use('/group', group);
 
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');

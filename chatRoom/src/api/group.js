@@ -2,13 +2,13 @@ import fetch from './fetch';
 
 export default {
     createGroup(params) { //新建群
-        return fetch.post('/createGroup', params);
+        return fetch.post('group/createGroup', params);
     },
     getMyGroup() { //查找我的群
-        return fetch.post('/getMyGroup');
+        return fetch.post('group/getMyGroup');
     },
     getGroupUsers(params) {
-        return fetch.post('/getGroupUsers', params);
+        return fetch.post('group/getGroupUsers', params);
     }
 }
 

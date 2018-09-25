@@ -1,7 +1,7 @@
 import axios from 'axios';
 import router from '../router';
 let instance = axios.create({
-    baseURL: '/api'
+    baseURL: '/'
 });
 // http request 请求拦截器，有token值则配置上token值
 /*axios.interceptors.request.use(

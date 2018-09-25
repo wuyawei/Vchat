@@ -2,6 +2,6 @@ import fetch from './fetch';
 
 export default {
     uploadFile(params) { // 上传文件
-        return fetch.post('/uploadFile', params);
+        return fetch.post('api/uploadFile', params);
     }
 }

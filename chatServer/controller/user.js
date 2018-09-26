@@ -56,10 +56,10 @@ const signUp = (req, res) => {
                 code : 1,
                 data : '账号已存在'
             })
-        } else if (r['_id']) {
+        } else if (r.code === 0) {
             res.json({
                 code : 0,
-                data : '注册成功'
+                data : r.data
             })
         } else {
             res.json({

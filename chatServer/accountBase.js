@@ -11,7 +11,7 @@ let accountBase = db.model("accountBase", {
     type: String // 1 用户 2 群聊
 });
 
-for (let i = 10000001; i < 10000999; i++) { // 首批用户默认账号 8位
+for (let i = 10000001; i <= 10001999; i++) { // 首批用户默认账号 8位
     let account = new accountBase({ // 通过new Model1()创建的文档doc1，必须通过save()方法，才能将创建的文档保存到数据库的集合中
         code: i,
         status: '0',
@@ -25,7 +25,7 @@ for (let i = 10000001; i < 10000999; i++) { // 首批用户默认账号 8位
         }
     });
 }
-for (let i = 100001; i < 100999; i++) { // 首批群聊默认账号 6位
+for (let i = 100001; i <= 100999; i++) { // 首批群聊默认账号 6位
     let account = new accountBase({ // 通过new Model1()创建的文档doc1，必须通过save()方法，才能将创建的文档保存到数据库的集合中
         code: i,
         status: '0',

@@ -43,6 +43,17 @@
                 <span></span>
             </div>
         </div>
+        <el-dialog
+                title="注册成功"
+                :visible.sync="signSuccess.Visible"
+                :before-close="handelClose"
+                width="40%">
+            <span>您的Vchat号为：{{signSuccess.code}}，您可以凭此登录Vchat，祝您使用愉快！</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="signSuccess.Visible = false">取 消</el-button>
+                <el-button type="primary" @click="signSuccess.Visible = false; islogin = true;">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -123,6 +134,10 @@
                     regcode: [
                         { validator: validateRegcode, trigger: 'blur' }
                     ]
+                },
+                signSuccess: { // 注册成功提示框
+                    code: '',
+                    Visible: false
                 }
             }
         },
@@ -193,15 +208,20 @@
                 };
                 api.signUp(params).then(r => {
                     if (r.code === 0) {
-                        this.$message.success('注册成功，请登录');
+                        // this.$message.success('注册成功，请登录');
                         this.$refs['signForm'].resetFields();
-                        this.islogin = true;
+                        this.signSuccess.Visible = true;
+                        this.signSuccess.code = r.data;
                     } else if (r.code === 1) {
                         this.$message.error('账号已存在')
                     } else {
                         this.$message.error('注册失败')
                     }
                 });
+            },
+            handelClose(done) {
+                this.islogin = true;
+                done();
             }
         },
         mounted() {

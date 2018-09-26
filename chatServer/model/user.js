@@ -9,9 +9,17 @@ const md5 = pass => { // 避免多次调用MD5报错
     return md5.update(pass).digest("hex");
 };
 
+let accountBase = db.model("accountBase", {
+    code: String,
+    status: String, // 1 已使用 0 未使用
+    special: String,
+    type: String // 1 用户 2 群聊
+});
+
 let users = db.model("users", { //Schema
-    name: String,
+    name: {type: String, unique: true},
     pass: String,
+    code: {type: String, unique: true}, // 唯一的code
     photo: {type: String, default: '/img/picture.png'}, // 默认头像
     signature: { type: String, default: '这个人很懒，暂时没有签名哦！' },
     nickname: { type: String, default: 'vChat-' + Date.now()},
@@ -66,14 +74,26 @@ const signUp = (params, callback) => { // 注册
         if (r.length) {
             callback({code: 1});
         } else {
-            let pass = md5(params.pass);
-            users.create({name: params.name, pass: pass}).then(r => {
-                if (r['_id']) {
-                    callback(r);
-                } else {
-                    callback({code: -1});
-                }
-            })
+            function createfun(code) { // 写入数据
+                let pass = md5(params.pass);
+                users.create({name: params.name, pass: pass, code: code}).then(r => {
+                    if (r['_id']) {
+                        callback({code: 0, data: code});
+                    } else {
+                        callback({code: -1});
+                    }
+                })
+            }
+            function fineOneAccountBase(createfun) { // 查找code
+                accountBase.findOneAndUpdate({type: '1', status: '0'}, {status: '1'}, (err, doc) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        createfun(doc.code);
+                    }
+                });
+            }
+            fineOneAccountBase(createfun);
         }
 
     })

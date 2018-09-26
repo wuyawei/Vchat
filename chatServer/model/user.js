@@ -13,7 +13,8 @@ let accountBase = db.model("accountBase", {
     code: String,
     status: String, // 1 已使用 0 未使用
     special: String,
-    type: String // 1 用户 2 群聊
+    type: String, // 1 用户 2 群聊
+    random: Number
 });
 
 let users = db.model("users", { //Schema
@@ -85,11 +86,24 @@ const signUp = (params, callback) => { // 注册
                 })
             }
             function fineOneAccountBase(createfun) { // 查找code
-                accountBase.findOneAndUpdate({type: '1', status: '0'}, {status: '1'}, (err, doc) => {
+                let rand = Math.random();
+                accountBase.findOneAndUpdate({type: '1', status: '0', random : { $gte : rand }}, {status: '1'}, (err, doc) => {
                     if (err) {
                         console.log(err);
                     } else {
-                        createfun(doc.code);
+                        if (!doc) {
+                            accountBase.findOneAndUpdate({type: '1', status: '0', random : { $lt : rand }}, {status: '1'}, (err, doc) => {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    if (doc) {
+                                        createfun(doc.code);
+                                    }
+                                }
+                            });
+                        } else {
+                            createfun(doc.code);
+                        }
                     }
                 });
             }

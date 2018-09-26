@@ -50,7 +50,6 @@
                 width="40%">
             <span>您的Vchat号为：{{signSuccess.code}}，您可以凭此登录Vchat，祝您使用愉快！</span>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="signSuccess.Visible = false">取 消</el-button>
                 <el-button type="primary" @click="signSuccess.Visible = false; islogin = true;">确 定</el-button>
             </span>
         </el-dialog>

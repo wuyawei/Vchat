@@ -5,7 +5,8 @@ const db = require('../utils/database');
 let groups = db.model("groups", {
     title: String,
     desc: String,
-    img: String
+    img: String,
+    code: String
 });
 
 let groupUserSchema = new db.Schema({
@@ -35,7 +36,7 @@ groupUserSchema.statics = {
     }
 };
 
-let groupUser = db.model("groupUser", groupUserSchema);
+let groupUser = db.model("groupUser", groupUserSchema); // groupUser model
 
 const createGroup = (params, callback) => { // 新建群
     groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage}).then(r => {

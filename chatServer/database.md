@@ -1,4 +1,9 @@
 ##表设计
+### accountBase 号码池
+* code 号码
+* status 号码状态 1 已使用 0 未使用
+* type 账户类型 1 用户 2 群聊
+* special 特殊标识  （待定，靓号等）
 ### users 用户表
 * name 账号
 * pass 密码
@@ -20,6 +25,7 @@
 * title 名称
 * desc 简介
 * img 群头像
+* code 群账号
 ### groupUser 群成员
 * id
 * roomid 群

@@ -7,7 +7,7 @@
             <span>查找群聊</span>
         </p>
         <div class="vChat-list-search" :class="{active: is_focus}">
-            <input type="text" placeholder="查找群聊" @focus="focus" @blur="blur">
+            <input type="text" placeholder="群号 / 群名称" @focus="focus" @blur="blur">
             <i class="el-icon-search"></i>
         </div>
         <ul class="search-group-list">

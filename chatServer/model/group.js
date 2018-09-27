@@ -2,6 +2,7 @@
  * Created by wyw on 2018/9/25.
  */
 const db = require('../utils/database');
+const baseList = require('./baseList');
 let groups = db.model("groups", {
     title: String,
     desc: String,
@@ -39,27 +40,52 @@ groupUserSchema.statics = {
 let groupUser = db.model("groupUser", groupUserSchema); // groupUser model
 
 const createGroup = (params, callback) => { // 新建群
-    groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage}).then(r => {
-        if (r['_id']) {
-            users.find({name: params.userName}).then(rs => {
-                if (rs.length) {
-                    groupUser.create({userName: params.userName, userId: rs[0]._id, manager: 0, holder: 1, groupId: r['_id']}).then(res => { // 建群后创建群主
-                        if (res['_id']) {
-                            callback({code: 0, data: r});
+    function createfun(code) {
+        groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage, code: code}).then(r => {
+            if (r['_id']) {
+                baseList.users.find({name: params.userName}).then(rs => { // 查询userId  loginname 无法关联查询
+                    if (rs.length) {
+                        groupUser.create({userName: params.userName, userId: rs[0]._id, manager: 0, holder: 1, groupId: r['_id']}).then(res => { // 建群后创建群主
+                            if (res['_id']) {
+                                callback({code: 0, data: r});
+                            } else {
+                                groups.remove({'_id':r['_id']}, 1);
+                                callback({code: -1});
+                            }
+                        });
+                    } else {
+                        groups.remove({'_id':r['_id']}, 1);
+                        callback({code: -1});
+                    }
+                });
+            } else {
+                callback({code: -1});
+            }
+        })
+    }
+    function fineOneAccountBase(createfun) { // 号码池查找code
+        let rand = Math.random();
+        baseList.accountBase.findOneAndUpdate({type: '1', status: '0', random : { $gte : rand }}, {status: '1'}, (err, doc) => {
+            if (err) {
+                console.log(err);
+            } else {
+                if (!doc) {
+                    baseList.accountBase.findOneAndUpdate({type: '1', status: '0', random : { $lt : rand }}, {status: '1'}, (err, doc) => {
+                        if (err) {
+                            console.log(err);
                         } else {
-                            groups.remove({'_id':r['_id']}, 1);
-                            callback({code: -1});
+                            if (doc) {
+                                createfun(doc.code);
+                            }
                         }
                     });
                 } else {
-                    groups.remove({'_id':r['_id']}, 1);
-                    callback({code: -1});
+                    createfun(doc.code);
                 }
-            });
-        } else {
-            callback({code: -1});
-        }
-    })
+            }
+        });
+    }
+    fineOneAccountBase(createfun);
 };
 
 const getMyGroup = (params, callback) => { // 查找我的群

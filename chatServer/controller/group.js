@@ -61,7 +61,8 @@ const huntGroups = (req, res) => { // 搜索聊天群（名称/code）
         if (r.code === 0) {
             res.json({
                 code : 0,
-                data : r.data
+                data : r.data,
+                count: r.count
             })
         } else {
             res.json({

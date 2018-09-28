@@ -7,7 +7,7 @@
             <span>查找群聊</span>
         </p>
         <div class="vChat-list-search" :class="{active: is_focus}">
-            <input type="text" placeholder="群号 / 群名称" @focus="focus" @blur="blur">
+            <input type="text" placeholder="群号 / 群名称" @focus="focus" @blur="blur" v-model="huntKey">
             <i class="el-icon-search"></i>
         </div>
         <ul class="search-group-list">
@@ -36,11 +36,13 @@
 </template>
 
 <script>
+    import api from '@/api';
     export default{
         name: 'searchGroup',
         data() {
             return {
-                is_focus: false
+                is_focus: false,
+                huntKey: '' // 搜索参数
             }
         },
         methods: {
@@ -49,7 +51,20 @@
             },
             blur() {
                 this.is_focus = false;
+            },
+            huntGroups() {
+                let params = {
+                    key: this.huntKey,
+                    offset: 1,
+                    limit: 8
+                };
+                api.huntGroups(params).then(r => {
+
+                })
             }
+        },
+        mounted() {
+            this.huntGroups();
         }
     }
 </script>

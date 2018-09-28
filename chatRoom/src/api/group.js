@@ -9,6 +9,9 @@ export default {
     },
     getGroupUsers(params) {
         return fetch.post('group/getGroupUsers', params);
+    },
+    huntGroups(params) {
+        return fetch.post('group/huntGroups', params);
     }
 }
 

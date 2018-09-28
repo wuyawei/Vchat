@@ -12,7 +12,8 @@ let {
 let {
     createGroup,
     getMyGroup,
-    getGroupUsers
+    getGroupUsers,
+    huntGroups
 } = groups;
 
 module.exports = {
@@ -25,5 +26,6 @@ module.exports = {
     getUserDetail,
     createGroup,
     getMyGroup,
-    getGroupUsers
+    getGroupUsers,
+    huntGroups
 };

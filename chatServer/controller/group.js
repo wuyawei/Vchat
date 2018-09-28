@@ -55,8 +55,26 @@ const getGroupUsers = (req, res) => { // 查找指定群聊成员
     })
 };
 
+const huntGroups = (req, res) => { // 搜索聊天群（名称/code）
+    let params = req.body;
+    apiModel.huntGroups(params, r => {
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '查询失败'
+            })
+        }
+    })
+};
+
 module.exports = {
     createGroup,
     getMyGroup,
-    getGroupUsers
+    getGroupUsers,
+    huntGroups
 };

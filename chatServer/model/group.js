@@ -108,8 +108,31 @@ const getGroupUsers = (params, callback) => { // 查找指定群聊成员
     })
 };
 
+const huntGroups = (params, callback) => { // 搜索聊天群（名称/code）
+    let key = new RegExp(params.key);
+    groups.find(
+        {
+            $or: [
+                {'title': {'$regex': key, $options: '$i'}},
+                {'code': {'$regex': key, $options: '$i'}}
+            ]
+        }
+    )
+    .skip((params.offset - 1) * params.limit)
+    .limit(params.limit)
+    .sort({'title':-1})
+    .then(r => {
+        if (r.length) {
+            callback({code: 0, data: r});
+        } else {
+            callback({code: -1});
+        }
+    });
+};
+
 module.exports = {
     createGroup,
     getMyGroup,
-    getGroupUsers
+    getGroupUsers,
+    huntGroups
 };

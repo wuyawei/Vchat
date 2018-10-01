@@ -7,7 +7,8 @@ let groups = db.model("groups", {
     title: String,
     desc: String,
     img: String,
-    code: String
+    code: String,
+    createDate: { type: Date, default: Date.now() } // 建群时间
 });
 
 let groupUserSchema = new db.Schema({
@@ -108,35 +109,47 @@ const getGroupUsers = (params, callback) => { // 查找指定群聊成员
     })
 };
 
+// $equals 等于 ／ $gt 大于 ／ $gte 大于等于 ／ $lt 小余 ／ $lte 小余等于 ／ $ne 不等于 ／ $in 在数组中 ／ $nin 不在数组中
 const huntGroups = (params, callback) => { // 搜索聊天群（名称/code）
-    let key = new RegExp(params.key);
-    groups.count(
-        {
-            $or: [
-                {'title': {'$regex': key, $options: '$i'}},
-                {'code': {'$regex': key, $options: '$i'}}
-            ]
-        }
-        , (err, count) => {
-            groups.find(
+    let ids = [];
+    groupUser.findGroupByUserName(params.userName, (err, res) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.forEach(v => {
+                ids.push(v.groupId['_id']);
+            });
+            let key = new RegExp(params.key);
+            groups.count(
                 {
                     $or: [
-                        {'title': {'$regex': key, $options: '$i'}},
+                        {'title': {'$regex': key, $options: '$i'}}, // $option的$i表示忽略大小写
                         {'code': {'$regex': key, $options: '$i'}}
-                    ]
+                    ],
+                    '_id': { $nin: ids} // 搜索时排除用户已加入的群
                 }
-            )
-                .skip((params.offset - 1) * params.limit)
-                .limit(params.limit)
-                .sort({'title':-1})
-                .then(r => {
-                    if (r.length) {
-                        callback({code: 0, data: r, count: count});
-                    } else {
-                        callback({code: -1});
-                    }
+                , (err, count) => {
+                    groups.find(
+                        {
+                            $or: [
+                                {'title': {'$regex': key, $options: '$i'}},
+                                {'code': {'$regex': key, $options: '$i'}}
+                            ],
+                            '_id': { $nin: ids}
+                        }
+                    )
+                        .skip((params.offset - 1) * params.limit)
+                        .limit(params.limit)
+                        .sort({'title':-1})
+                        .then(r => {
+                            callback({code: 0, data: r, count: count});
+                        }).catch(err => {
+                            console.log(err);
+                            callback({code: -1});
+                        });
                 });
-        });
+        }
+    });
 };
 
 module.exports = {

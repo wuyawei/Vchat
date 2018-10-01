@@ -57,6 +57,7 @@ const getGroupUsers = (req, res) => { // 查找指定群聊成员
 
 const huntGroups = (req, res) => { // 搜索聊天群（名称/code）
     let params = req.body;
+    params.userName = req.session.login;
     apiModel.huntGroups(params, r => {
         if (r.code === 0) {
             res.json({

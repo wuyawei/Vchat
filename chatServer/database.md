@@ -27,6 +27,7 @@
 * desc 简介
 * img 群头像
 * code 群账号
+* createDate 创建时间
 ### groupUser 群成员
 * id
 * roomid 群
@@ -37,6 +38,7 @@
 * id
 * userAid
 * userBid
+* createDate 创建时间
 ### message 消息
 * id
 * roomid

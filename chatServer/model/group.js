@@ -111,7 +111,7 @@ const getGroupUsers = (params, callback) => { // 查找指定群聊成员
     })
 };
 
-// $equals 等于 ／ $gt 大于 ／ $gte 大于等于 ／ $lt 小余 ／ $lte 小余等于 ／ $ne 不等于 ／ $in 在数组中 ／ $nin 不在数组中
+// $equals 等于 ／ $gt 大于 ／ $gte 大于等于 ／ $lt 小余 ／ $lte 小余等于 ／ $ne 不等于 ／ $in 在数组中 ／ $nin 不在数组中 // $option的$i表示忽略大小写
 const huntGroups = (params, callback) => { // 搜索聊天群（名称/code）
     let ids = [];
     groupUser.findGroupByUserName(params.userName, (err, res) => {
@@ -122,22 +122,18 @@ const huntGroups = (params, callback) => { // 搜索聊天群（名称/code）
                 ids.push(v.groupId['_id']);
             });
             let key = new RegExp(params.key);
+            let arr = [];
+            params.type === '2' ? arr = [{'title': {'$regex': key, $options: '$i'}}] : arr = [{'code': {'$regex': key, $options: '$i'}}];
             groups.count(
                 {
-                    $or: [
-                        {'title': {'$regex': key, $options: '$i'}}, // $option的$i表示忽略大小写
-                        {'code': {'$regex': key, $options: '$i'}}
-                    ],
+                    $or: arr,
                     '_id': { $nin: ids} // 搜索时排除用户已加入的群
                 }
                 , (err, count) => {
                     if (count > 0) {
                         groups.find(
                             {
-                                $or: [
-                                    {'title': {'$regex': key, $options: '$i'}},
-                                    {'code': {'$regex': key, $options: '$i'}}
-                                ],
+                                $or: arr,
                                 '_id': { $nin: ids}
                             }
                         )

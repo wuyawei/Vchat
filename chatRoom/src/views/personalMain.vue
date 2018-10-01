@@ -206,7 +206,7 @@
                         margin-bottom: 5px;
                         padding-right: 10px;
                         display: flex;
-                        justify-content: center;
+                        align-items: center;
                         span:nth-of-type(1) {
                             max-width: 200px;
                             display: inline-block;
@@ -214,6 +214,7 @@
                         span:nth-of-type(2) {
                             margin-left: 10px;
                             cursor: pointer;
+                            line-height: 1;
                         }
                     }
                     p:nth-of-type(2) {

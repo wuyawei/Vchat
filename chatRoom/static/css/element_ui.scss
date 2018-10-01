@@ -35,10 +35,38 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     }
 }
 
-.ownGroup{
+.vChat-ownGroup{
     .el-dropdown{
         position: absolute;
         right: 0;
         top:10px;
     }
+}
+.Vchat-search{
+    .el-select{
+        .el-input__suffix{
+            right: -4px;
+        }
+        .el-input--suffix .el-input__inner{
+            padding: 0 5px;
+            border: 1px solid #dcdfe6;
+        }
+    }
+    .el-input--suffix .el-input__inner{
+        height: 32px;
+        font-size: 12px;
+    }
+    .el-input-group--append .el-input__inner{
+        border: 1px solid #dcdfe6;
+        border-right: none;
+        outline: none;
+        background-color: #f5faf9;
+    }
+    .el-input-group__append, .el-input-group__prepend{
+        border-left: none;
+        background-color: #f5faf9;
+    }
+}
+.el-select-dropdown__item{
+    font-size: 12px;
 }

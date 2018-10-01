@@ -1,5 +1,5 @@
 <template>
-    <div class="vChat-comm-list ownGroup">
+    <div class="vChat-ownGroup">
         <h3>
             <v-icon name="qunzu" :size="26" color="#27cac7"></v-icon>我的群聊
             <el-dropdown trigger="click" @command="handleCommand">
@@ -22,7 +22,7 @@
                         </el-badge>
                     </p>
                     <p>
-                        <span :title="v.groupId.desc">{{v.groupId.desc}}</span>
+                        <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
                         <span>3分钟</span>
                     </p>
                 </div>
@@ -75,7 +75,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .vChat-comm-list{
+    .vChat-ownGroup{
         width:100%;
         height: 100%;
         h3{
@@ -126,11 +126,6 @@
                         justify-content: space-between;
                         align-items: center;
                         margin-bottom: 5px;
-                        span{
-                            overflow: hidden;
-                            white-space: nowrap;
-                            text-overflow: ellipsis;
-                        }
                     }
                     p:nth-of-type(1) {
                         span:first-child{

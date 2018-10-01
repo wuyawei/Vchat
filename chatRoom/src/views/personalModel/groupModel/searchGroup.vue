@@ -1,37 +1,55 @@
 <template>
-    <div class="vChat-comm-list">
+    <div class="vChat-searchGroup">
         <p class="back">
             <router-link to="/personalMain/group/ownGroup">
                 <v-icon name="fanhui" cursor="pointer"></v-icon>
             </router-link>
             <span>查找群聊</span>
         </p>
-        <div class="vChat-list-search" :class="{active: is_focus}">
-            <input type="text" placeholder="群号 / 群名称" @focus="focus" @blur="blur" v-model="huntKey">
-            <i class="el-icon-search"></i>
+        <div class="Vchat-search group-search">
+            <el-select v-model="type" placeholder="请选择搜索方式" @change="huntGroups">
+                <el-option
+                        v-for="item in searchOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                >
+                </el-option>
+            </el-select>
+            <el-input
+                    placeholder="搜索内容"
+                    v-model="huntKey"
+                    clearable
+            >
+                <i slot="append" class="el-input__icon el-icon-search" @click="huntGroups"></i>
+            </el-input>
         </div>
-        <ul class="search-group-list">
-            <li v-for="v in 5" :key="v">
-                <a href="javascript:;">
-                    <img src="../../../assets/img/1.jpg" alt="">
-                </a>
-                <div>
-                    <p>
-                        飞翔的鸟
+        <div class="search-contianer" v-loading="loadingSearch">
+            <ul class="search-group-list" v-show="groupList.length">
+                <li v-for="v in groupList" :key="groupList['_id']">
+                    <a href="javascript:;">
+                        <img :src="v.img" alt="">
+                    </a>
+                    <div>
+                        <p>
+                            {{v.title}}
                     </p>
-                    <p>
-                        <i class="icon-zhanghao iconfont"></i>
-                        1221
+                        <p>
+                            <i class="icon-zhanghao iconfont"></i>
+                            {{v.userNum}}
                     </p>
-                    <p>
-                        德玛西亚大道群啊啊啊
+                        <p :title="v.desc" class="vchat-line1">
+                            {{v.desc}}
                     </p>
-                </div>
-            </li>
-        </ul>
-        <p class="Vchat-no-have">
-            没有找到想要的，<router-link to="/personalMain/group/setGroup">新建</router-link> 一个吧！
-        </p>
+                    </div>
+                </li>
+            </ul>
+            <v-nodata v-show="!groupList.length && !loadingSearch">
+                <p class="Vchat-no-have">
+                    没有找到想要的，<router-link to="/personalMain/group/setGroup">新建</router-link> 一个吧！
+            </p>
+            </v-nodata>
+        </div>
     </div>
 </template>
 
@@ -41,36 +59,61 @@
         name: 'searchGroup',
         data() {
             return {
-                is_focus: false,
-                huntKey: '' // 搜索参数
+                huntKey: '', // 搜索参数
+                groupList: [], // 群列表
+                loadingSearch: false, // 加载动画
+                searchOptions: [
+                    {
+                        value: '2',
+                        label: '群名称'
+                    },
+                    {
+                        value: '1',
+                        label: '群号'
+                    }
+                ],
+                type: '2'
+            }
+        },
+        watch: {
+            huntKey() {
+                this.huntGroups();
             }
         },
         methods: {
-            focus() {
-                this.is_focus = true;
-            },
-            blur() {
-                this.is_focus = false;
-            },
-            huntGroups() {
+            huntGroups() { // 搜索群聊
+                if (this.loadingSearch) {
+                    return;
+                }
+                this.loadingSearch = true;
+                if (!this.huntKey) {
+                    setTimeout(_ => {
+                        this.groupList = [];
+                        this.loadingSearch = false;
+                    }, 500);
+                    return;
+                }
                 let params = {
                     key: this.huntKey,
                     offset: 1,
-                    limit: 8
+                    limit: 8,
+                    type: this.type
                 };
                 api.huntGroups(params).then(r => {
-
+                    if (r.code === 0) {
+                        this.groupList = r.data;
+                    }
+                    this.loadingSearch = false;
                 })
             }
         },
         mounted() {
-            this.huntGroups();
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .vChat-comm-list{
+    .vChat-searchGroup{
         width:100%;
         height: 100%;
         .back{
@@ -96,32 +139,29 @@
                 color: #1fbeca;
             }
         }
-        .vChat-list-search{
-            width:80%;
-            height: 42px;
+        .group-search{
+            width:100%;
+            height: 32px;
             position: relative;
             transition: all 0.5s;
             margin-bottom: 20px;
-            input{
-                position: absolute;
-                left:0;
-                width:calc(100% - 21px);
-                height: 100%;
-                border: none;
-                border-bottom: 1px solid #d5d5d5;
-                outline: none;
-                padding-left: 10px;
-                box-sizing: border-box;
+            padding: 0 15px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            .el-select{
+                width: 80px;
+                margin-right: 5px;
             }
-            i{
-                width:42px;
-                height: 42px;
+            i.el-icon-search{
+                width:24px;
+                height: 24px;
                 position: absolute;
-                right: 0;
-                top:0;
+                right: 5px;
+                top:4px;
                 text-align: center;
-                line-height: 42px;
-                font-size: 24px;
+                line-height: 24px;
+                font-size: 14px;
                 display: block;
                 cursor: pointer;
                 color: #FFF;
@@ -129,8 +169,9 @@
                 border-radius: 50%;
             }
         }
-        .vChat-list-search.active{
+        .search-contianer{
             width:100%;
+            min-height: 80%;
         }
         .search-group-list{
             width:100%;
@@ -158,16 +199,13 @@
                     }
                 }
                 >div{
-                    width:calc(100% - 52px);
+                    width:calc(100% - 58px);
                     font-size: 12px;
                     color: #a3a3a3;
                     text-align: left;
                     p{
                         text-align: left;
                         margin-bottom: 5px;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
                     }
                     p:nth-of-type(1) {
                         font-size: 14px;
@@ -178,7 +216,7 @@
                         color: #fff;
                         border-radius: 2px;
                         display: inline-block;
-                        padding: 1px 5px;
+                        padding: 1px 6px;
                         line-height: 16px;
                         font-size: 12px;
                         i{

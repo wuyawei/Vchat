@@ -183,7 +183,7 @@
                         font-size: 12px;
                         i{
                             font-size: 14px;
-                            vertical-align: middle;
+                            vertical-align: baseline;
                         }
                     }
                 }

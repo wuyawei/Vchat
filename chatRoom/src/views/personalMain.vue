@@ -17,7 +17,10 @@
                     </ul>
                 </div>
                 <div>
-                    <p>{{user.nickname}} <span @click="loginOut" class="logout">[退出]</span></p>
+                    <p>
+                        <span class="vchat-line1" :title="user.nickname">{{user.nickname}}</span>
+                        <span @click="loginOut" class="logout">[退出]</span>
+                    </p>
                     <p class="vchat-line2" :title="user.signature">{{user.signature ? '个性签名：' + user.signature : '这个人很懒，暂时没有签名哦！'}}</p>
                 </div>
             </div>
@@ -201,7 +204,14 @@
                     text-align: left;
                     p:nth-of-type(1) {
                         margin-bottom: 5px;
-                        span {
+                        padding-right: 10px;
+                        display: flex;
+                        justify-content: center;
+                        span:nth-of-type(1) {
+                            max-width: 200px;
+                            display: inline-block;
+                        }
+                        span:nth-of-type(2) {
                             margin-left: 10px;
                             cursor: pointer;
                         }

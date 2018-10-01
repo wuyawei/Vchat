@@ -8,7 +8,9 @@ let groups = db.model("groups", {
     desc: String,
     img: String,
     code: String,
-    createDate: { type: Date, default: Date.now() } // 建群时间
+    userNum: Number, // 群成员数量，避免某些情况需要多次联表查找，如搜索；所以每次加入一人，数量加一
+    createDate: { type: Date, default: Date.now() }, // 建群时间
+    grades: { type: String, default: 'V1' } // 群等级，备用
 });
 
 let groupUserSchema = new db.Schema({
@@ -42,7 +44,7 @@ let groupUser = db.model("groupUser", groupUserSchema); // groupUser model
 
 const createGroup = (params, callback) => { // 新建群
     function createfun(code) {
-        groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage, code: code}).then(r => {
+        groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage, code: code, userNum: 1}).then(r => {
             if (r['_id']) {
                 baseList.users.find({name: params.userName}).then(rs => { // 查询userId  loginname 无法关联查询
                     if (rs.length) {
@@ -129,24 +131,28 @@ const huntGroups = (params, callback) => { // 搜索聊天群（名称/code）
                     '_id': { $nin: ids} // 搜索时排除用户已加入的群
                 }
                 , (err, count) => {
-                    groups.find(
-                        {
-                            $or: [
-                                {'title': {'$regex': key, $options: '$i'}},
-                                {'code': {'$regex': key, $options: '$i'}}
-                            ],
-                            '_id': { $nin: ids}
-                        }
-                    )
-                        .skip((params.offset - 1) * params.limit)
-                        .limit(params.limit)
-                        .sort({'title':-1})
-                        .then(r => {
-                            callback({code: 0, data: r, count: count});
-                        }).catch(err => {
-                            console.log(err);
-                            callback({code: -1});
-                        });
+                    if (count > 0) {
+                        groups.find(
+                            {
+                                $or: [
+                                    {'title': {'$regex': key, $options: '$i'}},
+                                    {'code': {'$regex': key, $options: '$i'}}
+                                ],
+                                '_id': { $nin: ids}
+                            }
+                        )
+                            .skip((params.offset - 1) * params.limit)
+                            .limit(params.limit)
+                            .sort({'title':-1})
+                            .then(r => {
+                                callback({code: 0, data: r, count: count});
+                            }).catch(err => {
+                                console.log(err);
+                                callback({code: -1});
+                            });
+                    } else {
+                        callback({code: 0, data: [], count: 0});
+                    }
                 });
         }
     });

@@ -28,6 +28,8 @@
 * img 群头像
 * code 群账号
 * createDate 创建时间
+* userNum 成员数
+* grades 等级
 ### groupUser 群成员
 * id
 * roomid 群

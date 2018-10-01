@@ -1,0 +1,13 @@
+.move-leave-active, .move-enter-active {
+  position: absolute;
+  left:0;
+  top:0;
+  transition: all .5s;
+}
+.move-enter{
+  left:100%;
+  transform: translateX(100%);
+}
+.move-leave-to {
+  transform: translateX(-100%);
+}

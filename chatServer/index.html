@@ -1,0 +1,219 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>vChat</title><link rel="shortcut icon" type=image/ico href=/static/vchat.ico><link href=/static/css/app.ff53dfbc4016eab2eac9c3504f83777b.css rel=stylesheet></head><style>@-webkit-keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px; }
+      5% {
+        opacity: 1;
+        top: 0px; }
+      50.9% {
+        opacity: 1;
+        top: 0px; }
+      55.9% {
+        opacity: 0;
+        top: 10px; } }
+
+    @keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px; }
+      5% {
+        opacity: 1;
+        top: 0px; }
+      50.9% {
+        opacity: 1;
+        top: 0px; }
+      55.9% {
+        opacity: 0;
+        top: 10px; } }
+
+    @-moz-keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px; }
+      5% {
+        opacity: 1;
+        top: 0px; }
+      50.9% {
+        opacity: 1;
+        top: 0px; }
+      55.9% {
+        opacity: 0;
+        top: 10px; } }
+
+    @keyframes fide {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    body {
+      background: #1fbeca;
+    }
+
+    .vchat-loading {
+      position: absolute;
+      left: 50%;
+      top: 35%;
+      margin-left: -50.5px;
+      margin-top: -32.5px; }
+
+    .loading-square {
+      background: white;
+      width: 15px;
+      height: 15px;
+      float: left;
+      top: -10px;
+      margin-right: 5px;
+      margin-top: 5px;
+      position: relative;
+      opacity: 0;
+      -webkit-animation: enter 6.5s infinite;
+      animation: enter 6.5s infinite;
+    }
+
+    .enter {
+      top: 0px;
+      opacity: 1; }
+
+    .loading-square:nth-child(1) {
+      -webkit-animation-delay: 3.0s;
+      -moz-animation-delay: 3.0s;
+      animation-delay: 3.0s;
+      margin-left: 20px;
+    }
+
+    .loading-square:nth-child(2) {
+      -webkit-animation-delay: 2.8s;
+      -moz-animation-delay: 2.8s;
+      animation-delay: 2.8s;
+    }
+
+    .loading-square:nth-child(3) {
+      -webkit-animation-delay: 2.6s;
+      -moz-animation-delay: 2.6s;
+      animation-delay: 2.6s;
+    }
+
+    .loading-square:nth-child(4) {
+      -webkit-animation-delay: 2.4s;
+      -moz-animation-delay: 2.4s;
+      animation-delay: 2.4s;
+    }
+
+    .loading-square:nth-child(5) {
+      margin-left: 20px;
+      -webkit-animation-delay: 1.6s;
+      -moz-animation-delay: 1.6s;
+      animation-delay: 1.6s;
+    }
+
+    .loading-square:nth-child(6) {
+      -webkit-animation-delay: 1.8s;
+      -moz-animation-delay: 1.8s;
+      animation-delay: 1.8s;
+    }
+
+    .loading-square:nth-child(7) {
+      -webkit-animation-delay: 2.0s;
+      -moz-animation-delay: 2.0s;
+      animation-delay: 2.0s;
+    }
+    .loading-square:nth-child(8) {
+      -webkit-animation-delay: 2.2s;
+      -moz-animation-delay: 2.2s;
+      animation-delay: 2.2s;
+      background: #fdc96f;
+    }
+
+    .loading-square:nth-child(9) {
+      -webkit-animation-delay: 1.4s;
+      -moz-animation-delay: 1.4s;
+      animation-delay: 1.4s;
+      background: #fdc96f;
+      margin-left: 20px;
+    }
+    .loading-square:nth-child(10) {
+      -webkit-animation-delay: 1.2s;
+      -moz-animation-delay: 1.2s;
+      animation-delay: 1.2s;
+    }
+    .loading-square:nth-child(11) {
+      background: #fdc96f;
+      -webkit-animation-delay: 1.0s;
+      -moz-animation-delay: 1.0s;
+      animation-delay: 1.0s;
+    }
+    .loading-square:nth-child(12) {
+      -webkit-animation-delay: 0.8s;
+      -moz-animation-delay: 0.8s;
+      animation-delay: 0.8s;
+    }
+    .loading-square:nth-child(13) {
+      -webkit-animation-delay: 0s;
+      -moz-animation-delay: 0s;
+      animation-delay: 0s;
+      margin-left: 20px;
+    }
+    .loading-square:nth-child(14) {
+      background: #fdc96f;
+      -webkit-animation-delay: 0.2s;
+      -moz-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+    .loading-square:nth-child(15) {
+      -webkit-animation-delay: 0.4s;
+      -moz-animation-delay: 0.4s;
+      animation-delay: 0.4s;
+    }
+    .loading-square:nth-child(16) {
+      -webkit-animation-delay: 0.6s;
+      -moz-animation-delay: 0.6s;
+      animation-delay: 0.6s;
+    }
+
+    .clear {
+      clear: both;
+    }
+
+    .last {
+      margin-right: 0;
+    }
+    .loading-info{
+      color: #fff;
+      padding-top: 20px;
+    }
+    .loading-info span{
+      opacity: 0;
+      animation: fide 1.5s infinite;
+    }
+    .loading-info span:nth-of-type(2) {
+      -webkit-animation-delay: 0.3s;
+      -moz-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+    .loading-info span:nth-of-type(3) {
+      -webkit-animation-delay: 0.6s;
+      -moz-animation-delay: 0.6s;
+      animation-delay: 0.6s;
+    }
+    .loading-info span:nth-of-type(4) {
+      -webkit-animation-delay: 0.9s;
+      -moz-animation-delay: 0.9s;
+      animation-delay: 0.9s;
+    }
+    .loading-info span:nth-of-type(5) {
+      -webkit-animation-delay: 1.2s;
+      -moz-animation-delay: 1.2s;
+      animation-delay: 1.2s;
+    }
+    .loading-info span:nth-of-type(6) {
+      -webkit-animation-delay: 1.5s;
+      -moz-animation-delay: 1.5s;
+      animation-delay: 1.5s;
+    }</style><body><div id=app><div class=vchat-loading><div class=loading-square></div><div class=loading-square></div><div class=loading-square></div><div class="loading-square last"></div><div class="loading-square clear"></div><div class=loading-square></div><div class=loading-square></div><div class="loading-square last"></div><div class="loading-square clear"></div><div class=loading-square></div><div class=loading-square></div><div class="loading-square last"></div><div class="loading-square clear"></div><div class=loading-square></div><div class=loading-square></div><div class="loading-square last"></div><div class="loading-info clear"><span>拼</span> <span>命</span> <span>加</span> <span>载</span> <span>中</span> <span>······</span></div></div></div><script type=text/javascript src=/static/js/manifest.47fda0c0e6582ea4ceb6.js></script><script type=text/javascript src=/static/js/vendor.9bfdcba4cbd0a2d3b463.js></script><script type=text/javascript src=/static/js/app.6e6a6e4f7e6e1ff12cf5.js></script></body></html>

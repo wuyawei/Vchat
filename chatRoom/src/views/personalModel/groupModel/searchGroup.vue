@@ -21,7 +21,7 @@
                     v-model="huntKey"
                     clearable
             >
-                <i slot="append" class="el-input__icon el-icon-search" @click="huntGroups"></i>
+                <i slot="append" class="el-input__icon el-icon-search" @click="huntGroups('click')"></i>
             </el-input>
         </div>
         <div class="search-contianer" v-loading="loadingSearch">
@@ -81,18 +81,23 @@
             }
         },
         methods: {
-            huntGroups() { // 搜索群聊
+            huntGroups(t) { // 搜索群聊
                 if (this.loadingSearch) {
                     return;
                 }
-                this.loadingSearch = true;
                 if (!this.huntKey) {
+                    if (t === 'click') {
+                        return;
+                    }
+                    this.loadingSearch = true;
                     setTimeout(_ => {
                         this.groupList = [];
                         this.loadingSearch = false;
-                    }, 500);
+                    }, 800);
                     return;
                 }
+
+                this.loadingSearch = true;
                 let params = {
                     key: this.huntKey,
                     offset: 1,

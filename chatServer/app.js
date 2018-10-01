@@ -62,7 +62,6 @@ app.use('/group', group);
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');
 });
-
 io.on('connection', onconnection);
 
 // catch 404 and forward to error handler

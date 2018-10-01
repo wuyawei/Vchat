@@ -1,0 +1,97 @@
+.vchat-line1 { // 单行文字超出省略号
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vchat-line2 { // 2行文字超出省略号
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical; // 参考 https://github.com/postcss/autoprefixer/issues/776
+    /* autoprefixer: on */
+}
+
+.vchat-noUser { // 禁止用户选中
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Vchat-button { // 按钮样式
+    display: inline-block;
+    padding: 12px 20px;
+    line-height: 1;
+    background-color: #3aa1ca;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+.Vchat-full-button{
+    width:100%;
+    background-color: #3aa1ca;
+    border: none;
+    outline: none;
+    height: 36px;
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.Vchat-full-button:hover{
+    background-color: #43B6DF;
+    color: #fff;
+}
+.Vchat-no-have { // 没有想要的样式
+    font-size: 12px;
+    text-align: left;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    a {
+        color: #27cac7;
+        cursor: pointer;
+    }
+}
+
+.Vchat-button:hover {
+    opacity: 0.8;
+}
+
+.vchat-breakAll { // 强制换行 只对英文起作用，以字母作为换行依据。
+    word-break: break-all;
+}
+
+.vchat-breakWord { // 强制换行 只对英文起作用，以单词作为换行依据。
+    word-wrap: break-word
+}
+
+.vchat-preWord { // 强制换行 只对中文起作用，强制换行。
+    white-space: pre-wrap;
+}
+
+.vchat-noWarp { // 禁止换行
+    white-space: nowrap;
+}
+
+.vchat-flexCenter { // 居中
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vchat-flexBetween { // 两端
+    display: flex;
+    justify-content: space-between;
+}
+
+.vchat-flexAround { // 均分
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

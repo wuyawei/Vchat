@@ -11,13 +11,13 @@
             </el-dropdown>
         </h3>
         <ul class="group-list" v-if="Groups.length">
-            <li v-for="v in Groups" :key="v._id" :class="{active: currGroup === v.groupId._id}" @click="setCurrGroup(v.groupId._id)">
+            <li v-for="v in Groups" :key="v._id" @click="setCurrGroup(v.groupId._id)">
                 <a href="javascript:;">
                     <img :src="'http://localhost:9988' + v.groupId.img" alt="">
                 </a>
                 <div>
                     <p>
-                        <span>{{v.groupId.title}}</span>
+                        <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
                         <el-badge :value="12" class="item">
                         </el-badge>
                     </p>
@@ -43,13 +43,7 @@
         data() {
             return {
                 is_focus: false,
-                Groups: [],
-                currGroup: ''
-            }
-        },
-        watch: {
-            currGroup(i) {
-                this.$emit('currGroup', i);
+                Groups: []
             }
         },
         methods: {
@@ -126,6 +120,9 @@
                         justify-content: space-between;
                         align-items: center;
                         margin-bottom: 5px;
+                        span{
+                            max-width: 160px;
+                        }
                     }
                     p:nth-of-type(1) {
                         span:first-child{

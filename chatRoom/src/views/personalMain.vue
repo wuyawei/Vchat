@@ -36,8 +36,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="vchat-content-view">
+            <div class="vchat-content-left-view">
                 <router-view></router-view>
+            </div>
+            <div class="vchat-content-right-view">
             </div>
         </div>
     </div>
@@ -252,12 +254,21 @@
                     }
                 }
             }
-            .vchat-content-view {
-                width: calc(100% - 120px);
-                min-width: 1125px;
+            .vchat-content-left-view {
+                width: 320px;
                 height: 100%;
-                padding: 20px 30px 30px;
+                padding: 20px 0 30px;
                 box-sizing: border-box;
+                margin-left: 20px;
+            }
+            .vchat-content-right-view{
+                width: calc(100% - 520px);
+                padding: 20px 0 30px;
+                min-width: 820px;
+                height: 100%;
+                background-color: #fff;
+                box-sizing: border-box;
+                margin-left: 30px;
             }
         }
     }

@@ -1,28 +1,26 @@
 <template>
     <div class="vChat-setGroup">
-        <p class="back">
-            <router-link to="/personalMain/group/ownGroup">
-                <v-icon name="fanhui" cursor="pointer"></v-icon>
-            </router-link>
-            <span>新建群聊</span>
-        </p>
-        <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
-            <el-form-item label="群头像">
-                <div class="avatar-container" @click="setShowCrop">
-                    <img v-if="groupImage" :src="InmageUrl + groupImage" class="avatar">
-                    <i class="el-icon-plus" v-else></i>
-                </div>
-            </el-form-item>
-            <el-form-item label="群名称" prop="groupName">
-                <el-input v-model="groupForm.groupName" placeholder="名称">
-                </el-input>
-            </el-form-item>
-            <el-form-item label="群简介" prop="groupDesc">
-                <el-input v-model="groupForm.groupDesc" placeholder="请输入不超过200个字符" type="textarea" aotusize resize="none" :maxlength="200">
-                </el-input>
-            </el-form-item>
-        </el-form>
-        <button @click="setUp" class="Vchat-full-button">创建</button>
+        <v-apheader title="新建群聊" back="/personalMain/group/ownGroup"></v-apheader>
+
+        <div class="vChat-setGroup-contianer">
+            <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
+                <el-form-item label="群头像">
+                    <div class="avatar-container" @click="setShowCrop">
+                        <img v-if="groupImage" :src="InmageUrl + groupImage" class="avatar">
+                        <i class="el-icon-plus" v-else></i>
+                    </div>
+                </el-form-item>
+                <el-form-item label="群名称" prop="groupName">
+                    <el-input v-model="groupForm.groupName" placeholder="名称">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="群简介" prop="groupDesc">
+                    <el-input v-model="groupForm.groupDesc" placeholder="请输入不超过200个字符" type="textarea" aotusize resize="none" :maxlength="200">
+                    </el-input>
+                </el-form-item>
+            </el-form>
+            <button @click="setUp" class="Vchat-full-button">创建</button>
+        </div>
         <el-dialog
                 :visible.sync="showCrop"
                 width="700px"
@@ -34,6 +32,7 @@
 <script>
     import api from '@/api';
     import cropper from '@/views/components/cropper';
+    import vApheader from '@/views/components/header/vApheader';
     export  default {
         name: 'setGroup',
         data() {
@@ -80,7 +79,8 @@
             }
         },
         components: {
-            cropper
+            cropper,
+            vApheader
         },
         methods: {
             setShowCrop() { // 打开裁剪框
@@ -123,31 +123,7 @@
     .vChat-setGroup {
         width: 100%;
         height: 100%;
-        padding: 0 15px;
         box-sizing: border-box;
-        .back {
-            display: flex;
-            justify-content: center;
-            padding: 10px 15px;
-            box-sizing: border-box;
-            position: relative;
-            margin-bottom: 10px;
-            span {
-                color: #27cac7;
-            }
-            i {
-                position: absolute;
-                left: 5px;
-                top: 10px;
-                display: inline-block;
-                width: 24px;
-                height: 24px;
-                cursor: pointer;
-            }
-            i:hover {
-                color: #1fbeca;
-            }
-        }
         .avatar-container{
             width:150px;
             height: 150px;
@@ -167,6 +143,10 @@
         }
         .avatar-container:hover{
             color: #1fbeca;
+        }
+        .vChat-setGroup-contianer{
+            box-sizing: border-box;
+            padding: 0 15px;
         }
     }
 </style>

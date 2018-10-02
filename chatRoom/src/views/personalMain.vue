@@ -21,7 +21,7 @@
     </div>
 </template>
 <script>
-    import vHeader from '@/views/header/vHeader';
+    import vHeader from '@/views/components/header/vHeader';
     export default{
         name: '',
         data() {

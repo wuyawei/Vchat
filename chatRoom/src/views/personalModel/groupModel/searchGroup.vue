@@ -1,11 +1,7 @@
 <template>
     <div class="vChat-searchGroup">
-        <p class="back">
-            <router-link to="/personalMain/group/ownGroup">
-                <v-icon name="fanhui" cursor="pointer"></v-icon>
-            </router-link>
-            <span>查找群聊</span>
-        </p>
+        <v-apheader title="查找群聊" back="/personalMain/group/ownGroup"></v-apheader>
+
         <div class="Vchat-search group-search">
             <el-select v-model="type" placeholder="请选择搜索方式" @change="huntGroups">
                 <el-option
@@ -55,6 +51,7 @@
 
 <script>
     import api from '@/api';
+    import vApheader from '@/views/components/header/vApheader';
     export default{
         name: 'searchGroup',
         data() {
@@ -74,6 +71,9 @@
                 ],
                 type: '2'
             }
+        },
+        components: {
+            vApheader
         },
         watch: {
             huntKey() {
@@ -121,29 +121,6 @@
     .vChat-searchGroup{
         width:100%;
         height: 100%;
-        .back{
-            display: flex;
-            justify-content: center;
-            padding: 10px 15px;
-            box-sizing: border-box;
-            position: relative;
-            margin-bottom: 10px;
-            span{
-                color: #27cac7;
-            }
-            i{
-                position: absolute;
-                left:5px;
-                top:10px;
-                display: inline-block;
-                width:24px;
-                height: 24px;
-                cursor: pointer;
-            }
-            i:hover{
-                color: #1fbeca;
-            }
-        }
         .group-search{
             width:100%;
             height: 32px;

@@ -18,7 +18,7 @@
 </template>
 <script>
     import api from '../api';
-    import vLheader from '@/views/header/vLheader';
+    import vLheader from '@/views/components/header/vLheader';
     export default{
         name: 'mySetting',
         data() {

@@ -36,6 +36,11 @@ export default new Router({
                             path: 'search',
                             name: 'searchGroup',
                             component: _import('personalModel/groupModel/searchGroup')
+                        },
+                        {
+                            path: 'groupDetail',
+                            name: 'groupDetail',
+                            component: _import('personalModel/groupModel/groupDetail')
                         }
                     ]
                 },

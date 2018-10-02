@@ -1,15 +1,14 @@
 <template>
     <div class="vChat-ownGroup">
-        <h3>
-            <v-icon name="qunzu" :size="26" color="#27cac7"></v-icon>我的群聊
+        <v-apheader title="我的群聊">
             <el-dropdown trigger="click" @command="handleCommand">
-                <v-icon cursor="pointer" name="hanbaobao"></v-icon>
+                <v-icon cursor="pointer" name="hanbaobao" color="#fff"></v-icon>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="/personalMain/group/setGroup">新建群聊</el-dropdown-item>
                     <el-dropdown-item command="/personalMain/group/search">查找群聊</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-        </h3>
+        </v-apheader>
         <ul class="group-list" v-if="Groups.length">
             <li v-for="v in Groups" :key="v._id" @click="setCurrGroup(v.groupId._id)">
                 <a href="javascript:;">
@@ -38,6 +37,7 @@
 
 <script>
     import api from '@/api';
+    import vApheader from '@/views/components/header/vApheader';
     export default{
         name: 'ownGroup',
         data() {
@@ -46,12 +46,16 @@
                 Groups: []
             }
         },
+        components: {
+            vApheader
+        },
         methods: {
             handleCommand(command) {
                 this.$router.push(command);
             },
             setCurrGroup(id) {
                 this.currGroup = id;
+                this.$router.push({name: 'groupDetail', params: {id: id}});
             },
             getMyGroup() {
                 api.getMyGroup().then(r => {
@@ -72,19 +76,6 @@
     .vChat-ownGroup{
         width:100%;
         height: 100%;
-        h3{
-            font-size: 14px;
-            color: #27cac7;
-            text-align: center;
-            padding: 10px 15px 15px;
-            box-sizing: border-box;
-            font-weight: 400;
-            position: relative;
-            i{
-                font-size: 26px;
-                margin-right: 5px;
-            }
-        }
         .group-list{
             width:100%;
             max-height: calc(100% - 100px);

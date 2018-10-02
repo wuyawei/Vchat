@@ -163,7 +163,7 @@ const getGroupInfo = (params, callback) => { // 查找群详细信息
                 if(err) {
                     console.log(err);
                 } else {
-                    callback({code: 0, data: {groupUser: users, groupInfo: r}})
+                    callback({code: 0, data: r[0], users: users})
                 }
             })
         } else {

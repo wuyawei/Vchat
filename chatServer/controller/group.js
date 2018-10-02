@@ -80,7 +80,8 @@ const getGroupInfo = (req, res) => { // 查找群详细信息
         if (r.code === 0) {
             res.json({
                 code : 0,
-                data : r.data
+                data : r.data,
+                users: r.users
             });
         } else {
             res.json({

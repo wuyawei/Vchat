@@ -1,5 +1,5 @@
 <template>
-    <h3 class="vchat-apheader">
+    <h3 class="vchat-apheader" :style="{backgroundColor: bgColor}">
         <a v-if="back" @click="goBack">
             <v-icon name="fanhui" cursor="pointer" color="#fff"></v-icon>
         </a>
@@ -10,7 +10,19 @@
 
 <script>
     export default{
-        props: ['back', 'title'],
+        props: {
+            back: {
+                default: ''
+            },
+            title: {
+                type: String,
+                default: ''
+            },
+            bgColor: {
+                type: String,
+                default: '#27cac7'
+            }
+        },
         data() {
             return {};
         },
@@ -39,15 +51,15 @@
         box-sizing: border-box;
         position: relative;
         height: 40px;
-        background-color: #27cac7;
         span{
             color: #fff;
         }
         a:first-child{
+            display: block;
+            position: absolute;
+            left:5px;
+            top:10px;
             i{
-                position: absolute;
-                left:5px;
-                top:10px;
                 display: inline-block;
                 width:24px;
                 height: 24px;

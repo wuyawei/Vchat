@@ -9,17 +9,10 @@
 </template>
 
 <script>
-    import chat from '../components/chat.vue';
     export default{
         data() {
             return {
-                currGroup: '' //  当前展示群聊id
             }
-        },
-        components: {
-            chat
-        },
-        methods: {
         }
     }
 </script>

@@ -1,8 +1,8 @@
 <template>
     <div class="vchat-group">
         <div class="vchat-group-list">
-            <transition name="move">
-                <router-view></router-view>
+            <transition :name="transitonName">
+                <router-view v-if="isShow"></router-view>
             </transition>
         </div>
     </div>
@@ -12,7 +12,21 @@
     export default{
         data() {
             return {
+                isShow: true,
+                transitonName: 'moveIn' // 过渡动画名
             }
+        },
+        watch: {
+            '$store.state.transitionName'(name) { // 监测切换页面过渡动画
+                if (name === 'moveOut') {
+                    this.transitonName = 'moveOut';
+                } else {
+                    this.transitonName = 'moveIn';
+                }
+            }
+        },
+        beforeDestroy() { // 适应leave动画
+            this.isShow = false;
         }
     }
 </script>

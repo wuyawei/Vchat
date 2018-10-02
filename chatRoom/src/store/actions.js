@@ -17,5 +17,11 @@ export default {
     },
     setTheme({state}) { // 设置主题
         document.body.id = 'theme-' + state.user.projectTheme;
+    },
+    setTransitionName({state}) { // 设置页面过渡动画类型
+        state.transitionName = 'moveOut';
+        setTimeout(_ => {
+            state.transitionName = '';
+        }, 500)
     }
 }

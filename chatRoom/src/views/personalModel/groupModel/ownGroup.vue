@@ -9,11 +9,11 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </v-apheader>
-        <div class="vchat-ownGroup-container" v-if="Groups.length">
+        <div class="vchat-ownGroup-container" v-if="Groups.length" v-loading="loadingWait">
             <div class="group-list-box"  :class="{active: showList.indexOf('set') > -1}">
                 <h3 @click="setShowList('set')">
                     <p>
-                        <v-icon name="fanhui" size="16" color="#b7b6b6" class="list-icon"></v-icon>
+                        <v-icon name="fanhui" :size="16" color="#b7b6b6" class="list-icon"></v-icon>
                         <span>我创建的</span>
                     </p>
                     <span>{{mySetGroups.length}}</span>
@@ -40,7 +40,7 @@
             <div class="group-list-box" :class="{active: showList.indexOf('join') > -1}">
                 <h3 @click="setShowList('join')">
                     <p>
-                        <v-icon name="fanhui" size="16" color="#b7b6b6" class="list-icon"></v-icon>
+                        <v-icon name="fanhui" :size="16" color="#b7b6b6" class="list-icon"></v-icon>
                         <span>我加入的</span>
                     </p>
                     <span>{{myJoinGroups.length}}</span>
@@ -82,6 +82,7 @@
             return {
                 is_focus: false,
                 IMG_URL: process.env.IMG_URL,
+                loadingWait: false,
                 Groups: [], // 群聊数据
                 mySetGroups: [], // 我创建的
                 myJoinGroups: [],// 我加入的
@@ -100,10 +101,12 @@
                 this.$router.push({name: 'groupDetail', params: {id: id}});
             },
             getMyGroup() {
+                this.loadingWait = true;
                 api.getMyGroup().then(r => {
                     if (r.code === 0) {
                         this.Groups = r.data;
                         this.filterGroups();
+                        this.loadingWait = false;
                     }
                 });
             },

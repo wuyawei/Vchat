@@ -156,9 +156,26 @@ const huntGroups = (params, callback) => { // 搜索聊天群（名称/code）
     });
 };
 
+const getGroupInfo = (params, callback) => { // 查找群详细信息
+    groups.find({'_id': params.groupId}).then(r => {
+        if (r.length) {
+            groupUser.findGroupUsersByGroupId(params.groupId, (err, users) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    callback({code: 0, data: {groupUser: users, groupInfo: r}})
+                }
+            })
+        } else {
+            callback({code: -1})
+        }
+    });
+};
+
 module.exports = {
     createGroup,
     getMyGroup,
     getGroupUsers,
-    huntGroups
+    huntGroups,
+    getGroupInfo
 };

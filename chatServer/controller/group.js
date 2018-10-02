@@ -11,12 +11,12 @@ const createGroup = (req, res) => { // 新建群
             res.json({
                 code : 0,
                 data : r.data['_id']
-            })
+            });
         } else {
             res.json({
                 code : -1,
                 data : '创建失败'
-            })
+            });
         }
     })
 };
@@ -28,12 +28,12 @@ const getMyGroup = (req, res) => { // 查找我的群聊
             res.json({
                 code : 0,
                 data : r.data
-            })
+            });
         } else {
             res.json({
                 code : -1,
                 data : '查询失败'
-            })
+            });
         }
     })
 };
@@ -45,12 +45,12 @@ const getGroupUsers = (req, res) => { // 查找指定群聊成员
             res.json({
                 code : 0,
                 data : r.data
-            })
+            });
         } else {
             res.json({
                 code : -1,
                 data : '查询失败'
-            })
+            });
         }
     })
 };
@@ -64,12 +64,29 @@ const huntGroups = (req, res) => { // 搜索聊天群（名称/code）
                 code : 0,
                 data : r.data,
                 count: r.count
-            })
+            });
         } else {
             res.json({
                 code : -1,
                 data : '查询失败'
-            })
+            });
+        }
+    })
+};
+
+const getGroupInfo = (req, res) => { // 查找群详细信息
+    let params = req.body;
+    apiModel.getGroupInfo(params, r => {
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data
+            });
+        } else {
+            res.json({
+                code : -1,
+                data : '查询失败'
+            });
         }
     })
 };
@@ -78,5 +95,6 @@ module.exports = {
     createGroup,
     getMyGroup,
     getGroupUsers,
-    huntGroups
+    huntGroups,
+    getGroupInfo
 };

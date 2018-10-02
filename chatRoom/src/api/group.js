@@ -12,6 +12,9 @@ export default {
     },
     huntGroups(params) {
         return fetch.post('group/huntGroups', params);
+    },
+    getGroupInfo(params) {
+        return fetch.post('group/getGroupInfo', params);
     }
 }
 

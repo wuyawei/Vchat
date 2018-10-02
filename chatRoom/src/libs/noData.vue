@@ -1,5 +1,5 @@
 <template>
-    <div class="Vchat-no-data">
+    <div class="vchat-no-data">
         <div class="no-data-bg"></div>
         <slot></slot>
     </div>
@@ -13,7 +13,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    .Vchat-no-data{
+    .vchat-no-data{
         width:100%;
         margin-bottom: 10px;
         display: flex;

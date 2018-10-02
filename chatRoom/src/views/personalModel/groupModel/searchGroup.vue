@@ -1,8 +1,8 @@
 <template>
-    <div class="vChat-searchGroup">
+    <div class="vchat-searchGroup">
         <v-apheader title="查找群聊" back="/personalMain/group/ownGroup"></v-apheader>
 
-        <div class="Vchat-search group-search">
+        <div class="vchat-search group-search">
             <el-select v-model="type" placeholder="请选择搜索方式" @change="huntGroups">
                 <el-option
                         v-for="item in searchOptions"
@@ -41,7 +41,7 @@
                 </li>
             </ul>
             <v-nodata v-show="!groupList.length && !loadingSearch">
-                <p class="Vchat-no-have">
+                <p class="vchat-no-have">
                     没有找到想要的，<router-link to="/personalMain/group/setGroup">新建</router-link> 一个吧！
             </p>
             </v-nodata>
@@ -118,7 +118,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .vChat-searchGroup{
+    .vchat-searchGroup{
         width:100%;
         height: 100%;
         .group-search{

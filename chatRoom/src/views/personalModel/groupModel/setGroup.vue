@@ -1,8 +1,8 @@
 <template>
-    <div class="vChat-setGroup">
+    <div class="vchat-setGroup">
         <v-apheader title="新建群聊" back="/personalMain/group/ownGroup"></v-apheader>
 
-        <div class="vChat-setGroup-contianer">
+        <div class="vchat-setGroup-contianer">
             <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
                 <el-form-item label="群头像">
                     <div class="avatar-container" @click="setShowCrop">
@@ -19,7 +19,7 @@
                     </el-input>
                 </el-form-item>
             </el-form>
-            <button @click="setUp" class="Vchat-full-button">创建</button>
+            <button @click="setUp" class="vchat-full-button">创建</button>
         </div>
         <el-dialog
                 :visible.sync="showCrop"
@@ -120,7 +120,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    .vChat-setGroup {
+    .vchat-setGroup {
         width: 100%;
         height: 100%;
         box-sizing: border-box;
@@ -144,7 +144,7 @@
         .avatar-container:hover{
             color: #1fbeca;
         }
-        .vChat-setGroup-contianer{
+        .vchat-setGroup-contianer{
             box-sizing: border-box;
             padding: 0 15px;
         }

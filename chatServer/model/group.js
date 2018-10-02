@@ -10,7 +10,8 @@ let groups = db.model("groups", {
     code: String,
     userNum: Number, // 群成员数量，避免某些情况需要多次联表查找，如搜索；所以每次加入一人，数量加一
     createDate: { type: Date, default: Date.now() }, // 建群时间
-    grades: { type: String, default: 'V1' } // 群等级，备用
+    grades: { type: String, default: 'V1' }, // 群等级，备用
+    holderName: String // 群主账号
 });
 
 let groupUserSchema = new db.Schema({
@@ -24,7 +25,8 @@ let groupUserSchema = new db.Schema({
     },
     userName: { type: String },
     manager: { type: Number, default: 0 },
-    holder: { type: Number, default: 0 }
+    holder: { type: Number, default: 0 },
+    card: String // 群名片
 });
 
 groupUserSchema.statics = {

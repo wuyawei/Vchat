@@ -1,5 +1,5 @@
 <template>
-    <div class="vChat-ownGroup">
+    <div class="vchat-ownGroup">
         <v-apheader title="我的群聊">
             <el-dropdown trigger="click" @command="handleCommand">
                 <v-icon cursor="pointer" name="hanbaobao" color="#fff"></v-icon>
@@ -9,26 +9,28 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </v-apheader>
-        <ul class="group-list" v-if="Groups.length">
-            <li v-for="v in Groups" :key="v._id" @click="setCurrGroup(v.groupId._id)">
-                <a href="javascript:;">
-                    <img :src="'http://localhost:9988' + v.groupId.img" alt="">
-                </a>
-                <div>
-                    <p>
-                        <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
-                        <el-badge :value="12" class="item">
-                        </el-badge>
-                    </p>
-                    <p>
-                        <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
-                        <span>3分钟</span>
-                    </p>
-                </div>
-            </li>
-        </ul>
+        <div class="vchat-ownGroup-container" v-if="Groups.length">
+            <ul class="group-list">
+                <li v-for="v in Groups" :key="v._id" @click="setCurrGroup(v.groupId._id)">
+                    <a href="javascript:;">
+                        <img :src="'http://localhost:9988' + v.groupId.img" alt="">
+                    </a>
+                    <div>
+                        <p>
+                            <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
+                            <el-badge :value="12" class="item">
+                            </el-badge>
+                        </p>
+                        <p>
+                            <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
+                            <span>3分钟</span>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <v-nodata v-else>
-            <p class="Vchat-no-have">
+            <p class="vchat-no-have">
                 还没有加入群聊哦，去 <router-link to="/personalMain/group/search">查找</router-link>， 去 <router-link to="/personalMain/group/setGroup">新建</router-link>。
             </p>
         </v-nodata>
@@ -73,7 +75,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .vChat-ownGroup{
+    .vchat-ownGroup{
         width:100%;
         height: 100%;
         .group-list{
@@ -124,10 +126,6 @@
                 }
             }
             li:hover{
-                background-color: #cdeff8;
-                opacity: 0.8;
-            }
-            li.active{
                 background-color: #cdeff8;
                 opacity: 0.8;
             }

@@ -1,6 +1,6 @@
 <template>
     <div class="vchat-header">
-        <div class="vchat-logo">vchat</div>
+        <div class="vchat-logo">Vchat</div>
         <div class="vchat-mine">
             <div>
                 <a href="javascript:;">

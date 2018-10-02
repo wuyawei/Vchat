@@ -1,6 +1,6 @@
 <template>
-    <div class="vChat-group">
-        <div class="vChat-group-list">
+    <div class="vchat-group">
+        <div class="vchat-group-list">
             <transition name="move">
                 <router-view></router-view>
             </transition>
@@ -18,12 +18,12 @@
 </script>
 
 <style lang="scss" scoped>
-    .vChat-group{
+    .vchat-group{
         width:100%;
         height: 100%;
         display: flex;
         justify-content: space-around;
-        .vChat-group-list{
+        .vchat-group-list{
             width: 100%;
             min-width: 300px;
             height: 100%;

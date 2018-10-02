@@ -30,12 +30,14 @@
 * createDate 创建时间
 * userNum 成员数
 * grades 等级
+* holderName 群主账号
 ### groupUser 群成员
 * id
 * roomid 群
 * userName 用户名
 * manager 管理员 0/1
 * holder 群主 0/1
+* card 群名片
 ### frendly 好友
 * id
 * userAid

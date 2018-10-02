@@ -22,7 +22,7 @@
     user-select: none;
 }
 
-.Vchat-button { // 按钮样式
+.vchat-button { // 按钮样式
     display: inline-block;
     padding: 12px 20px;
     line-height: 1;
@@ -32,7 +32,7 @@
     cursor: pointer;
     font-size: 14px;
 }
-.Vchat-full-button{
+.vchat-full-button{
     width:100%;
     background-color: #3aa1ca;
     border: none;
@@ -44,11 +44,11 @@
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.Vchat-full-button:hover{
+.vchat-full-button:hover{
     background-color: #43B6DF;
     color: #fff;
 }
-.Vchat-no-have { // 没有想要的样式
+.vchat-no-have { // 没有想要的样式
     font-size: 12px;
     text-align: left;
     padding: 5px 15px;
@@ -59,7 +59,7 @@
     }
 }
 
-.Vchat-button:hover {
+.vchat-button:hover {
     opacity: 0.8;
 }
 

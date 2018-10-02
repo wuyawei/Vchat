@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-login">
         <div class="logo" :class="{active: showSign}">
-            <h3 class="title">Hi, vChat !</h3>
+            <h3 class="title">Hi, Vchat !</h3>
             <span class="begain" @click="experience">立即体验</span>
         </div>
         <div class="sign" v-if="showSign">

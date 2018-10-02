@@ -1,5 +1,5 @@
 <template>
-    <h3>
+    <h3 class="vchat-apheader">
         <a v-if="back" @click="goBack">
             <v-icon name="fanhui" cursor="pointer" color="#fff"></v-icon>
         </a>
@@ -27,7 +27,7 @@
 </script>
 
 <style lang="scss" scoped>
-    h3{
+    h3.vchat-apheader{
         width: 100%;
         font-size: 14px;
         color: #fff;

@@ -37,7 +37,7 @@
         padding: 10px 15px;
         box-sizing: border-box;
         position: relative;
-        margin-bottom: 10px;
+        height: 40px;
         background-color: #27cac7;
         span{
             color: #fff;

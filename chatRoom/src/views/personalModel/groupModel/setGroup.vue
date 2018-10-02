@@ -146,7 +146,7 @@
         }
         .vchat-setGroup-contianer{
             box-sizing: border-box;
-            padding: 0 15px;
+            padding: 10px 15px 0;
         }
     }
 </style>

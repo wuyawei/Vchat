@@ -131,6 +131,7 @@
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
+            margin-top: 10px;
             .el-select{
                 width: 80px;
                 margin-right: 5px;
@@ -153,12 +154,11 @@
         }
         .search-contianer{
             width:100%;
-            min-height: 80%;
+            height: calc(100% - 152px);
+            overflow-y: auto;
         }
         .search-group-list{
             width:100%;
-            max-height: calc(100% - 150px);
-            overflow-y: auto;
             margin-bottom: 10px;
             li{
                 width:100%;

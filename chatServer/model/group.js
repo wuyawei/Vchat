@@ -46,7 +46,7 @@ let groupUser = db.model("groupUser", groupUserSchema); // groupUser model
 
 const createGroup = (params, callback) => { // 新建群
     function createfun(code) {
-        groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage, code: code, userNum: 1}).then(r => {
+        groups.create({title: params.groupName, desc: params.groupDesc, img: params.groupImage, code: code, userNum: 1, holderName: params.userName}).then(r => {
             if (r['_id']) {
                 baseList.users.find({name: params.userName}).then(rs => { // 查询userId  loginname 无法关联查询
                     if (rs.length) {
@@ -70,7 +70,7 @@ const createGroup = (params, callback) => { // 新建群
     }
     function fineOneAccountBase(createfun) { // 号码池查找code
         let rand = Math.random();
-        baseList.accountBase.findOneAndUpdate({type: '1', status: '0', random : { $gte : rand }}, {status: '1'}, (err, doc) => {
+        baseList.accountBase.findOneAndUpdate({type: '2', status: '0', random : { $gte : rand }}, {status: '1'}, (err, doc) => {
             if (err) {
                 console.log(err);
             } else {

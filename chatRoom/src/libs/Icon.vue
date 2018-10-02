@@ -7,7 +7,7 @@
         props: {
             name: {
                 type: String,
-                default: 'jia2'
+                default: ''
             },
             size: {
                 type: Number,

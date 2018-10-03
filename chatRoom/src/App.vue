@@ -16,4 +16,7 @@
 <style lang="scss">
     @import "../static/css/base";
     @import "../static/theme/index";
+    #app{
+        overflow: hidden;
+    }
 </style>

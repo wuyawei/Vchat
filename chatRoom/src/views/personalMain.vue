@@ -16,6 +16,7 @@
                 <router-view></router-view>
             </div>
             <div class="vchat-content-right-view">
+                应用空间
             </div>
         </div>
     </div>

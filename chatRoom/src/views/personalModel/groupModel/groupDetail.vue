@@ -1,6 +1,6 @@
 <template>
     <div class="vchat-groupDetail">
-        <v-apheader back="/personalMain/group/ownGroup" bgColor="transparent" class="vchat-groupDetail-header">
+        <v-apheader back="-1" bgColor="transparent" class="vchat-groupDetail-header">
             <v-icon name="erweima" color="#f5f5f5" cursor="pointer" @clickIcon="showGroupQr = true"></v-icon>
         </v-apheader>
         <el-carousel trigger="click" height="200px" arrow="never" indicator-position="none">
@@ -56,7 +56,7 @@
             <div class="group-managers group-item">
                 <div>
                     <span>管理员</span>
-                    <a v-for="v in managers" :key="v['_id']" class="vchat-photo" v-if="i < 3">
+                    <a v-for="(v, i) in managers" :key="v['_id']" class="vchat-photo" v-if="i < 3">
                         <img :src="v.userId.photo" alt="">
                     </a>
                 </div>

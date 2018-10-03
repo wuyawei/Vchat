@@ -1,33 +1,48 @@
 <template>
     <div class="vchat-header">
-        <div class="vchat-logo">Vchat</div>
-        <div class="vchat-mine">
-            <div>
-                <a href="javascript:;">
-                    <img :src="avatar" alt="">
-                </a>
-                <ul class="handleList">
-                    <li v-for="(v, i) in handleList" :key="i">
-                        <router-link :to="v.link">
-                            <i class="iconfont" :class="[v.icon ? v.icon : '']"></i>
-                            {{v.name}}
+        <div class="vchat-header-container">
+            <div class="vchat-logo">Vchat</div>
+            <div class="vchat-mine">
+                <nav class="vchat-noUser">
+                    <p @click="showChat = !showChat">
+                        <el-badge :value="12">
+                            <span>消息</span>
+                        </el-badge>
+                    </p>
+                </nav>
+                <div>
+                    <a href="javascript:;">
+                        <img :src="avatar" alt="">
+                    </a>
+                    <ul class="handleList">
+                        <li v-for="(v, i) in handleList" :key="i">
+                            <router-link :to="v.link">
+                                <i class="iconfont" :class="[v.icon ? v.icon : '']"></i>
+                                {{v.name}}
                             </router-link>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <p>
-                    <span class="vchat-line1" :title="user.nickname">{{user.nickname}}</span>
-                    <span @click="loginOut" class="logout">[退出]</span>
-                </p>
-                <p class="vchat-line2" :title="user.signature">{{user.signature ? '个性签名：' + user.signature : '这个人很懒，暂时没有签名哦！'}}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <p>
+                        <span class="vchat-line1" :title="user.nickname">{{user.nickname}}</span>
+                        <span @click="loginOut" class="logout">[退出]</span>
+                    </p>
+                    <p class="vchat-line2" :title="user.signature">{{user.signature ? '个性签名：' + user.signature : '这个人很懒，暂时没有签名哦！'}}</p>
+                </div>
             </div>
         </div>
+        <transition name="chat">
+            <div class="vchat-chat-contianer" v-if="showChat">
+                <chat></chat>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
     import api from '@/api';
+    import chat from '@/views/components/chat';
     export default{
         name: 'vHeader',
         data() {
@@ -43,8 +58,12 @@
                         icon: 'icon-shezhi1',
                         link: '/mySetting'
                     }
-                ]
+                ],
+                showChat: false
             };
+        },
+        components: {
+            chat
         },
         computed: {
             avatar() {
@@ -71,9 +90,16 @@
     .vchat-header {
         width: 100%;
         height: 80px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        .vchat-header-container{
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            background-color: #27cac7;
+            z-index: 102;
+        }
         .vchat-logo {
             width: 120px;
             height: 80px;
@@ -82,7 +108,6 @@
             line-height: 80px;
         }
         .vchat-mine {
-            min-width: 300px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -114,13 +139,37 @@
                 background-color: #fff;
                 position: absolute;
                 left: 0;
-                top: 70px;
+                top: 85px;
                 display: none;
                 z-index: 100;
                 border-radius: 2px;
-                box-shadow: 0 1px 3px #f5f5f5;
+                box-shadow: 0 0 8px #d5d5d5;
                 padding: 10px 0;
                 box-sizing: border-box;
+            }
+            .handleList:before{
+                display: block;
+                content: '';
+                width:0;
+                height: 0;
+                border-bottom: 15px solid #f2f2f2;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: none;
+                position: absolute;
+                left:20px;
+                top:-15px;
+                z-index: 2;
+            }
+            .handleList:after{
+                display: block;
+                content: '';
+                width:100%;
+                height: 15px;
+                position: absolute;
+                left:0;
+                top:-15px;
+                z-index: 1;
             }
             .handleList li {
                 width: 100%;
@@ -166,6 +215,35 @@
                     max-width: 200px;
                 }
             }
+            nav{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-right: 20px;
+                p{
+                    color: #fff;
+                    font-size: 16px;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                    border-radius: 2px;
+                    span{
+                        padding: 6px;
+                    }
+                }
+                p:hover{
+                    background-color: #f5f5f5;
+                    color: #27cac7;
+                }
+            }
+        }
+        .vchat-chat-contianer{
+            width:70%;
+            height: 80%;
+            position: fixed;
+            left: 15%;
+            top: 15%;
+            z-index: 101;
+            background-color: #fff;
         }
     }
 </style>

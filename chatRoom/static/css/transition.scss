@@ -36,3 +36,19 @@
 .moveOut-leave-to{
     transform: translateX(100%);
 }
+// chat展示动画
+.chat-enter-active, .chat-leave-active {
+    transition: all .5s cubic-bezier(.71,.21,.28,.82);
+}
+.chat-enter{
+    transform: translate(100%, -100%) scale(0);
+}
+.chat-enter-to {
+    transform: translate(0, 0) scale(1);
+}
+.chat-leave{
+    transform: translate(0, 0) scale(1);
+}
+.chat-leave-to{
+    transform: translate(100%, -100%) scale(0);
+}

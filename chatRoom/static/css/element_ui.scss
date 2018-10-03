@@ -35,13 +35,6 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     }
 }
 
-.vchat-ownGroup{
-    .el-dropdown{
-        position: absolute;
-        right: 0;
-        top:8px;
-    }
-}
 .vchat-search{
     .el-select{
         .el-input__suffix{
@@ -69,4 +62,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 }
 .el-select-dropdown__item{
     font-size: 12px;
+}
+.el-tag{
+    padding: 0 5px;
+    height: 26px;
+    line-height: 26px;
+    margin-right: 5px;
 }

@@ -4,7 +4,9 @@
             <v-icon name="fanhui" cursor="pointer" color="#fff"></v-icon>
         </a>
         <span v-if="title">{{title}}</span>
-        <slot></slot>
+        <div class="icon-slot">
+            <slot></slot>
+        </div>
     </h3>
 </template>
 
@@ -54,7 +56,7 @@
         span{
             color: #fff;
         }
-        a:first-child{
+        >a:first-child{
             display: block;
             position: absolute;
             left:5px;
@@ -65,6 +67,14 @@
                 height: 24px;
                 cursor: pointer;
                 color: #323232;
+            }
+        }
+        .icon-slot{
+            position: absolute;
+            right: 15px;
+            top:10px;
+            a{
+                color: #fff;
             }
         }
     }

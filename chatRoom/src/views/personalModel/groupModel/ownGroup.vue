@@ -97,7 +97,6 @@
                 this.$router.push(command);
             },
             setCurrGroup(id) {
-                this.currGroup = id;
                 this.$router.push({name: 'groupDetail', params: {id: id}});
             },
             getMyGroup() {

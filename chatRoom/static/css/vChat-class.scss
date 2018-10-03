@@ -3,7 +3,18 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
+.vchat-photo{
+    display: block;
+    width:40px;
+    height: 40px;
+    border:1px solid #f5f5f5;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 50%;
+    img{
+        width:100%;
+    }
+}
 .vchat-line2 { // 2行文字超出省略号
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -39,14 +50,13 @@
     outline: none;
     height: 36px;
     color: #fff;
-    border-radius: 25px;
+    border-radius: 2px;
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 10px;
 }
 .vchat-full-button:hover{
-    background-color: #43B6DF;
-    color: #fff;
+    opacity: 0.8;
 }
 .vchat-no-have { // 没有想要的样式
     font-size: 12px;

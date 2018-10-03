@@ -41,6 +41,11 @@ export default new Router({
                             path: 'groupDetail/:id',
                             name: 'groupDetail',
                             component: _import('personalModel/groupModel/groupDetail')
+                        },
+                        {
+                            path: 'applyGroup/:id',
+                            name: 'applyGroup',
+                            component: _import('personalModel/groupModel/applyGroup')
                         }
                     ]
                 },

@@ -3,7 +3,7 @@
   position: absolute;
   left:0;
   top:0;
-  transition: all .5s cubic-bezier(.81,.35,.3,.71);
+  transition: all .3s cubic-bezier(.81,.35,.3,.71);
 }
 .moveIn-enter{
   transform: translateX(100%);
@@ -22,7 +22,7 @@
   position: absolute;
   left:0;
   top:0;
-  transition: all .5s cubic-bezier(.81,.35,.3,.71);
+  transition: all .3s cubic-bezier(.81,.35,.3,.71);
 }
 .moveOut-enter{
     transform: translateX(-100%);

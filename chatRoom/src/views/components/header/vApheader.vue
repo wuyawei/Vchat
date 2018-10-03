@@ -75,6 +75,7 @@
             top:10px;
             a{
                 color: #fff;
+                font-size: 14px;
             }
         }
     }

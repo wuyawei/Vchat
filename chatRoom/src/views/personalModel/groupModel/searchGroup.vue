@@ -22,7 +22,7 @@
         </div>
         <div class="search-contianer" v-loading="loadingSearch">
             <ul class="search-group-list" v-show="groupList.length">
-                <li v-for="v in groupList" :key="groupList['_id']">
+                <li v-for="v in groupList" :key="v['_id']" @click="goGroupDetail(v['_id'])">
                     <a href="javascript:;">
                         <img :src="v.img" alt="">
                     </a>
@@ -81,6 +81,9 @@
             }
         },
         methods: {
+            goGroupDetail(id) {
+                this.$router.push({name: 'groupDetail', params: {id: id}});
+            },
             huntGroups(t) { // 搜索群聊
                 if (this.loadingSearch) {
                     return;

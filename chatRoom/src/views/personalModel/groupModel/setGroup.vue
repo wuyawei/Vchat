@@ -15,7 +15,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="群简介" prop="groupDesc">
-                    <el-input v-model="groupForm.groupDesc" placeholder="请输入不超过200个字符" type="textarea" aotusize resize="none" :maxlength="200">
+                    <el-input v-model="groupForm.groupDesc" placeholder="请输入不超过200个字" type="textarea" aotusize resize="none" :maxlength="200">
                     </el-input>
                 </el-form-item>
             </el-form>

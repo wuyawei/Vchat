@@ -19,7 +19,7 @@
                     <span>{{mySetGroups.length}}</span>
                 </h3>
                 <ul class="group-list">
-                    <li v-for="v in mySetGroups" :key="v._id" @click="setCurrGroup(v.groupId._id)">
+                    <li v-for="v in mySetGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.groupId.img" alt="">
                         </a>
@@ -46,7 +46,7 @@
                     <span>{{myJoinGroups.length}}</span>
                 </h3>
                 <ul class="group-list">
-                    <li v-for="v in myJoinGroups" :key="v._id" @click="setCurrGroup(v.groupId._id)">
+                    <li v-for="v in myJoinGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.groupId.img" alt="">
                         </a>
@@ -96,7 +96,7 @@
             handleCommand(command) {
                 this.$router.push(command);
             },
-            setCurrGroup(id) {
+            goGroupDetail(id) {
                 this.$router.push({name: 'groupDetail', params: {id: id}});
             },
             getMyGroup() {

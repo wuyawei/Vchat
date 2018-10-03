@@ -4,6 +4,7 @@
             <div class="vchat-logo">Vchat</div>
             <div class="vchat-mine">
                 <nav class="vchat-noUser">
+                    <!--class="animated" :class="{bounceIn: hover}" @mouseover="mouseover" ref="showChat"-->
                     <p @click="showChat = !showChat">
                         <el-badge :value="12">
                             <span>消息</span>
@@ -47,6 +48,7 @@
         name: 'vHeader',
         data() {
             return {
+//                hover: false,
                 handleList: [
                     {
                         name: '个人主页',
@@ -83,6 +85,14 @@
                     }
                 });
             }
+//            mouseover() {
+//                this.hover = true;
+//                this.$refs['showChat'].addEventListener('animationend', this.set, false);
+//            },
+//            set() {
+//                this.hover = false;
+//                this.$refs['showChat'].removeEventListener('animationend', this.set, false);
+//            }
         }
     }
 </script>
@@ -223,14 +233,14 @@
                 p{
                     color: #fff;
                     font-size: 16px;
-                    padding: 5px 10px;
+                    padding: 8px 12px;
                     cursor: pointer;
                     border-radius: 2px;
                     span{
                         padding: 6px;
                     }
                 }
-                p:hover{
+                P:hover{
                     background-color: #f5f5f5;
                     color: #27cac7;
                 }

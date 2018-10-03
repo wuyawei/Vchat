@@ -3,7 +3,7 @@
         <a v-if="back" @click="goBack">
             <v-icon name="fanhui" cursor="pointer" color="#fff"></v-icon>
         </a>
-        <span>{{title}}</span>
+        <span v-if="title">{{title}}</span>
         <slot></slot>
     </h3>
 </template>

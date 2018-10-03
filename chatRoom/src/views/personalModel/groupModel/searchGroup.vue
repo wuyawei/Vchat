@@ -42,7 +42,7 @@
             </ul>
             <v-nodata v-show="!groupList.length && !loadingSearch">
                 <p class="vchat-no-have">
-                    没有找到想要的，<router-link to="/personalMain/group/setGroup">新建</router-link> 一个吧！
+                    没有查询到想要的，<router-link to="/personalMain/group/setGroup">新建</router-link> 一个吧！
             </p>
             </v-nodata>
         </div>
@@ -98,6 +98,16 @@
                         this.loadingSearch = false;
                     }, 800);
                     return;
+                }
+                if (this.type === '1') { // 按群号查找 需要输入3位以上字符
+                    if (this.huntKey.length <= 3) {
+                        this.loadingSearch = true;
+                        setTimeout(_ => {
+                            this.groupList = [];
+                            this.loadingSearch = false;
+                        }, 800);
+                        return;
+                    }
                 }
 
                 this.loadingSearch = true;

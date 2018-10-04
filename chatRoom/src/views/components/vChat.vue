@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-chatRoom">
         <div class="chat-header">
-            <a>聊年第一群</a>
+            <a>聊天第一群</a>
             <div class="chat-handel">
                 <v-icon class="el-icon-minus" color="#fff" cursor="pointer" @clickIcon="clickIcon"></v-icon>
             </div>
@@ -34,15 +34,21 @@
     .vchat-chatRoom{
         width:100%;
         height: 100%;
-        border-radius: 5px;
+        border-radius: 3px;
+        background-image: url(../../assets/img/1.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
         .chat-header{
             width:100%;
             height: 40px;
-            background-color: #27cac7;
             color: #fff;
             text-align: center;
             position: relative;
             line-height: 40px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #ffffff6e;
+            font-size: 16px;
             a{
                 color: #fff;
             }
@@ -51,6 +57,12 @@
                 right: 0;
                 top:0;
                 padding-right: 15px;
+                i{
+                    padding: 2px;
+                }
+                i:hover{
+                    background-color: rgba(255,255,255,0.5);
+                }
             }
         }
         .chat-container{
@@ -60,13 +72,14 @@
             justify-content: flex-start;
             .chat-conversation-list{
                 width:20%;
-                min-width:148px;
-                background-color: #ff0000;
+                min-width:147.2px;
+                box-sizing: border-box;
+                border-right: 1px solid #ffffff6e;
             }
             .chat-content-box{
                 width: 80%;
-                min-width: 592px;
-                background-color: #fff3c2;
+                min-width: 588.8px;
+                box-sizing: border-box;
             }
         }
     }

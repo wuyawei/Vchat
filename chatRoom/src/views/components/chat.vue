@@ -125,9 +125,6 @@
         top:0;
         width:100%;
         height: 100%;
-        /*background-image: url(../../assets/img/6.jpg);*/
-        /*background-repeat: no-repeat;*/
-        /*background-size: cover;*/
     }
     .chat-l{
         width:78%;

@@ -36,9 +36,10 @@
         <transition name="chat">
             <vue-draggable-resizable v-if="showChat"
                                      :w="w" :h="h"
-                                     @resizestop ="onResizestop "
+                                     @resizestop = "onResizestop "
                                      @dragstop = "onDragstop"
-                                     :minh="460" :minw="740"
+                                     :minh="460" :minw="736"
+                                     :handles = "['tl', 'tr', 'bl', 'br']"
                                      :draggable="draggable" :resizable="true"
                                      :x="x" :y="y" :z="101"
                                      :drag-handle="'.chat-header, .chat-conversation-list'"
@@ -75,7 +76,7 @@
                 showChat: false,
                 x: Number(window.localStorage.x) || 100,
                 y: Number(window.localStorage.y) || 100,
-                w: Number(window.localStorage.w) || 740,
+                w: Number(window.localStorage.w) || 736,
                 h: Number(window.localStorage.h) || 460
             };
         },
@@ -93,10 +94,10 @@
         },
         watch: {
             showChat() {
-                this.x = Number(window.localStorage.x) || 100,
-                this.y = Number(window.localStorage.y) || 100,
-                this.w = Number(window.localStorage.w) || 740,
-                this.h = Number(window.localStorage.h) || 460
+                this.x = Number(window.localStorage.x) || 100;
+                this.y = Number(window.localStorage.y) || 100;
+                this.w = Number(window.localStorage.w) || 736;
+                this.h = Number(window.localStorage.h) || 460;
             }
         },
         methods: {
@@ -128,7 +129,7 @@
         }
     }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     .vchat-header {
         width: 100%;
         height: 80px;
@@ -281,8 +282,15 @@
         .vdr{
             position: fixed;
             background-color: #fff;
-            max-width: 1737px;
+            max-width: 1728px;
             max-height: 1080px;
+            border-radius: 3px;
+            .handle{
+                width: 8px;
+                height: 8px;
+                background: #f5f5f5;
+                border-radius: 2px;
+            }
         }
     }
 </style>

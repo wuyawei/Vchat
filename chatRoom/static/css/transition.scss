@@ -37,18 +37,33 @@
     transform: translateX(100%);
 }
 // chat展示动画
-.chat-enter-active, .chat-leave-active {
-    transition: all .5s cubic-bezier(.71,.21,.28,.82);
+//.chat-enter-active{
+//     transition: all .5s cubic-bezier(.71,.21,.28,.82);
+//}
+.chat-leave-active {
+    transition: all .3s cubic-bezier(.71,.21,.28,.82);
 }
 .chat-enter{
-    transform: translate(100%, -100%) scale(0);
+    transform: translate(0, -100%) scale(0.5);
 }
 .chat-enter-to {
-    transform: translate(0, 0) scale(1);
+    animation: chat-enter 0.5s cubic-bezier(.71,.21,.28,.82);
 }
 .chat-leave{
-    transform: translate(0, 0) scale(1);
+    transform: scale(1, 1);
 }
 .chat-leave-to{
-    transform: translate(100%, -100%) scale(0);
+    transform: scale(0, 1);
+}
+@keyframes chat-enter {
+    0% {
+        transform: translate(0, -100%) scale(0.5);
+    }
+    40% {
+        transform: translate(0, 0) scale(0.5, 1);
+    }
+    100% {
+
+        transform: translate(0, 0) scale(1, 1);
+    }
 }

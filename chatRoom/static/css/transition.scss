@@ -41,7 +41,7 @@
 //     transition: all .5s cubic-bezier(.71,.21,.28,.82);
 //}
 .chat-leave-active {
-    transition: all .3s cubic-bezier(.71,.21,.28,.82);
+    transition: all .5s cubic-bezier(.51,1.91,.49,-0.97);
 }
 .chat-enter{
     transform: translate(0, -100%) scale(0.5);

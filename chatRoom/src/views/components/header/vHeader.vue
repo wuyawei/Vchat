@@ -42,8 +42,8 @@
                                      :handles = "['tl', 'tr', 'bl', 'br']"
                                      :draggable="draggable" :resizable="true"
                                      :x="x" :y="y" :z="101"
-                                     :drag-handle="'.chat-header, .chat-conversation-list'"
-                                     :drag-cancel="'a, .chat-conversation-list-item, .chat-handel'"
+                                     :drag-handle="'.chat-header, .chat-conversation-ul'"
+                                     :drag-cancel="'a, .chat-conversation-li, .chat-handel'"
             >
                 <chat @closeChat="showChat = false"></chat>
             </vue-draggable-resizable>
@@ -154,6 +154,7 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            padding-right: 15px;
             > div:nth-of-type(1) {
                 width: 80px;
                 height: 70px;

@@ -1,6 +1,5 @@
 <template>
-    <div class="chat">
-        <div class="chat-header"></div>
+    <div class="vchat-chat">
         <div class="chat-l">
             <div class="chat-l-top">
                 <ul ref="msglist">
@@ -111,7 +110,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-    .chat{
+    .vchat-chat{
         width:100%;
         height: 100%;
         margin: auto;
@@ -126,9 +125,9 @@
         top:0;
         width:100%;
         height: 100%;
-        background-image: url(../../assets/img/6.jpg);
-        background-repeat: no-repeat;
-        background-size: cover;
+        /*background-image: url(../../assets/img/6.jpg);*/
+        /*background-repeat: no-repeat;*/
+        /*background-size: cover;*/
     }
     .chat-l{
         width:78%;

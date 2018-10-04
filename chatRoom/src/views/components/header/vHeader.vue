@@ -34,7 +34,7 @@
             </div>
         </div>
         <transition name="chat">
-            <vue-draggable-resizable :w="820" :h="542" :resizing="resize" :dragging="onDrag"  :minh="542" :minw="820" v-if="showChat" :isDraggable="true" :isResizable="false" :x="100" :y="100" :z="101" dragCancel=".chat-l-top" @activated="onActivated" @clicked ="onclicked">
+            <vue-draggable-resizable :w="740" :h="460" :resizing="resize" :dragging="onDrag"  :minh="460" :minw="740" v-if="showChat" :isDraggable="true" :isResizable="false" :x="100" :y="100" :z="101" :drag-handle="'.chat-header, .chat-conversation-list'" :maximize="true" :drag-cancel="'a, .chat-conversation-list-item'">
                 <chat></chat>
             </vue-draggable-resizable>
         </transition>
@@ -43,7 +43,7 @@
 
 <script>
     import api from '@/api';
-    import chat from '@/views/components/chat';
+    import chat from '@/views/components/vChat';
     import VueDraggableResizable from 'vue-draggable-resizable';
     export default{
         name: 'vHeader',
@@ -108,10 +108,6 @@
             onDrag: function (x, y) {
                 this.x = x;
                 this.y = y;
-            },
-            onActivated() {
-            },
-            onclicked(Original) {
             }
         }
     }

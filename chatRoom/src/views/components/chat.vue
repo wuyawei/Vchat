@@ -1,5 +1,6 @@
 <template>
     <div class="chat">
+        <div class="chat-header"></div>
         <div class="chat-l">
             <div class="chat-l-top">
                 <ul ref="msglist">
@@ -29,7 +30,7 @@
                 </ul>
             </div>
             <div class="chat-l-bottom">
-                <textarea v-model="mes"></textarea>
+                <textarea v-model="mes" onclick="focus()"></textarea>
                 <span @click="send">发送</span>
             </div>
         </div>

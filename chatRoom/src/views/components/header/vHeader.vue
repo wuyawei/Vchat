@@ -34,9 +34,9 @@
             </div>
         </div>
         <transition name="chat">
-            <VueDragResize :isActive="true" :w="1000" :h="700" v-on:resizing="resize" v-on:dragging="resize"  v-if="showChat">
+            <vue-draggable-resizable :w="820" :h="542" :resizing="resize" :dragging="onDrag"  :minh="542" :minw="820" v-if="showChat" :isDraggable="true" :isResizable="false" :x="100" :y="100" :z="101" dragCancel=".chat-l-top" @activated="onActivated" @clicked ="onclicked">
                 <chat></chat>
-            </VueDragResize>
+            </vue-draggable-resizable>
         </transition>
     </div>
 </template>
@@ -44,7 +44,7 @@
 <script>
     import api from '@/api';
     import chat from '@/views/components/chat';
-    import VueDragResize from 'vue-drag-resize';
+    import VueDraggableResizable from 'vue-draggable-resizable';
     export default{
         name: 'vHeader',
         data() {
@@ -71,7 +71,7 @@
         },
         components: {
             chat,
-            VueDragResize
+            VueDraggableResizable
         },
         computed: {
             avatar() {
@@ -104,6 +104,14 @@
                 this.height = newRect.height;
                 this.top = newRect.top;
                 this.left = newRect.left;
+            },
+            onDrag: function (x, y) {
+                this.x = x;
+                this.y = y;
+            },
+            onActivated() {
+            },
+            onclicked(Original) {
             }
         }
     }
@@ -259,15 +267,8 @@
             }
         }
         .vchat-chat-contianer, .vdr{
-            width:70%;
-            height: 80%;
             position: fixed;
-            left: 15%;
-            top: 15%;
-            z-index: 101 !important;
             background-color: #fff;
-            min-width: 820px;
-            min-height: 542px;
         }
     }
 </style>

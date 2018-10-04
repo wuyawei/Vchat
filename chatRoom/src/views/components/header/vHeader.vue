@@ -34,8 +34,17 @@
             </div>
         </div>
         <transition name="chat">
-            <vue-draggable-resizable :w="740" :h="460" :resizing="resize" :dragging="onDrag"  :minh="460" :minw="740" v-if="showChat" :isDraggable="true" :isResizable="false" :x="100" :y="100" :z="101" :drag-handle="'.chat-header, .chat-conversation-list'" :maximize="true" :drag-cancel="'a, .chat-conversation-list-item'">
-                <chat></chat>
+            <vue-draggable-resizable v-if="showChat"
+                                     :w="w" :h="h"
+                                     @resizestop ="onResizestop "
+                                     @dragstop = "onDragstop"
+                                     :minh="460" :minw="740"
+                                     :draggable="draggable" :resizable="true"
+                                     :x="x" :y="y" :z="101"
+                                     :drag-handle="'.chat-header, .chat-conversation-list'"
+                                     :drag-cancel="'a, .chat-conversation-list-item, .chat-handel'"
+            >
+                <chat @closeChat="showChat = false"></chat>
             </vue-draggable-resizable>
         </transition>
     </div>
@@ -50,10 +59,7 @@
         data() {
             return {
 //                hover: false,
-                width: 0,
-                height: 0,
-                top: 0,
-                left: 0,
+                draggable: true, // 允许拖拽
                 handleList: [
                     {
                         name: '个人主页',
@@ -66,7 +72,11 @@
                         link: '/mySetting'
                     }
                 ],
-                showChat: false
+                showChat: false,
+                x: Number(window.localStorage.x) || 100,
+                y: Number(window.localStorage.y) || 100,
+                w: Number(window.localStorage.w) || 740,
+                h: Number(window.localStorage.h) || 460
             };
         },
         components: {
@@ -79,6 +89,14 @@
             },
             user() {
                 return this.$store.state.user;
+            }
+        },
+        watch: {
+            showChat() {
+                this.x = Number(window.localStorage.x) || 100,
+                this.y = Number(window.localStorage.y) || 100,
+                this.w = Number(window.localStorage.w) || 740,
+                this.h = Number(window.localStorage.h) || 460
             }
         },
         methods: {
@@ -99,15 +117,13 @@
 //                this.hover = false;
 //                this.$refs['showChat'].removeEventListener('animationend', this.set, false);
 //            }
-            resize(newRect) {
-                this.width = newRect.width;
-                this.height = newRect.height;
-                this.top = newRect.top;
-                this.left = newRect.left;
+            onResizestop(x, y , w, h) {
+                window.localStorage.w = w;
+                window.localStorage.h = h;
             },
-            onDrag: function (x, y) {
-                this.x = x;
-                this.y = y;
+            onDragstop(x, y) {
+                window.localStorage.x = x;
+                window.localStorage.y = y;
             }
         }
     }
@@ -262,9 +278,11 @@
                 }
             }
         }
-        .vchat-chat-contianer, .vdr{
+        .vdr{
             position: fixed;
             background-color: #fff;
+            max-width: 1737px;
+            max-height: 1080px;
         }
     }
 </style>

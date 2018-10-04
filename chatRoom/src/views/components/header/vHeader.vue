@@ -34,9 +34,9 @@
             </div>
         </div>
         <transition name="chat">
-            <div class="vchat-chat-contianer" v-if="showChat">
+            <VueDragResize :isActive="true" :w="1000" :h="700" v-on:resizing="resize" v-on:dragging="resize"  v-if="showChat">
                 <chat></chat>
-            </div>
+            </VueDragResize>
         </transition>
     </div>
 </template>
@@ -44,11 +44,16 @@
 <script>
     import api from '@/api';
     import chat from '@/views/components/chat';
+    import VueDragResize from 'vue-drag-resize';
     export default{
         name: 'vHeader',
         data() {
             return {
 //                hover: false,
+                width: 0,
+                height: 0,
+                top: 0,
+                left: 0,
                 handleList: [
                     {
                         name: '个人主页',
@@ -65,7 +70,8 @@
             };
         },
         components: {
-            chat
+            chat,
+            VueDragResize
         },
         computed: {
             avatar() {
@@ -84,7 +90,7 @@
                         this.$router.replace('/');
                     }
                 });
-            }
+            },
 //            mouseover() {
 //                this.hover = true;
 //                this.$refs['showChat'].addEventListener('animationend', this.set, false);
@@ -93,6 +99,12 @@
 //                this.hover = false;
 //                this.$refs['showChat'].removeEventListener('animationend', this.set, false);
 //            }
+            resize(newRect) {
+                this.width = newRect.width;
+                this.height = newRect.height;
+                this.top = newRect.top;
+                this.left = newRect.left;
+            }
         }
     }
 </script>
@@ -246,14 +258,16 @@
                 }
             }
         }
-        .vchat-chat-contianer{
+        .vchat-chat-contianer, .vdr{
             width:70%;
             height: 80%;
             position: fixed;
             left: 15%;
             top: 15%;
-            z-index: 101;
+            z-index: 101 !important;
             background-color: #fff;
+            min-width: 820px;
+            min-height: 542px;
         }
     }
 </style>

@@ -2,7 +2,7 @@
   "name": "ca",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "wuyw <wuyw@zonekey.com.cn>",
+  "author": "wuyw <w2499115366@126.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -15,6 +15,7 @@
     "element-ui": "^2.4.3",
     "vchat-regcode": "^0.0.3",
     "vue": "^2.5.2",
+    "vue-drag-resize": "^1.3.2",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^2.1.1-b",
     "vuex": "^3.0.1"

@@ -20,6 +20,10 @@
             <div class="container-handel">
                 <div class="handel-notice">
                     <h3>群通知</h3>
+                    <ul>
+                        <li class="vchat-line1">【本群须知】嗨起来 </li>
+                        <li class="vchat-line1">【公告】哈哈哈哈哈 </li>
+                    </ul>
                 </div>
                 <div class="handel-member">
                     <h3>
@@ -191,15 +195,32 @@
                     border-bottom: 1px solid rgba(255,255,255,0.3);
                     padding: 8px 10px;
                     overflow-y: auto;
+                    color: #d5d5d5;
+                    font-size: 12px;
+                    text-align: left;
+                    ul{
+                        overflow-y: auto;
+                        li{
+                            margin-bottom: 2px;
+                        }
+                        li:hover{
+                            padding: 2px;
+                            box-sizing: border-box;
+                            background-color: rgba(255,255,255,0.5);
+                            cursor: default;
+                        }
+                    }
                 }
                 .handel-member{
                     width:100%;
                     height: 60%;
                     box-sizing: border-box;
-                    overflow-y: auto;
                     padding: 8px 10px;
                     color: #fff;
                     font-size: 12px;
+                    ul{
+                        overflow-y: auto;
+                    }
                     input{
                         box-sizing: border-box;
                         width:100%;
@@ -211,7 +232,7 @@
                     li{
                         padding: 5px 0;
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: flex-start;
                         align-items: center;
                         span{
                             min-width: 110px;

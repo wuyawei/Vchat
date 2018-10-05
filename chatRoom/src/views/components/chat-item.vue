@@ -5,7 +5,33 @@
         </div>
         <div class="vchat-item-container">
             <div class="container-chat">
-                <div class="chat-room"></div>
+                <div class="chat-room">
+                    <ul ref="msglist">
+                        <li :class="[{other: v.type==='other'},{mine: v.type==='mine'},{org: v.type==='org'}]" v-for="(v, i) in chatList" :key="i">
+                            <template v-if="v.type==='other'">
+                                <div class="mes-box">
+                                    <p>{{v.name ? v.name.slice(0, 1) : ''}}</p>
+                                    <div>
+                                        <span>{{v.name}}<i> 2018-06-07 14:12:56 </i></span>
+                                        <p>{{v.mes}}</p>
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="v.type==='mine'">
+                                <div class="mes-box">
+                                    <div>
+                                        <span>{{v.name}}<i> 2018-06-07 14:18:56 </i></span>
+                                        <p>{{v.mes}}</p>
+                                    </div>
+                                    <p>{{v.name ? v.name.slice(0,1) : ''}}</p>
+                                </div>
+                            </template>
+                            <template v-if="v.type==='org'">
+                                系统消息：<span>{{v.name}}</span>加入聊天室！
+                        </template>
+                        </li>
+                    </ul>
+                </div>
                 <div class="chat-send">
                     <div class="tool">
                         <v-icon name="biaoqing1" color="#27cac7" cursor="pointer"></v-icon>
@@ -52,7 +78,19 @@
             return {
                 navList: ['聊天', '公告'],
                 currNav: 0,
-                spread: false
+                spread: false,
+                chatList: [
+                    {type: 'org', name: '江三疯'},
+                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
+                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'},
+                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
+                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'},
+                    {type: 'org', name: '江三疯'},
+                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
+                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'},
+                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
+                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'}
+                ]
             }
         },
         methods: {
@@ -132,6 +170,102 @@
                     box-sizing: border-box;
                     border-bottom: 1px solid rgba(255,255,255,0.3);
                     overflow-y: auto;
+                    ul{
+                        width:100%;
+                        height: 100%;
+                        overflow-y: auto;
+                        padding: 5px;
+                        box-sizing: border-box;
+                        position: relative;
+                        li{
+                            width:100%;
+                            margin: 10px 0;
+                        }
+                    }
+                    .mes-box{
+                        width:300px;
+                        display: flex;
+                        justify-content: flex-start;
+                        >p{
+                            width:42px;
+                            height: 42px;
+                            background-color: #00b4f0;
+                            color: #fff;
+                            font-size: 14px;
+                            text-align: center;
+                            line-height: 42px;
+                            border-radius: 50%;
+                        }
+                        >div{
+                            span{
+                                font-size: 14px;
+                                i{
+                                    font-size: 12px;
+                                    color: #767676;
+                                }
+                            }
+                            >p{
+                                max-width:258px;
+                                background-color: #dfd9d9;
+                                border-radius: 10px;
+                                padding: 10px;
+                                box-sizing: border-box;
+                                position: relative;
+                                text-align: left;
+                                word-wrap:break-word;
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                    .other .mes-box>div{
+                        text-align: left;
+                        margin-left: 10px;
+                        width:258px;
+                    }
+                    .mine .mes-box>div{
+                        text-align: right;
+                        margin-right: 10px;
+                        width:258px;
+                    }
+                    .mine{
+                        display: flex;
+                        justify-content: flex-end;
+                    }
+                    .other .mes-box >div >p:before, .mine .mes-box >div >p:after{
+                        width:0;
+                        height:0;
+                        content: '';
+                        display: block;
+                        position:absolute;
+                        top:10px;
+                    }
+                    .other .mes-box >div >p:before{
+                        left:-10px;
+                        border-bottom: 5px solid #dfd9d9;
+                        border-left: 10px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 0;
+                        transform: rotate(45deg);
+                    }
+                    .mine .mes-box >div >p:after{
+                        right:-10px;
+                        border-bottom: 5px solid #dfd9d9;
+                        border-left: 5px solid transparent;
+                        border-right: 10px solid transparent;
+                        transform: rotate(-45deg);
+                    }
+                    .org{
+                        width:100%;
+                        margin: 20px 0;
+                        font-size: 14px;
+                        color: #e4e4e4;
+                        background-color: #9d9d9d;
+                        box-sizing: border-box;
+                    }
+                    .org span{
+                        color: #ff9545;
+                        margin: 0 5px;
+                    }
                 }
                 .chat-send{
                     width:100%;

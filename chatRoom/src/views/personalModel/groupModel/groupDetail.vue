@@ -67,8 +67,8 @@
             </div>
 
             <div class="group-button">
-                <button @click="apply" class="vchat-full-button" v-if="true">申请加群</button>
-                <button @click="quit" class="vchat-full-button" style="background-color: #f56c6c" v-else>退出群聊</button>
+                <button @click="apply" class="vchat-full-button minor" v-if="true">申请加群</button>
+                <button @click="quit" class="vchat-full-button error" v-else>退出群聊</button>
             </div>
         </div>
         <div class="groupQr-dialog" :class="{active: showGroupQr}">

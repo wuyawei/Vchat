@@ -35,17 +35,31 @@
 
 .vchat-button { // 按钮样式
     display: inline-block;
-    padding: 12px 20px;
-    line-height: 1;
-    background-color: #3aa1ca;
-    border-radius: 4px;
+    padding: 0 20px;
+    background-color: #27cac7;
+    border-radius: 2px;
     color: #fff;
     cursor: pointer;
     font-size: 14px;
+    border: none;
+    outline: none;
+}
+.vchat-button-mini{
+    display: inline-block;
+    padding: 0 12px;
+    background-color: #27cac7;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    line-height: 26px;
+    height: 26px;
 }
 .vchat-full-button{
     width:100%;
-    background-color: #3aa1ca;
+    background-color: #27cac7;
     border: none;
     outline: none;
     height: 36px;
@@ -55,9 +69,20 @@
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.vchat-full-button:hover{
-    opacity: 0.8;
+
+.vchat-button:hover,.vchat-button-mini:hover, .vchat-full-button:hover {
+    opacity: 0.9;
 }
+.vchat-full-button.minor, .vchat-button.minor, .vchat-button-mini.minor{
+    background-color: #3aa1ca;
+}
+.vchat-full-button.error, .vchat-button.error, .vchat-button-mini.error{
+    background-color: #f56c6c;
+}
+.vchat-button.info, .vchat-button-mini.info, .vchat-full-button.info{
+    background-color: #bdbdbd;
+}
+
 .vchat-no-have { // 没有想要的样式
     font-size: 12px;
     text-align: left;
@@ -69,9 +94,6 @@
     }
 }
 
-.vchat-button:hover {
-    opacity: 0.8;
-}
 
 .vchat-breakAll { // 强制换行 只对英文起作用，以字母作为换行依据。
     word-break: break-all;

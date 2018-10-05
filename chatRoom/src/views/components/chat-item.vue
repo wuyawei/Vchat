@@ -6,7 +6,16 @@
         <div class="vchat-item-container">
             <div class="container-chat">
                 <div class="chat-room"></div>
-                <div class="chat-send"></div>
+                <div class="chat-send">
+                    <div class="tool">
+                        <v-icon name="biaoqing1" color="#27cac7" cursor="pointer"></v-icon>
+                    </div>
+                    <textarea></textarea>
+                    <div class="enter">
+                        <button class="vchat-button-mini info">清空</button>
+                        <button class="vchat-button-mini">发送</button>
+                    </div>
+                </div>
             </div>
             <div class="container-handel">
                 <div class="handel-notice"></div>
@@ -101,6 +110,39 @@
                     height: 35%;
                     min-height: 135.8px;
                     box-sizing: border-box;
+                    .tool{
+                        width:100%;
+                        height: 28px;
+                        line-height: 28px;
+                        text-align: left;
+                        background-color: rgba(0,0,0,0.3);
+                        padding: 0 10px;
+                        box-sizing: border-box;
+                        i{
+                            margin: 0 5px 0 0;
+                        }
+                    }
+                    textarea{
+                        width:100%;
+                        height: calc(100% - 70px);
+                        background-color: transparent;
+                        resize: none;
+                        outline: none;
+                        color: #fff;
+                        font-size: 14px;
+                        padding: 5px 10px;
+                        box-sizing: border-box;
+                        border: none;
+                    }
+                    .enter{
+                        width:100%;
+                        height: 32px;
+                        display: flex;
+                        justify-content: flex-end;
+                        button{
+                            margin-right: 10px;
+                        }
+                    }
                 }
             }
             .container-handel{

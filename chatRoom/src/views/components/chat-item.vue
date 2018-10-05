@@ -18,8 +18,24 @@
                 </div>
             </div>
             <div class="container-handel">
-                <div class="handel-notice"></div>
-                <div class="handel-member"></div>
+                <div class="handel-notice">
+                    <h3>群通知</h3>
+                </div>
+                <div class="handel-member">
+                    <h3>
+                        <span>群成员 ( 699 )</span>
+                        <v-icon class="el-icon-search" color="#fff" :size="18" @clickIcon="spreadInput"></v-icon>
+                    </h3>
+                    <input type="text" v-show="spread" ref="searchMember">
+                    <ul>
+                        <li>
+                            <a class="vchat-photo">
+                                <img src="../../assets/img/zwsj5.png" alt="">
+                            </a>
+                            <span class="vchat-line1">江三疯</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -31,12 +47,19 @@
         data() {
             return {
                 navList: ['聊天', '公告'],
-                currNav: 0
+                currNav: 0,
+                spread: false
             }
         },
         methods: {
             setCurrNav(i) {
                 this.currNav = i;
+            },
+            spreadInput() {
+                this.spread = !this.spread;
+                this.$nextTick(_ => {
+                    this.$refs['searchMember'].focus();
+                });
             }
         }
     }
@@ -104,6 +127,7 @@
                     min-height: 252.2px;
                     box-sizing: border-box;
                     border-bottom: 1px solid rgba(255,255,255,0.3);
+                    overflow-y: auto;
                 }
                 .chat-send{
                     width:100%;
@@ -149,16 +173,57 @@
                 width:28%;
                 min-width: 164.864px;
                 height: 100%;
+                h3{
+                    color: #fff;
+                    font-weight: normal;
+                    font-size: 16px;
+                    text-align: left;
+                    line-height: 16px;
+                    margin-bottom: 5px;
+                    i{
+                        float: right;
+                    }
+                }
                 .handel-notice{
                     width:100%;
                     height: 40%;
                     box-sizing: border-box;
                     border-bottom: 1px solid rgba(255,255,255,0.3);
+                    padding: 8px 10px;
+                    overflow-y: auto;
                 }
                 .handel-member{
                     width:100%;
                     height: 60%;
                     box-sizing: border-box;
+                    overflow-y: auto;
+                    padding: 8px 10px;
+                    color: #fff;
+                    font-size: 12px;
+                    input{
+                        box-sizing: border-box;
+                        width:100%;
+                        border: 1px solid #d5d5d5;
+                        padding-left: 5px;
+                        outline: none;
+                        color: #323232;
+                    }
+                    li{
+                        padding: 5px 0;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        span{
+                            min-width: 110px;
+                            text-align: left;
+                        }
+                    }
+                    a{
+                        width:26px;
+                        min-width: 26px;
+                        height: 26px;
+                        margin-right: 5px;
+                    }
                 }
             }
         }

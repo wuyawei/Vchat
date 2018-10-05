@@ -4,7 +4,8 @@
             <div class="chat-header">
                 <a>聊天第一群</a>
                 <div class="chat-handel">
-                    <v-icon class="el-icon-minus" color="#fff" cursor="pointer" @clickIcon="clickIcon"></v-icon>
+                    <v-icon class="el-icon-minus" color="#fff" cursor="pointer" @clickIcon="close"></v-icon>
+                    <v-icon class="el-icon-setting" color="#fff" cursor="pointer"></v-icon>
                 </div>
             </div>
             <div class="chat-container">
@@ -18,28 +19,35 @@
                             <p class="vchat-line1">哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈</p>
                         </div>
                         <div class="chat-conversation-li-right">
-                            <p>18 ：59</p>
+                            <p>18:59</p>
                         </div>
                         <p class="delete">
                             <v-icon class="el-icon-circle-close" color="#323232" cursor="pointer" :size="18"></v-icon>
                         </p>
                     </li>
                 </ul>
-                <div class="chat-content-box"></div>
+                <div class="chat-content-box">
+                    <chat-item></chat-item>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import chatItem from './chat-item.vue';
     export default{
+        name: 'vChat',
         data() {
             return {
 
             }
         },
+        components: {
+            chatItem
+        },
         methods: {
-            clickIcon() {
+            close() {
                 this.$emit('closeChat');
             }
         }
@@ -51,7 +59,7 @@
         width:100%;
         height: 100%;
         border-radius: 3px;
-        background-image: url(../../assets/img/1.jpg);
+        background-image: url(../../assets/img/fjt.jpg);
         background-repeat: no-repeat;
         background-size: cover;
         overflow: hidden;
@@ -64,7 +72,7 @@
             top:0;
             width:100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0,0,0,0.2);
             z-index: 1;
         }
         .vchat-chatRoom-bg{
@@ -83,7 +91,7 @@
             position: relative;
             line-height: 40px;
             box-sizing: border-box;
-            border-bottom: 1px solid #ffffff6e;
+            background-color: rgba(0,0,0,0.3);
             font-size: 16px;
             a{
                 color: #fff;
@@ -96,7 +104,7 @@
                 top:0;
                 padding-right: 15px;
                 i{
-                    padding: 2px;
+                    padding: 8px 4px 3px;
                 }
                 i:hover{
                     background-color: rgba(255,255,255,0.5);
@@ -112,7 +120,8 @@
                 width:20%;
                 min-width:147.2px;
                 box-sizing: border-box;
-                border-right: 1px solid #ffffff6e;
+                background-color: rgba(0,0,0,0.3);
+                border-top: 1px solid #ffffff6e;
                 overflow-y: auto;
             }
             .chat-conversation-li{
@@ -151,7 +160,7 @@
                 }
             }
             .chat-conversation-li-center{
-                min-width: 120px;
+                min-width: 100px;
                 font-size: 14px;
                 color: #fff;
                 p{
@@ -163,7 +172,7 @@
                 }
             }
             .chat-conversation-li-right{
-                min-width: 50px;
+                min-width: 36px;
                 font-size: 12px;
                 color: #d5d5d5;
                 text-align: right;

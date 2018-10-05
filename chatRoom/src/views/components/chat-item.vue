@@ -44,7 +44,7 @@
             font-size: 16px;
             padding: 0 10px;
             box-sizing: border-box;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+            background-color: rgba(0,0,0,0.2);
             span{
                 display: inline-block;
                 height: 100%;
@@ -88,13 +88,13 @@
                 height: 100%;
                 min-width: 423.936px;
                 box-sizing: border-box;
-                border-right: 1px solid rgba(255, 255, 255, 0.36);
+                border-right: 1px solid rgba(255,255,255,0.3);
                 .chat-room{
                     width:100%;
                     height: 65%;
                     min-height: 252.2px;
                     box-sizing: border-box;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+                    border-bottom: 1px solid rgba(255,255,255,0.3);
                 }
                 .chat-send{
                     width:100%;
@@ -111,7 +111,7 @@
                     width:100%;
                     height: 40%;
                     box-sizing: border-box;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+                    border-bottom: 1px solid rgba(255,255,255,0.3);
                 }
                 .handel-member{
                     width:100%;

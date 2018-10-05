@@ -59,7 +59,7 @@
         width:100%;
         height: 100%;
         border-radius: 3px;
-        background-image: url(../../assets/img/fjt.jpg);
+        background-image: url(../../assets/img/1.jpg);
         background-repeat: no-repeat;
         background-size: cover;
         overflow: hidden;
@@ -91,7 +91,7 @@
             position: relative;
             line-height: 40px;
             box-sizing: border-box;
-            background-color: rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
             font-size: 16px;
             a{
                 color: #fff;
@@ -120,8 +120,7 @@
                 width:20%;
                 min-width:147.2px;
                 box-sizing: border-box;
-                background-color: rgba(0,0,0,0.3);
-                border-top: 1px solid #ffffff6e;
+                border-right: 1px solid rgba(255,255,255,0.2);
                 overflow-y: auto;
             }
             .chat-conversation-li{

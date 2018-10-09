@@ -111,6 +111,9 @@
             },
             mes(r) {
                 this.chatList.push(Object.assign({},r, {type: 'other'}));
+            },
+            joined(r) {
+                console.log('加入了', r);
             }
         },
         computed: {
@@ -126,9 +129,18 @@
             currSation: {
                 handler(id) {
                     this.getGroupUsers(id);
+                    let val = {
+                        name: this.user.name,
+                        time: utils.formatTime(new Date()),
+                        avatar: this.user.photo,
+                        roomid: this.currSation
+                    };
+                    this.$socket.emit('join', val);
                 },
                 immediate: true
             }
+        },
+        mounted() {
         },
         methods: {
             setCurrNav(i) {

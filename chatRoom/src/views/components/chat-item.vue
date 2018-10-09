@@ -68,11 +68,11 @@
                     </h3>
                     <input type="text" v-show="spread" ref="searchMember">
                     <ul>
-                        <li>
+                        <li v-for="v in groupUsers" :key="v.userId['_id']">
                             <a class="vchat-photo">
-                                <img src="../../assets/img/zwsj5.png" alt="">
+                                <img :src="v.userId.photo" alt="">
                             </a>
-                            <span class="vchat-line1">江三疯</span>
+                            <span class="vchat-line1">{{v.userId.nickname}}</span>
                         </li>
                     </ul>
                 </div>
@@ -83,16 +83,19 @@
 
 <script>
     import { mapState } from 'vuex';
+    import api from '@/api';
     import utils from '@/utils/utils';
     export default{
         name: 'chatItem',
+        props: ['currSation'],
         data() {
             return {
                 navList: ['聊天', '公告'],
                 currNav: 0,
                 spread: false,
                 chatList: [],
-                message: ''
+                message: '',
+                groupUsers: [] // 群成员
             }
         },
         sockets:{
@@ -119,6 +122,12 @@
                 this.$nextTick(_ => {
                     this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
                 });
+            },
+            currSation: {
+                handler(id) {
+                    this.getGroupUsers(id);
+                },
+                immediate: true
             }
         },
         methods: {
@@ -130,6 +139,16 @@
                 this.$nextTick(_ => {
                     this.$refs['searchMember'].focus();
                 });
+            },
+            getGroupUsers(id) {
+                let params = {
+                    groupId: id
+                };
+                api.getGroupUsers(params).then(r => {
+                    if (r.code === 0) {
+                        this.groupUsers = r.data;
+                    }
+                })
             },
             send() {
                 let val = {
@@ -197,7 +216,7 @@
             display: flex;
             justify-content: flex-start;
             .container-chat{
-                width:72%;
+                width:100%;
                 height: 100%;
                 min-width: 423.936px;
                 box-sizing: border-box;

@@ -10,12 +10,12 @@
             </div>
             <div class="chat-container">
                 <ul class="chat-conversation-ul">
-                    <li class="chat-conversation-li">
+                    <li class="chat-conversation-li" v-for="(v, i) in conversationsList" :key="v.id" :class="{active: currSation === v.id}" @click="setCurrSation(v.id)">
                         <a class="vchat-photo">
-                            <img src="../../assets/img/zwsj5.png" alt="">
+                            <img :src="v.photo" alt="">
                         </a>
                         <div class="chat-conversation-li-center">
-                            <p class="vchat-line1">聊天第一群</p>
+                            <p class="vchat-line1">{{v.name}}</p>
                             <p class="vchat-line1">哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈</p>
                         </div>
                         <div class="chat-conversation-li-right">
@@ -27,7 +27,7 @@
                     </li>
                 </ul>
                 <div class="chat-content-box">
-                    <chat-item></chat-item>
+                    <chat-item :currSation="currSation"></chat-item>
                 </div>
             </div>
         </div>
@@ -40,7 +40,28 @@
         name: 'vChat',
         data() {
             return {
-
+                conversationsList: [
+                    {
+                        name: '卍解！袖白雪。',
+                        id: '5baa39132967a12790eb015d',
+                        photo: '/uploads/f-1537882384632-f1537882384321.png'
+                    },
+                    {
+                        name: '@蓝染',
+                        id: '5bacdbe82b796e20400c84f7',
+                        photo: '/uploads/f-1538055124636-f1538055124317.png'
+                    }
+                ],
+                currSation: '5baa39132967a12790eb015d' //当前会话
+            }
+        },
+        sockets:{
+            connect: function (val) {
+                console.log(this.$socket.id);
+                console.log('连接成功');
+            },
+            customEmit: function (val) {
+                console.log('连接失败');
             }
         },
         components: {
@@ -49,6 +70,9 @@
         methods: {
             close() {
                 this.$emit('closeChat');
+            },
+            setCurrSation(id) {
+                this.currSation = id;
             }
         }
     }

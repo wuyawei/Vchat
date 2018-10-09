@@ -10,20 +10,30 @@
                         <li :class="[{other: v.type==='other'},{mine: v.type==='mine'},{org: v.type==='org'}]" v-for="(v, i) in chatList" :key="i">
                             <template v-if="v.type==='other'">
                                 <div class="mes-box">
-                                    <p>{{v.name ? v.name.slice(0, 1) : ''}}</p>
+                                    <p>
+                                        <img :src="v.avatar" alt="">
+                                    </p>
                                     <div>
-                                        <span>{{v.name}}<i> 2018-06-07 14:12:56 </i></span>
-                                        <p>{{v.mes}}</p>
+                                        <p>
+                                            <span>{{v.name}}</span>
+                                            <i>{{v.time}}</i>
+                                        </p>
+                                        <p class="mes">{{v.mes}}</p>
                                     </div>
                                 </div>
                             </template>
                             <template v-if="v.type==='mine'">
                                 <div class="mes-box">
                                     <div>
-                                        <span>{{v.name}}<i> 2018-06-07 14:18:56 </i></span>
-                                        <p>{{v.mes}}</p>
+                                        <p>
+                                            <span>{{v.name}}</span>
+                                            <i>{{v.time}}</i>
+                                        </p>
+                                        <p class="mes">{{v.mes}}</p>
                                     </div>
-                                    <p>{{v.name ? v.name.slice(0,1) : ''}}</p>
+                                    <p>
+                                        <img :src="v.avatar" alt="">
+                                    </p>
                                 </div>
                             </template>
                             <template v-if="v.type==='org'">
@@ -36,10 +46,10 @@
                     <div class="tool">
                         <v-icon name="biaoqing1" color="#27cac7" cursor="pointer"></v-icon>
                     </div>
-                    <textarea></textarea>
+                    <textarea v-model="message"></textarea>
                     <div class="enter">
                         <button class="vchat-button-mini info">清空</button>
-                        <button class="vchat-button-mini">发送</button>
+                        <button class="vchat-button-mini" @click="send">发送</button>
                     </div>
                 </div>
             </div>
@@ -72,6 +82,8 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+    import utils from '@/utils/utils';
     export default{
         name: 'chatItem',
         data() {
@@ -79,18 +91,34 @@
                 navList: ['聊天', '公告'],
                 currNav: 0,
                 spread: false,
-                chatList: [
-                    {type: 'org', name: '江三疯'},
-                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
-                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'},
-                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
-                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'},
-                    {type: 'org', name: '江三疯'},
-                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
-                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'},
-                    {type: 'other', name: '江三疯', mes: '哈哈哈哈哈我来了'},
-                    {type: 'mine', name: '江三疯', mes: '哈哈哈哈哈我在'}
-                ]
+                chatList: [],
+                message: ''
+            }
+        },
+        sockets:{
+            connect: function (val) {
+                console.log(this.$socket.id);
+                console.log('连接成功');
+            },
+            customEmit: function (val) {
+                console.log('连接失败');
+            },
+            org(r) {
+                this.chatList.push(Object.assign({},r, {type: 'org'}));
+            },
+            mes(r) {
+                this.chatList.push(Object.assign({},r, {type: 'other'}));
+            }
+        },
+        computed: {
+            ...mapState(['user'])
+        },
+        watch: {
+            chatList(list){
+                console.log('list', list);
+                this.$nextTick(_ => {
+                    this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
+                });
             }
         },
         methods: {
@@ -102,6 +130,17 @@
                 this.$nextTick(_ => {
                     this.$refs['searchMember'].focus();
                 });
+            },
+            send() {
+                let val = {
+                    name: this.user.name,
+                    mes: this.message,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.user.photo,
+                };
+                this.chatList.push(Object.assign({},val,{type: 'mine'}));
+                this.$socket.emit('mes', val);
+                this.message = '';
             }
         }
     }
@@ -183,55 +222,63 @@
                         }
                     }
                     .mes-box{
-                        width:300px;
+                        width:350px;
                         display: flex;
-                        justify-content: flex-start;
+                        justify-content: flex-end;
                         >p{
                             width:42px;
                             height: 42px;
-                            background-color: #00b4f0;
                             color: #fff;
                             font-size: 14px;
                             text-align: center;
                             line-height: 42px;
                             border-radius: 50%;
+                            overflow: hidden;
+                            img{
+                                width:100%;
+                            }
                         }
                         >div{
-                            span{
+                            max-width:298px;
+                            p:nth-of-type(1){
                                 font-size: 14px;
+                                color: #f5f5f5;
+                                margin-bottom: 5px;
                                 i{
-                                    font-size: 12px;
-                                    color: #767676;
+                                    font-size: 10px;
+                                    color: #b3b3b3;
+                                    font-style: normal;
+                                    margin-left: 5px;
                                 }
                             }
-                            >p{
-                                max-width:258px;
-                                background-color: #dfd9d9;
-                                border-radius: 10px;
+                            p:nth-of-type(2){
+                                background-color: #27cac7;
+                                border-radius: 5px;
                                 padding: 10px;
                                 box-sizing: border-box;
                                 position: relative;
                                 text-align: left;
                                 word-wrap:break-word;
                                 font-size: 14px;
+                                word-break: break-all;
+                                color: #fff;
+                                display: inline-block;
                             }
                         }
                     }
                     .other .mes-box>div{
                         text-align: left;
                         margin-left: 10px;
-                        width:258px;
                     }
                     .mine .mes-box>div{
                         text-align: right;
                         margin-right: 10px;
-                        width:258px;
                     }
                     .mine{
                         display: flex;
                         justify-content: flex-end;
                     }
-                    .other .mes-box >div >p:before, .mine .mes-box >div >p:after{
+                    .other p.mes:before, .mine p.mes:after{
                         width:0;
                         height:0;
                         content: '';
@@ -239,17 +286,17 @@
                         position:absolute;
                         top:10px;
                     }
-                    .other .mes-box >div >p:before{
+                    .other p.mes:before{
                         left:-10px;
-                        border-bottom: 5px solid #dfd9d9;
+                        border-bottom: 5px solid #27cac7;
                         border-left: 10px solid transparent;
                         border-right: 5px solid transparent;
                         border-top: 0;
                         transform: rotate(45deg);
                     }
-                    .mine .mes-box >div >p:after{
+                    .mine p.mes:after{
                         right:-10px;
-                        border-bottom: 5px solid #dfd9d9;
+                        border-bottom: 5px solid #27cac7;
                         border-left: 5px solid transparent;
                         border-right: 10px solid transparent;
                         transform: rotate(-45deg);
@@ -257,13 +304,12 @@
                     .org{
                         width:100%;
                         margin: 20px 0;
-                        font-size: 14px;
+                        font-size: 12px;
                         color: #e4e4e4;
-                        background-color: #9d9d9d;
                         box-sizing: border-box;
                     }
                     .org span{
-                        color: #ff9545;
+                        color: #27cac7;
                         margin: 0 5px;
                     }
                 }

@@ -8,7 +8,7 @@ const onconnection = (socket) => {
     });
     socket.on('mes', (val) => {
         socket.broadcast.emit('mes', val);
-        console.log('mess', val);
+        console.log('mes', val);
     });
     socket.on('disconnect', () => {
         console.log('user disconnected');

@@ -60,15 +60,6 @@
                 return this.$store.state.user;
             }
         },
-        sockets: {
-            connect: function (val) {
-                console.log(this.$socket.id);
-                console.log('连接成功');
-            },
-            customEmit: function (val) {
-                console.log('连接失败');
-            }
-        },
         methods: {
         },
         mounted() {

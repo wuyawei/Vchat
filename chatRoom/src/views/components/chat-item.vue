@@ -15,7 +15,7 @@
                                     </p>
                                     <div>
                                         <p>
-                                            <span>{{v.name}}</span>
+                                            <span>{{v.nickname}}</span>
                                             <i>{{v.time}}</i>
                                         </p>
                                         <p class="mes">{{v.mes}}</p>
@@ -26,7 +26,7 @@
                                 <div class="mes-box">
                                     <div>
                                         <p>
-                                            <span>{{v.name}}</span>
+                                            <span>{{v.nickname}}</span>
                                             <i>{{v.time}}</i>
                                         </p>
                                         <p class="mes">{{v.mes}}</p>
@@ -113,7 +113,7 @@
                 this.chatList.push(Object.assign({},r, {type: 'other'}));
             },
             joined(r) {
-                console.log('加入了', r);
+                console.log('加入了', r.roomid);
             }
         },
         computed: {
@@ -129,13 +129,6 @@
             currSation: {
                 handler(id) {
                     this.getGroupUsers(id);
-                    let val = {
-                        name: this.user.name,
-                        time: utils.formatTime(new Date()),
-                        avatar: this.user.photo,
-                        roomid: this.currSation
-                    };
-                    this.$socket.emit('join', val);
                 },
                 immediate: true
             }
@@ -163,11 +156,22 @@
                 })
             },
             send() {
+                let roomid = '';
+                if (this.user.name === 'www') {
+                    roomid = '11111';
+                } else if (this.user.name === 'qqq') {
+                    roomid = '22222';
+                } else if (this.user.name === 'aaa') {
+                    roomid = '22222';
+                }
                 let val = {
                     name: this.user.name,
                     mes: this.message,
                     time: utils.formatTime(new Date()),
                     avatar: this.user.photo,
+                    nickname: this.user.nickname,
+                    read: 0,
+                    roomid: roomid
                 };
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);

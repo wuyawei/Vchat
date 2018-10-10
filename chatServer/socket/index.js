@@ -11,7 +11,7 @@ const onconnection = (socket) => {
         });
     });
     socket.on('mes', (val) => {
-        socket.broadcast.emit('mes', val);
+        socket.to(val.roomid).broadcast.emit('mes', val);
         console.log('mes', val);
     });
     socket.on('disconnect', () => {

@@ -36,6 +36,7 @@
 
 <script>
     import chatItem from './chat-item.vue';
+    import utils from '@/utils/utils';
     export default{
         name: 'vChat',
         data() {
@@ -73,6 +74,40 @@
             },
             setCurrSation(id) {
                 this.currSation = id;
+            }
+        },
+        mounted() {
+            if (this.$store.state.user.name === 'www') {
+                let val = {
+                    name: this.$store.state.user.name,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.$store.state.user.photo,
+                    roomid: '11111'
+                };
+                this.$socket.emit('join', val);
+                let val1 = {
+                    name: this.$store.state.user.name,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.$store.state.user.photo,
+                    roomid: '22222'
+                };
+                this.$socket.emit('join', val1);
+            } else if (this.$store.state.user.name === 'qqq') {
+                let val = {
+                    name: this.$store.state.user.name,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.$store.state.user.photo,
+                    roomid: '22222'
+                };
+                this.$socket.emit('join', val);
+            } else if (this.$store.state.user.name === 'aaa') {
+                let val = {
+                    name: this.$store.state.user.name,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.$store.state.user.photo,
+                    roomid: '22222'
+                };
+                this.$socket.emit('join', val);
             }
         }
     }

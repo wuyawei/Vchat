@@ -6,14 +6,14 @@ const onconnection = (socket) => {
         socket.join(val.roomid, () => {
             OnlineUser[val.name] = true;
             socket.to(val.roomid).emit('joined', OnlineUser);
-            console.log('join', OnlineUser);
+            console.log('join', val.roomid, OnlineUser);
         });
     });
     socket.on('leave', (val) => {
         socket.leave(val.roomid, () => {
             delete OnlineUser[val.name];
             socket.to(val.roomid).emit('leaved', OnlineUser);
-            console.log('leave', OnlineUser);
+            console.log('leave', val.roomid, OnlineUser);
         });
     });
     socket.on('mes', (val) => {

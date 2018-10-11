@@ -96,7 +96,7 @@
                 chatList: [],
                 message: '',
                 groupUsers: [] // 群成员
-            }
+            };
         },
         sockets:{
             connect: function (val) {
@@ -125,7 +125,9 @@
             },
             currSation: {
                 handler(id) {
-                    this.getGroupUsers(id);
+                    if (id) {
+                        this.getGroupUsers(id);
+                    }
                 },
                 immediate: true
             }

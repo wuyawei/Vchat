@@ -9,8 +9,7 @@
     export default{
         data() {
             return {
-
-            }
+            };
         },
         watch: {
             user: {
@@ -18,10 +17,16 @@
                     this.joinRoom();
                 },
                 deep: true
+            },
+            conversationsList: {
+                handler() {
+                    this.joinRoom();
+                },
+                deep: true
             }
         },
         computed: {
-            ...mapState(['user'])
+            ...mapState(['user', 'conversationsList'])
         },
         sockets:{
             connect: function (val) {
@@ -43,16 +48,22 @@
                 if (!this.user.name) {
                     return ;
                 }
-                let val = {
-                    name: this.user.name,
-                    time: utils.formatTime(new Date()),
-                    avatar: this.$store.state.user.photo,
-                    roomid: '11111'
-                };
-                this.$socket.emit('join', val);
+                this.conversationsList.forEach(v => {
+                    let val = {
+                        name: this.user.name,
+                        time: utils.formatTime(new Date()),
+                        avatar: this.user.photo,
+                        roomid: v.id
+                    };
+                    this.$socket.emit('join', val);
+                });
             }
         },
         mounted() {
+            let conversationsList = window.localStorage.conversationsList;
+            if (conversationsList) {
+                this.$store.commit('setConversationsList', JSON.parse(conversationsList));
+            }
             this.joinRoom();
         }
     }

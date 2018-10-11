@@ -11,5 +11,13 @@ export default {
     },
     setIslogin(state, data) {
         state.isLogin = data;
+    },
+    setConversationsList(state, data) { // 设置会话列表
+        if (Array.isArray(data)) {
+            state.conversationsList = data;
+        } else {
+            state.conversationsList.push(data);
+        }
+        window.localStorage.conversationsList = JSON.stringify(state.conversationsList);
     }
 }

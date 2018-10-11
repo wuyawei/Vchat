@@ -10,9 +10,9 @@
             </div>
             <div class="chat-container">
                 <ul class="chat-conversation-ul">
-                    <li class="chat-conversation-li" v-for="(v, i) in conversationsList" :key="v.id" :class="{active: currSation === v.id}" @click="setCurrSation(v.id)">
+                    <li class="chat-conversation-li" v-for="(v, i) in contactsList" :key="v.id" :class="{active: currSation === v.id}" @click="setCurrSation(v.id)">
                         <a class="vchat-photo">
-                            <img :src="v.photo" alt="">
+                            <img :src="IMGURL + v.photo" alt="">
                         </a>
                         <div class="chat-conversation-li-center">
                             <p class="vchat-line1">{{v.name}}</p>
@@ -35,29 +35,36 @@
 </template>
 <script>
     import chatItem from './chat-item.vue';
+    import { mapState } from 'vuex';
     export default{
         name: 'vChat',
         data() {
             return {
-                conversationsList: [
-                    {
-                        name: '卍解！袖白雪。',
-                        id: '5baa39132967a12790eb015d',
-                        photo: '/uploads/f-1537882384632-f1537882384321.png'
-                    },
-                    {
-                        name: '@蓝染',
-                        id: '5bacdbe82b796e20400c84f7',
-                        photo: '/uploads/f-1538055124636-f1538055124317.png'
-                    }
-                ],
-                currSation: '5baa39132967a12790eb015d' //当前会话
+                currSation: '', //当前会话
+                contactsList: [], // 会话列表
+                IMGURL: process.env.IMG_URL,
+                one: true
             }
         },
         sockets:{
         },
         components: {
             chatItem
+        },
+        watch: {
+            conversationsList: {
+                handler(list) {
+                    this.contactsList = list;
+                    if (this.one && list.length) {
+                        this.one = false;
+                        this.currSation = this.contactsList[0].id;
+                    }
+                },
+                deep: true
+            }
+        },
+        computed: {
+            ...mapState(['user', 'conversationsList'])
         },
         methods: {
             close() {
@@ -68,6 +75,11 @@
             }
         },
         mounted() {
+            if (this.conversationsList.length) {
+                this.one = false;
+                this.contactsList = this.conversationsList;
+                this.currSation = this.contactsList[0].id;
+            }
         }
     }
 </script>

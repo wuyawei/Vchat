@@ -33,21 +33,21 @@
                         class: 'icon-message',
                         activeClass: 'icon-message_fill',
                         id: 1,
-                        link: '/personalMain/conversation'
+                        link: '/main/personalMain/conversation'
                     },
                     {
                         name: '好友',
                         class: 'icon-people',
                         activeClass: 'icon-people_fill',
                         id: 2,
-                        link: '/personalMain/friendly'
+                        link: '/main/personalMain/friendly'
                     },
                     {
                         name: '群组',
                         class: 'icon-group',
                         activeClass: 'icon-group_fill',
                         id: 3,
-                        link: '/personalMain/group'
+                        link: '/main/personalMain/group'
                     }
                 ],
             }

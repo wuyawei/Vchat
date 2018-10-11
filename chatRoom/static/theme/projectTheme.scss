@@ -1,35 +1,47 @@
 #theme-#{$theme} {
-    // personalMain.vue
-    .vchat-personalMain {
-        .vchat-header { // 头部
-            background-color: $vchat-header-backgroudColor;
-            .vchat-logo{
-                color: $vchat-logo-color;
-            }
-            .handleList li {
-                i {
-                    color: $vchat-header-handleList-i-color;
-                }
-            }
-            .handleList li a{
-                color: $vchat-header-handleList-a-color;
-            }
-            .handleList li:hover{
-                background-color: $vchat-header-handleList-hover-bgcolor;
-            }
-            .handleList li:hover i, .handleList li:hover a{
-                color: $vchat-header-handleList-hover-color;
-            }
-            .logout{
-                color: $vchat-header-logout;
-            }
-            .logout:hover{
-                color: $vchat-header-logout-hover;
-            }
-            .online{
-                color: $vchat-header-online;
+    // vchat-main-header
+    .vchat-main-header { // 头部
+        background-color: $vchat-header-backgroudColor;
+        .vchat-logo{
+            color: $vchat-logo-color;
+        }
+        .handleList li {
+            i {
+                color: $vchat-header-handleList-i-color;
             }
         }
+        .handleList li a{
+            color: $vchat-header-handleList-a-color;
+        }
+        .handleList li:hover{
+            background-color: $vchat-header-handleList-hover-bgcolor;
+        }
+        .handleList li:hover i, .handleList li:hover a{
+            color: $vchat-header-handleList-hover-color;
+        }
+        .logout{
+            color: $vchat-header-logout;
+        }
+        .logout:hover{
+            color: $vchat-header-logout-hover;
+        }
+        .online{
+            color: $vchat-header-online;
+        }
+    }
+
+    // vchat-little-header.vue
+    .vchat-little-header{
+        background-color: $vchat-little-header-bgcolor;
+        .logout{
+            color: $vchat-header-logout;
+        }
+        .logout:hover{
+            color: $vchat-header-logout-hover;
+        }
+    }
+    // personalMain.vue
+    .vchat-personalMain {
         .vchat-content{
             //background-color: $vchat-content-bgcolor;
             .vchat-content-nav{
@@ -51,16 +63,6 @@
         }
         .vchat-content-view{
             background-color: $vchat-content-view-bgcolor;
-        }
-    }
-    // mySetting.vue
-    .vchat-little-header{
-        background-color: $vchat-little-header-bgcolor;
-        .logout{
-            color: $vchat-header-logout;
-        }
-        .logout:hover{
-            color: $vchat-header-logout-hover;
         }
     }
 }

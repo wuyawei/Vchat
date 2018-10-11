@@ -1,6 +1,6 @@
 <template>
     <div class="vchat-mySetting">
-        <v-lheader></v-lheader>
+        <vHeader :isMainHeader="false"></vHeader>
         <div class="vchat-mySetting-container vchat-flexBetween">
             <ul class="vchat-setingList">
                 <li v-for="(v, i) in setingList" :key="i" :class="{active: $route.path === v.link}">
@@ -18,7 +18,7 @@
 </template>
 <script>
     import api from '../api';
-    import vLheader from '@/views/components/header/vLheader';
+    import vHeader from '@/views/components/header/vHeader';
     export default{
         name: 'mySetting',
         data() {
@@ -48,7 +48,7 @@
             }
         },
         components: {
-            vLheader
+            vHeader
         }
     }
 </script>

@@ -1,53 +1,64 @@
 <template>
     <div class="vchat-header">
-        <div class="vchat-header-container">
-            <div class="vchat-logo">Vchat</div>
-            <div class="vchat-mine">
-                <nav class="vchat-noUser">
-                    <!--class="animated" :class="{bounceIn: hover}" @mouseover="mouseover" ref="showChat"-->
-                    <p @click="showChat = !showChat">
-                        <el-badge :value="12">
-                            <span>消息</span>
-                        </el-badge>
-                    </p>
-                </nav>
-                <div>
-                    <a href="javascript:;">
-                        <img :src="avatar" alt="">
-                    </a>
-                    <ul class="handleList">
-                        <li v-for="(v, i) in handleList" :key="i">
-                            <router-link :to="v.link">
-                                <i class="iconfont" :class="[v.icon ? v.icon : '']"></i>
-                                {{v.name}}
+        <div class="vchat-main-header" v-if="isMainHeader">
+            <div class="vchat-header-container">
+                <div class="vchat-logo">Vchat</div>
+                <div class="vchat-mine">
+                    <nav class="vchat-noUser">
+                        <!--class="animated" :class="{bounceIn: hover}" @mouseover="mouseover" ref="showChat"-->
+                        <p @click="showChat = !showChat">
+                            <el-badge :value="12">
+                                <span>消息</span>
+                            </el-badge>
+                        </p>
+                    </nav>
+                    <div>
+                        <a href="javascript:;">
+                            <img :src="avatar" alt="">
+                        </a>
+                        <ul class="handleList">
+                            <li v-for="(v, i) in handleList" :key="i">
+                                <router-link :to="v.link">
+                                    <i class="iconfont" :class="[v.icon ? v.icon : '']"></i>
+                                    {{v.name}}
                             </router-link>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <p>
-                        <span class="vchat-line1" :title="user.nickname">{{user.nickname}}</span>
-                        <span @click="loginOut" class="logout">[退出]</span>
-                    </p>
-                    <p class="vchat-line2" :title="user.signature">{{user.signature ? '个性签名：' + user.signature : '这个人很懒，暂时没有签名哦！'}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>
+                            <span class="vchat-line1" :title="user.nickname">{{user.nickname}}</span>
+                            <span @click="loginOut" class="logout">[退出]</span>
+                        </p>
+                        <p class="vchat-line2" :title="user.signature">{{user.signature ? '个性签名：' + user.signature : '这个人很懒，暂时没有签名哦！'}}</p>
+                    </div>
                 </div>
             </div>
+            <transition name="chat">
+                <vue-draggable-resizable v-if="showChat"
+                                         :w="w" :h="h"
+                                         @resizestop = "onResizestop "
+                                         @dragstop = "onDragstop"
+                                         :minh="460" :minw="736"
+                                         :handles = "['tl', 'tr', 'bl', 'br']"
+                                         :draggable="draggable" :resizable="true"
+                                         :x="x" :y="y" :z="101"
+                                         :drag-handle="'.chat-header, .chat-conversation-ul'"
+                                         :drag-cancel="'a, .chat-conversation-li, .chat-handel'"
+                >
+                    <chat @closeChat="showChat = false"></chat>
+                </vue-draggable-resizable>
+            </transition>
         </div>
-        <transition name="chat">
-            <vue-draggable-resizable v-if="showChat"
-                                     :w="w" :h="h"
-                                     @resizestop = "onResizestop "
-                                     @dragstop = "onDragstop"
-                                     :minh="460" :minw="736"
-                                     :handles = "['tl', 'tr', 'bl', 'br']"
-                                     :draggable="draggable" :resizable="true"
-                                     :x="x" :y="y" :z="101"
-                                     :drag-handle="'.chat-header, .chat-conversation-ul'"
-                                     :drag-cancel="'a, .chat-conversation-li, .chat-handel'"
-            >
-                <chat @closeChat="showChat = false"></chat>
-            </vue-draggable-resizable>
-        </transition>
+        <div class="vchat-little-header" v-else>
+            <router-link to="/main/personalMain">vchat</router-link>
+            <div class="avatar">
+                <a href="javascipt:;">
+                    <img :src="avatar" alt="">
+                </a>
+                <span @click="loginOut" class="logout">[退出]</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -58,6 +69,12 @@
     import utils from '@/utils/utils';
     export default{
         name: 'vHeader',
+        props: {
+            isMainHeader: {
+                type: Boolean,
+                default: true
+            }
+        },
         data() {
             return {
 //                hover: false,
@@ -138,168 +155,205 @@
     }
 </script>
 <style lang="scss">
-    .vchat-header {
-        width: 100%;
-        height: 80px;
-        .vchat-header-container{
+    .vchat-header{
+        .vchat-main-header {
             width: 100%;
             height: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            background-color: #27cac7;
-            z-index: 102;
-        }
-        .vchat-logo {
-            width: 120px;
-            height: 80px;
-            /*color: #fff;*/
-            font-size: 28px;
-            line-height: 80px;
-        }
-        .vchat-mine {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding-right: 15px;
-            > div:nth-of-type(1) {
-                width: 80px;
-                height: 70px;
-                padding: 5px 10px;
-                box-sizing: border-box;
-                margin-right: 20px;
-                border-radius: 2px;
+            .vchat-header-container{
+                width: 100%;
+                height: 80px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
                 position: relative;
+                background-color: #27cac7;
+                z-index: 102;
             }
-            > div:nth-of-type(1) > a {
-                display: block;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                border-radius: 50%;
-                border: 1px solid #d5d5d5;
-                img {
-                    width: 100%;
-                }
+            .vchat-logo {
+                width: 120px;
+                height: 80px;
+                /*color: #fff;*/
+                font-size: 28px;
+                line-height: 80px;
             }
-            > div:nth-of-type(1):hover {
-                background-color: #f5f5f5;
-            }
-            .handleList {
-                width: 158px;
-                background-color: #fff;
-                position: absolute;
-                left: 0;
-                top: 85px;
-                display: none;
-                z-index: 100;
-                border-radius: 2px;
-                box-shadow: 0 0 8px #d5d5d5;
-                padding: 10px 0;
-                box-sizing: border-box;
-            }
-            .handleList:before{
-                display: block;
-                content: '';
-                width:0;
-                height: 0;
-                border-bottom: 15px solid #f2f2f2;
-                border-left: 10px solid transparent;
-                border-right: 10px solid transparent;
-                border-top: none;
-                position: absolute;
-                left:20px;
-                top:-15px;
-                z-index: 2;
-            }
-            .handleList:after{
-                display: block;
-                content: '';
-                width:100%;
-                height: 15px;
-                position: absolute;
-                left:0;
-                top:-15px;
-                z-index: 1;
-            }
-            .handleList li {
-                width: 100%;
-                line-height: 42px;
-                font-size: 16px;
-                text-align: left;
-                padding: 0 20px;
-                box-sizing: border-box;
-                cursor: pointer;
-                i {
-                    font-size: 18px;
-                    margin-right: 10px;
-                }
-            }
-            .handleList li a {
-                display: block;
-            }
-            > div:nth-of-type(1):hover .handleList {
-                display: block;
-            }
-            > div:nth-of-type(2) {
-                height: 50px;
-                font-size: 16px;
-                color: #fff;
-                text-align: left;
-                p:nth-of-type(1) {
-                    margin-bottom: 5px;
-                    padding-right: 10px;
-                    display: flex;
-                    align-items: center;
-                    span:nth-of-type(1) {
-                        max-width: 200px;
-                        display: inline-block;
-                    }
-                    span:nth-of-type(2) {
-                        margin-left: 10px;
-                        cursor: pointer;
-                        line-height: 1;
-                    }
-                }
-                p:nth-of-type(2) {
-                    font-size: 12px;
-                    max-width: 200px;
-                }
-            }
-            nav{
+            .vchat-mine {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                margin-right: 20px;
-                p{
-                    color: #fff;
-                    font-size: 16px;
-                    padding: 8px 12px;
-                    cursor: pointer;
+                padding-right: 15px;
+                > div:nth-of-type(1) {
+                    width: 80px;
+                    height: 70px;
+                    padding: 5px 10px;
+                    box-sizing: border-box;
+                    margin-right: 20px;
                     border-radius: 2px;
-                    span{
-                        padding: 6px;
+                    position: relative;
+                }
+                > div:nth-of-type(1) > a {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    border: 1px solid #d5d5d5;
+                    img {
+                        width: 100%;
                     }
                 }
-                P:hover{
+                > div:nth-of-type(1):hover {
                     background-color: #f5f5f5;
-                    color: #27cac7;
+                }
+                .handleList {
+                    width: 158px;
+                    background-color: #fff;
+                    position: absolute;
+                    left: 0;
+                    top: 85px;
+                    display: none;
+                    z-index: 100;
+                    border-radius: 2px;
+                    box-shadow: 0 0 8px #d5d5d5;
+                    padding: 10px 0;
+                    box-sizing: border-box;
+                }
+                .handleList:before{
+                    display: block;
+                    content: '';
+                    width:0;
+                    height: 0;
+                    border-bottom: 15px solid #f2f2f2;
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-top: none;
+                    position: absolute;
+                    left:20px;
+                    top:-15px;
+                    z-index: 2;
+                }
+                .handleList:after{
+                    display: block;
+                    content: '';
+                    width:100%;
+                    height: 15px;
+                    position: absolute;
+                    left:0;
+                    top:-15px;
+                    z-index: 1;
+                }
+                .handleList li {
+                    width: 100%;
+                    line-height: 42px;
+                    font-size: 16px;
+                    text-align: left;
+                    padding: 0 20px;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    i {
+                        font-size: 18px;
+                        margin-right: 10px;
+                    }
+                }
+                .handleList li a {
+                    display: block;
+                }
+                > div:nth-of-type(1):hover .handleList {
+                    display: block;
+                }
+                > div:nth-of-type(2) {
+                    height: 50px;
+                    font-size: 16px;
+                    color: #fff;
+                    text-align: left;
+                    p:nth-of-type(1) {
+                        margin-bottom: 5px;
+                        padding-right: 10px;
+                        display: flex;
+                        align-items: center;
+                        span:nth-of-type(1) {
+                            max-width: 200px;
+                            display: inline-block;
+                        }
+                        span:nth-of-type(2) {
+                            margin-left: 10px;
+                            cursor: pointer;
+                            line-height: 1;
+                        }
+                    }
+                    p:nth-of-type(2) {
+                        font-size: 12px;
+                        max-width: 200px;
+                    }
+                }
+                nav{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    margin-right: 20px;
+                    p{
+                        color: #fff;
+                        font-size: 16px;
+                        padding: 8px 12px;
+                        cursor: pointer;
+                        border-radius: 2px;
+                        span{
+                            padding: 6px;
+                        }
+                    }
+                    P:hover{
+                        background-color: #f5f5f5;
+                        color: #27cac7;
+                    }
+                }
+            }
+            .vdr{
+                position: fixed;
+                background-color: #fff;
+                max-width: 1728px;
+                max-height: 1080px;
+                border-radius: 3px;
+                .handle{
+                    width: 8px;
+                    height: 8px;
+                    background: #f5f5f5;
+                    border-radius: 2px;
                 }
             }
         }
-        .vdr{
-            position: fixed;
-            background-color: #fff;
-            max-width: 1728px;
-            max-height: 1080px;
-            border-radius: 3px;
-            .handle{
-                width: 8px;
-                height: 8px;
-                background: #f5f5f5;
-                border-radius: 2px;
+        .vchat-little-header{
+            width:100%;
+            height: 40px;
+            padding: 0 30px;
+            text-align: left;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            >a{
+                font-size: 20px;
+                line-height: 40px;
+                color: #fff;
+            }
+            .avatar{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                a{
+                    display: block;
+                    width:32px;
+                    height: 32px;
+                    margin-right: 10px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    img{
+                        width:100%;
+                    }
+                }
+            }
+            span{
+                cursor: pointer;
             }
         }
     }
+
 </style>

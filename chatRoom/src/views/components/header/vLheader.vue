@@ -1,6 +1,6 @@
 <template>
     <div class="vchat-little-header">
-        <router-link to="/personalMain">vchat</router-link>
+        <router-link to="/main/personalMain">vchat</router-link>
         <div class="avatar">
             <a href="javascipt:;">
                 <img :src="avatar" alt="">

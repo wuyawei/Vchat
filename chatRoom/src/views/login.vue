@@ -191,8 +191,7 @@
                 api.login(params).then(r => {
                     if (r.code === 0) {
                         this.$message.success('登录成功');
-                        this.$store.dispatch('getUserInfo');
-                        this.$router.push('/personalMain');
+                        this.$store.dispatch('getUserInfo', this);
                     } else if (r.code === -1) {
                         this.$message.error('账号不存在或密码错误');
                     } else {

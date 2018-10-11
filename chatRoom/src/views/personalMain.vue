@@ -55,11 +55,6 @@
         components: {
             vHeader
         },
-        computed: {
-            user() {
-                return this.$store.state.user;
-            }
-        },
         methods: {
         },
         mounted() {

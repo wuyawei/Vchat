@@ -111,9 +111,6 @@
             },
             mes(r) {
                 this.chatList.push(Object.assign({},r, {type: 'other'}));
-            },
-            joined(r) {
-                console.log('加入了', r.roomid);
             }
         },
         computed: {

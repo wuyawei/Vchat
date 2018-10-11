@@ -55,6 +55,7 @@
     import api from '@/api';
     import chat from '@/views/components/vChat';
     import VueDraggableResizable from 'vue-draggable-resizable';
+    import utils from '@/utils/utils';
     export default{
         name: 'vHeader',
         data() {
@@ -65,12 +66,12 @@
                     {
                         name: '个人主页',
                         icon: 'icon-zhanghaoguanli1',
-                        link: '/mine'
+                        link: '/main/mine'
                     },
                     {
                         name: '设置',
                         icon: 'icon-shezhi1',
-                        link: '/mySetting'
+                        link: '/main/mySetting'
                     }
                 ],
                 showChat: false,
@@ -102,6 +103,13 @@
         },
         methods: {
             loginOut() {
+                let val = {
+                    name: this.$store.state.user.name,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.$store.state.user.photo,
+                    roomid: '11111'
+                };
+                this.$socket.emit('leave', val);
                 api.loginOut().then(r => {
                     if (r.code === 0) {
                         this.$message.success('退出成功');

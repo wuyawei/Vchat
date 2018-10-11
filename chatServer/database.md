@@ -43,10 +43,12 @@
 * userAid
 * userBid
 * createDate 创建时间
-### message 消息
+### messages 消息
 * id
-* roomid
-* roomtitle
-* userid
-* username
-* content
+* roomid 房间id
+* name 用户登录名
+* nickname 用户昵称
+* time 时间
+* avatar 用户头像
+* mes 消息
+* read 是否已读 0/1

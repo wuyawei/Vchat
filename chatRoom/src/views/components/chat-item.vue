@@ -155,14 +155,6 @@
                 })
             },
             send() {
-                let roomid = '';
-                if (this.user.name === 'www') {
-                    roomid = '11111';
-                } else if (this.user.name === 'qqq') {
-                    roomid = '22222';
-                } else if (this.user.name === 'aaa') {
-                    roomid = '22222';
-                }
                 let val = {
                     name: this.user.name,
                     mes: this.message,
@@ -170,7 +162,7 @@
                     avatar: this.user.photo,
                     nickname: this.user.nickname,
                     read: 0,
-                    roomid: roomid
+                    roomid: this.currSation
                 };
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);

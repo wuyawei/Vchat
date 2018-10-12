@@ -4,7 +4,7 @@ const onconnection = (socket) => {
 
     socket.on('join', (val) => {
         socket.join(val.roomid, () => {
-            OnlineUser[val.name] = true;
+            OnlineUser[val.name] = socket.id;
             socket.to(val.roomid).emit('joined', OnlineUser);
             console.log('join', val.roomid, OnlineUser);
         });
@@ -19,8 +19,14 @@ const onconnection = (socket) => {
     socket.on('mes', (val) => {
         socket.to(val.roomid).broadcast.emit('mes', val);
     });
-    socket.on('disconnect', (socket) => {
-        console.log('user disconnected', socket);
+    socket.on('disconnect', () => {
+        let k;
+        for (k in OnlineUser) {
+            if (OnlineUser[k] === socket.id) {
+                delete OnlineUser[k];
+            }
+        }
+        console.log('user disconnected', OnlineUser);
     });
 };
 module.exports = onconnection;

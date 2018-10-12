@@ -60,7 +60,8 @@
                         this.currSation = this.contactsList[0].id;
                     }
                 },
-                deep: true
+                deep: true,
+                immediate: true
             }
         },
         computed: {
@@ -75,11 +76,6 @@
             }
         },
         mounted() {
-            if (this.conversationsList.length) {
-                this.one = false;
-                this.contactsList = this.conversationsList;
-                this.currSation = this.contactsList[0].id;
-            }
         }
     }
 </script>

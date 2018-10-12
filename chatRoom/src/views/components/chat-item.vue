@@ -118,7 +118,6 @@
         },
         watch: {
             chatList(list){
-                console.log('list', list);
                 this.$nextTick(_ => {
                     this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
                 });

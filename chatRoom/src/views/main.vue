@@ -22,7 +22,8 @@
                 handler() {
                     this.joinRoom();
                 },
-                deep: true
+                deep: true,
+                immediate: true
             }
         },
         computed: {
@@ -64,7 +65,6 @@
             if (conversationsList) {
                 this.$store.commit('setConversationsList', JSON.parse(conversationsList));
             }
-            this.joinRoom();
         }
     }
 </script>

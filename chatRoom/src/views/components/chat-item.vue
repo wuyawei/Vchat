@@ -104,12 +104,13 @@
                 this.chatList.push(Object.assign({},r, {type: 'org'}));
             },
             mes(r) {
+                this.$emit('NewMes', r);
                 if (r.roomid === this.currSation) {
                     this.chatList.push(Object.assign({},r, {type: 'other'}));
                 }
             },
             getHistoryMessages(r) {
-                console.log('getHistoryMessages', r);
+                this.$emit('NewMes', r[r.length - 1]);
                 this.chatList = r.map(v => {
                     if (v.name === this.user.name) {
                         v.type = 'mine';
@@ -135,7 +136,6 @@
                     if (id) {
                         this.getGroupUsers(id);
                         this.$socket.emit('getHistoryMessages', {roomid: id});
-                        console.log('11111111');
                     }
                 },
                 immediate: true
@@ -175,6 +175,7 @@
                 };
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);
+                this.$emit('NewMes', val);
                 this.message = '';
             }
         }
@@ -318,6 +319,9 @@
                         display: flex;
                         justify-content: flex-end;
                     }
+                    .other .mes-box>div p.mes{
+                        background-color: #9cbeca;
+                    }
                     .other p.mes:before, .mine p.mes:after{
                         width:0;
                         height:0;
@@ -327,8 +331,8 @@
                         top:10px;
                     }
                     .other p.mes:before{
-                        left:-10px;
-                        border-bottom: 5px solid #27cac7;
+                        left:-11px;
+                        border-bottom: 5px solid #9cbeca;
                         border-left: 10px solid transparent;
                         border-right: 5px solid transparent;
                         border-top: 0;

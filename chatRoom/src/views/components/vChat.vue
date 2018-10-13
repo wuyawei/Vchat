@@ -16,10 +16,10 @@
                         </a>
                         <div class="chat-conversation-li-center">
                             <p class="vchat-line1">{{v.name}}</p>
-                            <p class="vchat-line1">哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈</p>
+                            <p class="vchat-line1">{{v.newMes}}</p>
                         </div>
                         <div class="chat-conversation-li-right">
-                            <p>18:59</p>
+                            <p>{{v.newMesTime}}</p>
                         </div>
                         <p class="delete">
                             <v-icon class="el-icon-circle-close" color="#323232" cursor="pointer" :size="18"></v-icon>
@@ -27,7 +27,7 @@
                     </li>
                 </ul>
                 <div class="chat-content-box">
-                    <chat-item :currSation="currSation"></chat-item>
+                    <chat-item :currSation="currSation" @NewMes="getNewMes"></chat-item>
                 </div>
             </div>
         </div>
@@ -73,6 +73,13 @@
             },
             setCurrSation(id) {
                 this.currSation = id;
+            },
+            getNewMes(m) { // 获取最新一条消息
+                this.conversationsList.forEach((v, i) => {
+                    if (v.id === m.roomid) {
+                        this.$set(this.conversationsList, i, Object.assign({}, v, {newMes: m.mes, newMesTime: m.time.split(' ')[1]}));
+                    }
+                })
             }
         },
         mounted() {

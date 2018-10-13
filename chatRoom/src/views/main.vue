@@ -37,11 +37,13 @@
             customEmit: function (val) {
                 console.log('连接失败');
             },
-            joined(r) {
-                console.log('加入了', r);
+            joined(OnlineUser) {
+                console.log('加入了', OnlineUser);
+                this.$store.commit('setOnlineUser', OnlineUser)
             },
-            leaved(r) {
-                console.log('离开了', r);
+            leaved(OnlineUser) {
+                console.log('离开了', OnlineUser);
+                this.$store.commit('setOnlineUser', OnlineUser)
             }
         },
         methods: {

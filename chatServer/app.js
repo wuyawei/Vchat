@@ -63,6 +63,7 @@ app.get('/', (req, res) => {
 });
 
 // io.in(pramas.roomid).emit('getHistoryMessages', res.data); // 包括发送者
+// socket.to(val.roomid).emit('joined', OnlineUser); // 不包括发送者
 const OnlineUser = {};
 const apiList = require('./controller/apiList');
 const onconnection = (socket) => {
@@ -71,7 +72,7 @@ const onconnection = (socket) => {
     socket.on('join', (val) => {
         socket.join(val.roomid, () => {
             OnlineUser[val.name] = socket.id;
-            socket.to(val.roomid).emit('joined', OnlineUser);
+            io.in(val.roomid).emit('joined', OnlineUser); // 包括发送者
             console.log('join', val.roomid, OnlineUser);
         });
     });
@@ -103,6 +104,7 @@ const onconnection = (socket) => {
                 delete OnlineUser[k];
             }
         }
+        socket.broadcast.emit('leaved', OnlineUser); // 广播通知该客户端下线
         console.log('user disconnected', OnlineUser);
     });
 };

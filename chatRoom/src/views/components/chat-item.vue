@@ -48,7 +48,7 @@
                     </div>
                     <textarea v-model="message" @keyup.enter="send"></textarea>
                     <div class="enter">
-                        <button class="vchat-button-mini info">清空</button>
+                        <button class="vchat-button-mini info" @click="clear">清空</button>
                         <button class="vchat-button-mini" @click="send">发送</button>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <input type="text" v-show="spread" ref="searchMember">
                     <ul>
                         <li v-for="v in groupUsers" :key="v.userId['_id']">
-                            <a class="vchat-photo">
+                            <a class="vchat-photo" :class="{lineOf: !v.status}">
                                 <img :src="IMGURL + v.userId.photo" alt="">
                             </a>
                             <span class="vchat-line1">{{v.userId.nickname}}</span>
@@ -123,7 +123,7 @@
             }
         },
         computed: {
-            ...mapState(['user'])
+            ...mapState(['user', 'OnlineUser'])
         },
         watch: {
             chatList(list){
@@ -139,6 +139,22 @@
                     }
                 },
                 immediate: true
+            },
+            OnlineUser: {
+                handler(obj) {
+                    console.log(obj);
+                    this.groupUsers.forEach((v, i) => {
+                        let k, flag = false;
+                        for (k in obj) {
+                            if (k === v.userName) {
+                                flag = true;
+                            }
+                        }
+                        this.$set(this.groupUsers, i, Object.assign({}, v, {status: flag}));
+                    })
+                },
+                immediate: true,
+                deep: true
             }
         },
         mounted() {
@@ -176,6 +192,9 @@
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);
                 this.$emit('NewMes', val);
+                this.message = '';
+            },
+            clear() { // 清空
                 this.message = '';
             }
         }
@@ -468,6 +487,10 @@
                         min-width: 26px;
                         height: 26px;
                         margin-right: 5px;
+                    }
+                    a.lineOf{
+                        -webkit-filter: grayscale(85%); /* Chrome, Safari, Opera */
+                        filter: grayscale(85%);
                     }
                 }
             }

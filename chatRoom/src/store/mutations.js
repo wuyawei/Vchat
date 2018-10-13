@@ -19,5 +19,8 @@ export default {
             state.conversationsList.push(data);
         }
         window.localStorage.conversationsList = JSON.stringify(state.conversationsList);
+    },
+    setOnlineUser(state, data) {
+        state.OnlineUser = data;
     }
 }

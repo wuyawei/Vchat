@@ -9,7 +9,6 @@ let session = require("express-session"); // session
 let app = express();
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
-let onconnection = require('./socket');
 
 const api = require('./routes/api');
 const user = require('./routes/user');
@@ -62,7 +61,53 @@ app.use('/group', group);
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');
 });
+
+// io.in(pramas.roomid).emit('getHistoryMessages', res.data); // 包括发送者
+const OnlineUser = {};
+const apiList = require('./controller/apiList');
+const onconnection = (socket) => {
+    console.log('启动了Socket.io');
+
+    socket.on('join', (val) => {
+        socket.join(val.roomid, () => {
+            OnlineUser[val.name] = socket.id;
+            socket.to(val.roomid).emit('joined', OnlineUser);
+            console.log('join', val.roomid, OnlineUser);
+        });
+    });
+    socket.on('leave', (val) => {
+        socket.leave(val.roomid, () => {
+            delete OnlineUser[val.name];
+            socket.to(val.roomid).emit('leaved', OnlineUser);
+            console.log('leave', val.roomid, OnlineUser);
+        });
+    });
+    socket.on('mes', (val) => {
+        apiList.saveMessage(val);
+        socket.to(val.roomid).emit('mes', val);
+    });
+    socket.on('getHistoryMessages', (pramas) => {
+        apiList.getHistoryMessages(pramas, (res) => {
+            if (res.code === 0) {
+                console.log('socket.id', socket.id);
+                socket.emit('getHistoryMessages', res.data); // 发送给发送者（当前客户端）
+            } else {
+                console.log('查询历史记录失败');
+            }
+        });
+    });
+    socket.on('disconnect', () => {
+        let k;
+        for (k in OnlineUser) {
+            if (OnlineUser[k] === socket.id) {
+                delete OnlineUser[k];
+            }
+        }
+        console.log('user disconnected', OnlineUser);
+    });
+};
 io.on('connection', onconnection);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

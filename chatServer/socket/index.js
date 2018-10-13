@@ -1,4 +1,5 @@
 const OnlineUser = {};
+const api = require('../controller/apiList');
 const onconnection = (socket) => {
     console.log('启动了Socket.io');
 
@@ -17,7 +18,17 @@ const onconnection = (socket) => {
         });
     });
     socket.on('mes', (val) => {
-        socket.to(val.roomid).broadcast.emit('mes', val);
+        api.saveMessage(val);
+        socket.to(val.roomid).emit('mes', val);
+    });
+    socket.on('getHistoryMessages', (pramas) => {
+        api.getHistoryMessages(pramas, (res) => {
+            if (res.code === 0) {
+                io.in(pramas.roomid).emit('getHistoryMessages', res.data); // 包括发送者
+            } else {
+                console.log('查询历史记录失败');
+            }
+        });
     });
     socket.on('disconnect', () => {
         let k;

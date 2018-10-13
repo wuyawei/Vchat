@@ -10,7 +10,7 @@ let messages = db.model("messages", {
     read: Number // 是否已读 0/1
 });
 
-const saveMessage = (params, callback) => { // 保存消息
+const saveMessage = (params, callback = function () {}) => { // 保存消息
     messages.create(params).then(r => {
         if (r['_id']) {
             callback({code: 0, data: 'ok'});
@@ -20,6 +20,18 @@ const saveMessage = (params, callback) => { // 保存消息
     })
 };
 
+const getHistoryMessages = (params, callback) => { // 保存消息
+    messages.find(params)
+        .sort({'time':1})
+        .then(r => {
+            callback({code: 0, data: r});
+        }).catch(err => {
+            console.log(err);
+            callback({code: -1});
+        });
+};
+
 module.exports = {
-    saveMessage
+    saveMessage,
+    getHistoryMessages
 };

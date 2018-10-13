@@ -7,6 +7,11 @@ const saveMessage = (params, callback) => {
     apiModel.saveMessage(params, callback);
 };
 
+const getHistoryMessages = (params, callback) => {
+    apiModel.getHistoryMessages(params, callback);
+};
+
 module.exports = {
-    saveMessage
+    saveMessage,
+    getHistoryMessages
 };

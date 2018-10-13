@@ -11,7 +11,7 @@
                             <template v-if="v.type==='other'">
                                 <div class="mes-box">
                                     <p>
-                                        <img :src="v.avatar" alt="">
+                                        <img :src="IMGURL + v.avatar" alt="">
                                     </p>
                                     <div>
                                         <p>
@@ -32,7 +32,7 @@
                                         <p class="mes">{{v.mes}}</p>
                                     </div>
                                     <p>
-                                        <img :src="v.avatar" alt="">
+                                        <img :src="IMGURL + v.avatar" alt="">
                                     </p>
                                 </div>
                             </template>
@@ -46,7 +46,7 @@
                     <div class="tool">
                         <v-icon name="biaoqing1" color="#27cac7" cursor="pointer"></v-icon>
                     </div>
-                    <textarea v-model="message"></textarea>
+                    <textarea v-model="message" @keyup.enter="send"></textarea>
                     <div class="enter">
                         <button class="vchat-button-mini info">清空</button>
                         <button class="vchat-button-mini" @click="send">发送</button>
@@ -70,7 +70,7 @@
                     <ul>
                         <li v-for="v in groupUsers" :key="v.userId['_id']">
                             <a class="vchat-photo">
-                                <img :src="v.userId.photo" alt="">
+                                <img :src="IMGURL + v.userId.photo" alt="">
                             </a>
                             <span class="vchat-line1">{{v.userId.nickname}}</span>
                         </li>
@@ -91,6 +91,7 @@
         data() {
             return {
                 navList: ['聊天', '公告'],
+                IMGURL: process.env.IMG_URL,
                 currNav: 0,
                 spread: false,
                 chatList: [],
@@ -99,18 +100,25 @@
             };
         },
         sockets:{
-            connect: function (val) {
-                console.log(this.$socket.id);
-                console.log('连接成功');
-            },
-            customEmit: function (val) {
-                console.log('连接失败');
-            },
             org(r) {
                 this.chatList.push(Object.assign({},r, {type: 'org'}));
             },
             mes(r) {
-                this.chatList.push(Object.assign({},r, {type: 'other'}));
+                if (r.roomid === this.currSation) {
+                    this.chatList.push(Object.assign({},r, {type: 'other'}));
+                }
+            },
+            getHistoryMessages(r) {
+                console.log('getHistoryMessages', r);
+                this.chatList = r.map(v => {
+                    if (v.name === this.user.name) {
+                        v.type = 'mine';
+                        return v;
+                    } else {
+                        v.type = 'other';
+                        return v;
+                    }
+                })
             }
         },
         computed: {
@@ -126,6 +134,8 @@
                 handler(id) {
                     if (id) {
                         this.getGroupUsers(id);
+                        this.$socket.emit('getHistoryMessages', {roomid: id});
+                        console.log('11111111');
                     }
                 },
                 immediate: true
@@ -249,7 +259,6 @@
                     .mes-box{
                         width:350px;
                         display: flex;
-                        justify-content: flex-end;
                         >p{
                             width:42px;
                             height: 42px;
@@ -294,6 +303,12 @@
                     .other .mes-box>div{
                         text-align: left;
                         margin-left: 10px;
+                    }
+                    .other .mes-box{
+                        justify-content: flex-start;
+                    }
+                    .mine .mes-box{
+                        justify-content: flex-end;
                     }
                     .mine .mes-box>div{
                         text-align: right;

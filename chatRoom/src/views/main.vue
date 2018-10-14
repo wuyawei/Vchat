@@ -14,12 +14,14 @@
         watch: {
             user: {
                 handler() {
+                    console.log('useruser');
                     this.joinRoom();
                 },
                 deep: true
             },
             conversationsList: {
                 handler() {
+                    console.log('conversationsList');
                     this.joinRoom();
                 },
                 deep: true,
@@ -51,6 +53,7 @@
                 if (!this.user.name) {
                     return ;
                 }
+                console.log('joinnnnn');
                 this.conversationsList.forEach(v => {
                     let val = {
                         name: this.user.name,

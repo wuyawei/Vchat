@@ -142,16 +142,7 @@
             },
             OnlineUser: {
                 handler(obj) {
-                    console.log(obj);
-                    this.groupUsers.forEach((v, i) => {
-                        let k, flag = false;
-                        for (k in obj) {
-                            if (k === v.userName) {
-                                flag = true;
-                            }
-                        }
-                        this.$set(this.groupUsers, i, Object.assign({}, v, {status: flag}));
-                    })
+                    this.getGroupUserStatus(obj);
                 },
                 immediate: true,
                 deep: true
@@ -160,6 +151,17 @@
         mounted() {
         },
         methods: {
+            getGroupUserStatus(obj) {
+                this.groupUsers.forEach((v, i) => {
+                    let k, flag = false;
+                    for (k in obj) {
+                        if (k === v.userName) {
+                            flag = true;
+                        }
+                    }
+                    this.$set(this.groupUsers, i, Object.assign({}, v, {status: flag}));
+                })
+            },
             setCurrNav(i) {
                 this.currNav = i;
             },
@@ -176,6 +178,7 @@
                 api.getGroupUsers(params).then(r => {
                     if (r.code === 0) {
                         this.groupUsers = r.data;
+                        this.getGroupUserStatus(this.OnlineUser);
                     }
                 })
             },

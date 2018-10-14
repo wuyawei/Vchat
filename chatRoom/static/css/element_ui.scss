@@ -69,3 +69,9 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     line-height: 26px;
     margin-right: 5px;
 }
+
+.mesBadge{
+    .el-badge__content.is-fixed{
+        right: 30px;
+    }
+}

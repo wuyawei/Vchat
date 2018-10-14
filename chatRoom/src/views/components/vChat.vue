@@ -11,9 +11,11 @@
             <div class="chat-container">
                 <ul class="chat-conversation-ul">
                     <li class="chat-conversation-li" v-for="(v, i) in contactsList" :key="v.id" :class="{active: currSation === v.id}" @click="setCurrSation(v.id)">
-                        <a class="vchat-photo">
-                            <img :src="IMGURL + v.photo" alt="">
-                        </a>
+                        <el-badge :value="200" :max="99" class="mesBadge">
+                            <a class="vchat-photo">
+                                <img :src="IMGURL + v.photo" alt="">
+                            </a>
+                        </el-badge>
                         <div class="chat-conversation-li-center">
                             <p class="vchat-line1">{{v.name}}</p>
                             <p class="vchat-line1">{{v.newMes}}</p>
@@ -54,7 +56,7 @@
         watch: {
             conversationsList: {
                 handler(list) {
-                    this.contactsList = list;
+                    this.contactsList = JSON.parse(JSON.stringify(list));
                     if (this.one && list.length) {
                         this.one = false;
                         this.currSation = this.contactsList[0].id;
@@ -75,9 +77,9 @@
                 this.currSation = id;
             },
             getNewMes(m) { // 获取最新一条消息
-                this.conversationsList.forEach((v, i) => {
+                this.contactsList.forEach((v, i) => {
                     if (v.id === m.roomid) {
-                        this.$set(this.conversationsList, i, Object.assign({}, v, {newMes: m.mes, newMesTime: m.time.split(' ')[1]}));
+                        this.$set(this.contactsList, i, Object.assign({}, v, {newMes: m.mes, newMesTime: m.time.split(' ')[1]}));
                     }
                 })
             }
@@ -170,7 +172,6 @@
                     height: 42px;
                     margin-right: 10px;
                 }
-
                 .delete{
                     position: absolute;
                     right: 5px;

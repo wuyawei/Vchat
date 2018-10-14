@@ -121,6 +121,13 @@
         methods: {
             loginOut() {
                 this.$socket.close();
+                let val = {
+                    name: this.user.name,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.user.photo,
+                    roomid: v.id
+                };
+                this.$socket.emit('leave', val);
                 api.loginOut().then(r => {
                     if (r.code === 0) {
                         this.$message.success('退出成功');

@@ -90,7 +90,6 @@ const onconnection = (socket) => {
     socket.on('getHistoryMessages', (pramas) => {
         apiList.getHistoryMessages(pramas, (res) => {
             if (res.code === 0) {
-                console.log('socket.id', socket.id);
                 socket.emit('getHistoryMessages', res.data); // 发送给发送者（当前客户端）
             } else {
                 console.log('查询历史记录失败');

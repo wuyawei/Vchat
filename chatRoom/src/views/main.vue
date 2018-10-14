@@ -46,8 +46,10 @@
                 this.$store.commit('setOnlineUser', OnlineUser)
             },
             getHistoryMessages(mesdata) {
-                let data = mesdata.filter(v => v.name !== this.user.name && v.read === 0);
-                this.$store.commit('setUnRead', {roomid: data[0].roomid, count: data.length});
+                let data = mesdata.filter(v => v.read.indexOf(this.user.name) === -1);
+                if (data.length) {
+                    this.$store.commit('setUnRead', {roomid: data[0].roomid, count: data.length});
+                }
             }
         },
         methods: {

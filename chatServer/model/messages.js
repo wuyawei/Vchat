@@ -7,7 +7,7 @@ let messages = db.model("messages", {
     time: String, // 时间
     avatar: String, // 用户头像
     mes: String, // 消息
-    read: Number // 是否已读 0/1
+    read: Array // 是否已读 0/1
 });
 
 const saveMessage = (params, callback = function () {}) => { // 保存消息
@@ -30,8 +30,22 @@ const getHistoryMessages = (params, callback) => { // 保存消息
             callback({code: -1});
         });
 };
+// updateMany 一次更新多条
+const setReadStatus = (params) => { // 消息设置为已读
+    messages.find({'roomid': params.roomid})
+        .then(raw => {
+            raw.forEach(v => {
+                if (v.read.indexOf(params.name) === -1) {
+                    v.read.push(params.name);
+                    v.save();
+                }
+            })
+        })
+        .catch(err => console.log('setReadStatus失败', err));
+};
 
 module.exports = {
     saveMessage,
-    getHistoryMessages
+    getHistoryMessages,
+    setReadStatus
 };

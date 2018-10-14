@@ -136,6 +136,7 @@
                     if (id) {
                         this.getGroupUsers(id);
                         this.$socket.emit('getHistoryMessages', {roomid: id});
+                        this.$socket.emit('setReadStatus', {roomid: id, name: this.user.name});
                     }
                 },
                 immediate: true
@@ -189,7 +190,7 @@
                     time: utils.formatTime(new Date()),
                     avatar: this.user.photo,
                     nickname: this.user.nickname,
-                    read: 0,
+                    read: [this.user.name],
                     roomid: this.currSation
                 };
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));

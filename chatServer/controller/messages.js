@@ -11,7 +11,12 @@ const getHistoryMessages = (params, callback) => {
     apiModel.getHistoryMessages(params, callback);
 };
 
+const setReadStatus = (params) => {
+    apiModel.setReadStatus(params);
+};
+
 module.exports = {
     saveMessage,
-    getHistoryMessages
+    getHistoryMessages,
+    setReadStatus
 };

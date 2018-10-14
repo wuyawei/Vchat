@@ -51,4 +51,4 @@
 * time 时间
 * avatar 用户头像
 * mes 消息
-* read 是否已读 0/1
+* read 是否已读 Array ['www', 'yyy']

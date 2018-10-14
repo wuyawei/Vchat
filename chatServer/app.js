@@ -96,6 +96,9 @@ const onconnection = (socket) => {
             }
         });
     });
+    socket.on('setReadStatus', (params) => {
+        apiList.setReadStatus(params);
+    });
     socket.on('disconnect', () => {
         let k;
         for (k in OnlineUser) {

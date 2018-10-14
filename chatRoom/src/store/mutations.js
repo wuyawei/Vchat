@@ -34,6 +34,5 @@ export default {
         } else {
             state.unRead.push(data);
         }
-        console.log('state.unRead', state.unRead);
     }
 }

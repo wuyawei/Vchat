@@ -135,8 +135,9 @@
                 handler(id) {
                     if (id) {
                         this.getGroupUsers(id);
-                        this.$socket.emit('getHistoryMessages', {roomid: id});
                         this.$socket.emit('setReadStatus', {roomid: id, name: this.user.name});
+                        this.$store.commit('setUnRead', {roomid: id, clear: true});
+                        this.$socket.emit('getHistoryMessages', {roomid: id});
                     }
                 },
                 immediate: true

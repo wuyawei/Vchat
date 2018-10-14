@@ -11,7 +11,7 @@
             <div class="chat-container">
                 <ul class="chat-conversation-ul">
                     <li class="chat-conversation-li" v-for="(v, i) in contactsList" :key="v.id" :class="{active: currSation === v.id}" @click="setCurrSation(v.id)">
-                        <el-badge :value="v.unRead" :max="99" class="mesBadge">
+                        <el-badge :value="v.unRead" :max="99" class="mesBadge" :hidden="v.unRead === 0">
                             <a class="vchat-photo">
                                 <img :src="IMGURL + v.photo" alt="">
                             </a>

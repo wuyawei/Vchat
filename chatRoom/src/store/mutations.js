@@ -24,15 +24,28 @@ export default {
         state.OnlineUser = data;
     },
     setUnRead(state, data) {
+        if (data.clear) {
+            state.unRead.forEach(v => {
+                if (v.roomid === data.roomid) {
+                    v.count = 0;
+                }
+            });
+            console.log('cccccccc', state.unRead, data);
+            return;
+        }
         let unRead = state.unRead.filter(v => v.roomid === data.roomid);
         if (unRead.length) {
             state.unRead.forEach(v => {
                 if (v.roomid === data.roomid) {
-                    v.count = data.count;
+                    if (data.add) {
+                        v.count ++;
+                    } else {
+                        v.count = data.count;
+                    }
                 }
             });
         } else {
-            state.unRead.push(data);
+            state.unRead.push({roomid: data.roomid, count: data.count});
         }
     }
 }

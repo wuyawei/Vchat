@@ -88,6 +88,7 @@
             },
             setCurrSation(id) {
                 this.currSation = id;
+                this.$emit('currSation', id);
             },
             getNewMes(m) { // 获取最新一条消息
                 this.contactsList.forEach((v, i) => {
@@ -98,6 +99,7 @@
             }
         },
         mounted() {
+            this.$emit('currSation', this.currSation);
         }
     }
 </script>

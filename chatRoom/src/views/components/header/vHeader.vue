@@ -46,7 +46,7 @@
                                          :drag-handle="'.chat-header, .chat-conversation-ul'"
                                          :drag-cancel="'a, .chat-conversation-li, .chat-handel'"
                 >
-                    <chat @closeChat="showChat = false"></chat>
+                    <chat @closeChat="showChat = false" @currSation="getCurrSation"></chat>
                 </vue-draggable-resizable>
             </transition>
         </div>
@@ -96,7 +96,8 @@
                 x: Number(window.localStorage.x) || 100,
                 y: Number(window.localStorage.y) || 100,
                 w: Number(window.localStorage.w) || 736,
-                h: Number(window.localStorage.h) || 460
+                h: Number(window.localStorage.h) || 460,
+                currSation: '', // 当前会话
             };
         },
         components: {
@@ -119,15 +120,18 @@
             }
         },
         methods: {
+            getCurrSation(id) {
+                this.currSation = id;
+            },
             loginOut() {
-                this.$socket.close();
                 let val = {
                     name: this.user.name,
                     time: utils.formatTime(new Date()),
                     avatar: this.user.photo,
-                    roomid: v.id
+                    roomid: this.currSation
                 };
                 this.$socket.emit('leave', val);
+                this.$socket.close();
                 api.loginOut().then(r => {
                     if (r.code === 0) {
                         this.$message.success('退出成功');

@@ -109,7 +109,7 @@
                     this.chatList.push(Object.assign({},r, {type: 'other'}));
                 }
             },
-            getHistoryMessages(r) {
+            getHistoryMessages(r) { // 获取历史消息
                 this.$emit('NewMes', r[r.length - 1]);
                 this.chatList = r.map(v => {
                     if (v.name === this.user.name) {
@@ -131,7 +131,7 @@
                     this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
                 });
             },
-            currSation: {
+            currSation: { // 当前会话
                 handler(id) {
                     if (id) {
                         this.getGroupUsers(id);
@@ -140,7 +140,7 @@
                 },
                 immediate: true
             },
-            OnlineUser: {
+            OnlineUser: { // 在线成员
                 handler(obj) {
                     this.getGroupUserStatus(obj);
                 },
@@ -151,7 +151,7 @@
         mounted() {
         },
         methods: {
-            getGroupUserStatus(obj) {
+            getGroupUserStatus(obj) { // 群成员在线状态
                 this.groupUsers.forEach((v, i) => {
                     let k, flag = false;
                     for (k in obj) {
@@ -171,7 +171,7 @@
                     this.$refs['searchMember'].focus();
                 });
             },
-            getGroupUsers(id) {
+            getGroupUsers(id) { // 获取群成员
                 let params = {
                     groupId: id
                 };
@@ -182,7 +182,7 @@
                     }
                 })
             },
-            send() {
+            send() { // 发送消息
                 let val = {
                     name: this.user.name,
                     mes: this.message,

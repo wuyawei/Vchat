@@ -7,7 +7,7 @@
                     <nav class="vchat-noUser">
                         <!--class="animated" :class="{bounceIn: hover}" @mouseover="mouseover" ref="showChat"-->
                         <p @click="showChat = !showChat">
-                            <el-badge :value="12">
+                            <el-badge :value="unReadCount" :max="99">
                                 <span>消息</span>
                             </el-badge>
                         </p>
@@ -67,6 +67,7 @@
     import chat from '@/views/components/vChat';
     import VueDraggableResizable from 'vue-draggable-resizable';
     import utils from '@/utils/utils';
+    import { mapState, mapGetters } from 'vuex';
     export default{
         name: 'vHeader',
         props: {
@@ -106,9 +107,8 @@
             avatar() {
                 return process.env.IMG_URL + this.$store.state.user.photo; // 用户头像avatar:
             },
-            user() {
-                return this.$store.state.user;
-            }
+            ...mapState(['user']),
+            ...mapGetters(['unReadCount'])
         },
         watch: {
             showChat() {

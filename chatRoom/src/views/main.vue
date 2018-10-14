@@ -14,14 +14,12 @@
         watch: {
             user: {
                 handler() {
-                    console.log('useruser');
                     this.joinRoom();
                 },
                 deep: true
             },
             conversationsList: {
                 handler() {
-                    console.log('conversationsList');
                     this.joinRoom();
                 },
                 deep: true,
@@ -46,6 +44,10 @@
             leaved(OnlineUser) {
                 console.log('离开了', OnlineUser);
                 this.$store.commit('setOnlineUser', OnlineUser)
+            },
+            getHistoryMessages(mesdata) {
+                let data = mesdata.filter(v => v.name !== this.user.name && v.read === 0);
+                this.$store.commit('setUnRead', {roomid: data[0].roomid, count: data.length});
             }
         },
         methods: {
@@ -53,7 +55,6 @@
                 if (!this.user.name) {
                     return ;
                 }
-                console.log('joinnnnn');
                 this.conversationsList.forEach(v => {
                     let val = {
                         name: this.user.name,
@@ -62,6 +63,7 @@
                         roomid: v.id
                     };
                     this.$socket.emit('join', val);
+                    this.$socket.emit('getHistoryMessages', {roomid: v.id});
                 });
             }
         },

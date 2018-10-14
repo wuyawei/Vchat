@@ -11,7 +11,7 @@
             <div class="chat-container">
                 <ul class="chat-conversation-ul">
                     <li class="chat-conversation-li" v-for="(v, i) in contactsList" :key="v.id" :class="{active: currSation === v.id}" @click="setCurrSation(v.id)">
-                        <el-badge :value="200" :max="99" class="mesBadge">
+                        <el-badge :value="v.unRead" :max="99" class="mesBadge">
                             <a class="vchat-photo">
                                 <img :src="IMGURL + v.photo" alt="">
                             </a>
@@ -64,10 +64,23 @@
                 },
                 deep: true,
                 immediate: true
+            },
+            unRead: {
+                handler(list) {
+                    this.contactsList.forEach((v, i) => {
+                        list.forEach(m => {
+                            if (v.id === m.roomid) {
+                                this.$set(this.contactsList, i, Object.assign({}, v, {unRead: m.count}));
+                            }
+                        });
+                    })
+                },
+                deep: true,
+                immediate: true
             }
         },
         computed: {
-            ...mapState(['user', 'conversationsList'])
+            ...mapState(['user', 'conversationsList', 'unRead'])
         },
         methods: {
             close() {
@@ -154,6 +167,7 @@
             .chat-conversation-ul{
                 width:20%;
                 min-width:147.2px;
+                padding-bottom: 20px;
                 box-sizing: border-box;
                 border-right: 1px solid rgba(255,255,255,0.2);
                 overflow-y: auto;

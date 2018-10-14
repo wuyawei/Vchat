@@ -22,5 +22,18 @@ export default {
     },
     setOnlineUser(state, data) {
         state.OnlineUser = data;
+    },
+    setUnRead(state, data) {
+        let unRead = state.unRead.filter(v => v.roomid === data.roomid);
+        if (unRead.length) {
+            state.unRead.forEach(v => {
+                if (v.roomid === data.roomid) {
+                    v.count = data.count;
+                }
+            });
+        } else {
+            state.unRead.push(data);
+        }
+        console.log('state.unRead', state.unRead);
     }
 }

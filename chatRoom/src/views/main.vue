@@ -1,14 +1,48 @@
 <template>
-    <router-view/>
+    <div class="vchat-main">
+        <v-header></v-header>
+        <div class="vchat-content">
+            <div class="vchat-content-nav">
+                <ul>
+                    <li v-for="v in nav" :key="v.id" :class="{active: $route.path.indexOf(v.link) > -1}">
+                        <router-link :to="{path: v.link}">
+                            <i class="iconfont" :class="[$route.path !== v.link ? v.class : v.activeClass]"></i>
+                            <p>{{v.name}}</p>
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+            <div class="vchat-personalMain">
+                <router-view/>
+            </div>
+        </div>
+    </div>
 </template>
 
 <!--关于多房间，socket可以同时加入多个房间但是也同时可以接收到多个房间的消息，需要自己处理数据-->
 <script>
     import utils from '@/utils/utils';
     import { mapState } from 'vuex';
+    import vHeader from '@/views/components/header/vHeader';
     export default{
         data() {
             return {
+                nav: [
+                    {
+                        name: '首页',
+                        class: 'icon-group',
+                        activeClass: 'icon-group_fill',
+                        id: 3,
+                        link: 'personalMain'
+                    },
+                    {
+                        name: '应用空间',
+                        class: 'icon-people',
+                        activeClass: 'icon-people_fill',
+                        id: 2,
+                        link: '/app'
+                    }
+                ]
             };
         },
         watch: {
@@ -28,6 +62,9 @@
         },
         computed: {
             ...mapState(['user', 'conversationsList'])
+        },
+        components: {
+            vHeader
         },
         sockets:{
             connect: function (val) {
@@ -82,5 +119,46 @@
 </script>
 
 <style lang="scss" scoped>
-
+.vchat-main{
+    width: 100%;
+    height: 100%;
+    .vchat-content {
+        width: 100%;
+        height: calc(100% - 80px);
+        min-height: 600px;
+        display: flex;
+        justify-content: space-between;
+        .vchat-content-nav {
+            width: 120px;
+            height: 100%;
+            ul {
+                width: 100%;
+                li {
+                    padding: 15px 0;
+                    cursor: pointer;
+                    a {
+                        display: block;
+                        text-decoration: none;
+                        i {
+                            font-size: 32px;
+                            margin-bottom: 5px;
+                        }
+                        p {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+        .vchat-personalMain {
+            width: calc(100% - 150px);
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            /*background-image: url("../assets/img/1.jpg");*/
+            /*background-repeat: no-repeat;*/
+            /*background-position: center;*/
+        }
+    }
+}
 </style>

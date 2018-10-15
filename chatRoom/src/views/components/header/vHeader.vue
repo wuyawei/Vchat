@@ -217,6 +217,7 @@
                     overflow: hidden;
                     border-radius: 50%;
                     border: 1px solid #d5d5d5;
+                    cursor: default;
                     img {
                         width: 100%;
                     }
@@ -225,7 +226,7 @@
                     background-color: #f5f5f5;
                 }
                 .handleList {
-                    width: 158px;
+                    width: 128px;
                     background-color: #fff;
                     position: absolute;
                     left: 0;
@@ -263,14 +264,14 @@
                 }
                 .handleList li {
                     width: 100%;
-                    line-height: 42px;
-                    font-size: 16px;
+                    line-height: 32px;
+                    font-size: 13px;
                     text-align: left;
                     padding: 0 20px;
                     box-sizing: border-box;
                     cursor: pointer;
                     i {
-                        font-size: 18px;
+                        font-size: 16px;
                         margin-right: 10px;
                     }
                 }
@@ -328,7 +329,7 @@
                         width:120px;
                         li{
                             line-height: 32px;
-                            border-top: 1px solid #f5f5f5;
+                            border-bottom: 1px solid #f5f5f5;
                             font-size: 13px;
                         }
                         li:hover{

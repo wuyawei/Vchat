@@ -134,6 +134,7 @@
         height: 100%;
         position: relative;
         background-color: #f5f5f5;
+        overflow-y: auto;
         .vchat-groupDetail-header{
             position: absolute;
             left:0;

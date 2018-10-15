@@ -1,40 +1,33 @@
 <template>
     <div class="vchat-personalMain">
-        <v-header></v-header>
-        <div class="vchat-content">
-            <div class="vchat-content-nav">
-                <ul>
-                    <li v-for="v in nav" :key="v.id" :class="{active: $route.path.indexOf(v.link) > -1}">
-                        <router-link :to="{path: v.link}">
-                            <i class="iconfont" :class="[$route.path !== v.link ? v.class : v.activeClass]"></i>
-                            <p>{{v.name}}</p>
-                        </router-link>
-                    </li>
-                </ul>
+        <div class="vchat-content-left-view">
+            <div class="vchat-content-left-box">
+                <div class="vchat-content-left-content">
+                    <router-view></router-view>
+                </div>
+                <div class="vchat-content-left-footer">
+                    <ul>
+                        <li v-for="v in nav" :key="v.id" :class="{active: $route.path.indexOf(v.link) > -1}">
+                            <router-link :to="{path: v.link}">
+                                <i class="iconfont" :class="[$route.path !== v.link ? v.class : v.activeClass]"></i>
+                                <p>{{v.name}}</p>
+                            </router-link>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="vchat-content-left-view">
-                <router-view></router-view>
-            </div>
-            <div class="vchat-content-right-view">
-                应用空间
-            </div>
+        </div>
+        <div class="vchat-content-right-view">
+            应用空间
         </div>
     </div>
 </template>
 <script>
-    import vHeader from '@/views/components/header/vHeader';
     export default{
         name: '',
         data() {
             return {
                 nav: [
-                    {
-                        name: '会话',
-                        class: 'icon-message',
-                        activeClass: 'icon-message_fill',
-                        id: 1,
-                        link: '/main/personalMain/conversation'
-                    },
                     {
                         name: '好友',
                         class: 'icon-people',
@@ -49,11 +42,8 @@
                         id: 3,
                         link: '/main/personalMain/group'
                     }
-                ],
+                ]
             }
-        },
-        components: {
-            vHeader
         },
         methods: {
         },
@@ -62,56 +52,47 @@
     }
 </script>
 <style scoped lang="scss">
-    .vchat-personalMain {
-        width: 100%;
+    .vchat-content-left-view {
+        width: 320px;
         height: 100%;
-        /*background-image: url("../assets/img/1.jpg");*/
-        /*background-repeat: no-repeat;*/
-        /*background-position: center;*/
-        .vchat-content {
-            width: 100%;
-            height: calc(100% - 80px);
-            min-height: 600px;
-            display: flex;
-            justify-content: flex-start;
-            .vchat-content-nav {
-                width: 120px;
+        padding: 20px 0 30px;
+        box-sizing: border-box;
+        margin-left: 20px;
+        .vchat-content-left-box{
+            width:100%;
+            height: 100%;
+            box-sizing: border-box;
+            background-color: #fff;
+            box-shadow: 0 0 1px 1px #d5d5d5;
+        }
+        .vchat-content-left-content{
+            width:100%;
+            height: calc(100% - 50px);
+            box-sizing: border-box;
+        }
+        .vchat-content-left-footer{
+            width:100%;
+            height: 50px;
+            box-sizing: border-box;
+            border-top: 1px solid #ebebeb;
+            ul{
                 height: 100%;
-                ul {
-                    width: 100%;
-                    li {
-                        padding: 15px 0;
-                        cursor: pointer;
-                        a {
-                            display: block;
-                            text-decoration: none;
-                            i {
-                                font-size: 32px;
-                                margin-bottom: 5px;
-                            }
-                            p {
-                                font-size: 12px;
-                            }
-                        }
-                    }
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                li{
+                    width:33.3%;
                 }
             }
-            .vchat-content-left-view {
-                width: 320px;
-                height: 100%;
-                padding: 20px 0 30px;
-                box-sizing: border-box;
-                margin-left: 20px;
-            }
-            .vchat-content-right-view{
-                width: calc(100% - 520px);
-                padding: 20px 0 30px;
-                min-width: 820px;
-                height: 100%;
-                background-color: #fff;
-                box-sizing: border-box;
-                margin-left: 30px;
-            }
         }
+    }
+    .vchat-content-right-view{
+        width: calc(100% - 340px);
+        padding: 20px 0 30px;
+        min-width: 820px;
+        height: 100%;
+        background-color: #fff;
+        box-sizing: border-box;
+        margin-left: 30px;
     }
 </style>

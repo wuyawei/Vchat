@@ -42,7 +42,6 @@
             min-width: 300px;
             height: 100%;
             background-color: #fff;
-            box-shadow: 0 0 1px 1px #d5d5d5;
             overflow: hidden;
             position: relative;
         }

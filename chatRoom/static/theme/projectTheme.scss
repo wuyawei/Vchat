@@ -41,7 +41,7 @@
         }
     }
     // personalMain.vue
-    .vchat-personalMain {
+    .vchat-main {
         .vchat-content{
             //background-color: $vchat-content-bgcolor;
             .vchat-content-nav{
@@ -52,6 +52,18 @@
                         a {
                             color: $vchat-content-nav-color;
                         }
+                    }
+                    li.active {
+                        a {
+                            color: $vchat-content-nav-active-color;
+                        }
+                    }
+                }
+            }
+            .vchat-content-left-footer{
+                ul{
+                    a {
+                        color: $vchat-content-nav-color;
                     }
                     li.active {
                         a {

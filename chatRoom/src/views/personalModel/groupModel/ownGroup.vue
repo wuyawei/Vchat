@@ -128,7 +128,7 @@
         .vchat-ownGroup-container{
             width:100%;
             padding-top: 10px;
-            height: calc(100% - 90px);
+            height: calc(100% - 40px);
             overflow-y: auto;
             box-sizing: border-box;
             .group-list-box{

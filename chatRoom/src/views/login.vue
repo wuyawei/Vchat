@@ -43,16 +43,6 @@
                 <span></span>
             </div>
         </div>
-        <el-dialog
-                title="注册成功"
-                :visible.sync="signSuccess.Visible"
-                :before-close="handelClose"
-                width="40%">
-            <span>您的Vchat号为：{{signSuccess.code}}，您可以凭此登录Vchat，祝您生活愉快！</span>
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="signSuccess.Visible = false; islogin = true;">确 定</el-button>
-            </span>
-        </el-dialog>
     </div>
 </template>
 
@@ -208,8 +198,12 @@
                     if (r.code === 0) {
                         // this.$message.success('注册成功，请登录');
                         this.$refs['signForm'].resetFields();
-                        this.signSuccess.Visible = true;
-                        this.signSuccess.code = r.data;
+                        this.$notify({
+                            title: '注册成功',
+                            message: `您的Vchat号为：${r.data}，您可以凭此登录Vchat，祝您生活愉快！`,
+                            duration: 0,
+                            type: 'success'
+                        });
                     } else if (r.code === 1) {
                         this.$message.error('账号已存在')
                     } else {

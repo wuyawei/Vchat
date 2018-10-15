@@ -167,7 +167,7 @@
         }
         .search-contianer{
             width:100%;
-            height: calc(100% - 152px);
+            height: calc(100% - 102px);
             overflow-y: auto;
         }
         .search-group-list{

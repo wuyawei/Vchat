@@ -24,7 +24,8 @@ let users = db.model("users", { //Schema
     projectTheme: { type: String, default: 'vchat' }, // 项目主题
     wallpaper: { type: String, default: 'vchat' }, // 聊天壁纸
     signUpTime: { type: Date, default: Date.now() }, // 注册时间
-    lastLoginTime: { type: Date, default: Date.now() } // 最后一次登录
+    lastLoginTime: { type: Date, default: Date.now() }, // 最后一次登录
+    conversationsList: Array // 会话列表
 });
 module.exports = {
     accountBase,

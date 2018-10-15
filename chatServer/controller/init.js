@@ -30,4 +30,4 @@ let db = {
         }
 };
 
-db.call();
+db.initUser();

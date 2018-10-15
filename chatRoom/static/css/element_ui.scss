@@ -45,6 +45,9 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
             border: 1px solid #dcdfe6;
         }
     }
+    .el-input-group--append{
+        width: calc(100% - 62px);
+    }
     .el-input--suffix .el-input__inner{
         height: 32px;
         font-size: 12px;

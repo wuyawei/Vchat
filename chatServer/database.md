@@ -20,6 +20,7 @@
 * wallpaper 聊天壁纸
 * signUpTime 注册时间
 * lastLoginTime 最后一次登录时间
+* conversationsList 会话列表
 * id 主键
 ### groups 群聊
 * id 主键

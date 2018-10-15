@@ -4,8 +4,8 @@
             <el-dropdown trigger="click" @command="handleCommand">
                 <v-icon cursor="pointer" name="hanbaobao" color="#fff"></v-icon>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="/personalMain/group/setGroup">新建群聊</el-dropdown-item>
-                    <el-dropdown-item command="/personalMain/group/search">查找群聊</el-dropdown-item>
+                    <el-dropdown-item command="/main/personalMain/group/setGroup">新建群聊</el-dropdown-item>
+                    <el-dropdown-item command="/main/personalMain/group/search">查找群聊</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </v-apheader>
@@ -26,12 +26,9 @@
                         <div>
                             <p>
                                 <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
-                                <el-badge :value="12" class="item">
-                                </el-badge>
                             </p>
                             <p>
                                 <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
-                                <span>3分钟</span>
                             </p>
                         </div>
                     </li>
@@ -53,12 +50,9 @@
                         <div>
                             <p>
                                 <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
-                                <el-badge :value="12" class="item">
-                                </el-badge>
                             </p>
                             <p>
                                 <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
-                                <span>3分钟</span>
                             </p>
                         </div>
                     </li>
@@ -67,7 +61,7 @@
         </div>
         <v-nodata v-else>
             <p class="vchat-no-have">
-                还没有加入群聊哦，去 <router-link to="/personalMain/group/search">查找</router-link>， 去 <router-link to="/personalMain/group/setGroup">新建</router-link>。
+                还没有加入群聊哦，去 <router-link to="/main/personalMain/group/search">查找</router-link>， 去 <router-link to="/main/personalMain/group/setGroup">新建</router-link>。
             </p>
         </v-nodata>
     </div>

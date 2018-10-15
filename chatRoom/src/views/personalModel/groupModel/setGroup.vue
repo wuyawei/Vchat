@@ -1,6 +1,6 @@
 <template>
     <div class="vchat-setGroup">
-        <v-apheader title="新建群聊" back="/personalMain/group/ownGroup"></v-apheader>
+        <v-apheader title="新建群聊" back="/main/personalMain/group/ownGroup"></v-apheader>
 
         <div class="vchat-setGroup-contianer">
             <el-form ref="groupForm" label-width="65px" class="groupForm" :rules="groupRules" :model="groupForm">
@@ -106,7 +106,7 @@
                         api.createGroup(params).then(r => {
                             if (r.code === 0) {
                                 this.$message.success('创建成功');
-                                this.$router.push('/personalMain/group/ownGroup');
+                                this.$router.push('/main/personalMain/group/ownGroup');
                             } else {
                                 this.$message.success('创建成功');
                             }

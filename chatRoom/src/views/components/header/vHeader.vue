@@ -6,11 +6,16 @@
                 <div class="vchat-mine">
                     <nav class="vchat-noUser">
                         <!--class="animated" :class="{bounceIn: hover}" @mouseover="mouseover" ref="showChat"-->
-                        <p @click="showChat = !showChat">
+                        <div>
                             <el-badge :value="unReadCount" :max="99" :hidden="unReadCount === 0">
                                 <span>消息</span>
                             </el-badge>
-                        </p>
+                            <ul class="handleList">
+                                <li @click="showChat = !showChat"><span>会话列表</span></li>
+                                <li><span>系统消息</span></li>
+                                <li @click="reset"><span>会话窗口复位</span></li>
+                            </ul>
+                        </div>
                     </nav>
                     <div>
                         <a href="javascript:;">
@@ -120,6 +125,16 @@
             }
         },
         methods: {
+            reset() {
+                this.x = 100;
+                this.y = 100;
+                this.w = 736;
+                this.h = 460;
+                window.localStorage.w = 736;
+                window.localStorage.h = 460;
+                window.localStorage.x = 100;
+                window.localStorage.y = 100;
+            },
             getCurrSation(id) {
                 this.currSation = id;
             },
@@ -294,18 +309,33 @@
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
-                    margin-right: 20px;
-                    p{
+                    margin-right: 10px;
+                    height: 70px;
+                    line-height: 70px;
+                    box-sizing: border-box;
+                    >div{
                         color: #fff;
                         font-size: 16px;
-                        padding: 8px 12px;
-                        cursor: pointer;
+                        width:80px;
+                        height: 100%;
                         border-radius: 2px;
-                        span{
-                            padding: 6px;
+                        position: relative;
+                    }
+                    > div:nth-of-type(1):hover .handleList {
+                        display: block;
+                    }
+                    .handleList{
+                        width:120px;
+                        li{
+                            line-height: 32px;
+                            border-top: 1px solid #f5f5f5;
+                            font-size: 13px;
+                        }
+                        li:hover{
+                            color: #fff;
                         }
                     }
-                    P:hover{
+                    >div:hover{
                         background-color: #f5f5f5;
                         color: #27cac7;
                     }

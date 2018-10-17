@@ -13,5 +13,6 @@ router.post('/upUserInfo', api.upUserInfo); // 修改个人信息、主题等
 router.post('/loginOut', api.loginOut); // 退出
 router.post('/getUserInfo', api.getUserInfo); // 登录状态获取用户信息
 router.post('/getUserDetail', api.getUserDetail); // 登录状态获取用户详细信息
+router.post('/getVchatInfo', api.getVchatInfo); // 获取vchat官方账号信息
 
 module.exports = router;

@@ -3,12 +3,13 @@
  */
 import api from '../api';
 export default {
-    getUserInfo({commit, state}, that) { // 获取用户登录信息
+    getUserInfo({commit, state, dispatch}, that) { // 获取用户登录信息
         api.getUserInfo().then(r => {
             if (r.code === 0) {
                 commit('setUser', r.data);
                 document.body.id = 'theme-' + state.user.projectTheme;
                 commit('setIslogin', true);
+                dispatch('getVchatInfo');
             } else {
                 commit('setUser', '');
                 commit('setIslogin', false);
@@ -26,5 +27,12 @@ export default {
         setTimeout(_ => {
             state.transitionName = '';
         }, 500)
+    },
+    getVchatInfo({state}) { // 获取官方账号信息
+        api.getVchatInfo().then(r => {
+            if (r.code === 0) {
+                state.Vchat = r.data;
+            }
+        })
     }
 }

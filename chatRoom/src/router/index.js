@@ -54,7 +54,7 @@ export default new Router({
                                     component: _import('personalModel/groupModel/applyGroup')
                                 },
                                 {
-                                    path: 'send/:id',
+                                    path: 'send',
                                     name: 'sendGroupValidate',
                                     component: _import('personalModel/groupModel/sendGroupValidate')
                                 }

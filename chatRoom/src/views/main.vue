@@ -20,6 +20,7 @@
 </template>
 
 <!--关于多房间，socket可以同时加入多个房间但是也同时可以接收到多个房间的消息，需要自己处理数据-->
+<!--所有用户都需要加入vchat房间 以发送官方消息（申请验证等）-->
 <script>
     import utils from '@/utils/utils';
     import { mapState } from 'vuex';

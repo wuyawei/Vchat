@@ -1,7 +1,8 @@
 <template>
     <div class="vchat-applyGroup">
         <v-apheader title="验证信息" back="-1">
-            <router-link :to="{name: 'sendGroupValidate', params: {id: $route.params.id}}">发送</router-link>
+            <!--<router-link :to="{name: 'sendGroupValidate'}">发送</router-link>-->
+            <span @click="send">发送</span>
         </v-apheader>
         <el-form label-width="80px" class="introduceForm">
             <el-form-item label="个人介绍">
@@ -17,6 +18,8 @@
 <script>
     import api from '@/api';
     import vApheader from '@/views/components/header/vApheader';
+    import { mapState } from 'vuex';
+    import utils from '@/utils/utils';
     export default{
         name: 'applyGroup',
         data() {
@@ -24,8 +27,28 @@
                 introduce: ''
             }
         },
+        computed: {
+            ...mapState(['user', 'Vchat'])
+        },
         components: {
             vApheader
+        },
+        methods: {
+            send() {
+                let val = {
+                    name: this.user.name,
+                    mes: this.introduce,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.user.photo,
+                    nickname: this.user.nickname,
+                    read: [this.user.name],
+                    roomid: this.$route.params.id + '-' + this.Vchat.id
+                };
+                this.$socket.emit('sendGroupValidate', val);
+                this.$router.push({name: 'sendGroupValidate'});
+            }
+        },
+        mounted() {
         }
     }
 </script>

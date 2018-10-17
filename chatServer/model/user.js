@@ -91,7 +91,17 @@ const signUp = (params, callback) => { // 注册
 const getUserInfo = (userName, callback) => { // 获取登录用户信息
     baseList.users.find({name: userName}).then(r => {
         if (r.length) {
-            callback({code: 0, data: {name: r[0].name, photo: r[0].photo, bubble: r[0].bubble, chatTheme: r[0].chatTheme, projectTheme: r[0].projectTheme, wallpaper: r[0].wallpaper, nickname: r[0].nickname, signature: r[0].signature}});
+            callback({code: 0, data: {name: r[0].name, photo: r[0].photo, bubble: r[0].bubble, chatTheme: r[0].chatTheme, projectTheme: r[0].projectTheme, wallpaper: r[0].wallpaper, nickname: r[0].nickname, signature: r[0].signature, id: r[0]._id}});
+        } else {
+            callback({code: -1});
+        }
+    })
+};
+
+const getVchatInfo = (callback) => { // 获取vchat官方账号信息
+    baseList.users.find({name: 'Vchat'}).then(r => {
+        if (r.length) {
+            callback({code: 0, data: {name: r[0].name, photo: r[0].photo, nickname: r[0].nickname, signature: r[0].signature, id: r[0]._id}});
         } else {
             callback({code: -1});
         }
@@ -114,5 +124,6 @@ module.exports = {
     upUserInfo,
     signUp,
     getUserInfo,
-    getUserDetail
+    getUserDetail,
+    getVchatInfo
 };

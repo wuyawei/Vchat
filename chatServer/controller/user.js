@@ -94,6 +94,22 @@ const getUserInfo = (req, res) => {
     })
 };
 
+const getVchatInfo = (req, res) => {
+    apiModel.getVchatInfo((r) => { // 获取vchat官方账号信息
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : ''
+            })
+        }
+    })
+};
+
 const getUserDetail =  (req, res) => {
     apiModel.getUserDetail(req.session.login, (r) => { // 获取登录用户详细信息
         if (r.code === 0) {
@@ -117,5 +133,6 @@ module.exports = {
     signUp,
     loginOut,
     getUserInfo,
-    getUserDetail
+    getUserDetail,
+    getVchatInfo
 };

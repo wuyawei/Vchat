@@ -83,11 +83,11 @@ const onconnection = (socket) => {
             console.log('leave', val.roomid, OnlineUser);
         });
     });
-    socket.on('mes', (val) => {
+    socket.on('mes', (val) => { // 聊天消息
         apiList.saveMessage(val);
         socket.to(val.roomid).emit('mes', val);
     });
-    socket.on('getHistoryMessages', (pramas) => {
+    socket.on('getHistoryMessages', (pramas) => { // 获取历史消息
         apiList.getHistoryMessages(pramas, (res) => {
             if (res.code === 0) {
                 socket.emit('getHistoryMessages', res.data); // 发送给发送者（当前客户端）
@@ -96,8 +96,11 @@ const onconnection = (socket) => {
             }
         });
     });
-    socket.on('setReadStatus', (params) => {
+    socket.on('setReadStatus', (params) => { // 已读状态
         apiList.setReadStatus(params);
+    });
+    socket.on('sendGroupValidate', (params) => { // 已读状态
+        // 验证消息
     });
     socket.on('disconnect', () => {
         let k;

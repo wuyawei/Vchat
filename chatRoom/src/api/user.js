@@ -21,6 +21,9 @@ export default {
     },
     getUserDetail() { // 获取个人设置用户信息
         return fetch.post('user/getUserDetail');
+    },
+    getVchatInfo() { // 获取vchat官方账号信息
+        return fetch.post('user/getVchatInfo');
     }
 }
 

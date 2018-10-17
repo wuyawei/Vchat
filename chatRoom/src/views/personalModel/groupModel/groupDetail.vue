@@ -91,7 +91,8 @@
                 showGroupQr: false, // 二维码开关
                 managers: [],
                 groupTag: [], // 群标签
-                applyFlag: false // 是否已加群
+                applyFlag: false, // 是否已加群
+                holderId: '' // 群主id
             };
         },
         components: {
@@ -114,11 +115,12 @@
                         this.groupUsers = r.users;
                         this.applyFlag = this.groupUsers.filter(v => v.userName === this.user.name).length;
                         this.managers = this.groupUsers.filter(v => v.holder === 1 || v.manager === 1);
+                        this.holderId = this.groupUsers.filter(v => v.holder === 1)[0].userId['_id'];
                     }
                 })
             },
             apply() {
-                this.$router.push({name: 'applyGroup', params: {id: this.$route.params.id}});
+                this.$router.push({name: 'applyGroup', params: {id: this.holderId}});
             },
             quit() {}
         },

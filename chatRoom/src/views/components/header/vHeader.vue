@@ -89,12 +89,12 @@
                     {
                         name: '个人主页',
                         icon: 'icon-zhanghaoguanli1',
-                        link: '/main/mine'
+                        link: '/mine'
                     },
                     {
                         name: '设置',
                         icon: 'icon-shezhi1',
-                        link: '/main/mySetting'
+                        link: '/mySetting'
                     }
                 ],
                 showChat: false,

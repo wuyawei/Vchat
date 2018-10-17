@@ -71,39 +71,39 @@ export default new Router({
                             component: _import('personalModel/friendly')
                         }
                     ]
+                }
+            ]
+        },
+        {
+            path: '/mine',
+            name: 'mine',
+            component: _import('mine')
+        },
+        {
+            path: '/mySetting',
+            name: 'mySetting',
+            component: _import('mySetting'),
+            redirect: 'mySetting/means',
+            children: [
+                {
+                    path: 'means',
+                    name: 'means',
+                    component: _import('settingModel/means')
                 },
                 {
-                    path: 'mine',
-                    name: 'mine',
-                    component: _import('mine')
+                    path: 'bubble',
+                    name: 'bubble',
+                    component: _import('settingModel/bubble')
                 },
                 {
-                    path: 'mySetting',
-                    name: 'mySetting',
-                    component: _import('mySetting'),
-                    redirect: 'mySetting/means',
-                    children: [
-                        {
-                            path: 'means',
-                            name: 'means',
-                            component: _import('settingModel/means')
-                        },
-                        {
-                            path: 'bubble',
-                            name: 'bubble',
-                            component: _import('settingModel/bubble')
-                        },
-                        {
-                            path: 'theme',
-                            name: 'theme',
-                            component: _import('settingModel/theme')
-                        },
-                        {
-                            path: 'wallpaper',
-                            name: 'wallpaper',
-                            component: _import('settingModel/wallpaper')
-                        }
-                    ]
+                    path: 'theme',
+                    name: 'theme',
+                    component: _import('settingModel/theme')
+                },
+                {
+                    path: 'wallpaper',
+                    name: 'wallpaper',
+                    component: _import('settingModel/wallpaper')
                 }
             ]
         }

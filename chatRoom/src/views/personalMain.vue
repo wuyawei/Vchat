@@ -82,6 +82,10 @@
                 align-items: center;
                 li{
                     width:33.3%;
+                    font-size: 12px;
+                    i{
+                        font-size: 22px;
+                    }
                 }
             }
         }

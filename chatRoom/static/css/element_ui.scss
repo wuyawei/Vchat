@@ -3,6 +3,12 @@ $--color-primary: #27cac7;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
 
+.el-form-item{ // 全局
+    .el-form-item__content{
+        margin-left: 0!important;
+    }
+}
+
 .personForm { // 个人资料页
     width: 600px;
     .el-form-item__label {

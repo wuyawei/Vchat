@@ -2,7 +2,7 @@
     <div class="vchat-chatRoom">
         <div class="vchat-chatRoom-bg">
             <div class="chat-header">
-                <a>聊天第一群</a>
+                <a>{{currSation.name}}</a>
                 <div class="chat-handel">
                     <v-icon class="el-icon-minus" color="#fff" cursor="pointer" @clickIcon="close"></v-icon>
                     <v-icon class="el-icon-setting" color="#fff" cursor="pointer"></v-icon>
@@ -29,7 +29,8 @@
                     </li>
                 </ul>
                 <div class="chat-content-box">
-                    <chat-item :currSation="currSation" @NewMes="getNewMes"></chat-item>
+                    <chat-item :currSation="currSation" @NewMes="getNewMes" v-show="currSation.type !== 'vchat'"></chat-item>
+                    <vchat-message v-if="currSation.type === 'vchat'" :currSation="currSation"></vchat-message>
                 </div>
             </div>
         </div>
@@ -37,6 +38,7 @@
 </template>
 <script>
     import chatItem from './chat-item.vue';
+    import vchatMessage from './vchatMessage.vue';
     import { mapState } from 'vuex';
     export default{
         name: 'vChat',
@@ -51,7 +53,8 @@
         sockets:{
         },
         components: {
-            chatItem
+            chatItem,
+            vchatMessage
         },
         watch: {
             conversationsList: {

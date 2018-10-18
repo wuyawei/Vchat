@@ -41,7 +41,8 @@
                     time: utils.formatTime(new Date()),
                     avatar: this.user.photo,
                     nickname: this.user.nickname,
-                    read: [this.user.name],
+                    signature: this.user.signature,
+                    read: [],
                     roomid: this.$route.params.id + '-' + this.Vchat.id
                 };
                 this.$socket.emit('sendGroupValidate', val);

@@ -50,7 +50,7 @@
                                          :drag-handle="'.chat-header, .chat-conversation-ul'"
                                          :drag-cancel="'a, .chat-conversation-li, .chat-handel'"
                 >
-                    <chat @closeChat="showChat = false" @currSation="getCurrSation"></chat>
+                    <chat @closeChat="showChat = false"></chat>
                 </vue-draggable-resizable>
             </transition>
         </div>
@@ -100,8 +100,7 @@
                 x: Number(window.localStorage.x) || 100,
                 y: Number(window.localStorage.y) || 100,
                 w: Number(window.localStorage.w) || 736,
-                h: Number(window.localStorage.h) || 460,
-                currSation: '', // 当前会话
+                h: Number(window.localStorage.h) || 460
             };
         },
         components: {
@@ -112,7 +111,7 @@
             avatar() {
                 return process.env.IMG_URL + this.$store.state.user.photo; // 用户头像avatar:
             },
-            ...mapState(['user']),
+            ...mapState(['user', 'conversationsList']),
             ...mapGetters(['unReadCount'])
         },
         watch: {
@@ -134,17 +133,8 @@
                 window.localStorage.x = 100;
                 window.localStorage.y = 100;
             },
-            getCurrSation(id) {
-                this.currSation = id;
-            },
             loginOut() {
-                let val = {
-                    name: this.user.name,
-                    time: utils.formatTime(new Date()),
-                    avatar: this.user.photo,
-                    roomid: this.currSation
-                };
-                this.$socket.emit('leave', val);
+                this.leaveRoom();
                 this.$socket.close();
                 api.loginOut().then(r => {
                     if (r.code === 0) {
@@ -152,6 +142,22 @@
                         this.$store.commit('setUser', 'out');
                         this.$router.replace('/');
                     }
+                });
+            },
+            leaveRoom() {
+                this.conversationsList.forEach(v => {
+                    let val = {
+                        name: this.user.name,
+                        time: utils.formatTime(new Date()),
+                        avatar: this.user.photo,
+                        roomid: v.id
+                    };
+                    let room = {roomid: v.id};
+                    if (v.name === 'Vchat') {
+                        val.roomid = this.user.id + v.id;
+                        room.roomid = this.user.id + v.id;
+                    }
+                    this.$socket.emit('leave', val);
                 });
             },
 //            mouseover() {

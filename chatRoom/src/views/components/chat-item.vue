@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-item">
         <div class="vchat-item-header">
-            <span :class="{active: currNav === i}" v-for="(v, i) in navList" :key="i" @click="setCurrNav(i)">{{v}}</span>
+            <span :class="{active: currNav === i}" v-for="(v, i) in navList" :key="i" @click="setCurrNav(i)" v-if="currSation.type.indexOf(v.type) > -1">{{v.name}}</span>
         </div>
         <div class="vchat-item-container">
             <div class="container-chat">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container-handel">
+            <div class="container-handel" v-if="currSation.type === 'group'">
                 <div class="handel-notice">
                     <h3>群通知</h3>
                     <ul>
@@ -90,7 +90,8 @@
         props: ['currSation'],
         data() {
             return {
-                navList: ['聊天', '公告'],
+                // type 0 共有 1 群聊 2 好友
+                navList: [{name: '聊天', type: 'group,user'}, {name: '公告', type: 'group'}, {name: '聊天记录', type: 'group,user'}],
                 IMGURL: process.env.IMG_URL,
                 currNav: 0,
                 spread: false,
@@ -104,7 +105,7 @@
                 this.chatList.push(Object.assign({},r, {type: 'org'}));
             },
             mes(r) {
-                if (r.roomid === this.currSation) {
+                if (r.roomid === this.currSation.id) {
                     this.chatList.push(Object.assign({},r, {type: 'other'}));
                 }
             },
@@ -133,14 +134,15 @@
                 });
             },
             currSation: { // 当前会话
-                handler(id) {
-                    if (id) {
-                        this.getGroupUsers(id);
-                        this.$socket.emit('setReadStatus', {roomid: id, name: this.user.name});
-                        this.$store.commit('setUnRead', {roomid: id, clear: true});
-                        this.$socket.emit('getHistoryMessages', {roomid: id});
+                handler(v) {
+                    if (v) {
+                        this.getGroupUsers(v.id);
+                        this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
+                        this.$store.commit('setUnRead', {roomid: v.id, clear: true});
+                        this.$socket.emit('getHistoryMessages', {roomid: v.id});
                     }
                 },
+                deep: true,
                 immediate: true
             },
             OnlineUser: { // 在线成员
@@ -193,7 +195,7 @@
                     avatar: this.user.photo,
                     nickname: this.user.nickname,
                     read: [this.user.name],
-                    roomid: this.currSation
+                    roomid: this.currSation.id
                 };
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);

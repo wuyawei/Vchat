@@ -10,7 +10,7 @@
             </div>
             <div class="chat-container">
                 <ul class="chat-conversation-ul">
-                    <li class="chat-conversation-li" v-for="(v, i) in contactsList" :key="v.id" :class="{active: currSation === v.id}" @click="setCurrSation(v.id)">
+                    <li class="chat-conversation-li" v-for="(v, i) in contactsList" :key="v.id" :class="{active: currSation.id === v.id}" @click="setCurrSation(v)">
                         <el-badge :value="v.unRead" :max="99" class="mesBadge" :hidden="v.unRead === 0">
                             <a class="vchat-photo">
                                 <img :src="IMGURL + v.photo" alt="">
@@ -42,7 +42,7 @@
         name: 'vChat',
         data() {
             return {
-                currSation: '', //当前会话
+                currSation: {}, //当前会话
                 contactsList: [], // 会话列表
                 IMGURL: process.env.IMG_URL,
                 one: true
@@ -59,7 +59,7 @@
                     this.contactsList = JSON.parse(JSON.stringify(list));
                     if (this.one && list.length) {
                         this.one = false;
-                        this.currSation = this.contactsList[0].id;
+                        this.currSation = this.contactsList[0];
                     }
                 },
                 deep: true,
@@ -86,9 +86,8 @@
             close() {
                 this.$emit('closeChat');
             },
-            setCurrSation(id) {
-                this.currSation = id;
-                this.$emit('currSation', id);
+            setCurrSation(v) {
+                this.currSation = v;
             },
             getNewMes(m) { // 获取最新一条消息
                 this.contactsList.forEach((v, i) => {
@@ -99,7 +98,6 @@
             }
         },
         mounted() {
-            this.$emit('currSation', this.currSation);
         }
     }
 </script>

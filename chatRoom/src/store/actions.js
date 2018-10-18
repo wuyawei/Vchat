@@ -31,7 +31,7 @@ export default {
     getVchatInfo({state}) { // 获取官方账号信息
         api.getVchatInfo().then(r => {
             if (r.code === 0) {
-                state.Vchat = r.data;
+                state.Vchat = Object.assign({}, r.data, {type: 'vchat'});
             }
         })
     }

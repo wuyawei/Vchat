@@ -16,7 +16,10 @@ export default {
         if (Array.isArray(data)) {
             state.conversationsList = data;
         } else {
-            state.conversationsList.push(data);
+            let arr = state.conversationsList.filter(v => v.id === data.id);
+            if (!arr.length) {
+                state.conversationsList.push(data);
+            };
         }
         window.localStorage.conversationsList = JSON.stringify(state.conversationsList);
     },

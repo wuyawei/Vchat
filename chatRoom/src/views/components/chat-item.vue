@@ -104,13 +104,14 @@
                 this.chatList.push(Object.assign({},r, {type: 'org'}));
             },
             mes(r) {
-                this.$emit('NewMes', r);
                 if (r.roomid === this.currSation) {
                     this.chatList.push(Object.assign({},r, {type: 'other'}));
                 }
             },
             getHistoryMessages(r) { // 获取历史消息
-                this.$emit('NewMes', r[r.length - 1]);
+                if (r.length) {
+                    this.$emit('NewMes', r[r.length - 1]);
+                }
                 this.chatList = r.map(v => {
                     if (v.name === this.user.name) {
                         v.type = 'mine';

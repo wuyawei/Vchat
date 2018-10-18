@@ -12,7 +12,6 @@
                             </el-badge>
                             <ul class="handleList">
                                 <li @click="showChat = !showChat"><span>会话列表</span></li>
-                                <li><span>系统消息</span></li>
                                 <li @click="reset"><span>会话窗口复位</span></li>
                             </ul>
                         </div>

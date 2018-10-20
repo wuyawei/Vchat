@@ -1,8 +1,8 @@
 <template>
     <div class="vchatMessage">
         <ul>
-            <li>
-                <span class="vchat-line1">验证消息：xxx申请加您为好友</span>
+            <li v-for="v in InfoList" :key="v['_id']">
+                <span class="vchat-line1">{{v.state==='frend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
                 <el-popover
                         placement="left"
                         width="400"
@@ -10,39 +10,69 @@
                     <div class="Validate-mes">
                         <div class="header">
                             <a class="vchat-photo">
-                                <img :src="IMGURL + '/uploads/f-1537666687106-f1537666686788.png'" alt="">
+                                <img :src="IMGURL + v.avatar" alt="">
                             </a>
                             <p>
-                                <span>芒果</span>
-                                <span class="signature">老子天下第一</span>
+                                <span>{{v.nickname}}</span>
+                                <span class="signature">{{v.signature}}</span>
                             </p>
                         </div>
                         <div class="info">
-                            附加消息：<span>你好，我想和你交朋友</span>
+                            附加消息：<span>{{v.mes}}</span>
                         </div>
                         <div class="footer">
-                            <button class="vchat-button-mini info" @click="visible = !visible">拒绝</button>
-                            <button class="vchat-button-mini">同意</button>
+                            <button class="vchat-button-mini info" @click="refuse">拒绝</button>
+                            <button class="vchat-button-mini" @click="agree">同意</button>
                         </div>
                     </div>
                     <span slot="reference" @click="visible = !visible">查看</span>
                 </el-popover>
-            </li>
-            <li>
-                <span class="vchat-line1">验证消息：xxx申请加入天下第一群</span>
-                <span>查看</span>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     export default{
         name: 'vchatMessage',
         data() {
             return {
                 IMGURL: process.env.IMG_URL,
-                visible: false
+                visible: false,
+                InfoList: []
+            }
+        },
+        sockets: {
+            getHistoryMessages(r) { // 获取历史消息
+                if (r.length) {
+                    this.$emit('NewMes', r[r.length - 1]);
+                }
+                this.InfoList = r;
+            }
+        },
+        watch: {
+            currSation: { // 当前会话
+                handler(v) {
+                    if (v) {
+                        this.$socket.emit('setReadStatus', {roomid: this.user.id + '-' + v.id, name: this.user.name});
+                        this.$store.commit('setUnRead', {roomid: this.user.id + '-' + v.id, clear: true});
+                        this.$socket.emit('getHistoryMessages', {roomid: this.user.id + '-' + v.id});
+                    }
+                },
+                deep: true,
+                    immediate: true
+            }
+        },
+        computed: {
+            ...mapState(['user', 'Vchat'])
+        },
+        methods: {
+            agree() {
+                this.visible = !this.visible;
+            },
+            refuse() {
+                this.visible = !this.visible;
             }
         }
     }

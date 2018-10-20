@@ -17,8 +17,14 @@
                             </a>
                         </el-badge>
                         <div class="chat-conversation-li-center">
-                            <p class="vchat-line1">{{v.name}}</p>
-                            <p class="vchat-line1">{{v.newMes}}</p>
+                            <template v-if="v.type === 'vchat'">
+                                <p class="vchat-line1">{{v.nickname}}</p>
+                                <p class="vchat-line1">{{v.signature}}</p>
+                            </template>
+                            <template v-else>
+                                <p class="vchat-line1">{{v.name}}</p>
+                                <p class="vchat-line1">{{v.newMes}}</p>
+                            </template>
                         </div>
                         <div class="chat-conversation-li-right">
                             <p>{{v.newMesTime}}</p>
@@ -30,7 +36,7 @@
                 </ul>
                 <div class="chat-content-box">
                     <chat-item :currSation="currSation" @NewMes="getNewMes" v-show="currSation.type !== 'vchat'"></chat-item>
-                    <vchat-message v-if="currSation.type === 'vchat'" :currSation="currSation"></vchat-message>
+                    <vchat-message v-show="currSation.type === 'vchat'" :currSation="currSation"></vchat-message>
                 </div>
             </div>
         </div>

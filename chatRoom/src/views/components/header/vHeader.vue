@@ -152,11 +152,6 @@
                         avatar: this.user.photo,
                         roomid: v.id
                     };
-                    let room = {roomid: v.id};
-                    if (v.name === 'Vchat') {
-                        val.roomid = this.user.id + '-' + v.id;
-                        room.roomid = this.user.id + '-' + v.id;
-                    }
                     this.$socket.emit('leave', val);
                 });
             },

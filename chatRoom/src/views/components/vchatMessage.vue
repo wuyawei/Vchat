@@ -46,7 +46,7 @@
         sockets: {
             getHistoryMessages(r) { // 获取历史消息
                 if (r.length) {
-                    this.$emit('NewMes', r[r.length - 1]);
+                    this.$emit('NewMes', Object.assign({}, r[r.length - 1]));
                 }
                 this.InfoList = r;
             }
@@ -55,9 +55,9 @@
             currSation: { // 当前会话
                 handler(v) {
                     if (v) {
-                        this.$socket.emit('setReadStatus', {roomid: this.user.id + '-' + v.id, name: this.user.name});
-                        this.$store.commit('setUnRead', {roomid: this.user.id + '-' + v.id, clear: true});
-                        this.$socket.emit('getHistoryMessages', {roomid: this.user.id + '-' + v.id});
+                        this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
+                        this.$store.commit('setUnRead', {roomid: v.id, clear: true});
+                        this.$socket.emit('getHistoryMessages', {roomid: v.id});
                     }
                 },
                 deep: true,

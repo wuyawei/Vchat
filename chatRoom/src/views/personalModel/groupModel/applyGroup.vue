@@ -44,7 +44,7 @@
                     signature: this.user.signature,
                     groupName: this.$route.query.groupName,
                     read: [],
-                    roomid: this.$route.params.id + '-' + this.Vchat.id,
+                    roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
                     state: 'group'
                 };
                 this.$socket.emit('sendGroupValidate', val);

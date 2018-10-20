@@ -96,6 +96,21 @@ const onconnection = (socket) => {
             }
         });
     });
+
+    socket.on('getSystemMessages', (pramas) => { // 获取历史消息
+        apiList.getHistoryMessages(pramas, (res) => {
+            if (res.code === 0) {
+                socket.emit('getSystemMessages', res.data); // 发送给发送者（当前客户端）
+            } else {
+                console.log('查询历史记录失败');
+            }
+        });
+    });
+
+    socket.on('agreeValidate', (val) => { // 同意好友或加群申请
+        socket.to(val.groupId).emit('org', val);
+    });
+
     socket.on('setReadStatus', (params) => { // 已读状态
         apiList.setReadStatus(params);
     });

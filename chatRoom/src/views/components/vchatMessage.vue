@@ -1,7 +1,7 @@
 <template>
     <div class="vchatMessage">
         <ul>
-            <li v-for="v in InfoList" :key="v['_id']">
+            <li v-for="v in InfoList" :key="v['_id']" v-if="v.type === 'validate'">
                 <span class="vchat-line1">{{v.state==='frend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
                 <el-popover
                         placement="left"
@@ -21,8 +21,8 @@
                             附加消息：<span>{{v.mes}}</span>
                         </div>
                         <div class="footer">
-                            <button class="vchat-button-mini info" @click="refuse">拒绝</button>
-                            <button class="vchat-button-mini" @click="agree">同意</button>
+                            <button class="vchat-button-mini info" @click="refuse(v)">拒绝</button>
+                            <button class="vchat-button-mini" @click="agree(v)">同意</button>
                         </div>
                     </div>
                     <span slot="reference" @click="visible = !visible">查看</span>
@@ -44,7 +44,7 @@
             }
         },
         sockets: {
-            getHistoryMessages(r) { // 获取历史消息
+            getSystemMessages(r) { // 获取系统消息
                 if (r.length) {
                     this.$emit('NewMes', Object.assign({}, r[r.length - 1]));
                 }
@@ -57,7 +57,7 @@
                     if (v) {
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
-                        this.$socket.emit('getHistoryMessages', {roomid: v.id});
+                        this.$socket.emit('getSystemMessages', {roomid: v.id});
                     }
                 },
                 deep: true,
@@ -68,7 +68,8 @@
             ...mapState(['user', 'Vchat'])
         },
         methods: {
-            agree() {
+            agree(v) {
+                this.$socket.emit('agreeValidate', v);
                 this.visible = !this.visible;
             },
             refuse() {

@@ -43,9 +43,11 @@
                     nickname: this.user.nickname,
                     signature: this.user.signature,
                     groupName: this.$route.query.groupName,
+                    groupId: this.$route.query.groupId,
                     read: [],
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
-                    state: 'group'
+                    state: 'group',
+                    type: 'validate'
                 };
                 this.$socket.emit('sendGroupValidate', val);
                 this.$router.push({name: 'sendGroupValidate'});

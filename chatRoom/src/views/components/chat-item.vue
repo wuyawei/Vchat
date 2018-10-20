@@ -37,7 +37,7 @@
                                 </div>
                             </template>
                             <template v-if="v.type==='org'">
-                                系统消息：<span>{{v.name}}</span>加入聊天室！
+                                系统消息：<span>{{v.nickname}}</span>加入群聊！
                         </template>
                         </li>
                     </ul>
@@ -102,11 +102,13 @@
         },
         sockets:{
             org(r) {
-                this.chatList.push(Object.assign({},r, {type: 'org'}));
+                if (r.roomid === this.currSation.id) {
+                    this.chatList.push(Object.assign({}, r, {type: 'org'}));
+                }
             },
             mes(r) {
                 if (r.roomid === this.currSation.id) {
-                    this.chatList.push(Object.assign({},r, {type: 'other'}));
+                    this.chatList.push(Object.assign({}, r, {type: 'other'}));
                 }
             },
             getHistoryMessages(r) { // 获取历史消息

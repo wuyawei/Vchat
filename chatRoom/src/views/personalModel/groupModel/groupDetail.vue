@@ -120,7 +120,7 @@
                 })
             },
             apply() {
-                this.$router.push({name: 'applyGroup', params: {id: this.holderId}, query: {groupName: this.groupInfo.title}});
+                this.$router.push({name: 'applyGroup', params: {id: this.holderId}, query: {groupName: this.groupInfo.title, groupId: this.$route.params.id}});
             },
             quit() {}
         },

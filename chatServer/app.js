@@ -115,7 +115,18 @@ const onconnection = (socket) => {
         apiList.setReadStatus(params);
     });
     socket.on('sendValidate', (val) => { // 发送验证消息
-        socket.to(val.roomid).emit('takeValidate', val);
+        apiList.saveMessage(val);
+        if (val.state === 'group') { // 群聊验证
+            apiList.InsertGroupUsers(val, r => {
+                if (r.code === -1) {
+                    console.log('加入群聊失败');
+                } else if (r.code === -2) {
+                    console.log('更新群成员数量失败');
+                } else {
+                    socket.to(val.roomid).emit('takeValidate', val);
+                }
+            });
+        }
     });
     socket.on('disconnect', () => {
         let k;

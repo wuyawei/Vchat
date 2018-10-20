@@ -172,10 +172,33 @@ const getGroupInfo = (params, callback) => { // 查找群详细信息
     });
 };
 
+const InsertGroupUsers = (params, callback) => { // 添加新成员 userNum + 1
+    let val = {
+        roomid: params.groupId,
+        userName: params.name
+    };
+    groupUser.create(val).then(r => {
+        if (r['_id']) {
+            groups.update({'_id': params.groupId}, { $inc : { "userNum" : 1}}).then(raw => {
+                if (raw.nModified > 0) {
+                    callback({code: 0});
+                } else {
+                    groupUser.deleteOne({'_id': r['_id']});
+                    callback({code: -2});
+                }
+            });
+        } else {
+            callback({code: -1});
+        }
+    });
+
+};
+
 module.exports = {
     createGroup,
     getMyGroup,
     getGroupUsers,
     huntGroups,
-    getGroupInfo
+    getGroupInfo,
+    InsertGroupUsers
 };

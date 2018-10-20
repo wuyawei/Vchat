@@ -92,10 +92,15 @@ const getGroupInfo = (req, res) => { // 查找群详细信息
     })
 };
 
+const InsertGroupUsers = (params, callback) => {
+    apiModel.InsertGroupUsers(params, callback);
+};
+
 module.exports = {
     createGroup,
     getMyGroup,
     getGroupUsers,
     huntGroups,
-    getGroupInfo
+    getGroupInfo,
+    InsertGroupUsers
 };

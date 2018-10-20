@@ -2,7 +2,8 @@
     <div class="vchatMessage">
         <ul>
             <li v-for="v in InfoList" :key="v['_id']" v-if="v.type === 'validate'">
-                <span class="vchat-line1">{{v.state==='frend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
+                <span class="vchat-line1">{{v.state === 'frend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
+                <span class="time">{{v.time}}</span>
                 <el-popover
                         placement="left"
                         width="400"
@@ -25,7 +26,7 @@
                             <button class="vchat-button-mini" @click="agree(v)">同意</button>
                         </div>
                     </div>
-                    <span slot="reference" @click="visible = !visible">查看</span>
+                    <span slot="reference" @click="visible = !visible" class="look">查看</span>
                 </el-popover>
             </li>
         </ul>
@@ -46,9 +47,13 @@
         sockets: {
             getSystemMessages(r) { // 获取系统消息
                 if (r.length) {
-                    this.$emit('NewMes', Object.assign({}, r[r.length - 1]));
+                    this.$emit('NewMes', r[r.length - 1]);
                 }
                 this.InfoList = r;
+            },
+            takeValidate(r) {
+                this.$emit('NewMes', r);
+                this.InfoList.push(r);
             }
         },
         watch: {
@@ -95,7 +100,12 @@
             margin-bottom: 5px;
             box-sizing: border-box;
             background-color: rgba(0,0,0,0.3);
-            span:nth-of-type(2){
+            span.time {
+                font-size: 12px;
+                color: #aaaaaa;
+                margin-left: 10px;
+            }
+            span.look{
                 color: #27cac7;
                 font-size: 12px;
                 cursor: pointer;
@@ -103,7 +113,7 @@
                 min-width: 24px;
                 margin-left: 15px;
             }
-            span:nth-of-type(2):hover{
+            span.look:hover{
                 opacity: 1;
             }
         }

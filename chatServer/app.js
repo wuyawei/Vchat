@@ -114,8 +114,8 @@ const onconnection = (socket) => {
     socket.on('setReadStatus', (params) => { // 已读状态
         apiList.setReadStatus(params);
     });
-    socket.on('sendGroupValidate', (params) => { // 已读状态
-        // 验证消息
+    socket.on('sendValidate', (val) => { // 发送验证消息
+        socket.to(val.roomid).emit('takeValidate', val);
     });
     socket.on('disconnect', () => {
         let k;

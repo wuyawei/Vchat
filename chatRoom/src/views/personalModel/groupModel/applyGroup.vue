@@ -49,7 +49,7 @@
                     state: 'group',
                     type: 'validate'
                 };
-                this.$socket.emit('sendGroupValidate', val);
+                this.$socket.emit('sendValidate', val);
                 this.$router.push({name: 'sendGroupValidate'});
             }
         },

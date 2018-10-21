@@ -65,8 +65,8 @@
             </p>
         </v-nodata>
         <v-dropdown :command="currGroup" :x="x" :y="y" :visible="visible" @upVisible="upVisible">
-            <v-dropdown-item slot-scope="{command}" @dropdownClick="addConversitionList(command)" slot="dropdown">
-                添加到会话列表
+            <v-dropdown-item slot-scope="{command}" @dropdownClick="handleConversitionList(command)" slot="dropdown">
+                {{addOrDel ? '从会话列表移除' : '添加到会话列表'}}
             </v-dropdown-item>
         </v-dropdown>
     </div>
@@ -75,6 +75,7 @@
 <script>
     import api from '@/api';
     import vApheader from '@/views/components/header/vApheader';
+    import { mapState } from 'vuex';
     export default{
         name: 'ownGroup',
         data() {
@@ -94,6 +95,12 @@
         },
         components: {
             vApheader
+        },
+        computed: {
+            ...mapState(['conversationsList']),
+            addOrDel() {
+                return this.conversationsList.filter(v => v.id === this.currGroup._id).length;
+            }
         },
         methods: {
             handleCommand(command) {
@@ -134,6 +141,13 @@
                 this.x = e.clientX;
                 this.y = e.clientY;
             },
+            handleConversitionList(v) {
+                if (!this.addOrDel) {
+                    this.addConversitionList(v);
+                } else {
+                    this.removeConversitionList(v);
+                }
+            },
             addConversitionList(v) { // 加入会话列表
                 let params = {
                     name: v.title,
@@ -155,6 +169,25 @@
                         });
                     }
                     this.visible = false;
+                });
+            },
+            removeConversitionList(v) {
+                let params = {
+                    id: v._id
+                };
+                api.removeConversitionList(params).then(r => {
+                    if (r.code === 0) {
+                        this.$message({
+                            type: 'success',
+                            message: '移除成功'
+                        });
+                        this.$store.commit('setConversationsList', Object.assign({}, params, {d: true}));
+                    } else {
+                        this.$message({
+                            type: 'success',
+                            message: '移除失败'
+                        });
+                    }
                 });
             }
         },

@@ -71,6 +71,9 @@ const onconnection = (socket) => {
 
     socket.on('join', (val) => {
         socket.join(val.roomid, () => {
+            if (OnlineUser[val.name]) {
+                return;
+            }
             OnlineUser[val.name] = socket.id;
             io.in(val.roomid).emit('joined', OnlineUser); // 包括发送者
             console.log('join', val.roomid, OnlineUser);
@@ -108,14 +111,6 @@ const onconnection = (socket) => {
     });
 
     socket.on('agreeValidate', (val) => { // 同意好友或加群申请
-        socket.to(val.groupId).emit('org', val);
-    });
-
-    socket.on('setReadStatus', (params) => { // 已读状态
-        apiList.setReadStatus(params);
-    });
-    socket.on('sendValidate', (val) => { // 发送验证消息
-        apiList.saveMessage(val);
         if (val.state === 'group') { // 群聊验证
             apiList.InsertGroupUsers(val, r => {
                 if (r.code === -1) {
@@ -123,10 +118,18 @@ const onconnection = (socket) => {
                 } else if (r.code === -2) {
                     console.log('更新群成员数量失败');
                 } else {
-                    socket.to(val.roomid).emit('takeValidate', val);
+                    socket.to(val.groupId).emit('org', val);
                 }
             });
         }
+    });
+
+    socket.on('setReadStatus', (params) => { // 已读状态
+        apiList.setReadStatus(params);
+    });
+    socket.on('sendValidate', (val) => { // 发送验证消息
+        apiList.saveMessage(val);
+        socket.to(val.roomid).emit('takeValidate', val);
     });
     socket.on('disconnect', () => {
         let k;

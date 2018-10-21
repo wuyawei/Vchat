@@ -22,7 +22,7 @@
         .no-data-bg{
             width:200px;
             height: 200px;
-            background-image: url(../assets/img/zwsj1.png);
+            background-image: url(../../assets/img/zwsj1.png);
             background-repeat: no-repeat;
             margin-bottom: 10px;
             background-size: contain;

@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-item">
         <div class="vchat-item-header">
-            <span :class="{active: currNav === i}" v-for="(v, i) in navList" :key="i" @click="setCurrNav(i)" v-if="currSation.type.indexOf(v.type) > -1">{{v.name}}</span>
+            <span :class="{active: currNav === i}" v-for="(v, i) in navList" :key="i" @click="setCurrNav(i)" v-if="v.type.indexOf(currSation.type) > -1">{{v.name}}</span>
         </div>
         <div class="vchat-item-container">
             <div class="container-chat">
@@ -91,7 +91,7 @@
         data() {
             return {
                 // type 0 共有 1 群聊 2 好友
-                navList: [{name: '聊天', type: 'group,user'}, {name: '公告', type: 'group'}, {name: '聊天记录', type: 'group,user'}],
+                navList: [{name: '聊天', type: 'group,frend'}, {name: '公告', type: 'group'}, {name: '聊天记录', type: 'group,frend'}],
                 IMGURL: process.env.IMG_URL,
                 currNav: 0,
                 spread: false,
@@ -130,7 +130,7 @@
             ...mapState(['user', 'OnlineUser'])
         },
         watch: {
-            chatList(list){
+            chatList(){
                 this.$nextTick(_ => {
                     this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
                 });
@@ -138,10 +138,12 @@
             currSation: { // 当前会话
                 handler(v) {
                     if (v) {
-                        this.getGroupUsers(v.id);
-                        this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
-                        this.$store.commit('setUnRead', {roomid: v.id, clear: true});
-                        this.$socket.emit('getHistoryMessages', {roomid: v.id});
+                        if (v.type !== 'vchat') {
+                            this.getGroupUsers(v.id);
+                            this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
+                            this.$store.commit('setUnRead', {roomid: v.id, clear: true});
+                            this.$socket.emit('getHistoryMessages', {roomid: v.id});
+                        }
                     }
                 },
                 deep: true,

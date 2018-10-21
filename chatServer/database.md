@@ -21,6 +21,10 @@
 * signUpTime 注册时间
 * lastLoginTime 最后一次登录时间
 * conversationsList 会话列表
+       * name 会话名称
+       * photo 会话头像
+       * id 会话id
+       * type 会话类型 group/ frend
 * id 主键
 ### groups 群聊
 * id 主键

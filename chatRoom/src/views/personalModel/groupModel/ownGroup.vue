@@ -43,7 +43,7 @@
                     <span>{{myJoinGroups.length}}</span>
                 </h3>
                 <ul class="group-list">
-                    <li v-for="v in myJoinGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)">
+                    <li v-for="v in myJoinGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.groupId.img" alt="">
                         </a>
@@ -136,7 +136,14 @@
             },
             addConversitionList(v) { // 加入会话列表
                 this.visible = false;
-                console.log('vvv', v);
+                let params = {
+                    name: v.title,
+                    photo: v.img,
+                    id: v._id,
+                    type: 'group'
+                };
+                this.$store.commit('setConversationsList', params);
+                console.log('vvv', params);
             }
         },
         mounted() {

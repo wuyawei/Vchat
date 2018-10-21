@@ -9,7 +9,7 @@ let accountBase = db.model("accountBase", {
     type: String, // 1 用户 2 群聊
     random: Number
 });
-let users = db.model("users", { //Schema
+let users = db.model("users", { // Schema
     name: {type: String, unique: true},
     pass: String,
     code: {type: String, unique: true}, // 唯一的code
@@ -25,7 +25,7 @@ let users = db.model("users", { //Schema
     wallpaper: { type: String, default: 'vchat' }, // 聊天壁纸
     signUpTime: { type: Date, default: Date.now() }, // 注册时间
     lastLoginTime: { type: Date, default: Date.now() }, // 最后一次登录
-    conversationsList: Array // 会话列表
+    conversationsList: Array // 会话列表 * name 会话名称 * photo 会话头像 * id 会话id * type 会话类型 group/ frend
 });
 module.exports = {
     accountBase,

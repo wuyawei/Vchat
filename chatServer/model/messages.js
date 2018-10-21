@@ -7,7 +7,12 @@ let messages = db.model("messages", {
     time: String, // 时间
     avatar: String, // 用户头像
     mes: String, // 消息
-    read: Array // 是否已读 0/1
+    read: Array, // 是否已读 0/1
+    signature: String,
+    groupId: String,
+    groupName: String,
+    state: String, // group/ frend
+    type: String // validate
 });
 
 const saveMessage = (params, callback = function () {}) => { // 保存消息

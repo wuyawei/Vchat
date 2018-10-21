@@ -118,6 +118,26 @@ const getUserDetail = (userName, callback) => { // 获取登录用户详细信�
     })
 };
 
+const addConversitionList = (userName, pramas, callback) => { // 添加会话
+    baseList.users.update({name: userName}, {$push: {conversationsList: pramas}}).then(raw => {
+        if (raw.nModified > 0) {
+            callback({code: 0});
+        } else {
+            callback({code: -1});
+        }
+    });
+};
+
+const removeConversitionList = (userName, pramas, callback) => { // 删除会话
+    baseList.users.update({name: userName}, {$pull: {conversationsList: pramas}}).then(raw => {
+        if (raw.nModified > 0) {
+            callback({code: 0});
+        } else {
+            callback({code: -1});
+        }
+    });
+};
+
 module.exports = {
     getUser,
     login,
@@ -125,5 +145,7 @@ module.exports = {
     signUp,
     getUserInfo,
     getUserDetail,
-    getVchatInfo
+    getVchatInfo,
+    addConversitionList,
+    removeConversitionList
 };

@@ -97,6 +97,7 @@ const getMyGroup = (params, callback) => { // 查找我的群
     groupUser.findGroupByUserName(params.userName, (err, groups) => {
         if(err) {
             console.log(err);
+            callback({code: -1, data: err});
         } else {
             callback({code: 0, data: groups})
         }
@@ -107,6 +108,7 @@ const getGroupUsers = (params, callback) => { // 查找指定群聊成员
     groupUser.findGroupUsersByGroupId(params.groupId, (err, users) => {
         if(err) {
             console.log(err);
+            callback({code: -1, data: err});
         } else {
             callback({code: 0, data: users})
         }

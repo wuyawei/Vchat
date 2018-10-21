@@ -126,6 +126,40 @@ const getUserDetail =  (req, res) => {
     })
 };
 
+const addConversitionList = (req, res) => {
+    let params = req.body;
+    apiModel.getUserDetail(req.session.login, params, (r) => { // 添加会话
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : '添加成功'
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '添加失败'
+            })
+        }
+    })
+};
+
+const removeConversitionList = (req, res) => {
+    let params = req.body;
+    apiModel.getUserDetail(req.session.login, params, (r) => { // 删除会话
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : '移除成功'
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '移除失败'
+            })
+        }
+    })
+};
+
 module.exports = {
     getUser,
     login,
@@ -134,5 +168,7 @@ module.exports = {
     loginOut,
     getUserInfo,
     getUserDetail,
-    getVchatInfo
+    getVchatInfo,
+    addConversitionList,
+    removeConversitionList
 };

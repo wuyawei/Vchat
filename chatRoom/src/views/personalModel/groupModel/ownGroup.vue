@@ -142,8 +142,15 @@
                     id: v._id,
                     type: 'group'
                 };
-                this.$store.commit('setConversationsList', params);
-                console.log('vvv', params);
+                api.addConversitionList(params).then(r => {
+                    if (r.code === 0) {
+                        this.$message({
+                            type: 'success',
+                            message: '添加成功'
+                        });
+                        this.$store.commit('setConversationsList', params);
+                    }
+                });
             }
         },
         mounted() {

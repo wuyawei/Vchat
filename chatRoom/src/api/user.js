@@ -24,6 +24,12 @@ export default {
     },
     getVchatInfo() { // 获取vchat官方账号信息
         return fetch.post('user/getVchatInfo');
+    },
+    addConversitionList() { // 添加会话
+        return fetch.post('user/addConversitionList');
+    },
+    removeConversitionList() { // 移除会话
+        return fetch.post('user/removeConversitionList');
     }
 }
 

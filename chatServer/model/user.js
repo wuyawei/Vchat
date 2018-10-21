@@ -118,8 +118,8 @@ const getUserDetail = (userName, callback) => { // 获取登录用户详细信�
     })
 };
 
-const addConversitionList = (userName, pramas, callback) => { // 添加会话
-    baseList.users.update({name: userName}, {$push: {conversationsList: pramas}}).then(raw => {
+const addConversitionList = (userName, params, callback) => { // 添加会话
+    baseList.users.update({name: userName}, {$push: {conversationsList: params}}).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});
         } else {
@@ -128,8 +128,8 @@ const addConversitionList = (userName, pramas, callback) => { // 添加会话
     });
 };
 
-const removeConversitionList = (userName, pramas, callback) => { // 删除会话
-    baseList.users.update({name: userName}, {$pull: {conversationsList: pramas}}).then(raw => {
+const removeConversitionList = (userName, params, callback) => { // 删除会话
+    baseList.users.update({name: userName}, {$pull: {conversationsList: params}}).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});
         } else {

@@ -19,7 +19,7 @@
                     <span>{{mySetGroups.length}}</span>
                 </h3>
                 <ul class="group-list">
-                    <li v-for="v in mySetGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)">
+                    <li v-for="v in mySetGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.groupId.img" alt="">
                         </a>
@@ -64,6 +64,11 @@
                 还没有加入群聊哦，去 <router-link to="/main/personalMain/group/search">查找</router-link>， 去 <router-link to="/main/personalMain/group/setGroup">新建</router-link>。
             </p>
         </v-nodata>
+        <v-dropdown :command="currGroup" :x="x" :y="y" :visible="visible" @upVisible="upVisible">
+            <v-dropdown-item slot-scope="{command}" @dropdownClick="addConversitionList(command)" slot="dropdown">
+                添加到会话列表
+            </v-dropdown-item>
+        </v-dropdown>
     </div>
 </template>
 
@@ -80,7 +85,11 @@
                 Groups: [], // 群聊数据
                 mySetGroups: [], // 我创建的
                 myJoinGroups: [],// 我加入的
-                showList: ['set']
+                showList: ['set'], // 创建or加入
+                currGroup: {}, // 当前群
+                visible: false, // dropdown显示
+                x: '', // dropdown left
+                y: '' // dropdown top
             }
         },
         components: {
@@ -113,6 +122,21 @@
                 } else {
                     this.showList.push(v);
                 }
+            },
+            upVisible(f) {
+                this.visible = f;
+            },
+            contextmenuClick(e, v) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.currGroup = v;
+                this.visible = true;
+                this.x = e.clientX;
+                this.y = e.clientY;
+            },
+            addConversitionList(v) { // 加入会话列表
+                this.visible = false;
+                console.log('vvv', v);
             }
         },
         mounted() {

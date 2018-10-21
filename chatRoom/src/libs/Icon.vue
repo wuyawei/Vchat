@@ -40,6 +40,5 @@
 <style lang="scss" scoped>
     i{
         display: inline-block;
-        margin: 0 5px;
     }
 </style>

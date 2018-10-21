@@ -172,7 +172,7 @@ const getGroupInfo = (params, callback) => { // 查找群详细信息
     });
 };
 
-const InsertGroupUsers = (params, callback) => { // 添加新成员 userNum + 1
+const InsertGroupUsers = (params, callback) => { // 添加新成员 userNum + 1  $inc 增加或减少
     let val = {
         roomid: params.groupId,
         userName: params.name

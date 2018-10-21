@@ -7,12 +7,11 @@ export default {
         api.getUserInfo().then(r => {
             if (r.code === 0) {
                 commit('setUser', r.data);
-                document.body.id = 'theme-' + state.user.projectTheme;
-                commit('setIslogin', true);
+                commit('setConversationsList', r.data.conversationsList);
+                document.body.id = 'theme-' + r.data.projectTheme;
                 dispatch('getVchatInfo');
             } else {
                 commit('setUser', '');
-                commit('setIslogin', false);
             }
             if (that) {
                 that.$router.push('/main/personalMain');
@@ -28,11 +27,12 @@ export default {
             state.transitionName = '';
         }, 500)
     },
-    getVchatInfo({state}) { // 获取官方账号信息
+    getVchatInfo({commit, state}) { // 获取官方账号信息
         api.getVchatInfo().then(r => {
             if (r.code === 0) {
                 let id = state.user.id + '-' + r.data.id;
                 state.Vchat = Object.assign({}, r.data, {type: 'vchat'}, {id});
+                commit('setConversationsList', state.Vchat);
             }
         })
     }

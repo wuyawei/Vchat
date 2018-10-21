@@ -19,9 +19,8 @@ export default {
             let arr = state.conversationsList.filter(v => v.id === data.id);
             if (!arr.length) {
                 state.conversationsList.push(data);
-            };
+            }
         }
-        window.localStorage.conversationsList = JSON.stringify(state.conversationsList);
     },
     setOnlineUser(state, data) {
         state.OnlineUser = data;
@@ -33,7 +32,6 @@ export default {
                     v.count = 0;
                 }
             });
-            console.log('cccccccc', state.unRead, data);
             return;
         }
         let unRead = state.unRead.filter(v => v.roomid === data.roomid);

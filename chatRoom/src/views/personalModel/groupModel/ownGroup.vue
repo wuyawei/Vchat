@@ -149,6 +149,11 @@
                             message: '添加成功'
                         });
                         this.$store.commit('setConversationsList', params);
+                    } else {
+                        this.$message({
+                            type: 'success',
+                            message: '添加失败'
+                        });
                     }
                 });
             }

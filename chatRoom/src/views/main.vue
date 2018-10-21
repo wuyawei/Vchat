@@ -59,13 +59,6 @@
                 },
                 deep: true,
                 immediate: true
-            },
-            Vchat: {
-                handler(vhat) {
-                    this.$store.commit('setConversationsList', vhat);
-                },
-                deep: true,
-                immediate: true
             }
         },
         computed: {
@@ -123,10 +116,6 @@
             }
         },
         mounted() {
-            let conversationsList = window.localStorage.conversationsList;
-            if (conversationsList) {
-                this.$store.commit('setConversationsList', JSON.parse(conversationsList));
-            }
         }
     }
 </script>

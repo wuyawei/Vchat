@@ -128,7 +128,7 @@ const getUserDetail =  (req, res) => {
 
 const addConversitionList = (req, res) => {
     let params = req.body;
-    apiModel.getUserDetail(req.session.login, params, (r) => { // 添加会话
+    apiModel.addConversitionList(req.session.login, params, (r) => { // 添加会话
         if (r.code === 0) {
             res.json({
                 code : 0,
@@ -145,7 +145,7 @@ const addConversitionList = (req, res) => {
 
 const removeConversitionList = (req, res) => {
     let params = req.body;
-    apiModel.getUserDetail(req.session.login, params, (r) => { // 删除会话
+    apiModel.removeConversitionList(req.session.login, params, (r) => { // 删除会话
         if (r.code === 0) {
             res.json({
                 code : 0,

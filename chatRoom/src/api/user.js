@@ -25,11 +25,11 @@ export default {
     getVchatInfo() { // 获取vchat官方账号信息
         return fetch.post('user/getVchatInfo');
     },
-    addConversitionList() { // 添加会话
-        return fetch.post('user/addConversitionList');
+    addConversitionList(params) { // 添加会话
+        return fetch.post('user/addConversitionList', params);
     },
-    removeConversitionList() { // 移除会话
-        return fetch.post('user/removeConversitionList');
+    removeConversitionList(params) { // 移除会话
+        return fetch.post('user/removeConversitionList', params);
     }
 }
 

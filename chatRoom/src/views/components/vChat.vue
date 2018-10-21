@@ -29,8 +29,10 @@
                         <div class="chat-conversation-li-right">
                             <p>{{v.newMesTime}}</p>
                         </div>
-                        <p class="delete">
-                            <v-icon class="el-icon-circle-close" color="#323232" cursor="pointer" :size="18"></v-icon>
+                        <p class="delete" @click.stop="remove(v, i)">
+                            <el-tooltip class="item" effect="dark" content="从列表移除后，需要再次添加才能收到消息！" placement="top-start">
+                                <v-icon class="el-icon-circle-close" color="#323232" cursor="pointer" :size="18"></v-icon>
+                            </el-tooltip>
                         </p>
                     </li>
                 </ul>
@@ -46,6 +48,7 @@
     import chatItem from './chat-item.vue';
     import vchatMessage from './vchatMessage.vue';
     import { mapState } from 'vuex';
+    import api from '@/api';
     export default{
         name: 'vChat',
         data() {
@@ -69,6 +72,8 @@
                     if (this.one && list.length) {
                         this.one = false;
                         this.currSation = this.contactsList[0];
+                    } else {
+                        this.currSation = {};
                     }
                 },
                 deep: true,
@@ -104,6 +109,29 @@
                         this.$set(this.contactsList, i, Object.assign({}, v, {newMes: m.mes, newMesTime: m.time.split(' ')[1]}));
                     }
                 })
+            },
+            remove(v, i) {
+                if (v.type === 'vchat') {
+                    this.$store.commit('setConversationsList', Object.assign({}, v, {d: true}));
+                    if (this.currSation.id === v.id && this.conversationsList.length !== 0) {
+                        this.currSation = this.conversationsList[i];
+                    }
+                } else {
+                    api.removeConversitionList(v).then(r => {
+                        if (r.code === 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '移除成功'
+                            });
+                            this.$store.commit('setConversationsList', Object.assign({}, v, {d: true}));
+                        } else {
+                            this.$message({
+                                type: 'success',
+                                message: '移除失败'
+                            });
+                        }
+                    })
+                }
             }
         },
         mounted() {

@@ -17,8 +17,12 @@ export default {
             state.conversationsList = data;
         } else {
             let arr = state.conversationsList.filter(v => v.id === data.id);
-            if (!arr.length) {
+            if (!arr.length) { // 添加
                 state.conversationsList.push(data);
+            } else {
+                if (data.d) { // 移除
+                    state.conversationsList = state.conversationsList.filter(v => v.id !== data.id);
+                }
             }
         }
     },

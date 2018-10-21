@@ -137,7 +137,7 @@
             },
             currSation: { // 当前会话
                 handler(v) {
-                    if (v) {
+                    if (v.id) {
                         if (v.type !== 'vchat') {
                             this.getGroupUsers(v.id);
                             this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});

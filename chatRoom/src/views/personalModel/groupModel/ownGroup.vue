@@ -135,7 +135,6 @@
                 this.y = e.clientY;
             },
             addConversitionList(v) { // 加入会话列表
-                this.visible = false;
                 let params = {
                     name: v.title,
                     photo: v.img,
@@ -155,6 +154,7 @@
                             message: '添加失败'
                         });
                     }
+                    this.visible = false;
                 });
             }
         },

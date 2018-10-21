@@ -129,7 +129,7 @@ const addConversitionList = (userName, params, callback) => { // 添加会话
 };
 
 const removeConversitionList = (userName, params, callback) => { // 删除会话
-    baseList.users.update({name: userName}, {$pull: {conversationsList: params}}).then(raw => {
+    baseList.users.update({name: userName}, {$pull: {conversationsList: {id: params.id}}}).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});
         } else {

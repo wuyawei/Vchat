@@ -17,7 +17,6 @@
         name: 'sendValidate',
         data() {
             return {
-                introduce: ''
             }
         },
         components: {

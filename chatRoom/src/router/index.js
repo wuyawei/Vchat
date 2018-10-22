@@ -26,15 +26,15 @@ export default new Router({
                             path: 'group',
                             name: 'group',
                             component: _import('personalModel/group'),
-                            redirect: 'group/ownGroup',
+                            redirect: 'group/own',
                             children: [
                                 {
-                                    path: 'setGroup',
+                                    path: 'set',
                                     name: 'setGroup',
                                     component: _import('personalModel/groupModel/setGroup')
                                 },
                                 {
-                                    path: 'ownGroup',
+                                    path: 'own',
                                     name: 'ownGroup',
                                     component: _import('personalModel/groupModel/ownGroup')
                                 },
@@ -44,31 +44,54 @@ export default new Router({
                                     component: _import('personalModel/groupModel/searchGroup')
                                 },
                                 {
-                                    path: 'groupDetail/:id',
+                                    path: 'detail/:id',
                                     name: 'groupDetail',
                                     component: _import('personalModel/groupModel/groupDetail')
                                 },
                                 {
-                                    path: 'applyGroup/:id',
+                                    path: 'apply/:id',
                                     name: 'applyGroup',
                                     component: _import('personalModel/groupModel/applyGroup')
                                 },
                                 {
                                     path: 'send',
                                     name: 'sendGroupValidate',
-                                    component: _import('personalModel/groupModel/sendGroupValidate')
+                                    component: _import('personalModel/sendValidateSuccess')
                                 }
                             ]
                         },
                         {
-                            path: 'conversation',
-                            name: 'conversation',
-                            component: _import('personalModel/conversation')
-                        },
-                        {
                             path: 'friendly',
                             name: 'friendly',
-                            component: _import('personalModel/friendly')
+                            component: _import('personalModel/friendly'),
+                            redirect: 'friendly/own',
+                            children: [
+                                {
+                                    path: 'own',
+                                    name: 'ownFrend',
+                                    component: _import('personalModel/frendModel/myFrend')
+                                },
+                                {
+                                    path: 'detail/:id',
+                                    name: 'frendDetail',
+                                    component: _import('personalModel/frendModel/frendDetail')
+                                },
+                                {
+                                    path: 'apply',
+                                    name: 'applyFrend',
+                                    component: _import('personalModel/frendModel/applyFrend')
+                                },
+                                {
+                                    path: 'serach',
+                                    name: 'serachFrend',
+                                    component: _import('personalModel/frendModel/serachFrend')
+                                },
+                                {
+                                    path: 'send',
+                                    name: 'sendFrendValidate',
+                                    component: _import('personalModel/sendValidateSuccess')
+                                }
+                            ]
                         }
                     ]
                 }

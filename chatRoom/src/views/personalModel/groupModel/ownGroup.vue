@@ -4,7 +4,7 @@
             <el-dropdown trigger="click" @command="handleCommand">
                 <v-icon cursor="pointer" name="hanbaobao" color="#fff"></v-icon>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="/main/personalMain/group/setGroup">新建群聊</el-dropdown-item>
+                    <el-dropdown-item command="/main/personalMain/group/set">新建群聊</el-dropdown-item>
                     <el-dropdown-item command="/main/personalMain/group/search">查找群聊</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -61,7 +61,7 @@
         </div>
         <v-nodata v-else>
             <p class="vchat-no-have">
-                还没有加入群聊哦，去 <router-link to="/main/personalMain/group/search">查找</router-link>， 去 <router-link to="/main/personalMain/group/setGroup">新建</router-link>。
+                还没有加入群聊哦，去 <router-link to="/main/personalMain/group/search">查找</router-link>， 去 <router-link to="/main/personalMain/group/set">新建</router-link>。
             </p>
         </v-nodata>
         <v-dropdown :command="currGroup" :x="x" :y="y" :visible="visible" @upVisible="upVisible">

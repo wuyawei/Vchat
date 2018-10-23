@@ -20,7 +20,7 @@ export default new Router({
                     path: 'personalMain',
                     name: 'personalMain',
                     component: _import('personalMain'),
-                    redirect: 'personalMain/group',
+                    redirect: 'personalMain/friendly',
                     children: [
                         {
                             path: 'group',
@@ -82,9 +82,9 @@ export default new Router({
                                     component: _import('personalModel/frendModel/applyFrend')
                                 },
                                 {
-                                    path: 'serach',
-                                    name: 'serachFrend',
-                                    component: _import('personalModel/frendModel/serachFrend')
+                                    path: 'search',
+                                    name: 'searchFrend',
+                                    component: _import('personalModel/frendModel/searchFrend')
                                 },
                                 {
                                     path: 'send',

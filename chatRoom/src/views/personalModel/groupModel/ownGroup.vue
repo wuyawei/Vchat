@@ -10,7 +10,7 @@
             </el-dropdown>
         </v-apheader>
         <div class="vchat-ownGroup-container" v-if="Groups.length" v-loading="loadingWait">
-            <div class="group-list-box"  :class="{active: showList.indexOf('set') > -1}">
+            <div class="vchat-linkman-container"  :class="{active: showList.indexOf('set') > -1}">
                 <h3 @click="setShowList('set')">
                     <p>
                         <v-icon name="fanhui" :size="16" color="#b7b6b6" class="list-icon"></v-icon>
@@ -18,7 +18,7 @@
                     </p>
                     <span>{{mySetGroups.length}}</span>
                 </h3>
-                <ul class="group-list">
+                <ul class="vchat-linkman-list">
                     <li v-for="v in mySetGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.groupId.img" alt="">
@@ -34,7 +34,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="group-list-box" :class="{active: showList.indexOf('join') > -1}">
+            <div class="vchat-linkman-container" :class="{active: showList.indexOf('join') > -1}">
                 <h3 @click="setShowList('join')">
                     <p>
                         <v-icon name="fanhui" :size="16" color="#b7b6b6" class="list-icon"></v-icon>
@@ -42,7 +42,7 @@
                     </p>
                     <span>{{myJoinGroups.length}}</span>
                 </h3>
-                <ul class="group-list">
+                <ul class="vchat-linkman-list">
                     <li v-for="v in myJoinGroups" :key="v._id" @click="goGroupDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.groupId.img" alt="">
@@ -207,100 +207,6 @@
             height: calc(100% - 40px);
             overflow-y: auto;
             box-sizing: border-box;
-            .group-list-box{
-                margin-bottom: 10px;
-                height: 32px;
-                overflow: hidden;
-                h3{
-                    font-weight: 400;
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 0 15px;
-                    font-size: 14px;
-                    color: #323232;
-                    line-height: 32px;
-                    margin-bottom: 5px;
-                    cursor: pointer;
-                    .list-icon{
-                        transition: transform 0.2s;
-                        transform: rotate(0deg);
-                    }
-                    >span{
-                        color: #acabab;
-                        font-size: 12px;
-                    }
-                }
-                .group-list{
-                    li{
-                        width:100%;
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
-                        padding: 10px 15px 6px;
-                        box-sizing: border-box;
-                        border-bottom: 1px solid #e5e5e5;
-                        cursor: pointer;
-                        >a{
-                            width:42px;
-                            height: 42px;
-                            border-radius: 50%;
-                            overflow: hidden;
-                            margin-right: 10px;
-                            border: 1px solid #d5d5d5;
-                            box-sizing: border-box;
-                            img{
-                                width:42px;
-                            }
-                        }
-                        >div{
-                            width:calc(100% - 52px);
-                            font-size: 12px;
-                            color: #a3a3a3;
-                            p{
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                                margin-bottom: 5px;
-                                span{
-                                    max-width: 160px;
-                                }
-                            }
-                            p:nth-of-type(1) {
-                                span:first-child{
-                                    font-size: 14px;
-                                    color: #323232;
-                                }
-                            }
-                        }
-                    }
-                    li:hover{
-                        background-color: #cdeff8;
-                        opacity: 0.8;
-                    }
-                }
-            }
-            .group-list-box.active{
-                height: auto;
-                h3{
-                    .list-icon{
-                        transform: rotate(-90deg);
-                    }
-                }
-                .group-list{
-                    animation: scaleH 0.6s cubic-bezier(.11,.74,.83,1.45);
-                }
-            }
-            @keyframes scaleH {
-                0% {
-                    transform: translateY(0);
-                }
-                50% {
-                    transform: translateY(10%);
-                }
-                100% {
-                    transform: translateY(0);
-                }
-            }
         }
     }
 </style>

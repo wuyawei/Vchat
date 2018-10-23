@@ -8,22 +8,139 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </v-apheader>
+        <div class="vchat-myFrend-container">
+            <div class="vchat-linkman-container" :class="{active: showList.indexOf('mine') > -1}">
+                <h3 @click="setShowList('mine')">
+                    <p>
+                        <v-icon name="fanhui" :size="16" color="#b7b6b6" class="list-icon"></v-icon>
+                        <span>我的好友</span>
+                    </p>
+                    <span>{{frendList.length}}</span>
+                </h3>
+                <ul class="vchat-linkman-list">
+                    <li v-for="v in frendList" :key="v._id" @click="goFrendDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
+                        <a href="javascript:;">
+                            <img :src="IMG_URL + v.groupId.img" alt="">
+                        </a>
+                        <div>
+                            <p>
+                                <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
+                            </p>
+                            <p>
+                                <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <v-dropdown :command="currFrend" :x="x" :y="y" :visible="visible" @upVisible="upVisible">
+            <v-dropdown-item slot-scope="{command}" @dropdownClick="handleConversitionList(command)" slot="dropdown">
+                {{addOrDel ? '从会话列表移除' : '添加到会话列表'}}
+            </v-dropdown-item>
+        </v-dropdown>
     </div>
 </template>
 
 <script>
     import vApheader from '@/views/components/header/vApheader';
+    import { mapState } from 'vuex';
+    import api from '@/api';
     export default{
         data() {
             return {
-
+                frendList: [],
+                showList: ['mine'], // 分组 备用
+                visible: false, // dropdown显示
+                currFrend: {},
+                x: '', // dropdown left
+                y: '' // dropdown top
             }
         },
         components: {
             vApheader
         },
+        computed: {
+            ...mapState(['conversationsList']),
+            addOrDel() {
+                return this.conversationsList.filter(v => v.id === this.currFrend._id).length;
+            }
+        },
         methods: {
-            handleCommand() {}
+            handleCommand(command) {
+                this.$router.push(command);
+            },
+            goFrendDetail(id) {
+                this.$router.push({name: 'groupDetail', params: {id: id}});
+            },
+            setShowList(v) {
+                if (this.showList.indexOf(v) > -1) {
+                    this.showList.splice(this.showList.indexOf(v), 1);
+                } else {
+                    this.showList.push(v);
+                }
+                console.log(this.showList);
+            },
+            upVisible(f) {
+                this.visible = f;
+            },
+            contextmenuClick(e, v) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.currGroup = v;
+                this.visible = true;
+                this.x = e.clientX;
+                this.y = e.clientY;
+            },
+            handleConversitionList(v) {
+                if (!this.addOrDel) {
+                    this.addConversitionList(v);
+                } else {
+                    this.removeConversitionList(v);
+                }
+            },
+            addConversitionList(v) { // 加入会话列表
+                let params = {
+                    name: v.title,
+                    photo: v.img,
+                    id: v._id,
+                    type: 'group'
+                };
+                api.addConversitionList(params).then(r => {
+                    if (r.code === 0) {
+                        this.$message({
+                            type: 'success',
+                            message: '添加成功'
+                        });
+                        this.$store.commit('setConversationsList', params);
+                    } else {
+                        this.$message({
+                            type: 'success',
+                            message: '添加失败'
+                        });
+                    }
+                    this.visible = false;
+                });
+            },
+            removeConversitionList(v) {
+                let params = {
+                    id: v._id
+                };
+                api.removeConversitionList(params).then(r => {
+                    if (r.code === 0) {
+                        this.$message({
+                            type: 'success',
+                            message: '移除成功'
+                        });
+                        this.$store.commit('setConversationsList', Object.assign({}, params, {d: true}));
+                    } else {
+                        this.$message({
+                            type: 'success',
+                            message: '移除失败'
+                        });
+                    }
+                });
+            }
         }
     }
 </script>
@@ -32,5 +149,12 @@
     .vchat-myFrend{
         width:100%;
         height: 100%;
+        .vchat-myFrend-container{
+            width:100%;
+            padding-top: 10px;
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
     }
 </style>

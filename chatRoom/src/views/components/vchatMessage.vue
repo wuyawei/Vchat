@@ -2,7 +2,7 @@
     <div class="vchatMessage">
         <ul>
             <li v-for="v in InfoList" :key="v['_id']" v-if="v.type === 'validate'">
-                <span class="vchat-line1">{{v.state === 'frend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
+                <span class="vchat-line1">{{v.state === 'friend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
                 <span class="time">{{v.time}}</span>
                 <el-popover
                         placement="left"

@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-myFrend vchat-noUser">
+    <div class="vchat-myFriend vchat-noUser">
         <v-apheader title="我的好友">
             <el-dropdown trigger="click" @command="handleCommand">
                 <v-icon cursor="pointer" name="hanbaobao" color="#fff"></v-icon>
@@ -8,17 +8,17 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </v-apheader>
-        <div class="vchat-myFrend-container">
+        <div class="vchat-myFriend-container">
             <div class="vchat-linkman-container" :class="{active: showList.indexOf('mine') > -1}">
                 <h3 @click="setShowList('mine')">
                     <p>
                         <v-icon name="fanhui" :size="16" color="#b7b6b6" class="list-icon"></v-icon>
                         <span>我的好友</span>
                     </p>
-                    <span>{{frendList.length}}</span>
+                    <span>{{friendList.length}}</span>
                 </h3>
                 <ul class="vchat-linkman-list">
-                    <li v-for="v in frendList" :key="v._id" @click="goFrendDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
+                    <li v-for="v in friendList" :key="v._id" @click="goFriendDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.groupId.img" alt="">
                         </a>
@@ -34,7 +34,7 @@
                 </ul>
             </div>
         </div>
-        <v-dropdown :command="currFrend" :x="x" :y="y" :visible="visible" @upVisible="upVisible">
+        <v-dropdown :command="currFriend" :x="x" :y="y" :visible="visible" @upVisible="upVisible">
             <v-dropdown-item slot-scope="{command}" @dropdownClick="handleConversitionList(command)" slot="dropdown">
                 {{addOrDel ? '从会话列表移除' : '添加到会话列表'}}
             </v-dropdown-item>
@@ -49,10 +49,10 @@
     export default{
         data() {
             return {
-                frendList: [],
+                friendList: [],
                 showList: ['mine'], // 分组 备用
                 visible: false, // dropdown显示
-                currFrend: {},
+                currFriend: {},
                 x: '', // dropdown left
                 y: '' // dropdown top
             }
@@ -63,14 +63,14 @@
         computed: {
             ...mapState(['conversationsList']),
             addOrDel() {
-                return this.conversationsList.filter(v => v.id === this.currFrend._id).length;
+                return this.conversationsList.filter(v => v.id === this.currFriend._id).length;
             }
         },
         methods: {
             handleCommand(command) {
                 this.$router.push(command);
             },
-            goFrendDetail(id) {
+            goFriendDetail(id) {
                 this.$router.push({name: 'groupDetail', params: {id: id}});
             },
             setShowList(v) {
@@ -146,10 +146,10 @@
 </script>
 
 <style lang="scss" scoped>
-    .vchat-myFrend{
+    .vchat-myFriend{
         width:100%;
         height: 100%;
-        .vchat-myFrend-container{
+        .vchat-myFriend-container{
             width:100%;
             padding-top: 10px;
             height: calc(100% - 40px);

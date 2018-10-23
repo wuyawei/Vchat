@@ -91,7 +91,7 @@
         data() {
             return {
                 // type 0 共有 1 群聊 2 好友
-                navList: [{name: '聊天', type: 'group,frend'}, {name: '公告', type: 'group'}, {name: '聊天记录', type: 'group,frend'}],
+                navList: [{name: '聊天', type: 'group,friend'}, {name: '公告', type: 'group'}, {name: '聊天记录', type: 'group,friend'}],
                 IMGURL: process.env.IMG_URL,
                 currNav: 0,
                 spread: false,

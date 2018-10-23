@@ -68,27 +68,27 @@ export default new Router({
                             children: [
                                 {
                                     path: 'own',
-                                    name: 'ownFrend',
-                                    component: _import('personalModel/frendModel/myFrend')
+                                    name: 'ownFriend',
+                                    component: _import('personalModel/friendModel/myFriend')
                                 },
                                 {
                                     path: 'detail/:id',
-                                    name: 'frendDetail',
-                                    component: _import('personalModel/frendModel/frendDetail')
+                                    name: 'friendDetail',
+                                    component: _import('personalModel/friendModel/friendDetail')
                                 },
                                 {
                                     path: 'apply',
-                                    name: 'applyFrend',
-                                    component: _import('personalModel/frendModel/applyFrend')
+                                    name: 'applyFriend',
+                                    component: _import('personalModel/friendModel/applyFriend')
                                 },
                                 {
                                     path: 'search',
-                                    name: 'searchFrend',
-                                    component: _import('personalModel/frendModel/searchFrend')
+                                    name: 'searchFriend',
+                                    component: _import('personalModel/friendModel/searchFriend')
                                 },
                                 {
                                     path: 'send',
-                                    name: 'sendFrendValidate',
+                                    name: 'sendFriendValidate',
                                     component: _import('personalModel/sendValidateSuccess')
                                 }
                             ]

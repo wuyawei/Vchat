@@ -1,7 +1,6 @@
 <template>
     <div class="vchat-searchGroup">
         <v-apheader title="查找群聊" back="/main/personalMain/group/own"></v-apheader>
-
         <div class="vchat-search group-search">
             <el-select v-model="type" placeholder="请选择搜索方式" @change="huntGroups">
                 <el-option

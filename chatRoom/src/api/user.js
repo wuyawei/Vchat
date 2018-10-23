@@ -30,6 +30,9 @@ export default {
     },
     removeConversitionList(params) { // 移除会话
         return fetch.post('user/removeConversitionList', params);
+    },
+    huntFrends(params) { // 添加好友
+        return fetch.post('user/huntFrends', params);
     }
 }
 

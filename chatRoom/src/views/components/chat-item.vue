@@ -63,7 +63,7 @@
                 </div>
                 <div class="handel-member">
                     <h3>
-                        <span>群成员 ( 699 )</span>
+                        <span>群成员 ( {{groupUsers.length}} )</span>
                         <v-icon class="el-icon-search" color="#fff" :size="18" @clickIcon="spreadInput"></v-icon>
                     </h3>
                     <input type="text" v-show="spread" ref="searchMember">

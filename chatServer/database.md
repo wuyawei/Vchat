@@ -45,8 +45,8 @@
 * card 群名片
 ### frendly 好友
 * id
-* userAid
-* userBid
+* userA
+* userB
 * createDate 创建时间
 ### messages 消息
 * id

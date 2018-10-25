@@ -19,6 +19,23 @@
                 <i slot="append" class="el-input__icon el-icon-search" @click="huntGroups('click')"></i>
             </el-input>
         </div>
+        <div class="vchat-linkman-container" v-loading="loadingSearch">
+            <ul class="vchat-linkman-list" v-show="friendList.length">
+                <li v-for="v in friendList" :key="v['_id']" @click="goFriendDetail(v['_id'])">
+                    <a href="javascript:;">
+                        <img :src="IMG_URL + v.groupId.img" alt="">
+                    </a>
+                    <div>
+                        <p>
+                            <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
+                        </p>
+                        <p>
+                            <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -53,8 +70,8 @@
             }
         },
         methods: {
-            goGroupDetail(id) {
-                this.$router.push({name: 'groupDetail', params: {id: id}});
+            goFriendDetail(id) {
+                this.$router.push({name: 'friendDetail', params: {id: id}});
             },
             huntFriends(t) { // 搜索群聊
                 if (this.loadingSearch) {

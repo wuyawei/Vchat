@@ -1,11 +1,11 @@
 <template>
-    <div class="vchat-groupDetail">
-        <v-apheader back="-1" bgColor="transparent" class="vchat-groupDetail-header">
+    <div class="vchat-Detail">
+        <v-apheader back="-1" bgColor="transparent" class="vchat-Detail-header">
             <v-icon name="erweima" color="#f5f5f5" cursor="pointer" @clickIcon="showGroupQr = true"></v-icon>
         </v-apheader>
         <el-carousel trigger="click" height="200px" arrow="never" indicator-position="none">
             <el-carousel-item v-for="item in 1" :key="item">
-                <div class="groupImage-bg">
+                <div class="DetailImage-bg">
                     <p class="title">
                         {{groupInfo.title}}
                     </p>
@@ -17,11 +17,11 @@
                         {{groupInfo.desc}}
                     </p>
                 </div>
-                <a class="groupImage-a" :style="{backgroundImage: 'url('+ IMG_URL + groupInfo.img +')'}">
+                <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + groupInfo.img +')'}">
                 </a>
             </el-carousel-item>
         </el-carousel>
-        <div class="vchat-groupDetail-container">
+        <div class="vchat-Detail-container">
             <div class="group-users" v-if="applyFlag">
                 <h3 class="group-users-title group-item">
                     <span>群聊成员</span>
@@ -71,8 +71,8 @@
                 <button @click="quit" class="vchat-full-button error" v-else>退出群聊</button>
             </div>
         </div>
-        <div class="groupQr-dialog" :class="{active: showGroupQr}">
-            <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showGroupQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
+        <div class="Qr-dialog" :class="{active: showQr}">
+            <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
         </div>
     </div>
 </template>
@@ -88,7 +88,7 @@
                 groupInfo: {},
                 groupUsers: [],
                 IMG_URL: process.env.IMG_URL,
-                showGroupQr: false, // 二维码开关
+                showQr: false, // 二维码开关
                 managers: [],
                 groupTag: [], // 群标签
                 applyFlag: false, // 是否已加群
@@ -131,158 +131,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .vchat-groupDetail{
-        width:100%;
-        height: 100%;
-        position: relative;
-        background-color: #f5f5f5;
-        overflow-y: auto;
-        .vchat-groupDetail-header{
-            position: absolute;
-            left:0;
-            top:0;
-            z-index: 3;
-        }
-        .groupImage-bg{
-            width:100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.3);
-            position: absolute;
-            left:0;
-            top:0;
-            z-index: 2;
-            padding: 50px 15px 0;
-            box-sizing: border-box;
-            p{
-                color: #fff;
-                font-size: 12px;
-                text-align: left;
-                margin-bottom: 5px;
-            }
-            p.title{
-                font-size: 18px;
-            }
-        }
-        .groupImage-a{
-            width:100%;
-            height: 100%;
-            display: block;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        .groupQr-dialog{
-            width:100%;
-            height: 0;
-            overflow: hidden;
-            background-color: rgba(0,0,0,0.6);
-            position: absolute;
-            left:0;
-            top:0;
-            z-index: 5;
-            transition: height 0.5s cubic-bezier(0,.97,0,.98);
-            .QrClose{
-                position: absolute;
-                right: 30px;
-                top: 30px;
-            }
-        }
-        .groupQr-dialog.active{
-            height: 100%;
-        }
-        .vchat-groupDetail-container{
-            width:100%;
-            .group-item{
-                display: flex;
-                height: 38px;
-                justify-content: space-between;
-                align-items: center;
-                font-weight: 400;
-                padding: 8px 10px 8px 15px;
-                box-sizing: border-box;
-                background-color: #fff;
-                i{
-                    margin: 0;
-                }
-                .many{
-                    color: #6D6D6D;
-                    font-size: 12px;
-                    display: flex;
-                    align-items: center;
-                    span{
-                        margin-right: 2px;
-                    }
-                }
-            }
-            .group-users{
-                width:100%;
-                background-color: #fff;
-                color: #323232;
-                box-sizing: border-box;
-                margin-bottom: 5px;
-                .group-users-title{
-                    border-bottom: 1px solid #f5f5f5;
-                    margin-bottom: 10px;
-                    >span{
-                        font-size: 16px;
-                    }
-                }
-                .group-users-liitte-list{
-                    width:100%;
-                    display: flex;
-                    justify-content: flex-start;
-                    flex-wrap: wrap;
-                    li{
-                        width:64px;
-                        display: flex;
-                        flex-flow: column;
-                        justify-content: center;
-                        align-items: center;
-                        margin-bottom: 10px;
-                        span{
-                            max-width: 64px;
-                            font-size: 12px;
-                            color: #6D6D6D;
-                        }
-                    }
-                }
-            }
-            .group-card{
-                margin-bottom: 5px;
-            }
-            .group-tag{
-                margin-bottom: 5px;
-                >span{
-                    font-size: 16px;
-                    color: #323232;
-                }
-                >p{
-                    display: flex;
-                    justify-content: flex-start;
-                }
-            }
-            .group-managers{
-                justify-content: space-between;
-                >div{
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    a{
-                        width:28px;
-                        height: 28px;
-                        margin-right: 5px;
-                    }
-                    span{
-                        font-size: 16px;
-                        color: #323232;
-                        margin-right: 15px;
-                    }
-                }
-            }
-            .group-button{
-                padding: 0 15px;
-                box-sizing: border-box;
-            }
-        }
-    }
+    @import "../vchatDetail";
 </style>

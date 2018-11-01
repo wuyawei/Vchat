@@ -48,9 +48,20 @@
         methods: {
             apply() {
                 this.$router.push({name: 'applyFriend', params: {id: this.holderId}, query: {}});
+            },
+            getUserInfo() {
+                let params = {
+                    id: this.$route.params.id
+                };
+                api.getUserInfo(params).then(r => {
+                    if (r.code === 0) {
+                        this.friendInfo = r.data;
+                    }
+                })
             }
         },
         mounted() {
+            this.getUserInfo();
         }
     }
 </script>

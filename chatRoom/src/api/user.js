@@ -13,8 +13,8 @@ export default {
     loginOut() { // 注册
         return fetch.post('user/loginOut');
     },
-    getUserInfo() { //获取用户信息
-        return fetch.post('user/getUserInfo');
+    getUserInfo(params) { //获取用户信息
+        return fetch.post('user/getUserInfo', params);
     },
     upUserInfo(params) { // 设置主题
         return fetch.post('user/upUserInfo', params);

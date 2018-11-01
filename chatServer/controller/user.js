@@ -79,7 +79,14 @@ const loginOut = (req, res) => { // 登出
 };
 
 const getUserInfo = (req, res) => {
-    apiModel.getUserInfo(req.session.login, (r) => { // 获取登录用户信息
+    let params = req.body;
+    let key = {};
+    if (params.id) {
+        key = {key: params.id, id: true};
+    } else {
+        key = {key: req.session.login};
+    }
+    apiModel.getUserInfo(key, (r) => { // 获取登录用户信息
         if (r.code === 0) {
             res.json({
                 code : 0,

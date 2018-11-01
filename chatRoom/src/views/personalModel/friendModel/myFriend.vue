@@ -61,7 +61,7 @@
             vApheader
         },
         computed: {
-            ...mapState(['conversationsList']),
+            ...mapState(['conversationsList', 'user']),
             addOrDel() {
                 return this.conversationsList.filter(v => v.id === this.currFriend._id).length;
             }
@@ -140,7 +140,20 @@
                         });
                     }
                 });
+            },
+            findMyfriends() {
+                let params = {
+                    userId: this.user.id
+                };
+                api.findMyfriends(params).then(r => {
+                    if (r.code === 0) {
+                        this.friendList = r.data;
+                    }
+                })
             }
+        },
+        mounted() {
+            this.findMyfriends();
         }
     }
 </script>

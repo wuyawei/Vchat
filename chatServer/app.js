@@ -13,6 +13,7 @@ let io = require('socket.io')(server);
 const api = require('./routes/api');
 const user = require('./routes/user');
 const group = require('./routes/group');
+const friend = require('./routes/friendly');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,6 +58,7 @@ app.use('/*', (req, res, next) => {
 app.use('/api', api);
 app.use('/user', user);
 app.use('/group', group);
+app.use('/friend', friend);
 
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');

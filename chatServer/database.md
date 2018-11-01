@@ -43,10 +43,10 @@
 * manager 管理员 0/1
 * holder 群主 0/1
 * card 群名片
-### frendly 好友
+### friendlies 好友
 * id
-* userA
-* userB
+* userM
+* userY
 * createDate 创建时间
 ### messages 消息
 * id

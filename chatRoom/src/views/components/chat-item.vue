@@ -11,7 +11,7 @@
                             <template v-if="v.type==='other'">
                                 <div class="mes-box">
                                     <p>
-                                        <img :src="IMGURL + v.avatar" alt="">
+                                        <img :src="IMG_URL + v.avatar" alt="">
                                     </p>
                                     <div>
                                         <p>
@@ -32,7 +32,7 @@
                                         <p class="mes">{{v.mes}}</p>
                                     </div>
                                     <p>
-                                        <img :src="IMGURL + v.avatar" alt="">
+                                        <img :src="IMG_URL + v.avatar" alt="">
                                     </p>
                                 </div>
                             </template>
@@ -70,7 +70,7 @@
                     <ul>
                         <li v-for="v in groupUsers" :key="v.userId['_id']">
                             <a class="vchat-photo" :class="{lineOf: !v.status}">
-                                <img :src="IMGURL + v.userId.photo" alt="">
+                                <img :src="IMG_URL + v.userId.photo" alt="">
                             </a>
                             <span class="vchat-line1">{{v.userId.nickname}}</span>
                         </li>
@@ -92,7 +92,7 @@
             return {
                 // type 0 共有 1 群聊 2 好友
                 navList: [{name: '聊天', type: 'group,friend'}, {name: '公告', type: 'group'}, {name: '聊天记录', type: 'group,friend'}],
-                IMGURL: process.env.IMG_URL,
+                IMG_URL: process.env.IMG_URL,
                 currNav: 0,
                 spread: false,
                 chatList: [],

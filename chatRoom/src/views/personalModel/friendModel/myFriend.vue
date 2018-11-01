@@ -18,16 +18,16 @@
                     <span>{{friendList.length}}</span>
                 </h3>
                 <ul class="vchat-linkman-list">
-                    <li v-for="v in friendList" :key="v._id" @click="goFriendDetail(v.groupId._id)" @contextmenu="contextmenuClick($event, v.groupId)">
+                    <li v-for="v in friendList" :key="v._id" @click="goFriendDetail(v.id)" @contextmenu="contextmenuClick($event, v.id)">
                         <a href="javascript:;">
-                            <img :src="IMG_URL + v.groupId.img" alt="">
+                            <img :src="IMG_URL + v.photo" alt="">
                         </a>
                         <div>
                             <p>
-                                <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
+                                <span class="vchat-line1" :title="v.nickname">{{v.nickname}}</span>
                             </p>
                             <p>
-                                <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
+                                <span :title="v.signature" class="vchat-line1">{{v.signature}}</span>
                             </p>
                         </div>
                     </li>
@@ -50,6 +50,7 @@
         data() {
             return {
                 friendList: [],
+                IMG_URL: process.env.IMG_URL,
                 showList: ['mine'], // 分组 备用
                 visible: false, // dropdown显示
                 currFriend: {},
@@ -71,7 +72,7 @@
                 this.$router.push(command);
             },
             goFriendDetail(id) {
-                this.$router.push({name: 'groupDetail', params: {id: id}});
+                this.$router.push({name: 'friendDetail', params: {id: id}});
             },
             setShowList(v) {
                 if (this.showList.indexOf(v) > -1) {

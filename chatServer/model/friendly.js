@@ -25,18 +25,20 @@ friendlySchema.statics = {
     }
 };
 
-let friendly = db.model("friendlies", friendlySchema); // friendly model
+let friendly = db.model("friendlies", friendlySchema); // friendly 创建的文档是 friendlies 坑！！！
 
 const findMyfriends = (params, callback) => { // 查找我的好友
     friendly.findFriendByUserM(params.userId).then(userM => {
         friendly.findFriendByUserY(params.userId).then(userY => {
             let data = [];
+            // 重新组合文档
             userM.forEach(v => {
                 data.push({
                     createDate: v.createDate,
-                    nickname: v.userM.nickname,
-                    photo: v.userM.photo,
-                    signature: v.userM.signature
+                    nickname: v.userY.nickname,
+                    photo: v.userY.photo,
+                    signature: v.userY.signature,
+                    id: v.userY._id
                 })
             });
             userY.forEach(v => {
@@ -44,7 +46,8 @@ const findMyfriends = (params, callback) => { // 查找我的好友
                     createDate: v.createDate,
                     nickname: v.userM.nickname,
                     photo: v.userM.photo,
-                    signature: v.userM.signature
+                    signature: v.userM.signature,
+                    id: v.userM._id
                 })
             });
             callback({code: 0, data: data})

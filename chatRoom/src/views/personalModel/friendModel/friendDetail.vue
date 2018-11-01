@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-Detail">
         <v-apheader back="-1" bgColor="transparent" class="vchat-Detail-header">
-            <v-icon name="erweima" color="#f5f5f5" cursor="pointer" @clickIcon="showGroupQr = true"></v-icon>
+            <v-icon name="erweima" color="#f5f5f5" cursor="pointer" @clickIcon="showFriendQr = true"></v-icon>
         </v-apheader>
         <el-carousel trigger="click" height="200px" arrow="never" indicator-position="none">
             <el-carousel-item v-for="item in 1" :key="item">
@@ -14,13 +14,13 @@
                     <p>
                     </p>
                 </div>
-                <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + groupInfo.img +')'}">
+                <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + friendInfo.photo +')'}">
                 </a>
             </el-carousel-item>
         </el-carousel>
         <div class="vchat-Detail-container">
-            <div class="Qr-dialog" :class="{active: showQr}">
-                <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
+            <div class="Qr-dialog" :class="{active: showFriendQr}">
+                <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showFriendQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
             </div>
         </div>
     </div>
@@ -35,7 +35,8 @@
         data() {
             return {
                 IMG_URL: process.env.IMG_URL,
-                showQr: false, // 二维码开关
+                friendInfo: {}, // user详情
+                showFriendQr: false // 二维码开关
             }
         },
         components: {
@@ -46,7 +47,7 @@
         },
         methods: {
             apply() {
-                this.$router.push({name: 'applyGroup', params: {id: this.holderId}, query: {groupName: this.groupInfo.title, groupId: this.$route.params.id}});
+                this.$router.push({name: 'applyFriend', params: {id: this.holderId}, query: {}});
             }
         },
         mounted() {

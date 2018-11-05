@@ -3,20 +3,19 @@
         <v-apheader back="-1" bgColor="transparent" class="vchat-Detail-header">
             <v-icon name="erweima" color="#f5f5f5" cursor="pointer" @clickIcon="showFriendQr = true"></v-icon>
         </v-apheader>
-        <el-carousel trigger="click" height="200px" arrow="never" indicator-position="none">
-            <el-carousel-item v-for="item in 1" :key="item">
-                <div class="DetailImage-bg">
-                    <p class="title">
-                    </p>
-                    <p>
-                    </p>
-                    <p>本群创建于</p>
-                    <p>
-                    </p>
-                </div>
-                <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + friendInfo.photo +')'}">
+        <el-carousel trigger="click" height="200px" arrow="never" indicator-position :autoplay="false">
+            <el-carousel-item v-for="item in friendInfo.cover" :key="item">
+                <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + item +')'}">
                 </a>
             </el-carousel-item>
+            <div class="DetailImage-bg">
+                <p class="title">
+                    {{friendInfo.nickname}}
+                    </p>
+                <p>
+                </p>
+                <p>{{friendInfo.code}}</p>
+            </div>
         </el-carousel>
         <div class="vchat-Detail-container">
             <div class="Qr-dialog" :class="{active: showFriendQr}">

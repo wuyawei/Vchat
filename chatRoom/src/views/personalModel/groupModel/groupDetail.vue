@@ -5,21 +5,21 @@
         </v-apheader>
         <el-carousel trigger="click" height="200px" arrow="never" indicator-position="none">
             <el-carousel-item v-for="item in 1" :key="item">
-                <div class="DetailImage-bg">
-                    <p class="title">
-                        {{groupInfo.title}}
-                    </p>
-                    <p>
-                        {{groupInfo.code}}
-                    </p>
-                    <p>本群创建于{{createDate}}</p>
-                    <p>
-                        {{groupInfo.desc}}
-                    </p>
-                </div>
                 <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + groupInfo.img +')'}">
                 </a>
             </el-carousel-item>
+            <div class="DetailImage-bg">
+                <p class="title">
+                    {{groupInfo.title}}
+                    </p>
+                <p>
+                    {{groupInfo.code}}
+                    </p>
+                <p>本群创建于{{createDate}}</p>
+                <p>
+                    {{groupInfo.desc}}
+                    </p>
+            </div>
         </el-carousel>
         <div class="vchat-Detail-container">
             <div class="group-users" v-if="applyFlag">

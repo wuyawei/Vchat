@@ -26,6 +26,7 @@
        * id 会话id
        * type 会话类型 group/ frend
 * id 主键
+* cover 封面列表
 ### groups 群聊
 * id 主键
 * title 名称

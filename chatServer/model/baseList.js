@@ -25,7 +25,8 @@ let users = db.model("users", { // Schema
     wallpaper: { type: String, default: 'vchat' }, // 聊天壁纸
     signUpTime: { type: Date, default: Date.now() }, // 注册时间
     lastLoginTime: { type: Date, default: Date.now() }, // 最后一次登录
-    conversationsList: Array // 会话列表 * name 会话名称 * photo 会话头像 * id 会话id * type 会话类型 group/ frend
+    conversationsList: Array, // 会话列表 * name 会话名称 * photo 会话头像 * id 会话id * type 会话类型 group/ frend
+    cover: { type: Array, default: ['/img/cover.jpg'] } // 封面展示
 });
 module.exports = {
     accountBase,

@@ -19,9 +19,9 @@
             <a class="detail-avatar">
                 <img :src="IMG_URL + friendInfo.photo" alt="">
             </a>
-            <div class="Qr-dialog" :class="{active: showFriendQr}">
-                <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showFriendQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
-            </div>
+        </div>
+        <div class="Qr-dialog" :class="{active: showFriendQr}">
+            <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showFriendQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
         </div>
     </div>
 </template>

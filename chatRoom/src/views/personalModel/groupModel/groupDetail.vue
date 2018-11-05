@@ -71,8 +71,8 @@
                 <button @click="quit" class="vchat-full-button error" v-else>退出群聊</button>
             </div>
         </div>
-        <div class="Qr-dialog" :class="{active: showQr}">
-            <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
+        <div class="Qr-dialog" :class="{active: showGroupQr}">
+            <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showGroupQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>
         </div>
     </div>
 </template>
@@ -88,7 +88,7 @@
                 groupInfo: {},
                 groupUsers: [],
                 IMG_URL: process.env.IMG_URL,
-                showQr: false, // 二维码开关
+                showGroupQr: false, // 二维码开关
                 managers: [],
                 groupTag: [], // 群标签
                 applyFlag: false, // 是否已加群

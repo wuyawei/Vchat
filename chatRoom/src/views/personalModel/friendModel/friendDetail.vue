@@ -13,12 +13,19 @@
                     {{friendInfo.nickname}}
                 </p>
                 <p>{{friendInfo.code}}</p>
+                <p>{{friendInfo.signature}}</p>
             </div>
         </el-carousel>
-        <div class="vchat-Detail-container">
+        <div class="vchat-Detail-container friend-detail-container">
             <a class="detail-avatar">
                 <img :src="IMG_URL + friendInfo.photo" alt="">
             </a>
+            <div class="detail-item">
+                <span>照片墙</span>
+                <p>
+                    <v-icon name="enter" color="#d5d5d5"></v-icon>
+                </p>
+            </div>
         </div>
         <div class="Qr-dialog" :class="{active: showFriendQr}">
             <v-icon class="el-icon-circle-close-outline QrClose" @clickIcon="showFriendQr = false" color="#f5f5f5" :size="28" cursor="pointer"></v-icon>

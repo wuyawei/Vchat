@@ -39,21 +39,21 @@
                     </li>
                 </ul>
             </div>
-            <div class="group-card group-item" v-if="applyFlag">
+            <div class="group-card detail-item" v-if="applyFlag">
                 <span>我的群名片</span>
                 <p class="many">
                     <span>别跟我比可爱</span>
                     <v-icon name="enter" color="#d5d5d5"></v-icon>
                 </p>
             </div>
-            <div class="group-tag group-item" v-if="groupInfo.holderName === user.name">
+            <div class="group-tag detail-item" v-if="groupInfo.holderName === user.name">
                 <span>群标签</span>
                 <p>
                     <el-tag v-for="(v, i) in groupTag" :key="i" v-if="i < 3">{{v}}</el-tag>
                     <v-icon name="enter" color="#d5d5d5"></v-icon>
                 </p>
             </div>
-            <div class="group-managers group-item" v-if="!applyFlag">
+            <div class="group-managers detail-item" v-if="!applyFlag">
                 <div>
                     <span>管理员</span>
                     <a v-for="(v, i) in managers" :key="v['_id']" class="vchat-photo" v-if="i < 3">

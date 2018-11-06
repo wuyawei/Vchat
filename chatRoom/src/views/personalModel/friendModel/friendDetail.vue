@@ -3,7 +3,7 @@
         <v-apheader back="-1" bgColor="transparent" class="vchat-Detail-header">
             <v-icon name="erweima" color="#f5f5f5" cursor="pointer" @clickIcon="showFriendQr = true"></v-icon>
         </v-apheader>
-        <el-carousel trigger="click" height="200px" arrow="never" indicator-position :autoplay="false">
+        <el-carousel trigger="click" height="200px" arrow="never" :indicator-position="friendInfo.cover.length > 1 ? '' : 'none'" :autoplay="false">
             <el-carousel-item v-for="item in friendInfo.cover" :key="item">
                 <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + item +')'}">
                 </a>

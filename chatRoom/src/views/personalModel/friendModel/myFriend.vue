@@ -9,6 +9,15 @@
             </el-dropdown>
         </v-apheader>
         <div class="vchat-myFriend-container">
+            <div class="me-li" @click="goFriendDetail(user.id)">
+                <a href="javascript:;">
+                    <img :src="IMG_URL + user.photo" alt="">
+                </a>
+                <div>
+                    <span class="vchat-line1" :title="user.nickname">{{user.nickname}}</span>
+                    <v-icon name="enter" color="#d5d5d5"></v-icon>
+                </div>
+            </div>
             <div class="vchat-linkman-container" :class="{active: showList.indexOf('mine') > -1}">
                 <h3 @click="setShowList('mine')">
                     <p>
@@ -169,6 +178,43 @@
             height: calc(100% - 40px);
             overflow-y: auto;
             box-sizing: border-box;
+        }
+        .me-li{
+            width:100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 5px 15px 6px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 5px;
+            cursor: pointer;
+            >a{
+                width:38px;
+                height: 38px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-right: 10px;
+                border: 1px solid #d5d5d5;
+                box-sizing: border-box;
+                img{
+                    width:38px;
+                }
+            }
+            >div{
+                width:calc(100% - 52px);
+                font-size: 14px;
+                color: #a3a3a3;
+                text-align: left;
+                display: flex;
+                justify-content: space-between;
+                span{
+                    max-width: 160px;
+                }
+            }
+        }
+        .me-li:hover{
+            background-color: #f5f5f5;
         }
     }
 </style>

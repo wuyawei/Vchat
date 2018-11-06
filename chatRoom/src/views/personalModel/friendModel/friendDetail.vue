@@ -30,13 +30,13 @@
                     职业：学生
                 </p>
             </div>
-            <div class="detail-item">
+            <div class="detail-item" v-if="friendInfo.code === user.code" @click="toPhoto">
                 <span>照片墙</span>
                 <p>
                     <v-icon name="enter" color="#d5d5d5"></v-icon>
                 </p>
             </div>
-            <div class="detail-button" v-if="$route.params.me !== 'e'">
+            <div class="detail-button" v-if="friendInfo.code !== user.code">
                 <button @click="apply" class="vchat-full-button minor" v-if="$route.params.me !== 'a'">加为好友</button>
                 <button @click="remove" class="vchat-full-button error" v-else>删除好友</button>
             </div>
@@ -81,6 +81,9 @@
                         this.friendInfo = r.data;
                     }
                 })
+            },
+            toPhoto() {
+                this.$router.push({name: 'photoWall', params: this.$route.params});
             }
         },
         mounted() {

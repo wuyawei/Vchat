@@ -90,6 +90,11 @@ export default new Router({
                                     path: 'send',
                                     name: 'sendFriendValidate',
                                     component: _import('personalModel/sendValidateSuccess')
+                                },
+                                {
+                                    path: 'wall/:id',
+                                    name: 'photoWall',
+                                    component: _import('personalModel/friendModel/photoWall')
                                 }
                             ]
                         }

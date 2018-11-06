@@ -101,7 +101,7 @@ const getUserInfo = (params, callback) => { // 获取登录用户或好友信息
     } else {
         baseList.users.find({name: params.key}).then(r => {
             if (r.length) {
-                let response = {name: r[0].name, photo: r[0].photo, bubble: r[0].bubble, chatTheme: r[0].chatTheme, projectTheme: r[0].projectTheme, wallpaper: r[0].wallpaper, nickname: r[0].nickname, signature: r[0].signature, id: r[0]._id, conversationsList: r[0].conversationsList};
+                let response = {name: r[0].name, photo: r[0].photo, bubble: r[0].bubble, chatTheme: r[0].chatTheme, projectTheme: r[0].projectTheme, wallpaper: r[0].wallpaper, nickname: r[0].nickname, signature: r[0].signature, id: r[0]._id, conversationsList: r[0].conversationsList, code: r[0].code};
                 callback({code: 0, data: response});
             } else {
                 callback({code: -1});

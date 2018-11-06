@@ -23,7 +23,7 @@
         </el-carousel>
         <div class="vchat-Detail-container">
             <div class="group-users" v-if="applyFlag">
-                <h3 class="group-users-title group-item">
+                <h3 class="group-users-title detail-item">
                     <span>群聊成员</span>
                     <p class="many">
                         <span>共{{groupUsers.length}}人</span>
@@ -66,7 +66,7 @@
                 </p>
             </div>
 
-            <div class="group-button">
+            <div class="detail-button">
                 <button @click="apply" class="vchat-full-button minor" v-if="!applyFlag">申请加群</button>
                 <button @click="quit" class="vchat-full-button error" v-else>退出群聊</button>
             </div>

@@ -12,7 +12,6 @@
                 <p class="title">
                     {{friendInfo.nickname}}
                 </p>
-                <p>{{friendInfo.code}}</p>
                 <p>{{friendInfo.signature}}</p>
             </div>
         </el-carousel>
@@ -20,11 +19,26 @@
             <a class="detail-avatar">
                 <img :src="IMG_URL + friendInfo.photo" alt="">
             </a>
+            <div class="firend-info">
+                <p>
+                    Vchat：{{friendInfo.code}}
+                </p>
+                <p>
+                    性别：{{friendInfo.sex === '1' ? '男' : friendInfo.sex === '2' ? '女' : '保密'}}
+                </p>
+                <p>
+                    职业：学生
+                </p>
+            </div>
             <div class="detail-item">
                 <span>照片墙</span>
                 <p>
                     <v-icon name="enter" color="#d5d5d5"></v-icon>
                 </p>
+            </div>
+            <div class="detail-button">
+                <button @click="apply" class="vchat-full-button minor" v-if="!applyFlag">加为好友</button>
+                <button @click="remove" class="vchat-full-button error" v-else>删除好友</button>
             </div>
         </div>
         <div class="Qr-dialog" :class="{active: showFriendQr}">
@@ -50,11 +64,16 @@
             vApheader
         },
         computed: {
-            ...mapState(['user'])
+            ...mapState(['user']),
+            applyFlag() {
+                return true;
+            }
         },
         methods: {
             apply() {
                 this.$router.push({name: 'applyFriend', params: {id: this.holderId}, query: {}});
+            },
+            remove() {
             },
             getUserInfo() {
                 let params = {

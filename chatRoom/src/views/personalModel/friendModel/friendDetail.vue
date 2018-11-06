@@ -37,7 +37,7 @@
                 </p>
             </div>
             <div class="detail-button">
-                <button @click="apply" class="vchat-full-button minor" v-if="!applyFlag">加为好友</button>
+                <button @click="apply" class="vchat-full-button minor" v-if="!friendInfo.friend">加为好友</button>
                 <button @click="remove" class="vchat-full-button error" v-else>删除好友</button>
             </div>
         </div>
@@ -64,10 +64,7 @@
             vApheader
         },
         computed: {
-            ...mapState(['user']),
-            applyFlag() {
-                return true;
-            }
+            ...mapState(['user'])
         },
         methods: {
             apply() {
@@ -77,7 +74,8 @@
             },
             getUserInfo() {
                 let params = {
-                    id: this.$route.params.id
+                    id: this.$route.params.id,
+                    friend: true
                 };
                 api.getUserInfo(params).then(r => {
                     if (r.code === 0) {

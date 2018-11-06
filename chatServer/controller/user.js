@@ -82,7 +82,7 @@ const getUserInfo = (req, res) => {
     let params = req.body;
     let key = {};
     if (params.id) {
-        key = {key: params.id, id: true};
+        key = Object.assign({key: params.id}, params);
     } else {
         key = {key: req.session.login};
     }

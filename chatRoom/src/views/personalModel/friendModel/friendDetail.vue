@@ -36,8 +36,8 @@
                     <v-icon name="enter" color="#d5d5d5"></v-icon>
                 </p>
             </div>
-            <div class="detail-button">
-                <button @click="apply" class="vchat-full-button minor" v-if="!friendInfo.friend">加为好友</button>
+            <div class="detail-button" v-if="$route.params.me !== 'e'">
+                <button @click="apply" class="vchat-full-button minor" v-if="$route.params.me !== 'a'">加为好友</button>
                 <button @click="remove" class="vchat-full-button error" v-else>删除好友</button>
             </div>
         </div>
@@ -56,7 +56,7 @@
         data() {
             return {
                 IMG_URL: process.env.IMG_URL,
-                friendInfo: {}, // user详情
+                friendInfo: {cover: []}, // user详情
                 showFriendQr: false // 二维码开关
             }
         },
@@ -68,14 +68,13 @@
         },
         methods: {
             apply() {
-                this.$router.push({name: 'applyFriend', params: {id: this.holderId}, query: {}});
+                this.$router.push({name: 'applyFriend', params: {id: ''}, query: {}});
             },
             remove() {
             },
             getUserInfo() {
                 let params = {
-                    id: this.$route.params.id,
-                    friend: true
+                    id: this.$route.params.id
                 };
                 api.getUserInfo(params).then(r => {
                     if (r.code === 0) {

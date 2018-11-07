@@ -15,11 +15,17 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .vchat-Detail{ // 详情页
     .el-carousel__indicators{
         transform: translateX(0);
-        left: 85%;
+        display: flex;
+        bottom: 10px;
+        right: 6px;
+        left: inherit;
         .el-carousel__button{
             width: 8px;
             height: 8px;
             border-radius: 50%;
+        }
+        .el-carousel__indicator{
+            padding: 6px 4px;
         }
     }
 }

@@ -10,6 +10,7 @@
                 <input type="file" @change="fileChange" ref="imgFile" accept="image/png, image/jpeg, image/gif, image/jpg">
             </li>
         </ul>
+        <span>最多可设置6张</span>
     </div>
 </template>
 
@@ -104,10 +105,16 @@
     .vchat-photoWall{
         width:100%;
         height: 100%;
+        span{
+            font-size: 12px;
+            color: #c9c9c9;
+            display: block;
+            text-align: left;
+            padding: 0 20px;
+        }
         .photoWall-ul{
             width:100%;
-            padding: 10px 15px 0;
-            height: calc(100% - 40px);
+            padding: 10px 15px 10px;
             box-sizing: border-box;
             text-align: left;
             display: flex;

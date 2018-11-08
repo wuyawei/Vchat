@@ -19,7 +19,7 @@
                 <i slot="append" class="el-input__icon el-icon-search" @click="huntGroups('click')"></i>
             </el-input>
         </div>
-        <div class="vchat-linkman-container" v-loading="loadingSearch">
+        <div class="vchat-linkman-container friend-container" v-loading="loadingSearch">
             <ul class="vchat-linkman-list" v-show="friendList.length">
                 <li v-for="v in friendList" :key="v['_id']" @click="goFriendDetail(v['_id'])">
                     <a href="javascript:;">
@@ -151,6 +151,10 @@
                 background-color: #27cac7;
                 border-radius: 50%;
             }
+        }
+        .friend-container{
+            height: calc(100% - 102px);
+            overflow-y: auto;
         }
     }
 </style>

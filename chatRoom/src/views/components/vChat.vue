@@ -30,7 +30,7 @@
                             <p>{{v.newMesTime}}</p>
                         </div>
                         <p class="delete" @click.stop="remove(v, i)">
-                            <el-tooltip class="item" effect="dark" content="从列表移除后，需要再次添加才能收到消息！" placement="top-start">
+                            <el-tooltip class="item" effect="dark" :content="v.type === 'vchat' ? '从会话列表移除' : '从列表移除后，需要再次添加才能收到消息！'" placement="top-start">
                                 <v-icon class="el-icon-circle-close" color="#323232" cursor="pointer" :size="18"></v-icon>
                             </el-tooltip>
                         </p>

@@ -76,7 +76,7 @@
                     } else {
                         this.$message({
                             message: '保存失败',
-                            type: 'success'
+                            type: 'warning'
                         })
                     }
                 })

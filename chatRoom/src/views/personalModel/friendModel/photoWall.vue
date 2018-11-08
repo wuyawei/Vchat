@@ -3,7 +3,7 @@
         <v-apheader title="照片墙" back="-1"></v-apheader>
         <ul class="photoWall-ul">
             <li v-for="(v, i) in coverList" :key="i" :style="{backgroundImage: 'url('+ IMG_URL + v +')'}">
-                <i class="el-icon-circle-close-outline icon"></i>
+                <i class="el-icon-circle-close-outline icon" @click="del(v)"></i>
             </li>
             <li class="upload-li" v-if="coverList.length < 6">
                 <i class="el-icon-plus"></i>
@@ -44,12 +44,19 @@
                 formdata.append('f', f);
                 api.uploadFile(formdata).then(r => {
                     if (r.code === 0) {
-                        this.coverList.push(r.data);
-                        api.upUserInfo({cover: this.coverList}).then(r => {
-                            if (r.code === 0) {
+                        let arr = JSON.parse(JSON.stringify(this.coverList));
+                        arr.push(r.data);
+                        api.upUserInfo({cover: arr}).then(res => {
+                            if (res.code === 0) {
+                                this.coverList.push(r.data);
                                 this.$message({
                                     message: '上传成功',
                                     type: 'success'
+                                })
+                            } else {
+                                this.$message({
+                                    message: '上传失败',
+                                    type: 'warning'
                                 })
                             }
                         })
@@ -61,6 +68,30 @@
                     }
                 });
                 this.$refs['imgFile'].value = '';
+            },
+            del(f) {
+                this.$confirm('确认删除?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let arr = this.coverList.filter(v => v !== f);
+                    api.upUserInfo({cover: arr}).then(r => {
+                        if (r.code === 0) {
+                            this.coverList = arr;
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            this.$message({
+                                type: 'warning',
+                                message: '删除失败!'
+                            });
+                        }
+                    })
+                }).catch(() => {
+                });
             }
         },
         mounted() {

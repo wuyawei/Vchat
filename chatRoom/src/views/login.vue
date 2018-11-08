@@ -200,7 +200,7 @@
                         this.$refs['signForm'].resetFields();
                         this.$notify({
                             title: '注册成功',
-                            message: `您的Vchat号为：${r.data}，您可以凭此登录Vchat，祝您生活愉快！`,
+                            message: `您的Vchat号为：${r.data}，您可以凭此登录，祝您生活愉快！`,
                             duration: 0,
                             type: 'success'
                         });

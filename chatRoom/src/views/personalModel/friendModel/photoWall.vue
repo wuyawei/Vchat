@@ -77,7 +77,7 @@
                     type: 'warning'
                 }).then(() => {
                     let arr = this.coverList.filter(v => v !== f);
-                    api.upUserInfo({cover: arr}).then(r => {
+                    api.upUserInfo({cover: arr, unlink: f}).then(r => {
                         if (r.code === 0) {
                             this.coverList = arr;
                             this.$message({

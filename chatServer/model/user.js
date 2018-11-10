@@ -4,6 +4,8 @@
 const db = require('../utils/database');
 const baseList = require('./baseList');
 const crypto = require('crypto'); // 加密
+const fs = require('fs');
+const path = require('path');
 
 const md5 = pass => { // 避免多次调用MD5报错
     let md5 = crypto.createHash('md5');
@@ -36,7 +38,26 @@ const login = (params, callback) => { // 登录
 };
 
 const upUserInfo = (userName, params, callback) => { //修改个人信息、主题等
-    baseList.users.update({name: userName}, params).then(raw => {
+    let pr = {};
+    if (params.unlink) {
+        for (let k in params) {
+            if (k !== 'unlink') {
+                pr[k] = params[k];
+            }
+        }
+        if (params.unlink.indexOf('/uploads') > -1) { // 此处为./,  按引入至app.js后的位置计算
+            fs.unlink('./public' + params.unlink, (error) => {
+                if(error){
+                    console.log(error);
+                    return false;
+                }
+                console.log('删除文件成功');
+            })
+        }
+    } else {
+        pr = params;
+    }
+    baseList.users.update({name: userName}, pr).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});
         } else {

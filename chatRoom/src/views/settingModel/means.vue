@@ -123,7 +123,7 @@
             getAvatar(url) { // 裁剪后的图像路径
                 this.imageUrl = process.env.IMG_URL + url;
                 this.showCrop = false;
-                api.upUserInfo({photo: url}).then(r => {
+                api.upUserInfo({photo: url, unlink: this.$store.state.user.photo}).then(r => {
                     if (r.code === 0) {
                         this.$message({
                             message: '保存头像成功',

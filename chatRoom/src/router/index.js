@@ -72,7 +72,7 @@ export default new Router({
                                     component: _import('personalModel/friendModel/myFriend')
                                 },
                                 {
-                                    path: 'detail/:id/:me',
+                                    path: 'detail/:id',
                                     name: 'friendDetail',
                                     component: _import('personalModel/friendModel/friendDetail')
                                 },

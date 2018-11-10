@@ -37,7 +37,7 @@
                 </p>
             </div>
             <div class="detail-button" v-if="friendInfo.code !== user.code">
-                <button @click="apply" class="vchat-full-button minor" v-if="$route.params.me !== 'a'">加为好友</button>
+                <button @click="apply" class="vchat-full-button minor" v-if="!myFriendFlag">加为好友</button>
                 <button @click="remove" class="vchat-full-button error" v-else>删除好友</button>
             </div>
         </div>
@@ -57,7 +57,8 @@
             return {
                 IMG_URL: process.env.IMG_URL,
                 friendInfo: {cover: []}, // user详情
-                showFriendQr: false // 二维码开关
+                showFriendQr: false, // 二维码开关
+                myFriendFlag: false // 是否为我的好友
             }
         },
         components: {
@@ -84,10 +85,22 @@
             },
             toPhoto() {
                 this.$router.push({name: 'photoWall', params: this.$route.params});
+            },
+            checkMyfriends() {
+                let params = {
+                    userM: this.$route.params.id,
+                    userY: this.user.id
+                };
+                api.checkMyfriends(params).then(r => {
+                    if (r.code === 0) {
+                        this.myFriendFlag = r.data;
+                    }
+                })
             }
         },
-        mounted() {
+        created() {
             this.getUserInfo();
+            this.checkMyfriends();
         }
     }
 </script>

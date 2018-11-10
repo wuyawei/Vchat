@@ -18,6 +18,14 @@ const findMyfriends = (req, res) => { // 查找我的好友
     })
 };
 
+const checkMyfriends = (req, res) => { // 验证是否已加为好友
+    let params = req.body;
+    apiModel.checkMyfriends(params, r => {
+        res.json(r);
+    })
+};
+
 module.exports = {
-    findMyfriends
+    findMyfriends,
+    checkMyfriends
 };

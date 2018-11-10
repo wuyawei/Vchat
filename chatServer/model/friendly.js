@@ -55,6 +55,26 @@ const findMyfriends = (params, callback) => { // 查找我的好友
     })
 };
 
+const checkMyfriends = (params, callback) => { // 验证是否已加为好友
+    let pr = {userM: params.userY, userY: params.userM};
+    friendly.find(params).then(r => {
+        if (r.length > 0) {
+            callback({code: 0, data: true})
+        } else {
+            friendly.find(pr).then(r => {
+                if (r.length > 0) {
+                    callback({code: 0, data: true})
+                } else {
+                    callback({code: 0, data: false})
+                }
+            })
+        }
+    }).catch(err => {
+        callback({code: -1, data: err})
+    })
+};
+
 module.exports = {
-    findMyfriends
+    findMyfriends,
+    checkMyfriends
 };

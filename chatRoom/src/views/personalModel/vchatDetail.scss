@@ -182,3 +182,32 @@
         }
     }
 }
+.vchat-apply{
+    width:100%;
+    height: 100%;
+    background-color: #f7f7f7;
+    text-align: left;
+    .introduceForm{
+        .el-form-item{
+            margin-bottom: 0;
+        }
+        .el-form-item__label{
+            font-size: 12px;
+            color: #d5d5d5;
+        }
+    }
+    span{
+        font-size: 13px;
+        color: #b7b7b7;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+    i{
+        display: block;
+        padding-right: 10px;
+        box-sizing: border-box;
+        font-style: normal;
+        color: #6c6c6c;
+        text-align: right;
+    }
+}

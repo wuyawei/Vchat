@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-sendValidate">
         <v-apheader title="发送成功">
-            <router-link :to="{name: 'searchGroup'}">关闭</router-link>
+            <router-link :to="{name: $route.query.name}">关闭</router-link>
         </v-apheader>
         <div class="success">
             <v-icon class="el-icon-success" :size="56" color="#67c23a"></v-icon>

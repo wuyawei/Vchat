@@ -9,7 +9,7 @@
             </el-dropdown>
         </v-apheader>
         <div class="vchat-myFriend-container">
-            <div class="me-li" @click="goFriendDetail(user.id, 'e')">
+            <div class="me-li" @click="goFriendDetail(user.id)">
                 <a href="javascript:;">
                     <img :src="IMG_URL + user.photo" alt="">
                 </a>
@@ -27,7 +27,7 @@
                     <span>{{friendList.length}}</span>
                 </h3>
                 <ul class="vchat-linkman-list">
-                    <li v-for="v in friendList" :key="v._id" @click="goFriendDetail(v.id, 'a')" @contextmenu="contextmenuClick($event, v.id)">
+                    <li v-for="v in friendList" :key="v._id" @click="goFriendDetail(v.id)" @contextmenu="contextmenuClick($event, v.id)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.photo" alt="">
                         </a>
@@ -80,8 +80,8 @@
             handleCommand(command) {
                 this.$router.push(command);
             },
-            goFriendDetail(id, a) {
-                this.$router.push({name: 'friendDetail', params: {id: id, me: a}});
+            goFriendDetail(id) {
+                this.$router.push({name: 'friendDetail', params: {id: id}});
             },
             setShowList(v) {
                 if (this.showList.indexOf(v) > -1) {
@@ -89,7 +89,6 @@
                 } else {
                     this.showList.push(v);
                 }
-                console.log(this.showList);
             },
             upVisible(f) {
                 this.visible = f;

@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-applyGroup">
+    <div class="vchat-apply">
         <v-apheader title="验证信息" back="-1">
             <!--<router-link :to="{name: 'sendGroupValidate'}">发送</router-link>-->
             <span @click="send">发送</span>
@@ -50,7 +50,7 @@
                     type: 'validate'
                 };
                 this.$socket.emit('sendValidate', val);
-                this.$router.push({name: 'sendGroupValidate'});
+                this.$router.push({name: 'sendGroupValidate', query: {name: 'searchGroup'}});
             }
         },
         mounted() {
@@ -59,32 +59,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .vchat-applyGroup{
-        width:100%;
-        height: 100%;
-        background-color: #f7f7f7;
-        text-align: left;
-        .introduceForm{
-            .el-form-item{
-                margin-bottom: 0;
-            }
-            .el-form-item__label{
-                font-size: 12px;
-                color: #d5d5d5;
-            }
-        }
-        span{
-            font-size: 13px;
-            color: #b7b7b7;
-            padding-left: 15px;
-        }
-        i{
-            display: block;
-            padding-right: 10px;
-            box-sizing: border-box;
-            font-style: normal;
-            color: #6c6c6c;
-            text-align: right;
-        }
-    }
+    @import "../vchatDetail";
 </style>

@@ -167,6 +167,24 @@ const removeConversitionList = (req, res) => {
     })
 };
 
+const huntFriends = (req, res) => { // 搜索好友（名称/code）
+    let params = req.body;
+    apiModel.huntFriends(params, r => {
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data,
+                count: r.count
+            });
+        } else {
+            res.json({
+                code : -1,
+                data : '查询失败'
+            });
+        }
+    })
+};
+
 module.exports = {
     getUser,
     login,
@@ -177,5 +195,6 @@ module.exports = {
     getUserDetail,
     getVchatInfo,
     addConversitionList,
-    removeConversitionList
+    removeConversitionList,
+    huntFriends
 };

@@ -171,6 +171,40 @@ const removeConversitionList = (userName, params, callback) => { // 删除会话
     });
 };
 
+const huntFriends = (params, callback) => { // 获取登录用户详细信息
+    let key = new RegExp(params.key);
+    let arr = [];
+    params.type === '2' ? arr = [{'name': {'$regex': key, $options: '$i'}}] : arr = [{
+        'code': {
+            '$regex': key,
+            $options: '$i'
+        }
+    }];
+    baseList.users.count(
+        {
+            $or: arr
+        },
+        (err, count) => {
+            if (count > 0) {
+                baseList.users.find(
+                    {
+                        $or: arr
+                    }
+                )
+                    .skip((params.offset - 1) * params.limit)
+                    .limit(params.limit)
+                    .sort({'name': 1})
+                    .then(r => {
+                        callback({code: 0, data: r, count: count});
+                    }).catch(err => {
+                    console.log(err);
+                    callback({code: -1});
+                });
+            } else {
+                callback({code: 0, data: [], count: 0});
+            }
+        });
+}
 module.exports = {
     getUser,
     login,
@@ -180,5 +214,6 @@ module.exports = {
     getUserDetail,
     getVchatInfo,
     addConversitionList,
-    removeConversitionList
+    removeConversitionList,
+    huntFriends
 };

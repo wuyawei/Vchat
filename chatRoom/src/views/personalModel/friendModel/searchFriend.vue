@@ -23,18 +23,23 @@
             <ul class="vchat-linkman-list" v-show="friendList.length">
                 <li v-for="v in friendList" :key="v['_id']" @click="goFriendDetail(v['_id'])">
                     <a href="javascript:;">
-                        <img :src="IMG_URL + v.groupId.img" alt="">
+                        <img :src="IMG_URL + v.photo" alt="">
                     </a>
                     <div>
                         <p>
-                            <span class="vchat-line1" :title="v.groupId.title">{{v.groupId.title}}</span>
+                            <span class="vchat-line1" :title="v.nickname">{{v.nickname}}</span>
                         </p>
                         <p>
-                            <span :title="v.groupId.desc" class="vchat-line1">{{v.groupId.desc}}</span>
+                            <span :title="v.signature" class="vchat-line1">{{v.signature}}</span>
                         </p>
                     </div>
                 </li>
             </ul>
+            <v-nodata v-show="!friendList.length && !loadingSearch">
+                <p class="vchat-no-have">
+                    没有搜索到想要的!
+            </p>
+            </v-nodata>
         </div>
     </div>
 </template>
@@ -48,6 +53,7 @@
                 huntKey: '', // 搜索参数
                 friendList: [], // 好友列表
                 loadingSearch: false, // 加载动画
+                IMG_URL: process.env.IMG_URL,
                 searchOptions: [
                     {
                         value: '2',

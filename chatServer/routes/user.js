@@ -16,5 +16,6 @@ router.post('/getUserDetail', api.getUserDetail); // 登录状态获取用户详
 router.post('/getVchatInfo', api.getVchatInfo); // 获取vchat官方账号信息
 router.post('/addConversitionList', api.addConversitionList); // 添加会话
 router.post('/removeConversitionList', api.removeConversitionList); // 移除会话
+router.post('/huntFriends', api.huntFriends); // 搜索好友
 
 module.exports = router;

@@ -42,6 +42,8 @@
                     nickname: this.user.nickname,
                     signature: this.user.signature,
                     read: [],
+                    userM: this.user.id,
+                    userY: this.$route.params.id,
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
                     state: 'firend',
                     type: 'validate'

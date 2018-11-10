@@ -74,7 +74,22 @@ const checkMyfriends = (params, callback) => { // 验证是否已加为好友
     })
 };
 
+const addFriend = (params, callback) => { // 增加好友记录
+    let pr = {
+        userM: params.userM,
+        userY: params.userY
+    };
+    friendly.create(pr).then(r => {
+        if (r['_id']) {
+            callback({code: 0});
+        } else {
+            callback({code: -1});
+        }
+    })
+};
+
 module.exports = {
     findMyfriends,
-    checkMyfriends
+    checkMyfriends,
+    addFriend
 };

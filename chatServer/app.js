@@ -119,8 +119,16 @@ const onconnection = (socket) => {
                     console.log('加入群聊失败');
                 } else if (r.code === -2) {
                     console.log('更新群成员数量失败');
-                } else {
+                } else if (r.code === 0) {
                     socket.to(val.groupId).emit('org', val);
+                }
+            });
+        } else if (val.state === 'firend') { // 写入好友表
+            apiList.addFriend(val, r => {
+                if (r.code === 0) {
+                    socket.to(val.groupId).emit('org', val);
+                }else {
+                    console.log('添加好友失败');
                 }
             });
         }

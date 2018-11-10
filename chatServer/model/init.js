@@ -25,7 +25,8 @@ const initUser = (callback) => {
         pass: '111111',
         photo: '/img/vchat.png',
         signature: 'Vchat团队',
-        nickname: 'Vchat官方推送'
+        nickname: 'Vchat官方推送',
+        code: 666666
     });
     user.save().then((res) => {
         callback(res)

@@ -174,7 +174,7 @@ const removeConversitionList = (userName, params, callback) => { // 删除会话
 const huntFriends = (params, callback) => { // 获取登录用户详细信息
     let key = new RegExp(params.key);
     let arr = [];
-    params.type === '2' ? arr = [{'name': {'$regex': key, $options: '$i'}}] : arr = [{
+    params.type === '2' ? arr = [{'nickname': {'$regex': key, $options: '$i'}}] : arr = [{
         'code': {
             '$regex': key,
             $options: '$i'
@@ -188,7 +188,13 @@ const huntFriends = (params, callback) => { // 获取登录用户详细信息
             if (count > 0) {
                 baseList.users.find(
                     {
-                        $or: arr
+                        $or: arr,
+                        name: {'$ne': 'Vchat'}
+                    },
+                    {
+                        nickname: 1,
+                        photo: 1,
+                        signature: 1
                     }
                 )
                     .skip((params.offset - 1) * params.limit)
@@ -204,7 +210,7 @@ const huntFriends = (params, callback) => { // 获取登录用户详细信息
                 callback({code: 0, data: [], count: 0});
             }
         });
-}
+};
 module.exports = {
     getUser,
     login,

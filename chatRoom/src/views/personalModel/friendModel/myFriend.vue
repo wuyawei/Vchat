@@ -73,7 +73,7 @@
         computed: {
             ...mapState(['conversationsList', 'user']),
             addOrDel() {
-                return this.conversationsList.filter(v => v.id === this.currFriend._id).length;
+                return this.conversationsList.filter(v => v.id === this.currFriend.roomid).length;
             }
         },
         methods: {
@@ -110,8 +110,8 @@
             },
             addConversitionList(v) { // 加入会话列表
                 let params = {
-                    name: v.title,
-                    photo: v.img,
+                    name: v.nickname,
+                    photo: v.photo,
                     id: v.roomid,
                     type: 'friend'
                 };
@@ -148,6 +148,7 @@
                             message: '移除失败'
                         });
                     }
+                    this.visible = false;
                 });
             },
             findMyfriends() {

@@ -1,40 +1,43 @@
 <template>
     <div class="vchatMessage">
         <ul>
-            <li v-for="v in InfoList" :key="v['_id']" v-if="v.type === 'validate'">
-                <span class="vchat-line1 info">{{v.state === 'friend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
-                <span class="time">{{v.time}}</span>
-                <el-popover
-                        placement="left"
-                        width="400"
-                        v-model="v.visible">
-                    <div class="Validate-mes">
-                        <div class="header">
-                            <a class="vchat-photo">
-                                <img :src="IMGURL + v.avatar" alt="">
-                            </a>
-                            <p>
-                                <span>{{v.nickname}}</span>
-                                <span class="signature">{{v.signature}}</span>
-                            </p>
+            <template v-for="v in InfoList">
+                <li v-if="v.type === 'validate'" :key="v['_id']">
+                    <span class="vchat-line1 info">{{v.state === 'friend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
+                    <span class="time">{{v.time}}</span>
+                    <el-popover
+                            placement="left"
+                            width="400"
+                            v-model="v.visible">
+                        <div class="Validate-mes">
+                            <div class="header">
+                                <a class="vchat-photo">
+                                    <img :src="IMGURL + v.avatar" alt="">
+                                </a>
+                                <p>
+                                    <span>{{v.nickname}}</span>
+                                    <span class="signature">{{v.signature}}</span>
+                                </p>
+                            </div>
+                            <div class="info">
+                                附加消息：<span>{{v.mes}}</span>
+                            </div>
+                            <div class="footer" v-if="v.status === '0' ">
+                                <button class="vchat-button-mini info" @click="refuse(v)">拒绝</button>
+                                <button class="vchat-button-mini" @click="agree(v)">同意</button>
+                            </div>
+                            <div class="footer" v-else>
+                                <span class="status">{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
+                            </div>
                         </div>
-                        <div class="info">
-                            附加消息：<span>{{v.mes}}</span>
-                        </div>
-                        <div class="footer" v-if="v.status === '0' ">
-                            <button class="vchat-button-mini info" @click="refuse(v)">拒绝</button>
-                            <button class="vchat-button-mini" @click="agree(v)">同意</button>
-                        </div>
-                        <div class="footer" v-else>
-                            <span class="status">{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
-                        </div>
-                    </div>
-                    <span slot="reference" @click="v.visible = !v.visible" class="look">查看</span>
-                </el-popover>
-            </li>
-            <li v-if="v.type === 'info'">
-                <span>{{v.mes}}</span>
-            </li>
+                        <span slot="reference" @click="v.visible = !v.visible" class="look">查看</span>
+                    </el-popover>
+                </li>
+                <li v-if="v.type === 'info'" :key="v['_id']">
+                    <span>{{v.mes}}</span>
+                    <span>{{v.time}}</span>
+                </li>
+            </template>
         </ul>
     </div>
 </template>

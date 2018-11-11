@@ -84,12 +84,16 @@
                 this.$store.commit('setOnlineUser', OnlineUser)
             },
             getHistoryMessages(mesdata) { // 获取未读消息数量
+                console.log('mesdata', mesdata);
                 let data = mesdata.filter(v => v.read.indexOf(this.user.name) === -1);
                 if (data.length) {
                     this.$store.commit('setUnRead', {roomid: data[0].roomid, count: data.length});
                 }
             },
             mes(r) { //更改未读消息数量
+                this.$store.commit('setUnRead', {roomid: r.roomid, add: true, count: 1});
+            },
+            takeValidate(r) {
                 this.$store.commit('setUnRead', {roomid: r.roomid, add: true, count: 1});
             }
         },

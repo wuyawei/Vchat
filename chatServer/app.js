@@ -94,7 +94,7 @@ const onconnection = (socket) => {
         socket.to(val.roomid).emit('mes', val);
     });
     socket.on('getHistoryMessages', (pramas) => { // 获取历史消息
-        apiList.getHistoryMessages(pramas, (res) => {
+        apiList.getHistoryMessages(pramas, 1, (res) => { // 1 正序
             if (res.code === 0) {
                 socket.emit('getHistoryMessages', res.data); // 发送给发送者（当前客户端）
             } else {
@@ -104,11 +104,11 @@ const onconnection = (socket) => {
     });
 
     socket.on('getSystemMessages', (pramas) => { // 获取历史消息
-        apiList.getHistoryMessages(pramas, (res) => {
+        apiList.getHistoryMessages(pramas, -1, (res) => { // -1 倒序
             if (res.code === 0) {
                 socket.emit('getSystemMessages', res.data); // 发送给发送者（当前客户端）
             } else {
-                console.log('查询历史记录失败');
+                console.log('查询vchat历史记录失败');
             }
         });
     });
@@ -121,10 +121,15 @@ const onconnection = (socket) => {
                 } else if (r.code === -2) {
                     console.log('更新群成员数量失败');
                 } else if (r.code === 0) {
+                    let pr = {
+                        status: '1',
+                        _id: val['_id']
+                    };
+                    apiList.upMessage(pr);
                     // 通知申请人验证已同意
                     let value = {
                         name: '',
-                        mes: val.userMnickname + '同意了您加入' + groupName + '!',
+                        mes: val.userMnickname + '同意你加入' + groupName + '!',
                         time: utils.formatTime(new Date()),
                         avatar: val.userMphoto,
                         nickname: val.userMnickname,
@@ -147,9 +152,14 @@ const onconnection = (socket) => {
                     socket.to(org.roomid).emit('org', org);
                 }
             });
-        } else if (val.state === 'firend') { // 写入好友表
+        } else if (val.state === 'friend') { // 写入好友表
             apiList.addFriend(val, r => {
                 if (r.code === 0) {
+                    let pr = {
+                        status: '1',
+                        _id: val['_id']
+                    };
+                    apiList.upMessage(pr);
                     // 通知申请人验证已同意
                     let value = {
                         name: '',
@@ -169,11 +179,6 @@ const onconnection = (socket) => {
                 }
             });
         }
-        let pr = {
-            status: '1',
-            _id: val['_id']
-        };
-        apiList.upMessage(pr);
     });
 
     socket.on('refuseValidate', (val) => { // 拒绝申请
@@ -182,6 +187,38 @@ const onconnection = (socket) => {
             _id: val['_id']
         };
         apiList.upMessage(pr);
+        console.log('refuseValidate', val);
+        if (val.state === 'group') {
+            let value = {
+                name: '',
+                mes: val.userMnickname + '拒绝了你加入 ' + groupName + ' 的申请!',
+                time: utils.formatTime(new Date()),
+                avatar: val.userMphoto,
+                nickname: val.userMnickname,
+                groupName: val.groupName,
+                read: [],
+                state: 'group',
+                type: 'info',
+                roomid: val.userM + '-' + val.roomid.split('-')[1]
+            };
+            apiList.saveMessage(value); // 保存通知消息
+            socket.to(value.roomid).emit('takeValidate', value);
+        } else if (val.state === 'friend') {
+            let value = {
+                name: '',
+                mes: val.userMnickname + '拒绝了你的好友请求！',
+                time: utils.formatTime(new Date()),
+                avatar: val.userMphoto,
+                nickname: val.userMnickname,
+                read: [],
+                state: 'friend',
+                type: 'info',
+                roomid: val.userM + '-' + val.roomid.split('-')[1]
+            };
+            console.log('saveMessage', value);
+            apiList.saveMessage(value); // 保存通知消息
+            socket.to(value.roomid).emit('takeValidate', value);
+        }
         // 通知申请人验证已拒绝
     });
 

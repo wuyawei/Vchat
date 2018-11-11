@@ -7,7 +7,7 @@
                     <nav class="vchat-noUser">
                         <!--class="animated" :class="{bounceIn: hover}" @mouseover="mouseover" ref="showChat"-->
                         <div>
-                            <el-badge :value="unReadCount" :max="99" :hidden="unReadCount === 0">
+                            <el-badge :value="unReadCount" :max="99" :hidden="unReadCount === 0" class="headerBadg">
                                 <span>消息</span>
                             </el-badge>
                             <ul class="handleList">

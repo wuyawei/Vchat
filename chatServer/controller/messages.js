@@ -7,16 +7,21 @@ const saveMessage = (params, callback) => {
     apiModel.saveMessage(params, callback);
 };
 
-const getHistoryMessages = (params, callback) => {
-    apiModel.getHistoryMessages(params, callback);
+const getHistoryMessages = (params, order, callback) => {
+    apiModel.getHistoryMessages(params, order, callback);
 };
 
 const setReadStatus = (params) => {
     apiModel.setReadStatus(params);
 };
 
+const upMessage = (params, callback = function () {}) => {
+    apiModel.upMessage(params, callback);
+};
+
 module.exports = {
     saveMessage,
     getHistoryMessages,
-    setReadStatus
+    setReadStatus,
+    upMessage
 };

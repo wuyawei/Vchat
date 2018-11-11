@@ -188,6 +188,7 @@
                             message: '移除失败'
                         });
                     }
+                    this.visible = false;
                 });
             }
         },

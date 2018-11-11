@@ -28,9 +28,9 @@ const saveMessage = (params, callback = function () {}) => { // 保存消息
     })
 };
 
-const getHistoryMessages = (params, callback) => { // 保存消息
+const getHistoryMessages = (params, order, callback) => { // 保存消息
     messages.find(params)
-        .sort({'time':1})
+        .sort({'time': order})
         .then(r => {
             callback({code: 0, data: r});
         }).catch(err => {
@@ -52,7 +52,7 @@ const setReadStatus = (params) => { // 消息设置为已读
         .catch(err => console.log('setReadStatus失败', err));
 };
 
-const upMessage = (params) => { // 更新status
+const upMessage = (params, callback) => { // 更新status
     messages.update({'_id': params['_id']}, {status: params.status}).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});

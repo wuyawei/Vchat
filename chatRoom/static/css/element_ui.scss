@@ -100,8 +100,13 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     margin-right: 5px;
 }
 
-.mesBadge{
+.mesBadge{ // vchat
     .el-badge__content.is-fixed{
         right: 30px;
+    }
+}
+.headerBadg{ // header
+    .el-badge__content.is-fixed{
+        top: 20px;
     }
 }

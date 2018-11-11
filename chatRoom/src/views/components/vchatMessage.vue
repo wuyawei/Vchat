@@ -2,12 +2,12 @@
     <div class="vchatMessage">
         <ul>
             <li v-for="v in InfoList" :key="v['_id']" v-if="v.type === 'validate'">
-                <span class="vchat-line1">{{v.state === 'friend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
+                <span class="vchat-line1 info">{{v.state === 'friend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
                 <span class="time">{{v.time}}</span>
                 <el-popover
                         placement="left"
                         width="400"
-                        v-model="visible">
+                        v-model="v.visible">
                     <div class="Validate-mes">
                         <div class="header">
                             <a class="vchat-photo">
@@ -21,12 +21,15 @@
                         <div class="info">
                             附加消息：<span>{{v.mes}}</span>
                         </div>
-                        <div class="footer">
+                        <div class="footer" v-if="v.status === '0' ">
                             <button class="vchat-button-mini info" @click="refuse(v)">拒绝</button>
                             <button class="vchat-button-mini" @click="agree(v)">同意</button>
                         </div>
+                        <div class="footer" v-else>
+                            <span class="status">{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
+                        </div>
                     </div>
-                    <span slot="reference" @click="visible = !visible" class="look">查看</span>
+                    <span slot="reference" @click="v.visible = !v.visible" class="look">查看</span>
                 </el-popover>
             </li>
         </ul>
@@ -50,6 +53,7 @@
                 if (r.length) {
                     this.$emit('NewMes', r[r.length - 1]);
                 }
+                r.forEach(v => v.visible = false);
                 this.InfoList = r;
             },
             takeValidate(r) {
@@ -61,7 +65,6 @@
             currSation: { // 当前会话
                 handler(v) {
                     if (v) {
-                        console.log(v);
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
                         this.$socket.emit('getSystemMessages', {roomid: v.id});
@@ -77,10 +80,13 @@
         methods: {
             agree(v) {
                 this.$socket.emit('agreeValidate', v);
-                this.visible = !this.visible;
+                v.visible = !v.visible;
+                v.status = '1'; // 同意
             },
-            refuse() {
-                this.visible = !this.visible;
+            refuse(v) {
+                this.$socket.emit('refuseValidate', v);
+                v.visible = !v.visible;
+                v.status = '2'; // 拒绝
             }
         }
     }
@@ -107,6 +113,9 @@
                 color: #aaaaaa;
                 margin-left: 10px;
             }
+            span.info{
+                max-width: 300px;
+            }
             span.look{
                 color: #27cac7;
                 font-size: 12px;
@@ -117,6 +126,10 @@
             }
             span.look:hover{
                 opacity: 1;
+            }
+            span.status{
+                font-size: 14px;
+                color: #8d8d8d;
             }
         }
     }

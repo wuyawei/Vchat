@@ -38,7 +38,8 @@ const findMyfriends = (params, callback) => { // 查找我的好友
                     nickname: v.userY.nickname,
                     photo: v.userY.photo,
                     signature: v.userY.signature,
-                    id: v.userY._id
+                    id: v.userY._id,
+                    roomid: params.userId + '-' + v.userY._id
                 })
             });
             userY.forEach(v => {
@@ -47,7 +48,8 @@ const findMyfriends = (params, callback) => { // 查找我的好友
                     nickname: v.userM.nickname,
                     photo: v.userM.photo,
                     signature: v.userM.signature,
-                    id: v.userM._id
+                    id: v.userM._id,
+                    roomid: v.userM._id + '-' + params.userId
                 })
             });
             callback({code: 0, data: data})

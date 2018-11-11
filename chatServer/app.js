@@ -120,18 +120,34 @@ const onconnection = (socket) => {
                 } else if (r.code === -2) {
                     console.log('更新群成员数量失败');
                 } else if (r.code === 0) {
+                    // 通知申请人验证已同意
                     socket.to(val.groupId).emit('org', val);
                 }
             });
         } else if (val.state === 'firend') { // 写入好友表
             apiList.addFriend(val, r => {
                 if (r.code === 0) {
-                    socket.to(val.groupId).emit('org', val);
+                    // 通知申请人验证已同意
+                    // socket.to(val.userM + '-' + val.roomid.split('-')[1]).emit('takeValidate', val);
                 }else {
                     console.log('添加好友失败');
                 }
             });
         }
+        let pr = {
+            status: '1',
+            _id: val['_id']
+        };
+        apiList.upMessage(pr);
+    });
+
+    socket.on('refuseValidate', (val) => { // 拒绝申请
+        let pr = {
+            status: '2',
+            _id: val['_id']
+        };
+        apiList.upMessage(pr);
+        // 通知申请人验证已拒绝
     });
 
     socket.on('setReadStatus', (params) => { // 已读状态

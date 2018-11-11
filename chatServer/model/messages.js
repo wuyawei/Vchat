@@ -14,7 +14,8 @@ let messages = db.model("messages", {
     userM: String, // 申请加好友人id
     userY: String, // 好友id
     state: String, // group/ frend
-    type: String // validate
+    type: String, // validate
+    status: {type: String, default: '0'} // 0 未操作 1 同意 2 拒绝
 });
 
 const saveMessage = (params, callback = function () {}) => { // 保存消息
@@ -51,8 +52,19 @@ const setReadStatus = (params) => { // 消息设置为已读
         .catch(err => console.log('setReadStatus失败', err));
 };
 
+const upMessage = (params) => { // 更新status
+    messages.update({'_id': params['_id']}, {status: params.status}).then(raw => {
+        if (raw.nModified > 0) {
+            callback({code: 0});
+        } else {
+            callback({code: -1});
+        }
+    })
+};
+
 module.exports = {
     saveMessage,
     getHistoryMessages,
-    setReadStatus
+    setReadStatus,
+    upMessage
 };

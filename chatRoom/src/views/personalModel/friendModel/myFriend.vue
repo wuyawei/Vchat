@@ -27,7 +27,7 @@
                     <span>{{friendList.length}}</span>
                 </h3>
                 <ul class="vchat-linkman-list">
-                    <li v-for="v in friendList" :key="v._id" @click="goFriendDetail(v.id)" @contextmenu="contextmenuClick($event, v.id)">
+                    <li v-for="v in friendList" :key="v._id" @click="goFriendDetail(v.id)" @contextmenu="contextmenuClick($event, v)">
                         <a href="javascript:;">
                             <img :src="IMG_URL + v.photo" alt="">
                         </a>
@@ -96,7 +96,7 @@
             contextmenuClick(e, v) {
                 e.preventDefault();
                 e.stopPropagation();
-                this.currGroup = v;
+                this.currFriend = v;
                 this.visible = true;
                 this.x = e.clientX;
                 this.y = e.clientY;
@@ -112,8 +112,8 @@
                 let params = {
                     name: v.title,
                     photo: v.img,
-                    id: v._id,
-                    type: 'group'
+                    id: v.roomid,
+                    type: 'friend'
                 };
                 api.addConversitionList(params).then(r => {
                     if (r.code === 0) {
@@ -133,7 +133,7 @@
             },
             removeConversitionList(v) {
                 let params = {
-                    id: v._id
+                    id: v.roomid
                 };
                 api.removeConversitionList(params).then(r => {
                     if (r.code === 0) {

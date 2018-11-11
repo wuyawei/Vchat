@@ -45,7 +45,7 @@
                     userM: this.user.id,
                     userY: this.$route.params.id,
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
-                    state: 'firend',
+                    state: 'friend',
                     type: 'validate'
                 };
                 console.log('val', val);

@@ -1,5 +1,6 @@
 let express = require('express');
 let path = require('path');
+let utils = require('./utils/utils');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser'); // cookie
@@ -121,14 +122,48 @@ const onconnection = (socket) => {
                     console.log('更新群成员数量失败');
                 } else if (r.code === 0) {
                     // 通知申请人验证已同意
-                    socket.to(val.groupId).emit('org', val);
+                    let value = {
+                        name: '',
+                        mes: val.userMnickname + '同意了您加入' + groupName + '!',
+                        time: utils.formatTime(new Date()),
+                        avatar: val.userMphoto,
+                        nickname: val.userMnickname,
+                        groupName: val.groupName,
+                        read: [],
+                        state: 'group',
+                        type: 'info',
+                        roomid: val.userM + '-' + val.roomid.split('-')[1]
+                    };
+                    apiList.saveMessage(value); // 保存通知消息
+                    socket.to(value.roomid).emit('takeValidate', value);
+                    // 通知群聊
+                    let org = {
+                        type: 'org',
+                        nickname: val.nickname,
+                        time: utils.formatTime(new Date()),
+                        roomid: val.groupId
+                    };
+                    apiList.saveMessage(org); // 保存通知消息
+                    socket.to(org.roomid).emit('org', org);
                 }
             });
         } else if (val.state === 'firend') { // 写入好友表
             apiList.addFriend(val, r => {
                 if (r.code === 0) {
                     // 通知申请人验证已同意
-                    // socket.to(val.userM + '-' + val.roomid.split('-')[1]).emit('takeValidate', val);
+                    let value = {
+                        name: '',
+                        mes: val.userMnickname + '同意了你的好友请求！',
+                        time: utils.formatTime(new Date()),
+                        avatar: val.userMphoto,
+                        nickname: val.userMnickname,
+                        read: [],
+                        state: 'friend',
+                        type: 'info',
+                        roomid: val.userM + '-' + val.roomid.split('-')[1]
+                    };
+                    apiList.saveMessage(value); // 保存通知消息
+                    socket.to(value.roomid).emit('takeValidate', value);
                 }else {
                     console.log('添加好友失败');
                 }

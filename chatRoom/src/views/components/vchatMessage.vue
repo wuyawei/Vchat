@@ -32,6 +32,9 @@
                     <span slot="reference" @click="v.visible = !v.visible" class="look">查看</span>
                 </el-popover>
             </li>
+            <li v-if="v.type === 'info'">
+                <span>{{v.mes}}</span>
+            </li>
         </ul>
     </div>
 </template>
@@ -58,6 +61,7 @@
             },
             takeValidate(r) {
                 this.$emit('NewMes', r);
+                r.visible = false;
                 this.InfoList.push(r);
             }
         },
@@ -79,11 +83,15 @@
         },
         methods: {
             agree(v) {
+                v.userMphoto = this.user.photo;
+                v.userMnickname = this.user.nickname;
                 this.$socket.emit('agreeValidate', v);
                 v.visible = !v.visible;
                 v.status = '1'; // 同意
             },
             refuse(v) {
+                v.userMphoto = this.user.photo;
+                v.userMnickname = this.user.nickname;
                 this.$socket.emit('refuseValidate', v);
                 v.visible = !v.visible;
                 v.status = '2'; // 拒绝

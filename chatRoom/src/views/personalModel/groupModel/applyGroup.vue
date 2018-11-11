@@ -44,6 +44,7 @@
                     signature: this.user.signature,
                     groupName: this.$route.query.groupName,
                     groupId: this.$route.query.groupId,
+                    userM: this.user.id, // 申请人id
                     read: [],
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
                     state: 'group',

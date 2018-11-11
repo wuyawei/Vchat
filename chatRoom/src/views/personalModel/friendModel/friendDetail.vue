@@ -69,7 +69,7 @@
         },
         methods: {
             apply() {
-                this.$router.push({name: 'applyFriend', params: {id: ''}, query: {}});
+                this.$router.push({name: 'applyFriend', params: {id: this.$route.params.id}, query: {}});
             },
             remove() {
             },

@@ -48,8 +48,9 @@
                     state: 'firend',
                     type: 'validate'
                 };
+                console.log('val', val);
                 this.$socket.emit('sendValidate', val);
-                this.$router.push({name: 'sendGroupValidate', query: {name: 'searchFriend'}});
+                this.$router.push({name: 'sendFriendValidate', query: {name: 'searchFriend'}});
             }
         },
         mounted() {

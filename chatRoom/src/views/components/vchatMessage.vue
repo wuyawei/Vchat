@@ -36,6 +36,7 @@
 <script>
     import { mapState } from 'vuex';
     export default{
+        props: ['currSation'],
         name: 'vchatMessage',
         data() {
             return {
@@ -60,13 +61,14 @@
             currSation: { // 当前会话
                 handler(v) {
                     if (v) {
+                        console.log(v);
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
                         this.$socket.emit('getSystemMessages', {roomid: v.id});
                     }
                 },
                 deep: true,
-                    immediate: true
+                immediate: true
             }
         },
         computed: {

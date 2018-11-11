@@ -80,6 +80,14 @@
                 deep: true,
                 immediate: true
             },
+            contactsList: {
+                handler(list) {
+                    if (!list.length) {
+                        this.currSation = {};
+                    }
+                },
+                deep: true
+            },
             unRead: {
                 handler(list) {
                     this.contactsList.forEach((v, i) => {
@@ -112,10 +120,10 @@
                 })
             },
             remove(v, i) {
-                if (v.type === 'vchat') {
-                    this.$store.commit('setConversationsList', Object.assign({}, v, {d: true}));
-                    if (this.currSation.id === v.id && this.conversationsList.length !== 0) {
-                        this.currSation = this.conversationsList[i];
+                if (v.type === 'vchat') { // 只做显示列表移除
+                    this.contactsList = this.contactsList.filter(m => m.id !== v.id);
+                    if (this.currSation.id === v.id && this.contactsList.length !== 0) {
+                        this.currSation = this.contactsList[i - 1];
                     }
                 } else {
                     api.removeConversitionList(v).then(r => {
@@ -126,7 +134,7 @@
                             });
                             this.$store.commit('setConversationsList', Object.assign({}, v, {d: true}));
                             if (this.currSation.id === v.id && this.conversationsList.length !== 0) {
-                                this.currSation = this.conversationsList[i];
+                                this.currSation = this.conversationsList[i - 1];
                             }
                         } else {
                             this.$message({

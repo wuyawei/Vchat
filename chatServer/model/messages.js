@@ -9,8 +9,10 @@ let messages = db.model("messages", {
     mes: String, // 消息
     read: Array, // 是否已读 0/1
     signature: String,
-    groupId: String,
-    groupName: String,
+    groupId: String, // 加入群聊id
+    groupName: String, // 加入群聊名称
+    userM: String, // 申请加好友人id
+    userY: String, // 好友id
     state: String, // group/ frend
     type: String // validate
 });

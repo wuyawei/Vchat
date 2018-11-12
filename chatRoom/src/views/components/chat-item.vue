@@ -109,6 +109,8 @@
             mes(r) {
                 if (r.roomid === this.currSation.id) {
                     this.chatList.push(Object.assign({}, r, {type: 'other'}));
+                    this.$socket.emit('setReadStatus', {roomid: r.roomid, name: this.user.name});
+                    this.$store.commit('setUnRead', {roomid: r.roomid, clear: true});
                 }
             },
             getHistoryMessages(r) { // 获取历史消息

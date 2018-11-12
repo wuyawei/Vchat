@@ -143,7 +143,15 @@ const onconnection = (socket) => {
                         roomid: val.userM + '-' + val.roomid.split('-')[1]
                     };
                     apiList.saveMessage(value); // 保存通知消息
+                    let params = {
+                        name: val.groupName,
+                        photo: val.groupId,
+                        id: val.groupPhoto,
+                        type: 'group'
+                    };
+                    apiList.ServeraddConversitionList(val.name, params); // 添加到申请人会话列表
                     socket.to(value.roomid).emit('takeValidate', value);
+                    socket.emit('ValidateSuccess', 'ok');
                     // 通知群聊
                     let org = {
                         type: 'org',
@@ -180,7 +188,22 @@ const onconnection = (socket) => {
                         roomid: val.userM + '-' + val.roomid.split('-')[1]
                     };
                     apiList.saveMessage(value); // 保存通知消息
+                    let userYparams = {
+                        name: val.userYname,
+                        photo: val.userYphoto,
+                        id: val.friendRoom,
+                        type: 'friend'
+                    };
+                    let userMparams = {
+                        name: val.userYname,
+                        photo: val.userYphoto,
+                        id: val.friendRoom,
+                        type: 'friend'
+                    };
+                    apiList.ServeraddConversitionList(val.name, userYparams); // 添加到申请人会话列表
+                    apiList.ServeraddConversitionList(val.userYname, userMparams); // 添加到自己会话列表
                     socket.to(value.roomid).emit('takeValidate', value);
+                    socket.emit('ValidateSuccess', 'ok');
                 }else {
                     console.log('添加好友失败');
                 }

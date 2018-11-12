@@ -150,6 +150,10 @@ const addConversitionList = (req, res) => {
     })
 };
 
+const ServeraddConversitionList = (userName, params, callback=function () {}) => {
+    apiModel.addConversitionList(userName, params, callback);
+};
+
 const removeConversitionList = (req, res) => {
     let params = req.body;
     apiModel.removeConversitionList(req.session.login, params, (r) => { // 删除会话
@@ -196,5 +200,6 @@ module.exports = {
     getVchatInfo,
     addConversitionList,
     removeConversitionList,
-    huntFriends
+    huntFriends,
+    ServeraddConversitionList
 };

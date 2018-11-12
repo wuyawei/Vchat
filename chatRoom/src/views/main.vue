@@ -95,6 +95,9 @@
             },
             takeValidate(r) {
                 this.$store.commit('setUnRead', {roomid: r.roomid, add: true, count: 1});
+                if (r.type === 'info') {
+                    this.$store.dispatch('getUserInfo');
+                }
             }
         },
         methods: {

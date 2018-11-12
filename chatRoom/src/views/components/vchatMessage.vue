@@ -44,6 +44,7 @@
 
 <script>
     import { mapState } from 'vuex';
+    import api from '@/api';
     export default{
         props: ['currSation'],
         name: 'vchatMessage',
@@ -66,6 +67,12 @@
                 this.$emit('NewMes', r);
                 r.visible = false;
                 this.InfoList.push(r);
+                if (r.type === 'info') {
+                    this.$store.dispatch('getUserInfo');
+                }
+            },
+            ValidateSuccess() {
+                this.$store.dispatch('getUserInfo');
             }
         },
         watch: {

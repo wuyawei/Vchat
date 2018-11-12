@@ -134,6 +134,10 @@ export default new Router({
                     component: _import('settingModel/wallpaper')
                 }
             ]
+        },
+        {
+            path: '*',
+            component: _import('notFound'),
         }
     ]
 })

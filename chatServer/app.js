@@ -134,7 +134,10 @@ const onconnection = (socket) => {
                         avatar: val.userMphoto,
                         nickname: val.userMnickname,
                         groupName: val.groupName,
+                        groupId: val.groupId,
+                        groupPhoto: val.groupPhoto,
                         read: [],
+                        status: '1', // 同意
                         state: 'group',
                         type: 'info',
                         roomid: val.userM + '-' + val.roomid.split('-')[1]
@@ -168,8 +171,12 @@ const onconnection = (socket) => {
                         avatar: val.userMphoto,
                         nickname: val.userMnickname,
                         read: [],
+                        userYname: val.userYname,
+                        userYphoto: val.userYphoto,
+                        friendRoom : val.friendRoom,
                         state: 'friend',
                         type: 'info',
+                        status: '1', // 同意
                         roomid: val.userM + '-' + val.roomid.split('-')[1]
                     };
                     apiList.saveMessage(value); // 保存通知消息
@@ -199,6 +206,7 @@ const onconnection = (socket) => {
                 read: [],
                 state: 'group',
                 type: 'info',
+                status: '-1', // 拒绝
                 roomid: val.userM + '-' + val.roomid.split('-')[1]
             };
             apiList.saveMessage(value); // 保存通知消息
@@ -212,6 +220,7 @@ const onconnection = (socket) => {
                 nickname: val.userMnickname,
                 read: [],
                 state: 'friend',
+                status: '-1', // 拒绝
                 type: 'info',
                 roomid: val.userM + '-' + val.roomid.split('-')[1]
             };

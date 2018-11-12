@@ -34,6 +34,7 @@
         },
         methods: {
             send() {
+                let friend = JSON.parse(localStorage.friend);
                 let val = {
                     name: this.user.name,
                     mes: this.introduce,
@@ -44,6 +45,9 @@
                     read: [],
                     userM: this.user.id,
                     userY: this.$route.params.id,
+                    userYname: friend.userYname,
+                    userYphoto: friend.userYphoto,
+                    friendRoom : this.user.id + '' + this.$route.params.id,
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
                     state: 'friend',
                     type: 'validate'

@@ -11,8 +11,12 @@ let messages = db.model("messages", {
     signature: String,
     groupId: String, // 加入群聊id
     groupName: String, // 加入群聊名称
+    groupPhoto: String, //加入群聊头像
     userM: String, // 申请加好友人id
     userY: String, // 好友id
+    userYname: String, // 好友昵称
+    userYphoto: String, // 好友头像
+    friendRoom: String, // 好友房间
     state: String, // group/ frend
     type: String, // validate
     status: {type: String, default: '0'} // 0 未操作 1 同意 2 拒绝

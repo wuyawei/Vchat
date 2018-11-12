@@ -282,7 +282,7 @@
                         width:100%;
                         height: 100%;
                         overflow-y: auto;
-                        padding: 5px;
+                        padding: 5px 10px;
                         box-sizing: border-box;
                         position: relative;
                         li{

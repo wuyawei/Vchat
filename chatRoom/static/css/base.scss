@@ -31,41 +31,39 @@ body, html {
     height: 100%;
     box-sizing: border-box;
     background-color: #fff;
+    overflow: hidden;
 }
 
-.Validate-mes {
-    .header {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: 10px;
-        a {
-            margin-right: 10px;
-        }
-        p{
-            display: flex;
-            flex-flow: column;
-            justify-content: space-around;
-            height: 40px;
-            .signature{
-                font-size: 12px;
-                color: #aaaaaa;
-            }
-        }
-    }
-    .info {
-        margin-bottom: 10px;
-        font-size: 13px;
-        span{
-            font-size: 12px;
-            color: #aaaaaa;
-        }
-    }
-    .footer {
-        display: flex;
-        justify-content: flex-end;
-        button {
-            margin-left: 10px;
-        }
-    }
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(207, 245, 242, 0.3);
+    border-radius: 10px;
+    background-color: #eeeeee;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(207, 245, 242, 0.3);
+    background-color: #c9c9c9;
+}
+
+/*鼠标悬浮在滑块上时滑块的样式*/
+::-webkit-scrollbar-thumb:hover {
+
+    background-color: rgb(185, 185, 185);
+
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);
+
 }

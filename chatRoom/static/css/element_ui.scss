@@ -115,7 +115,9 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
         padding: 0 !important;
     }
     .el-tabs__content{
-        height: 172px;
+        height: 202px;
+        padding: 5px;
+        box-sizing: border-box;
     }
     .el-tabs{
         height: 100%;

@@ -44,8 +44,8 @@
                 </div>
                 <div class="chat-send">
                     <div class="tool">
-                        <span class="tool-item">
-                            <v-icon name="biaoqing1" color="#f5f5f5" cursor="pointer"></v-icon>
+                        <span class="tool-item" :class="{active: currTool === 'emoji'}">
+                            <v-icon name="biaoqing1" color="#f5f5f5" cursor="pointer" @clickIcon="showTool('emoji')"></v-icon>
                             <div class="emoji-container">
                                 <emoji></emoji>
                             </div>
@@ -103,6 +103,7 @@
                 spread: false,
                 chatList: [],
                 message: '',
+                currTool: '',
                 groupUsers: [] // 群成员
             };
         },
@@ -171,6 +172,13 @@
         mounted() {
         },
         methods: {
+            showTool(v) {
+                if (this.currTool === v) {
+                    this.currTool = '';
+                    return;
+                }
+                this.currTool = v;
+            },
             getGroupUserStatus(obj) { // 群成员在线状态
                 this.groupUsers.forEach((v, i) => {
                     let k, flag = false;
@@ -424,14 +432,18 @@
                                 bottom: 30px;
                                 left:0;
                                 z-index: 10;
-                                display: none;
+                                transition: transform 0.2s;
+                                transform: scaleX(0);
                             }
                         }
                         .tool-item:hover{
                             background-color: rgba(255,255,255,0.3);
                         }
-                        .tool-item:hover .emoji-container{
-                            display: block;
+                        .tool-item.active{
+                            background-color: rgba(255,255,255,0.3);
+                        }
+                        .tool-item.active .emoji-container{
+                            transform: scaleX(1);
                         }
                         i{
                             margin: 0;

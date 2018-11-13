@@ -45,7 +45,7 @@
                 <div class="chat-send">
                     <div class="tool">
                         <span class="tool-item" :class="{active: currTool === 'emoji'}">
-                            <v-icon name="biaoqing1" color="#f5f5f5" cursor="pointer" @clickIcon="showTool('emoji')"></v-icon>
+                            <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showTool('emoji')" cursor="pointer"></v-icon>
                             <div class="emoji-container">
                                 <emoji></emoji>
                             </div>
@@ -422,9 +422,11 @@
                         box-sizing: border-box;
                         .tool-item{
                             display: inline-block;
-                            padding: 0 5px;
                             height: 100%;
                             position: relative;
+                            i{
+                                padding: 0 5px;
+                            }
                             .emoji-container{
                                 width:400px;
                                 height: 260px;

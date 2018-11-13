@@ -44,7 +44,12 @@
                 </div>
                 <div class="chat-send">
                     <div class="tool">
-                        <v-icon name="biaoqing1" color="#27cac7" cursor="pointer"></v-icon>
+                        <span class="tool-item">
+                            <v-icon name="biaoqing1" color="#f5f5f5" cursor="pointer"></v-icon>
+                            <div class="emoji-container">
+                                <emoji></emoji>
+                            </div>
+                        </span>
                     </div>
                     <textarea v-model="message" @keyup.enter="send"></textarea>
                     <div class="enter">
@@ -85,6 +90,7 @@
     import { mapState } from 'vuex';
     import api from '@/api';
     import utils from '@/utils/utils';
+    import emoji from '@/views/components/emoji.vue';
     export default{
         name: 'chatItem',
         props: ['currSation'],
@@ -99,6 +105,9 @@
                 message: '',
                 groupUsers: [] // 群成员
             };
+        },
+        components: {
+            emoji
         },
         sockets:{
             org(r) {
@@ -403,8 +412,29 @@
                         background-color: rgba(0,0,0,0.3);
                         padding: 0 10px;
                         box-sizing: border-box;
+                        .tool-item{
+                            display: inline-block;
+                            padding: 0 5px;
+                            height: 100%;
+                            position: relative;
+                            .emoji-container{
+                                width:400px;
+                                height: 260px;
+                                position: absolute;
+                                bottom: 30px;
+                                left:0;
+                                z-index: 10;
+                                display: none;
+                            }
+                        }
+                        .tool-item:hover{
+                            background-color: rgba(255,255,255,0.3);
+                        }
+                        .tool-item:hover .emoji-container{
+                            display: block;
+                        }
                         i{
-                            margin: 0 5px 0 0;
+                            margin: 0;
                         }
                     }
                     textarea{

@@ -110,3 +110,14 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
         top: 20px;
     }
 }
+.vchat-emoji{ // 表情
+    .el-tabs__item{
+        padding: 0 !important;
+    }
+    .el-tabs__content{
+        height: 172px;
+    }
+    .el-tabs{
+        height: 100%;
+    }
+}

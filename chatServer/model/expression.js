@@ -6,5 +6,15 @@ let expression = db.model("expression", {
     list: Array // 表情列表
 });
 
+const getExpression = (params, callback) => {
+    expression.find().then(r => {
+        callback({code: 0, data: r});
+    }).catch(err => {
+        console.log(err);
+        callback({code: -1})
+    })
+};
+
 module.exports = {
+    getExpression
 };

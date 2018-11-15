@@ -15,6 +15,7 @@ const api = require('./routes/api');
 const user = require('./routes/user');
 const group = require('./routes/group');
 const friend = require('./routes/friendly');
+const expression = require('./routes/expression');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -60,6 +61,7 @@ app.use('/api', api);
 app.use('/user', user);
 app.use('/group', group);
 app.use('/friend', friend);
+app.use('/expression', expression);
 
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');

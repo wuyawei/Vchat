@@ -11,6 +11,7 @@ const path=require("path");
 // let upload = multer({dest: './public/uploads/'}); // os.tmpdir() 跨磁盘有权限问题 第一种上传方案所需
 const uploads = require('../utils/upload'); // 上传js
 
+
 // 新路径要写真实路径，文件夹不存在multer不会主动创建
 // const uploadInmage = (req, res)=>{ // 第一种上传方案所需
 //     fs.rename(

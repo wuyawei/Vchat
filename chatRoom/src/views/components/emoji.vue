@@ -1,13 +1,13 @@
 <template>
     <div class="vchat-emoji">
         <el-tabs type="border-card" tab-position="bottom">
-            <el-tab-pane>
+            <el-tab-pane v-for="v in expressionList" :key="v.code">
                 <span slot="label" class="emoji-tap" :lazy="true">
-                    <img :src="IMG_URL + '/expression/不二呆/00.gif'" alt="" class="emoji-tap-img">
+                    <img :src="IMG_URL + v.list[0]" alt="" class="emoji-tap-img">
                 </span>
                 <ul class="emoji-ul">
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/00.gif'" alt="">
+                    <li v-for="(m, n) in v.list" :key="n">
+                        <img :src="IMG_URL + m" alt="">
                     </li>
                 </ul>
             </el-tab-pane>

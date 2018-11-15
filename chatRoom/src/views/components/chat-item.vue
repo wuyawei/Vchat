@@ -150,8 +150,10 @@
             currSation: { // 当前会话
                 handler(v) {
                     if (v.id) {
-                        if (v.type !== 'vchat') {
-                            this.getGroupUsers(v.id);
+                        if (v.type === 'group' || v.type === 'friend') {
+                            if (v.type === 'group') {
+                                this.getGroupUsers(v.id);
+                            }
                             this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                             this.$store.commit('setUnRead', {roomid: v.id, clear: true});
                             this.$socket.emit('getHistoryMessages', {roomid: v.id});

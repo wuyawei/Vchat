@@ -2,7 +2,7 @@
 const apiModel = require("../model/apiModel");
 
 const getExpression = (req, res) => {
-    apiModel.getExpression(params, r => {
+    apiModel.getExpression(req.body, r => {
         res.json(r);
     })
 };

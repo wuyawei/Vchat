@@ -60,16 +60,15 @@
             overflow-y: auto;
             li{
                 display: inline-block;
-                padding: 5px;
-                box-sizing: border-box;
-                width:72px;
+                padding: 2px 10px;
+                width:56px;
                 height: 68px;
                 overflow: hidden;
                 cursor: pointer;
                 transition: transform 0.3s;
                 transform: scale(1);
                 img{
-                    width:62px;
+                    width:56px;
                 }
             }
             li:hover{

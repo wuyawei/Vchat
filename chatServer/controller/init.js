@@ -10,6 +10,9 @@ let db = {
                 })
             })
         },
+        initEmoji(filePath) { // 初始化表情包
+            initModel.initEmoji(filePath);
+        },
         initRoom(){
             return new Promise((resolve, reject) => {
                 initModel.initRoom((result) => { // 初始化rooms表
@@ -30,4 +33,5 @@ let db = {
         }
 };
 
-db.initUser();
+// db.initUser();
+db.initEmoji('../public/expression');

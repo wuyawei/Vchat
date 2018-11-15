@@ -62,16 +62,18 @@
                 display: inline-block;
                 padding: 5px;
                 box-sizing: border-box;
-                width:70px;
+                width:72px;
                 height: 68px;
                 overflow: hidden;
                 cursor: pointer;
+                transition: transform 0.3s;
+                transform: scale(1);
                 img{
-                    width:60px;
+                    width:62px;
                 }
             }
             li:hover{
-                background-color: rgba(0,0,0,0.1);
+                transform: scale(1.4);
             }
         }
     }

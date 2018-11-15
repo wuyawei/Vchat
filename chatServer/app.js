@@ -61,7 +61,7 @@ app.use('/api', api);
 app.use('/user', user);
 app.use('/group', group);
 app.use('/friend', friend);
-app.use('/expression', expression);
+app.use('/expre', expression);
 
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');

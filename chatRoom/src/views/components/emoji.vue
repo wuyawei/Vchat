@@ -9,68 +9,33 @@
                     <li>
                         <img :src="IMG_URL + '/expression/不二呆/00.gif'" alt="">
                     </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/01.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/02.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/03.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/04.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/05.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/06.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/07.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/08.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/09.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/10.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/11.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/12.gif'" alt="">
-                    </li>
-                    <li>
-                        <img :src="IMG_URL + '/expression/不二呆/13.gif'" alt="">
-                    </li>
                 </ul>
-            </el-tab-pane>
-            <el-tab-pane>
-                <span slot="label" class="emoji-tap" :lazy="true">
-                    <img :src="IMG_URL + '/expression/b站233/1e94fd9fb7.gif'" alt="" class="emoji-tap-img">
-                </span>
-            </el-tab-pane>
-            <el-tab-pane>
-                <span slot="label" class="emoji-tap" :lazy="true">
-                    <img :src="IMG_URL + '/expression/文小萌/00.gif'" alt="" class="emoji-tap-img">
-                </span>
             </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 
 <script>
+    import api from '@/api';
     export default{
         name: 'emoji',
         data() {
             return {
-                IMG_URL: process.env.IMG_URL
+                IMG_URL: process.env.IMG_URL,
+                expressionList: []
             }
+        },
+        methods: {
+            getExpression() {
+                api.getExpression().then(r => {
+                    if (r.code === 0) {
+                        this.expressionList = r.data;
+                    }
+                });
+            }
+        },
+        mounted() {
+            this.getExpression();
         }
     }
 </script>

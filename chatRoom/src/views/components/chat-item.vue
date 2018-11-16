@@ -14,22 +14,28 @@
                                         <img :src="IMG_URL + v.avatar" alt="">
                                     </p>
                                     <div>
-                                        <p>
+                                        <p class="info">
                                             <span>{{v.nickname}}</span>
                                             <i>{{v.time}}</i>
                                         </p>
-                                        <p class="mes">{{v.mes}}</p>
+                                        <p v-if="v.style === 'emoji'" class="emoji">
+                                            <img :src="IMG_URL + v.emoji" alt="">
+                                        </p>
+                                        <p class="mes" v-if="v.style === 'mess'">{{v.mes}}</p>
                                     </div>
                                 </div>
                             </template>
                             <template v-if="v.type==='mine'">
                                 <div class="mes-box">
                                     <div>
-                                        <p>
+                                        <p class="info">
                                             <span>{{v.nickname}}</span>
                                             <i>{{v.time}}</i>
                                         </p>
-                                        <p class="mes">{{v.mes}}</p>
+                                        <p v-if="v.style === 'emoji'" class="emoji">
+                                            <img :src="IMG_URL + v.emoji" alt="">
+                                        </p>
+                                        <p class="mes"  v-if="v.style === 'mess'">{{v.mes}}</p>
                                     </div>
                                     <p>
                                         <img :src="IMG_URL + v.avatar" alt="">
@@ -47,7 +53,7 @@
                         <span class="tool-item" :class="{active: currTool === 'emoji'}">
                             <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showTool('emoji')" cursor="pointer"></v-icon>
                             <div class="emoji-container">
-                                <emoji></emoji>
+                                <emoji @chooseEmoji="chooseEmoji"></emoji>
                             </div>
                         </span>
                     </div>
@@ -220,12 +226,30 @@
                     avatar: this.user.photo,
                     nickname: this.user.nickname,
                     read: [this.user.name],
-                    roomid: this.currSation.id
+                    roomid: this.currSation.id,
+                    style: 'mess'
                 };
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);
                 this.$emit('NewMes', val);
                 this.message = '';
+            },
+            chooseEmoji(url) { // 发送表情
+                let val = {
+                    name: this.user.name,
+                    mes: '表情',
+                    emoji: url,
+                    time: utils.formatTime(new Date()),
+                    avatar: this.user.photo,
+                    nickname: this.user.nickname,
+                    read: [this.user.name],
+                    roomid: this.currSation.id,
+                    style: 'emoji'
+                };
+                this.chatList.push(Object.assign({},val,{type: 'mine'}));
+                this.$socket.emit('mes', val);
+                this.$emit('NewMes', val);
+                this.currTool = '';
             },
             clear() { // 清空
                 this.message = '';
@@ -306,7 +330,7 @@
                         position: relative;
                         li{
                             width:100%;
-                            margin: 10px 0;
+                            margin: 15px 0;
                         }
                     }
                     .mes-box{
@@ -327,7 +351,7 @@
                         }
                         >div{
                             max-width:298px;
-                            p:nth-of-type(1){
+                            p.info{
                                 font-size: 14px;
                                 color: #f5f5f5;
                                 margin-bottom: 5px;
@@ -338,7 +362,7 @@
                                     margin-left: 5px;
                                 }
                             }
-                            p:nth-of-type(2){
+                            p.mes{
                                 background-color: #27cac7;
                                 border-radius: 5px;
                                 padding: 10px;
@@ -351,11 +375,23 @@
                                 color: #fff;
                                 display: inline-block;
                             }
+                            p.emoji{
+                                max-width: 150px;
+                                max-height: 150px;
+                                overflow: hidden;
+                                border-radius: 4px;
+                                img{
+                                    width:100%;
+                                }
+                            }
                         }
                     }
                     .other .mes-box>div{
                         text-align: left;
                         margin-left: 10px;
+                        p.emoji{
+                            margin-left: 20px;
+                        }
                     }
                     .other .mes-box{
                         justify-content: flex-start;
@@ -366,6 +402,9 @@
                     .mine .mes-box>div{
                         text-align: right;
                         margin-right: 10px;
+                        p.emoji{
+                            margin-right: 20px;
+                        }
                     }
                     .mine{
                         display: flex;

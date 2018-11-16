@@ -6,7 +6,7 @@
                     <img :src="IMG_URL + v.list[0]" alt="" class="emoji-tap-img">
                 </span>
                 <ul class="emoji-ul">
-                    <li v-for="(m, n) in v.list" :key="n">
+                    <li v-for="(m, n) in v.list" :key="n" @click.stop="chooseEmoji(m)">
                         <img :src="IMG_URL + m" alt="">
                     </li>
                 </ul>
@@ -32,6 +32,9 @@
                         this.expressionList = r.data;
                     }
                 });
+            },
+            chooseEmoji(url) {
+                this.$emit('chooseEmoji', url);
             }
         },
         mounted() {

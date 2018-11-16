@@ -9,6 +9,8 @@ let messages = db.model("messages", {
     mes: String, // 消息
     read: Array, // 是否已读 0/1
     signature: String,
+    emoji: String, // 表情地址
+    style: String, // 消息类型 emoji/mes
     groupId: String, // 加入群聊id
     groupName: String, // 加入群聊名称
     groupPhoto: String, //加入群聊头像

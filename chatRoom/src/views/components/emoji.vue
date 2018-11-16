@@ -11,6 +11,11 @@
                     </li>
                 </ul>
             </el-tab-pane>
+            <el-tab-pane>
+                <span slot="label" class="emoji-tap" :lazy="true">
+                    <v-icon name="jia2" color="rgba(50, 50, 50, 0.64)"></v-icon>
+                </span>
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -53,6 +58,8 @@
             padding: 0 10px;
             overflow: hidden;
             display: inline-block;
+            text-align: center;
+            line-height: 48px;
             .emoji-tap-img{
                 width:40px;
             }

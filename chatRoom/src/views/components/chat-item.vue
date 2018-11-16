@@ -219,6 +219,9 @@
                 })
             },
             send() { // 发送消息
+                if (!this.message) {
+                    return;
+                }
                 let val = {
                     name: this.user.name,
                     mes: this.message,
@@ -376,8 +379,8 @@
                                 display: inline-block;
                             }
                             p.emoji{
-                                max-width: 150px;
-                                max-height: 150px;
+                                max-width: 160px;
+                                max-height: 160px;
                                 overflow: hidden;
                                 border-radius: 4px;
                                 img{

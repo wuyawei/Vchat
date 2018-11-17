@@ -47,12 +47,6 @@
             };
         },
         watch: {
-            'user.conversationsList': {
-                handler() {
-                    this.joinRoom();
-                },
-                deep: true
-            },
             conversationsList: {
                 handler() {
                     this.joinRoom();
@@ -84,7 +78,6 @@
                 this.$store.commit('setOnlineUser', OnlineUser)
             },
             getHistoryMessages(mesdata) { // 获取未读消息数量
-                console.log('mesdata', mesdata);
                 let data = mesdata.filter(v => v.read.indexOf(this.user.name) === -1);
                 if (data.length) {
                     this.$store.commit('setUnRead', {roomid: data[0].roomid, count: data.length});

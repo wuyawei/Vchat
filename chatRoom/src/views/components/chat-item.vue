@@ -21,6 +21,9 @@
                                         <p v-if="v.style === 'emoji'" class="emoji">
                                             <img :src="IMG_URL + v.emoji" alt="">
                                         </p>
+                                        <p v-if="v.style === 'img'" class="image">
+                                            <img :src="IMG_URL + v.emoji" alt="">
+                                        </p>
                                         <p class="mes" v-if="v.style === 'mess'">{{v.mes}}</p>
                                     </div>
                                 </div>
@@ -33,6 +36,9 @@
                                             <i>{{v.time}}</i>
                                         </p>
                                         <p v-if="v.style === 'emoji'" class="emoji">
+                                            <img :src="IMG_URL + v.emoji" alt="">
+                                        </p>
+                                        <p v-if="v.style === 'img'" class="image">
                                             <img :src="IMG_URL + v.emoji" alt="">
                                         </p>
                                         <p class="mes"  v-if="v.style === 'mess'">{{v.mes}}</p>
@@ -51,10 +57,18 @@
                 <div class="chat-send">
                     <div class="tool">
                         <span class="tool-item" :class="{active: currTool === 'emoji'}" ref="emoji">
-                            <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showTool('emoji')" cursor="pointer"></v-icon>
+                            <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showTool('emoji')" cursor="pointer" title="发送表情"></v-icon>
                             <div class="emoji-container">
                                 <emoji @chooseEmoji="chooseEmoji" @chooseEmojiDefault="chooseEmojiDefault"></emoji>
                             </div>
+                        </span>
+                        <span class="tool-item">
+                            <v-icon name="tupian2" color="#f5f5f5"></v-icon>
+                            <input type="file" title="选择图片" @change="InmageChange" ref="chooseInmage" accept="image/png, image/jpeg, image/gif, image/jpg">
+                        </span>
+                        <span class="tool-item">
+                            <v-icon name="wenjian2" color="#f5f5f5"></v-icon>
+                            <input type="file" title="选择文件" ref="chooseFile">
                         </span>
                     </div>
                     <textarea v-model="message" @keyup.enter="send"></textarea>
@@ -155,15 +169,13 @@
             },
             currSation: { // 当前会话
                 handler(v) {
-                    if (v.id) {
-                        if (v.type === 'group' || v.type === 'friend') {
-                            if (v.type === 'group') {
-                                this.getGroupUsers(v.id);
-                            }
-                            this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
-                            this.$store.commit('setUnRead', {roomid: v.id, clear: true});
-                            this.$socket.emit('getHistoryMessages', {roomid: v.id});
+                    if (v.type === 'group' || v.type === 'friend') {
+                        if (v.type === 'group') {
+                            this.getGroupUsers(v.id);
                         }
+                        this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
+                        this.$store.commit('setUnRead', {roomid: v.id, clear: true});
+                        this.$socket.emit('getHistoryMessages', {roomid: v.id});
                     }
                 },
                 deep: true,
@@ -175,16 +187,34 @@
                 },
                 immediate: true,
                 deep: true
+            },
+            currTool(v, old) {
+                if (!v) {
+                    document.documentElement.removeEventListener('click', this.watchMouse);
+                }
             }
         },
         mounted() {
         },
         methods: {
-            showTool(v) {
-                if (this.currTool === v) {
-                    if (v === 'emoji') {
-                        document.documentElement.removeEventListener('click', this.watchMouse);
+            InmageChange() { // 发送图片
+                let f = this.$refs['chooseInmage'].files[0];
+                let formdata = new FormData();
+                formdata.append('f', f);
+                api.uploadFile(formdata).then(r => {
+                    if (r.code === 0) {
+                        this.send(r.data, 'img');
+                    } else {
+                        this.$message({
+                            message: '上传失败',
+                            type: 'warning'
+                        })
                     }
+                });
+                this.$refs['chooseInmage'].value = '';
+            },
+            showTool(v) { // 表情显示
+                if (this.currTool === v) {
                     this.currTool = '';
                     return;
                 }
@@ -230,8 +260,8 @@
                     }
                 })
             },
-            send() { // 发送消息
-                if (!this.message) {
+            send(url, type = 'mess') { // 发送消息
+                if (!this.message && !url) {
                     return;
                 }
                 let val = {
@@ -244,30 +274,27 @@
                     roomid: this.currSation.id,
                     style: 'mess'
                 };
+                if (type === 'emoji') { // 发送表情
+                    val.style =  'emoji';
+                    val.mes = '表情';
+                    val.emoji = url;
+                } else if (type === 'img') {
+                    val.style =  'img';
+                    val.emoji = url;
+                }
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);
                 this.$emit('NewMes', val);
-                this.message = '';
+                if (type === 'mess') { // 发送文字
+                    this.message = '';
+                }
             },
             chooseEmojiDefault(em) {
                 this.message += em;
                 this.currTool = '';
             },
-            chooseEmoji(url) { // 发送表情
-                let val = {
-                    name: this.user.name,
-                    mes: '表情',
-                    emoji: url,
-                    time: utils.formatTime(new Date()),
-                    avatar: this.user.photo,
-                    nickname: this.user.nickname,
-                    read: [this.user.name],
-                    roomid: this.currSation.id,
-                    style: 'emoji'
-                };
-                this.chatList.push(Object.assign({},val,{type: 'mine'}));
-                this.$socket.emit('mes', val);
-                this.$emit('NewMes', val);
+            chooseEmoji(url) {
+                this.send(url, 'emoji');
                 this.currTool = '';
             },
             clear() { // 清空
@@ -403,6 +430,14 @@
                                     width:100%;
                                 }
                             }
+                            p.image{
+                                max-width: 240px;
+                                overflow: hidden;
+                                border-radius: 4px;
+                                img{
+                                    width:100%;
+                                }
+                            }
                         }
                     }
                     .other .mes-box>div{
@@ -496,6 +531,14 @@
                                 z-index: 10;
                                 transition: all 0.2s;
                                 transform: scaleX(0);
+                                opacity: 0;
+                            }
+                            input{
+                                position: absolute;
+                                left:0;
+                                top:0;
+                                width:100%;
+                                height: 100%;
                                 opacity: 0;
                             }
                         }

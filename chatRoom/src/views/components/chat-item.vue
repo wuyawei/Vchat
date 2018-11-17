@@ -182,6 +182,9 @@
         methods: {
             showTool(v) {
                 if (this.currTool === v) {
+                    if (v === 'emoji') {
+                        document.documentElement.removeEventListener('click', this.watchMouse);
+                    }
                     this.currTool = '';
                     return;
                 }
@@ -487,8 +490,8 @@
                                 bottom: 30px;
                                 left:0;
                                 z-index: 10;
-                                transition: all 0.5s;
-                                /*transform: scaleX(0);*/
+                                transition: all 0.3s;
+                                transform: scaleX(0);
                                 opacity: 0;
                             }
                         }
@@ -499,7 +502,7 @@
                             background-color: rgba(255,255,255,0.3);
                         }
                         .tool-item.active .emoji-container{
-                            /*transform: scaleX(1);*/
+                            transform: scaleX(1);
                             opacity: 1;
                         }
                         i{

@@ -1,13 +1,23 @@
 <template>
     <div class="vchat-emoji">
-        <el-tabs type="border-card" tab-position="bottom" @tab-click="addMore">
+        <el-tabs type="border-card" tab-position="bottom">
+            <el-tab-pane>
+                <span slot="label" class="emoji-tap" :lazy="true">
+                    {{emojiJson[0]}}
+                </span>
+                <ul class="emoji-default">
+                    <li v-for="(m, n) in emojiJson" :key="n" @click.stop="chooseEmojiDefault(m)">
+                        {{m}}
+                    </li>
+                </ul>
+            </el-tab-pane>
             <el-tab-pane v-for="v in myEmojiList" :key="v.code">
                 <span slot="label" class="emoji-tap" :lazy="true">
                     <img :src="IMG_URL + v.list[0]" alt="" class="emoji-tap-img">
                 </span>
                 <ul class="emoji-ul">
                     <li v-for="(m, n) in v.list" :key="n" @click.stop="chooseEmoji(m)">
-                        <img :src="IMG_URL + m" alt="">
+                        <img :src="IMG_URL + m">
                     </li>
                 </ul>
             </el-tab-pane>
@@ -44,6 +54,7 @@
 
 <script>
     import api from '@/api';
+    import emojiJson from '@/utils/emoji';
     import { mapState, mapGetters } from 'vuex';
     export default{
         name: 'emoji',
@@ -52,7 +63,8 @@
                 IMG_URL: process.env.IMG_URL,
                 expressionList: [], // 表情商城
                 myEmojiList: [], // 我的表情包
-                currEmojiDetail: {} // 表情包详情页
+                currEmojiDetail: {}, // 表情包详情页
+                emojiJson: emojiJson.data.split(',')
             }
         },
         computed: {
@@ -80,8 +92,11 @@
             emojiDetail(val) {
                 this.currEmojiDetail = val;
             },
+            chooseEmojiDefault(em) {
+                this.$emit('chooseEmojiDefault', em);
+            },
             addEmoji(code) { // 添加表情包
-                
+
             }
         },
         mounted() {
@@ -104,6 +119,22 @@
             line-height: 48px;
             .emoji-tap-img{
                 width:40px;
+            }
+        }
+        .emoji-default{
+            width:100%;
+            height: 202px;
+            overflow-y: auto;
+            li{
+                display: inline-block;
+                padding: 5px;
+                width:22px;
+                height: 22px;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            li:hover{
+                background-color: #d5d5d5;
             }
         }
         .emoji-ul{

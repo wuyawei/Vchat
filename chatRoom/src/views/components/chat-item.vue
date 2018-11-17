@@ -53,7 +53,7 @@
                         <span class="tool-item" :class="{active: currTool === 'emoji'}" ref="emoji">
                             <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showTool('emoji')" cursor="pointer"></v-icon>
                             <div class="emoji-container">
-                                <emoji @chooseEmoji="chooseEmoji"></emoji>
+                                <emoji @chooseEmoji="chooseEmoji" @chooseEmojiDefault="chooseEmojiDefault"></emoji>
                             </div>
                         </span>
                     </div>
@@ -248,6 +248,10 @@
                 this.$socket.emit('mes', val);
                 this.$emit('NewMes', val);
                 this.message = '';
+            },
+            chooseEmojiDefault(em) {
+                this.message += em;
+                this.currTool = '';
             },
             chooseEmoji(url) { // 发送表情
                 let val = {
@@ -490,7 +494,7 @@
                                 bottom: 30px;
                                 left:0;
                                 z-index: 10;
-                                transition: all 0.3s;
+                                transition: all 0.2s;
                                 transform: scaleX(0);
                                 opacity: 0;
                             }

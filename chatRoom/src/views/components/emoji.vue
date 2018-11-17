@@ -17,15 +17,26 @@
                 </span>
                 <div class="emoji-shop">
                     <h3>表情商城</h3>
+                    <ul class="emoji-shop-ul">
+                        <li v-for="(m, n) in expressionList" :key="n" @click.stop="emojiDetail(m)">
+                            <a>
+                                <img :src="IMG_URL + m.list[0]" alt="">
+                            </a>
+                            <p class="vchat-line1">{{m.name}}</p>
+                        </li>
+                    </ul>
+                    <div class="emojiDetail" :class="{active: currEmojiDetail.name}">
+                        <h3>{{currEmojiDetail.name}}</h3>
+                        <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="currEmojiDetail = {}" color="#323232" :size="24" cursor="pointer"></v-icon>
+                        <ul class="emoji-detail">
+                            <li v-for="(m, n) in currEmojiDetail.list" :key="n">
+                                <img :src="IMG_URL + m" alt="">
+                            </li>
+                        </ul>
+                        <p class="vchat-button addEmoji" v-if="user.emoji.indexOf(currEmojiDetail.code) === -1" @click.stop="addEmoji(currEmojiDetail.code)">添加</p>
+                        <p class="vchat-button info addEmoji" v-else>已添加</p>
+                    </div>
                 </div>
-                <ul class="emoji-shop-ul">
-                    <li v-for="(m, n) in expressionList" :key="n" @click.stop="chooseEmoji(m)">
-                        <a>
-                            <img :src="IMG_URL + m.list[0]" alt="">
-                        </a>
-                        <p class="vchat-line1">{{m.name}}</p>
-                    </li>
-                </ul>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -39,8 +50,9 @@
         data() {
             return {
                 IMG_URL: process.env.IMG_URL,
-                expressionList: [],
-                myEmojiList: []
+                expressionList: [], // 表情商城
+                myEmojiList: [], // 我的表情包
+                currEmojiDetail: {} // 表情包详情页
             }
         },
         computed: {
@@ -65,10 +77,11 @@
             chooseEmoji(url) {
                 this.$emit('chooseEmoji', url);
             },
-            addMore(raw) {
-                if (raw.name === 'add') {
-
-                }
+            emojiDetail(val) {
+                this.currEmojiDetail = val;
+            },
+            addEmoji(code) { // 添加表情包
+                
             }
         },
         mounted() {
@@ -115,16 +128,22 @@
             }
         }
         .emoji-shop{
+            position: relative;
             h3{
                 font-weight: normal;
                 font-size: 16px;
                 color: #323232;
+            }
+            >h3{
                 line-height: 16px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #d5d5d5;
+                margin-bottom: 5px;
             }
         }
         .emoji-shop-ul{
             width:100%;
-            height: 186px;
+            height: 176px;
             overflow-y: auto;
             li{
                 display: inline-block;
@@ -151,6 +170,50 @@
             li:hover{
                 background-color: #d5d5d5;
             }
+        }
+        .emojiDetail{
+            position: absolute;
+            left:0;
+            top:100%;
+            width:100%;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 2px #d5d5d5;
+            transition: top 0.3s;
+            text-align: right;
+            h3{
+                height: 30px;
+                margin-bottom: 5px;
+                line-height: 30px;
+                text-align: center;
+            }
+            .deClose{
+                position: absolute;
+                right: 2px;
+                top:2px;
+            }
+            .emoji-detail{
+                text-align: left;
+                li{
+                    display: inline-block;
+                    padding: 2px 10px;
+                    width:56px;
+                    height: 68px;
+                    overflow: hidden;
+                    img{
+                        width:56px;
+                    }
+                }
+            }
+            .addEmoji{
+                margin-bottom: 10px;
+                margin-right: 20px;
+            }
+        }
+        .emojiDetail.active{
+            top:0;
         }
     }
 </style>

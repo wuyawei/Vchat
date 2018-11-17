@@ -70,6 +70,18 @@
         computed: {
             ...mapState(['user'])
         },
+        watch: {
+            'user.emoji'() {
+                this.myEmojiList = [];
+                this.expressionList.forEach(v => {
+                    this.user.emoji.forEach(m => {
+                        if (v.code === m) {
+                            this.myEmojiList.push(v);
+                        }
+                    });
+                });
+            }
+        },
         methods: {
             getExpression() {
                 this.myEmojiList = [];
@@ -96,7 +108,23 @@
                 this.$emit('chooseEmojiDefault', em);
             },
             addEmoji(code) { // 添加表情包
-
+                this.user.emoji.push(code);
+                let params = {
+                    emoji: this.user.emoji
+                };
+                api.upUserInfo(params).then(r => {
+                    if (r.code === 0) {
+                        this.$message({
+                            message: '添加成功',
+                            type: 'success'
+                        });
+                    } else {
+                        this.$message({
+                            message: '添加失败',
+                            type: 'warning'
+                        })
+                    }
+                });
             }
         },
         mounted() {

@@ -133,7 +133,7 @@
                     } else {
                         this.$message({
                             message: '保存头像失败',
-                            type: 'success'
+                            type: 'warning'
                         })
                     }
                 });
@@ -159,7 +159,7 @@
                             } else {
                                 this.$message({
                                     message: '保存失败',
-                                    type: 'success'
+                                    type: 'warning'
                                 })
                             }
                         });

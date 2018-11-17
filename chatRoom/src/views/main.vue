@@ -47,7 +47,7 @@
             };
         },
         watch: {
-            user: {
+            'user.conversationsList': {
                 handler() {
                     this.joinRoom();
                 },

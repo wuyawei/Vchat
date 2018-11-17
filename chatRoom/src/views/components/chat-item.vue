@@ -272,7 +272,8 @@
                     nickname: this.user.nickname,
                     read: [this.user.name],
                     roomid: this.currSation.id,
-                    style: 'mess'
+                    style: 'mess',
+                    userM: this.user.id
                 };
                 if (type === 'emoji') { // 发送表情
                     val.style =  'emoji';
@@ -280,6 +281,7 @@
                     val.emoji = url;
                 } else if (type === 'img') {
                     val.style =  'img';
+                    val.mes = '图片';
                     val.emoji = url;
                 }
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
@@ -423,7 +425,6 @@
                             }
                             p.emoji{
                                 max-width: 160px;
-                                max-height: 160px;
                                 overflow: hidden;
                                 border-radius: 4px;
                                 img{
@@ -431,7 +432,7 @@
                                 }
                             }
                             p.image{
-                                max-width: 240px;
+                                max-width: 200px;
                                 overflow: hidden;
                                 border-radius: 4px;
                                 img{

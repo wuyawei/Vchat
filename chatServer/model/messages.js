@@ -8,13 +8,16 @@ let messages = db.model("messages", {
     avatar: String, // 用户头像
     mes: String, // 消息
     read: Array, // 是否已读 0/1
-    signature: String,
+    signature: String, // 个性签名
     emoji: String, // 表情地址
     style: String, // 消息类型 emoji/mes
     groupId: String, // 加入群聊id
     groupName: String, // 加入群聊名称
     groupPhoto: String, //加入群聊头像
-    userM: String, // 申请加好友人id
+    userM: {
+        type : db.Schema.ObjectId,
+        ref : 'users'
+    }, // 发送人id
     userY: String, // 好友id
     userYname: String, // 好友昵称
     userYphoto: String, // 好友头像
@@ -36,8 +39,14 @@ const saveMessage = (params, callback = function () {}) => { // 保存消息
 
 const getHistoryMessages = (params, order, callback) => { // 保存消息
     messages.find(params)
+        .populate({path: 'userM', select: 'signature photo nickname'}) // 关联用户基本信息
         .sort({'time': order})
         .then(r => {
+            r.forEach(v => {
+                v.nickname = v.userM.nickname;
+                v.photo =  v.userM.photo;
+                v.signature =  v.userM.signature;
+            });
             callback({code: 0, data: r});
         }).catch(err => {
             console.log(err);

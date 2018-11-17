@@ -32,12 +32,14 @@ let groupUserSchema = new db.Schema({
 groupUserSchema.statics = {
     findGroupByUserName:function(userName, callback){ // 通过用户名查找所在群聊列表
         return this
-            .find({userName : userName}).populate('groupId')  // 关联查询
+            .find({userName : userName})
+            .populate('groupId')  // 关联查询
             .exec(callback)
     },
     findGroupUsersByGroupId:function(groupId, callback){ // 通过群id查找用户信息
         return this
-            .find({groupId : groupId}).populate({path: 'userId', select: 'signature photo nickname'})  // 关联查询
+            .find({groupId : groupId})
+            .populate({path: 'userId', select: 'signature photo nickname'})  // 关联查询
             .exec(callback)
     }
 };

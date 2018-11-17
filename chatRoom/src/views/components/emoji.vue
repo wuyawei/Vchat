@@ -1,6 +1,6 @@
 <template>
     <div class="vchat-emoji">
-        <el-tabs type="border-card" tab-position="bottom">
+        <el-tabs type="border-card" tab-position="bottom" @tab-click="addMore">
             <el-tab-pane v-for="v in expressionList" :key="v.code">
                 <span slot="label" class="emoji-tap" :lazy="true">
                     <img :src="IMG_URL + v.list[0]" alt="" class="emoji-tap-img">
@@ -11,7 +11,7 @@
                     </li>
                 </ul>
             </el-tab-pane>
-            <el-tab-pane>
+            <el-tab-pane name="add">
                 <span slot="label" class="emoji-tap" :lazy="true">
                     <v-icon name="jia2" color="rgba(50, 50, 50, 0.64)"></v-icon>
                 </span>
@@ -40,6 +40,11 @@
             },
             chooseEmoji(url) {
                 this.$emit('chooseEmoji', url);
+            },
+            addMore(raw) {
+                if (raw.name === 'add') {
+
+                }
             }
         },
         mounted() {

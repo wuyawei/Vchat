@@ -50,7 +50,7 @@
                 </div>
                 <div class="chat-send">
                     <div class="tool">
-                        <span class="tool-item" :class="{active: currTool === 'emoji'}">
+                        <span class="tool-item" :class="{active: currTool === 'emoji'}" ref="emoji">
                             <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showTool('emoji')" cursor="pointer"></v-icon>
                             <div class="emoji-container">
                                 <emoji @chooseEmoji="chooseEmoji"></emoji>
@@ -186,6 +186,15 @@
                     return;
                 }
                 this.currTool = v;
+                if (this.currTool === 'emoji') {
+                    document.documentElement.addEventListener('click', this.watchMouse);
+                }
+            },
+            watchMouse(e) { // 监测鼠标事件，点击emoji以外的元素隐藏
+                if (!this.$refs['emoji'].contains(e.target)) {
+                    this.currTool = '';
+                    document.documentElement.removeEventListener('click', this.watchMouse);
+                }
             },
             getGroupUserStatus(obj) { // 群成员在线状态
                 this.groupUsers.forEach((v, i) => {
@@ -478,8 +487,9 @@
                                 bottom: 30px;
                                 left:0;
                                 z-index: 10;
-                                transition: transform 0.2s;
-                                transform: scaleX(0);
+                                transition: all 0.5s;
+                                /*transform: scaleX(0);*/
+                                opacity: 0;
                             }
                         }
                         .tool-item:hover{
@@ -489,7 +499,8 @@
                             background-color: rgba(255,255,255,0.3);
                         }
                         .tool-item.active .emoji-container{
-                            transform: scaleX(1);
+                            /*transform: scaleX(1);*/
+                            opacity: 1;
                         }
                         i{
                             margin: 0;

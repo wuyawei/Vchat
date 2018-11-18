@@ -3,6 +3,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.vchat-bg{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 .vchat-photo{
     display: block;
     width:40px;

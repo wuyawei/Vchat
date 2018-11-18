@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-chatRoom">
+    <div class="vchat-chatRoom vchat-bg" :style="{backgroundImage: `url(${user.wallpaper})`}">
         <div class="vchat-chatRoom-bg">
             <div class="chat-header">
                 <a>{{currSation.name}}</a>
@@ -44,9 +44,14 @@
             <div class="chat-setting" :class="{active: settingFlag}">
                 <h3>聊天设置</h3>
                 <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag = false" color="#323232" :size="24" cursor="pointer"></v-icon>
-                <h4>聊天壁纸</h4>
-                <div class="bg"></div>
-                <h4>文字颜色</h4>
+                <h5>聊天壁纸</h5>
+                <ul class="bg">
+                    <li class="vchat-bg" v-for="(v, i) in bgList" :key="i" :style="{backgroundImage: `url(${v.url})`}">
+                        <p @click="setChatBg(v)">{{v.name}}</p>
+                        <v-icon class="el-icon-circle-check-outline" color="rgb(80, 243, 0)" v-if="user.wallpaper === v.url"></v-icon>
+                    </li>
+                </ul>
+                <h5>文字颜色</h5>
             </div>
         </div>
     </div>
@@ -64,7 +69,8 @@
                 contactsList: [], // 会话列表
                 IMGURL: process.env.IMG_URL,
                 one: true,
-                settingFlag: false // 设置面板
+                settingFlag: false, // 设置面板
+                bgList: [{name: '风景', url: '/img/wallpaper.jpg', id: 1}, {name: '昨日青空', url: '/img/0055.jpg', id: 2}, {name: '自定义', url: '', id: 3}]
             }
         },
         sockets:{
@@ -114,7 +120,29 @@
             ...mapState(['user', 'conversationsList', 'unRead'])
         },
         methods: {
-            setting() {
+            setChatBg(v) { // 设置壁纸
+                if (this.user.wallpaper === v.url) {
+                    return;
+                }
+                let params = {
+                    wallpaper: v.url
+                };
+                api.upUserInfo(params).then(r => {
+                    if (r.code === 0) {
+                        this.$store.commit('setUser', params);
+                        this.$message({
+                            message: '设置成功',
+                            type: 'success'
+                        });
+                    } else {
+                        this.$message({
+                            message: '设置失败',
+                            type: 'warning'
+                        })
+                    }
+                });
+            },
+            setting() { // 打开设置
                 this.settingFlag = true;
             },
             close() {
@@ -167,10 +195,6 @@
         width:100%;
         height: 100%;
         border-radius: 3px;
-        background-image: url('/img/wallpaper.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
         overflow: hidden;
         position: relative;
         &:before{
@@ -320,9 +344,9 @@
                 height: 36px;
                 background-color: #fff;
                 line-height: 36px;
-                color: #111;
+                color: #000;
             }
-            h4{
+            h5{
                 text-align: left;
                 margin: 5px;
             }
@@ -334,6 +358,34 @@
             }
             .deClose:hover{
                 opacity: 1;
+            }
+            .bg{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                padding: 0 5px;
+                box-sizing: border-box;
+                li{
+                    width: 117px;
+                    height: 70px;
+                    background-color: #fff;
+                    border-radius: 2px;
+                    margin-bottom: 5px;
+                    box-shadow: 0 0 1px #bdafaf;
+                    font-size: 14px;
+                    line-height: 70px;
+                    color: #fff;
+                    position: relative;
+                    p{
+                        background-color: rgba(0,0,0,0.2);
+                    }
+                    i{
+                        position: absolute;
+                        right: 0;
+                        top:0;
+                    }
+                }
             }
         }
         .chat-setting.active{

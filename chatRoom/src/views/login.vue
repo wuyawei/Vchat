@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-login">
+    <div class="vchat-login vchat-bg">
         <div class="logo" :class="{active: showSign}">
             <h3 class="title">Hi, Vchat !</h3>
             <span class="begain" @click="experience">立即体验</span>
@@ -232,9 +232,6 @@
         width:100%;
         height: 100%;
         background-image: url('/img/0073.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
         background-position-y: -140px;
         overflow: hidden;
     }

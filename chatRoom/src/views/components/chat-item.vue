@@ -22,7 +22,7 @@
                                             <img :src="IMG_URL + v.emoji" alt="">
                                         </p>
                                         <p v-if="v.style === 'img'" class="image">
-                                            <img :src="IMG_URL + v.emoji" alt="">
+                                            <img :src="IMG_URL + v.emoji" alt="" @dblclick="lookPhoto(v.emoji)" title="双击查看原图">
                                         </p>
                                         <div v-if="v.style === 'file'" class="file">
                                             <img src="../../assets/img/file.png" alt="">
@@ -46,7 +46,7 @@
                                             <img :src="IMG_URL + v.emoji" alt="">
                                         </p>
                                         <p v-if="v.style === 'img'" class="image">
-                                            <img :src="IMG_URL + v.emoji" alt="">
+                                            <img :src="IMG_URL + v.emoji" alt="" @dblclick="lookPhoto(v.emoji)" title="双击查看原图">
                                         </p>
                                         <div v-if="v.style === 'file'" class="file">
                                             <img src="../../assets/img/file.png" alt="">
@@ -121,6 +121,7 @@
                 </div>
             </div>
         </div>
+        <v-photo-swipe :visible="photoSwipeFlag" @close="photoSwipeFlag = false" :url="photoSwipeUrl"></v-photo-swipe>
     </div>
 </template>
 
@@ -143,7 +144,9 @@
                 message: '',
                 currTool: '',
                 groupUsers: [], // 群成员
-                uplaodVisible: false
+                uplaodVisible: false, // 上传
+                photoSwipeFlag: false, //图片放大器
+                photoSwipeUrl: ''
             };
         },
         components: {
@@ -216,6 +219,10 @@
         mounted() {
         },
         methods: {
+            lookPhoto(url) { // 查看原图
+                this.photoSwipeUrl = url;
+                this.photoSwipeFlag = true;
+            },
             uploadFileSuccess(res, file) { // 上传成功
                 if (file.raw.type.indexOf('image') > -1) {
                     this.send(res.data, 'img');
@@ -465,15 +472,15 @@
                             p.emoji{
                                 max-width: 160px;
                                 overflow: hidden;
-                                border-radius: 4px;
+                                border-radius: 5px;
                                 img{
                                     width:100%;
                                 }
                             }
                             p.image{
-                                max-width: 200px;
+                                max-width: 300px;
                                 overflow: hidden;
-                                border-radius: 4px;
+                                border-radius: 5px;
                                 img{
                                     width:100%;
                                 }

@@ -67,8 +67,9 @@
                             <input type="file" title="选择图片" @change="InmageChange" ref="chooseInmage" accept="image/png, image/jpeg, image/gif, image/jpg">
                         </span>
                         <span class="tool-item">
-                            <v-icon name="wenjian2" color="#f5f5f5"></v-icon>
-                            <input type="file" title="选择文件" ref="chooseFile">
+                            <v-upload-popover :visible="uplaodVisible" @handleSuccess="uploadFileSuccess">
+                                <v-icon name="wenjian2" color="#f5f5f5" @clickIcon="chooseFile"></v-icon>
+                            </v-upload-popover>
                         </span>
                     </div>
                     <textarea v-model="message" @keyup.enter="send"></textarea>
@@ -124,7 +125,8 @@
                 chatList: [],
                 message: '',
                 currTool: '',
-                groupUsers: [] // 群成员
+                groupUsers: [], // 群成员
+                uplaodVisible: false
             };
         },
         components: {
@@ -197,8 +199,23 @@
         mounted() {
         },
         methods: {
+            uploadFileSuccess(res, file) { // 上传成功
+                if (file.raw.type.indexOf('image') > -1) {
+                    this.send(res.data, 'img');
+                }
+                this.uplaodVisible = false;
+                console.log(res, file);
+            },
+            chooseFile() { // 选择文件
+                this.uplaodVisible = !this.uplaodVisible;
+            },
             InmageChange() { // 发送图片
                 let f = this.$refs['chooseInmage'].files[0];
+                const isLt2M = f.size / 1024 / 1024 < 1;
+                if (!isLt2M) {
+                    this.$message.error('图片大小不能超过 1MB!');
+                    return;
+                }
                 let formdata = new FormData();
                 formdata.append('f', f);
                 api.uploadFile(formdata).then(r => {

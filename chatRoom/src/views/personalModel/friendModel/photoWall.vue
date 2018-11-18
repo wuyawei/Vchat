@@ -41,6 +41,11 @@
             },
             fileChange() {
                 let f = this.$refs['imgFile'].files[0];
+                const isLt2M = f.size / 1024 / 1024 < 1;
+                if (!isLt2M) {
+                    this.$message.error('图片大小不能超过 1MB!');
+                    return;
+                }
                 let formdata = new FormData();
                 formdata.append('f', f);
                 api.uploadFile(formdata).then(r => {

@@ -15,7 +15,6 @@
 * phone 手机
 * sex 性别
 * bubble 气泡
-* chatTheme 聊天主题
 * projectTheme 项目主题
 * wallpaper 聊天壁纸
 * signUpTime 注册时间

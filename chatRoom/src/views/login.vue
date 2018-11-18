@@ -231,9 +231,10 @@
     .vchat-login{
         width:100%;
         height: 100%;
-        background-image: url(../assets/img/1.jpg);
+        background-image: url('/img/0073.jpg');
         background-repeat: no-repeat;
         background-size: cover;
+        background-position: center;
         background-position-y: -140px;
         overflow: hidden;
     }

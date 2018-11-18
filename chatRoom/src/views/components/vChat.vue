@@ -42,7 +42,11 @@
                 </div>
             </div>
             <div class="chat-setting" :class="{active: settingFlag}">
+                <h3>聊天设置</h3>
                 <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag = false" color="#323232" :size="24" cursor="pointer"></v-icon>
+                <h4>聊天壁纸</h4>
+                <div class="bg"></div>
+                <h4>文字颜色</h4>
             </div>
         </div>
     </div>
@@ -163,9 +167,10 @@
         width:100%;
         height: 100%;
         border-radius: 3px;
-        background-image: url(../../assets/img/1.jpg);
+        background-image: url('/img/wallpaper.jpg');
         background-repeat: no-repeat;
         background-size: cover;
+        background-position: center;
         overflow: hidden;
         position: relative;
         &:before{
@@ -309,13 +314,26 @@
             transform: translateX(100%);
             z-index: 15;
             border-radius: 5px 2px 0 5px;
+            box-shadow: -1px 0 5px #bdafaf;
+            overflow-y: auto;
+            h3{
+                height: 36px;
+                background-color: #fff;
+                line-height: 36px;
+                color: #111;
+            }
+            h4{
+                text-align: left;
+                margin: 5px;
+            }
             .deClose{
                 position: absolute;
                 right: 5px;
                 top:5px;
+                opacity: 0.7;
             }
             .deClose:hover{
-                opacity: 0.7;
+                opacity: 1;
             }
         }
         .chat-setting.active{

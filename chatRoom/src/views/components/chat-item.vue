@@ -239,8 +239,9 @@
             },
             InmageChange() { // 发送图片
                 let f = this.$refs['chooseInmage'].files[0];
-                const isLt2M = f.size / 1024 / 1024 < 1;
-                if (!isLt2M) {
+                const isLt1M = f.size / 1024 / 1024 < 1;
+                console.log(isLt1M);
+                if (!isLt1M) {
                     this.$message.error('图片大小不能超过 1MB!');
                     return;
                 }

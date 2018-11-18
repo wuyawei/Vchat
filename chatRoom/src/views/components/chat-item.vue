@@ -24,6 +24,13 @@
                                         <p v-if="v.style === 'img'" class="image">
                                             <img :src="IMG_URL + v.emoji" alt="">
                                         </p>
+                                        <div v-if="v.style === 'file'" class="file">
+                                            <img src="../../assets/img/file.png" alt="">
+                                            <div>
+                                                <p :title="v.mes">{{v.mes.lastIndexOf('.') > 12 ? v.mes.slice(0, 12) + '...' + v.mes.slice(v.mes.lastIndexOf('.')) : v.mes}}</p>
+                                                <a :href="v.emoji" download>下载</a>
+                                            </div>
+                                        </div>
                                         <p class="mes" v-if="v.style === 'mess'">{{v.mes}}</p>
                                     </div>
                                 </div>
@@ -41,6 +48,16 @@
                                         <p v-if="v.style === 'img'" class="image">
                                             <img :src="IMG_URL + v.emoji" alt="">
                                         </p>
+                                        <div v-if="v.style === 'file'" class="file">
+                                            <img src="../../assets/img/file.png" alt="">
+                                            <div>
+                                                <p :title="v.mes">{{v.mes.lastIndexOf('.') > 12 ? v.mes.slice(0, 12) + '...' + v.mes.slice(v.mes.lastIndexOf('.')) : v.mes}}</p>
+                                                <p>
+                                                    发送成功
+                                                    <v-icon class="el-icon-circle-check-outline" color="#67C23A"></v-icon>
+                                                </p>
+                                            </div>
+                                        </div>
                                         <p class="mes"  v-if="v.style === 'mess'">{{v.mes}}</p>
                                     </div>
                                     <p>
@@ -202,9 +219,10 @@
             uploadFileSuccess(res, file) { // 上传成功
                 if (file.raw.type.indexOf('image') > -1) {
                     this.send(res.data, 'img');
+                } else {
+                    this.send(file, 'file');
                 }
                 this.uplaodVisible = false;
-                console.log(res, file);
             },
             chooseFile() { // 选择文件
                 this.uplaodVisible = !this.uplaodVisible;
@@ -277,8 +295,8 @@
                     }
                 })
             },
-            send(url, type = 'mess') { // 发送消息
-                if (!this.message && !url) {
+            send(params, type = 'mess') { // 发送消息
+                if (!this.message && !params) {
                     return;
                 }
                 let val = {
@@ -295,11 +313,15 @@
                 if (type === 'emoji') { // 发送表情
                     val.style =  'emoji';
                     val.mes = '表情';
-                    val.emoji = url;
+                    val.emoji = params;
                 } else if (type === 'img') {
                     val.style =  'img';
                     val.mes = '图片';
-                    val.emoji = url;
+                    val.emoji = params;
+                } else if (type === 'file') {
+                    val.style =  'file';
+                    val.mes = params.name;
+                    val.emoji = params.response.data;
                 }
                 this.chatList.push(Object.assign({},val,{type: 'mine'}));
                 this.$socket.emit('mes', val);
@@ -454,6 +476,40 @@
                                 border-radius: 4px;
                                 img{
                                     width:100%;
+                                }
+                            }
+                            div.file{
+                                width:300px;
+                                height: 80px;
+                                display: flex;
+                                justify-content: flex-start;
+                                align-content: center;
+                                color: #323232;
+                                background-color: #fff;
+                                text-align: left;
+                                padding: 10px;
+                                box-sizing: border-box;
+                                border-radius: 5px;
+                                img{
+                                    width:60px;
+                                    height: 60px;
+                                    margin-right: 10px;
+                                }
+                                p:nth-of-type(1){
+                                    font-size: 16px;
+                                    margin-bottom: 8px;
+                                }
+                                p:nth-of-type(2){
+                                    font-size: 12px;
+                                    line-height: 13px;
+                                    color: #888;
+                                    i{
+                                        vertical-align: text-bottom;
+                                    }
+                                }
+                                a{
+                                    color: #27cac7;
+                                    font-size: 12px;
                                 }
                             }
                         }

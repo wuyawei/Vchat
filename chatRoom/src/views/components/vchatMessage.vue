@@ -1,6 +1,6 @@
 <template>
     <div class="vchatMessage">
-        <ul>
+        <ul v-if="InfoList.length">
             <template v-for="v in InfoList">
                 <li v-if="v.type === 'validate'" :key="v['_id']">
                     <span class="vchat-line1 info">{{v.state === 'friend' ? '验证消息：' + v.nickname + '申请加您为好友' : '验证消息：' + v.nickname + '申请加入' + v.groupName}}</span>
@@ -39,6 +39,7 @@
                 </li>
             </template>
         </ul>
+        <span v-else>暂无系统消息！</span>
     </div>
 </template>
 
@@ -116,6 +117,7 @@
         padding: 15px 30px 10px 15px;
         box-sizing: border-box;
         overflow-y: auto;
+        color: #fff;
         li{
             text-align: left;
             color: #fff;

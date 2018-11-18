@@ -5,7 +5,7 @@
                 <a>{{currSation.name}}</a>
                 <div class="chat-handel">
                     <v-icon class="el-icon-minus" color="#fff" cursor="pointer" @clickIcon="close"></v-icon>
-                    <v-icon class="el-icon-setting" color="#fff" cursor="pointer"></v-icon>
+                    <v-icon class="el-icon-setting" color="#fff" cursor="pointer" @clickIcon="setting"></v-icon>
                 </div>
             </div>
             <div class="chat-container">
@@ -41,6 +41,9 @@
                     <vchat-message v-show="currSation.type === 'vchat'" :currSation="currSation"></vchat-message>
                 </div>
             </div>
+            <div class="chat-setting" :class="{active: settingFlag}">
+                <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag = false" color="#323232" :size="24" cursor="pointer"></v-icon>
+            </div>
         </div>
     </div>
 </template>
@@ -56,7 +59,8 @@
                 currSation: {}, //当前会话
                 contactsList: [], // 会话列表
                 IMGURL: process.env.IMG_URL,
-                one: true
+                one: true,
+                settingFlag: false // 设置面板
             }
         },
         sockets:{
@@ -106,6 +110,9 @@
             ...mapState(['user', 'conversationsList', 'unRead'])
         },
         methods: {
+            setting() {
+                this.settingFlag = true;
+            },
             close() {
                 this.$emit('closeChat');
             },
@@ -290,6 +297,29 @@
                 min-width: 588.8px;
                 box-sizing: border-box;
             }
+        }
+        .chat-setting{
+            position: absolute;
+            right:0;
+            top:0;
+            width:250px;
+            height: 500px;
+            background-color: #f5f5f5;
+            transition: transform 0.3s;
+            transform: translateX(100%);
+            z-index: 15;
+            border-radius: 5px 2px 0 5px;
+            .deClose{
+                position: absolute;
+                right: 5px;
+                top:5px;
+            }
+            .deClose:hover{
+                opacity: 0.7;
+            }
+        }
+        .chat-setting.active{
+            transform: translateX(0);
         }
     }
 </style>

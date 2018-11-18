@@ -1,9 +1,9 @@
 <template>
     <div class="vchat-item">
         <div class="vchat-item-header">
-            <span :class="{active: currNav === i}" v-for="(v, i) in navList" :key="i" @click="setCurrNav(i)" v-if="v.type.indexOf(currSation.type) > -1">{{v.name}}</span>
+            <span :class="{active: currNav === v.id}" v-for="(v, i) in navList" :key="i" @click="setCurrNav(v.id)" v-if="v.type.indexOf(currSation.type) > -1">{{v.name}}</span>
         </div>
-        <div class="vchat-item-container">
+        <div class="vchat-item-container" v-show="currNav === 0">
             <div class="container-chat">
                 <div class="chat-room">
                     <ul ref="msglist">
@@ -121,6 +121,9 @@
                 </div>
             </div>
         </div>
+        <div class="vchat-item-container" v-show="currNav === 2">
+            努力开发中...
+        </div>
         <v-photo-swipe :visible="photoSwipeFlag" @close="photoSwipeFlag = false" :url="photoSwipeUrl"></v-photo-swipe>
     </div>
 </template>
@@ -136,7 +139,7 @@
         data() {
             return {
                 // type 0 共有 1 群聊 2 好友
-                navList: [{name: '聊天', type: 'group,friend'}, {name: '公告', type: 'group'}, {name: '聊天记录', type: 'group,friend'}],
+                navList: [{name: '聊天', type: 'group,friend', id: 0}, {name: '公告', type: 'group', id: 1}, {name: '聊天记录', type: 'group,friend', id: 2}],
                 IMG_URL: process.env.IMG_URL,
                 currNav: 0,
                 spread: false,
@@ -402,6 +405,7 @@
             height: calc(100% - 32px);
             display: flex;
             justify-content: flex-start;
+            color: #fff;
             .container-chat{
                 width:100%;
                 height: 100%;

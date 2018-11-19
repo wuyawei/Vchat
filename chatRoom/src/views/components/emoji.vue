@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-emoji">
-        <el-tabs type="border-card" tab-position="bottom">
-            <el-tab-pane>
+        <el-tabs type="border-card" tab-position="bottom" v-model="activeName">
+            <el-tab-pane name="default">
                 <span slot="label" class="emoji-tap" :lazy="true">
                     {{emojiJson[0]}}
                 </span>
@@ -11,21 +11,21 @@
                     </li>
                 </ul>
             </el-tab-pane>
-            <el-tab-pane v-for="v in myEmojiList" :key="v.code">
+            <el-tab-pane v-for="v in myEmojiList" :key="v.code" :name="v.code">
                 <span slot="label" class="emoji-tap" :lazy="true">
                     <img :src="IMG_URL + v.list[0]" alt="" class="emoji-tap-img">
                 </span>
-                <ul class="emoji-ul">
+                <ul class="emoji-ul" v-if="activeName === v.code">
                     <li v-for="(m, n) in v.list" :key="n" @click.stop="chooseEmoji(m)">
                         <img :src="IMG_URL + m">
                     </li>
                 </ul>
             </el-tab-pane>
-            <el-tab-pane name="add">
+            <el-tab-pane name="shop">
                 <span slot="label" class="emoji-tap" :lazy="true">
                     <v-icon name="jia2" color="rgba(50, 50, 50, 0.64)"></v-icon>
                 </span>
-                <div class="emoji-shop">
+                <div class="emoji-shop" v-if="activeName === 'shop'">
                     <h3>表情商城</h3>
                     <ul class="emoji-shop-ul">
                         <li v-for="(m, n) in expressionList" :key="n" @click.stop="emojiDetail(m)">
@@ -64,7 +64,8 @@
                 expressionList: [], // 表情商城
                 myEmojiList: [], // 我的表情包
                 currEmojiDetail: {}, // 表情包详情页
-                emojiJson: emojiJson.data.split(',')
+                emojiJson: emojiJson.data.split(','),
+                activeName: 'default' // 当前选项
             }
         },
         computed: {

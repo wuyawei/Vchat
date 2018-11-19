@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "cropperjs": "^1.4.1",
     "element-ui": "^2.4.3",
+    "nprogress": "^0.2.0",
     "vchat-regcode": "^0.0.3",
     "vue": "^2.5.2",
     "vue-draggable-resizable": "^1.7.2",

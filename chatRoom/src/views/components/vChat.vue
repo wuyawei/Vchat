@@ -46,7 +46,7 @@
                 <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag.f = false" color="#323232" :size="24" cursor="pointer"></v-icon>
                 <h5>聊天壁纸</h5>
                 <ul class="bg">
-                    <li class="vchat-bg bg-li" v-for="(v, i) in bgList" :key="i" :style="{backgroundImage: `url(${v.url})`}">
+                    <li class="bg-li" v-for="(v, i) in bgList" :key="i" v-bgInmage="v.url">
                         <p @click="setChatBg(v)">{{v.name}}</p>
                         <v-icon class="el-icon-circle-check-outline" color="rgb(80, 243, 0)" v-if="user.wallpaper.split(',')[0] === v.url"></v-icon>
                     </li>
@@ -56,6 +56,7 @@
                     </li>
                 </ul>
                 <h5>文字颜色</h5>
+                <span v-for="(v, i) in colorList" :key="i" v-bgColor="v"></span>
             </div>
         </div>
     </div>
@@ -73,9 +74,10 @@
                 contactsList: [], // 会话列表
                 IMGURL: process.env.IMG_URL,
                 one: true,
-                settingFlag: {
+                settingFlag: { // 设置面板
                     f: false
-                } // 设置面板
+                },
+                colorList: []
             }
         },
         sockets:{
@@ -375,10 +377,10 @@
         .chat-setting{
             position: absolute;
             right:0;
-            top:1px;
+            top:0;
             width:250px;
             height: 500px;
-            background-color: #f5f5f5;
+            background-color: #eef5eb;
             transition: transform 0.3s;
             transform: translateX(100%);
             z-index: 15;
@@ -387,9 +389,9 @@
             overflow-y: auto;
             h3{
                 height: 36px;
-                background-color: #fff;
                 line-height: 36px;
-                color: #000;
+                color: #fff;
+                background-color: #8ddbcb;
             }
             h5{
                 text-align: left;

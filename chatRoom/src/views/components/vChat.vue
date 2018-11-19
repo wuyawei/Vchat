@@ -56,7 +56,16 @@
                     </li>
                 </ul>
                 <h5>文字颜色</h5>
-                <span v-for="(v, i) in colorList" :key="i" v-bgColor="v"></span>
+                <p class="isColor-container">
+                    <span>当前颜色:</span>
+                    <span class="isColor"></span>
+                </p>
+                <div class="color-container">
+                    <span v-for="(v, i) in colorList" :key="i" v-bgColor="v" class="colorList"></span>
+                    <span v-bgColor="chooseColor" class="colorList">
+                        <input type="color" v-model="chooseColor">
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -77,7 +86,8 @@
                 settingFlag: { // 设置面板
                     f: false
                 },
-                colorList: []
+                colorList: ['#96d0a5', '#b4d9ce', '#dbf2e0', '#94cad7', '#f6c8ca'],
+                chooseColor: '#ffffff', // 自定义颜色
             }
         },
         sockets:{
@@ -380,7 +390,7 @@
             top:0;
             width:250px;
             height: 500px;
-            background-color: #eef5eb;
+            background-color: #f5f5f5;
             transition: transform 0.3s;
             transform: translateX(100%);
             z-index: 15;
@@ -390,12 +400,14 @@
             h3{
                 height: 36px;
                 line-height: 36px;
-                color: #fff;
-                background-color: #8ddbcb;
+                color: #111;
+                background-color: #eef5eb;
             }
             h5{
                 text-align: left;
-                margin: 5px;
+                margin: 5px 5px 10px 5px;
+                border-bottom: 1px solid #d5d5d5;
+                padding-bottom: 5px;
             }
             .deClose{
                 position: absolute;
@@ -447,6 +459,49 @@
                         opacity: 0;
                         z-index: 2;
                     }
+                }
+            }
+            .isColor-container{
+                font-size: 12px;
+                text-align: left;
+                display: flex;
+                justify-content: flex-start;
+                align-content: center;
+                line-height: 24px;
+                padding-left: 5px;
+                box-sizing: border-box;
+                margin-bottom: 10px;
+                .isColor{
+                    width:50px;
+                    height: 24px;
+                    display: inline-block;
+                    border: 1px solid #d5d5d5;
+                    margin-left: 10px;
+                }
+            }
+            .color-container{
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                padding-left: 5px;
+                box-sizing: border-box;
+            }
+            .colorList{
+                width:76px;
+                height: 32px;
+                display: inline-block;
+                margin-bottom: 5px;
+                margin-right: 5px;
+                position: relative;
+                border: 1px solid #d5d5d5;
+                box-sizing: border-box;
+                input{
+                    width:100%;
+                    height: 100%;
+                    position: absolute;
+                    left:0;
+                    right: 0;
+                    opacity: 0;
                 }
             }
         }

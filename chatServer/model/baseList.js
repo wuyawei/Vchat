@@ -20,6 +20,7 @@ let users = db.model("users", { // Schema
     phone: { type: String, default: '' },
     sex: { type: String, default: '3' }, // 0 男 1 女 3 保密
     bubble: { type: String, default: 'vchat' }, // 气泡
+    chatColor: { type: String, default: '#ffffff' }, // 聊天文字颜色
     projectTheme: { type: String, default: 'vchat' }, // 项目主题
     wallpaper: { type: String, default: '/img/wallpaper.jpg' }, // 聊天壁纸
     signUpTime: { type: Date, default: Date.now() }, // 注册时间

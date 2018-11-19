@@ -10,7 +10,9 @@ import '../static/css/element_ui.scss';
 import VueSocketio from 'vue-socket.io';
 import socketio from 'socket.io-client';
 import libs from '@/libs'; // 引入全局插件
+import directives from './directives';
 
+Object.keys(directives).forEach(k => Vue.directive(k, directives[k]));
 Vue.use(libs);
 Vue.use(VueSocketio, socketio('http://localhost:9988/'));
 Vue.use(ElementUI);

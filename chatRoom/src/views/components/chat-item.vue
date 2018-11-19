@@ -73,8 +73,8 @@
                 </div>
                 <div class="chat-send">
                     <div class="tool">
-                        <span class="tool-item" :class="{active: currTool === 'emoji'}" ref="emoji">
-                            <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showTool('emoji')" cursor="pointer" title="发送表情"></v-icon>
+                        <span class="tool-item" :class="{active: showEmoji.f}" v-watchMouse="showEmoji">
+                            <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showEmoji.f = !showEmoji.f" cursor="pointer" title="发送表情"></v-icon>
                             <div class="emoji-container">
                                 <emoji @chooseEmoji="chooseEmoji" @chooseEmojiDefault="chooseEmojiDefault"></emoji>
                             </div>
@@ -83,9 +83,9 @@
                             <v-icon name="tupian2" color="#f5f5f5"></v-icon>
                             <input type="file" title="选择图片" @change="InmageChange" ref="chooseInmage" accept="image/png, image/jpeg, image/gif, image/jpg">
                         </span>
-                        <span class="tool-item">
-                            <v-upload-popover :visible="uplaodVisible" @handleSuccess="uploadFileSuccess">
-                                <v-icon name="wenjian2" color="#f5f5f5" @clickIcon="chooseFile"></v-icon>
+                        <span class="tool-item" >
+                            <v-upload-popover :visible="uplaodVisible.f" @handleSuccess="uploadFileSuccess" v-watchMouse="uplaodVisible">
+                                <v-icon name="wenjian2" color="#f5f5f5" @clickIcon="uplaodVisible.f = !uplaodVisible.f"></v-icon>
                             </v-upload-popover>
                         </span>
                     </div>
@@ -145,9 +145,13 @@
                 spread: false,
                 chatList: [],
                 message: '',
-                currTool: '',
+                showEmoji: {
+                    f: false
+                },
                 groupUsers: [], // 群成员
-                uplaodVisible: false, // 上传
+                uplaodVisible: {  // 上传
+                    f: false
+                },
                 photoSwipeFlag: false, //图片放大器
                 photoSwipeUrl: ''
             };
@@ -234,9 +238,6 @@
                 }
                 this.uplaodVisible = false;
             },
-            chooseFile() { // 选择文件
-                this.uplaodVisible = !this.uplaodVisible;
-            },
             InmageChange() { // 发送图片
                 let f = this.$refs['chooseInmage'].files[0];
                 const isLt1M = f.size / 1024 / 1024 < 1;
@@ -258,22 +259,6 @@
                     }
                 });
                 this.$refs['chooseInmage'].value = '';
-            },
-            showTool(v) { // 表情显示
-                if (this.currTool === v) {
-                    this.currTool = '';
-                    return;
-                }
-                this.currTool = v;
-                if (this.currTool === 'emoji') {
-                    document.documentElement.addEventListener('click', this.watchMouse);
-                }
-            },
-            watchMouse(e) { // 监测鼠标事件，点击emoji以外的元素隐藏
-                if (!this.$refs['emoji'].contains(e.target)) {
-                    this.currTool = '';
-                    document.documentElement.removeEventListener('click', this.watchMouse);
-                }
             },
             getGroupUserStatus(obj) { // 群成员在线状态
                 this.groupUsers.forEach((v, i) => {

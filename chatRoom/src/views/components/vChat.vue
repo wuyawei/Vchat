@@ -5,7 +5,7 @@
                 <a>{{currSation.name}}</a>
                 <div class="chat-handel">
                     <v-icon class="el-icon-minus" color="#fff" cursor="pointer" @clickIcon="close"></v-icon>
-                    <v-icon class="el-icon-setting" color="#fff" cursor="pointer" @clickIcon="setting"></v-icon>
+                    <v-icon class="el-icon-setting" color="#fff" cursor="pointer" @clickIcon="settingFlag.f = true"></v-icon>
                 </div>
             </div>
             <div class="chat-container">
@@ -41,9 +41,9 @@
                     <vchat-message v-show="currSation.type === 'vchat'" :currSation="currSation"></vchat-message>
                 </div>
             </div>
-            <div class="chat-setting" :class="{active: settingFlag}">
+            <div class="chat-setting" :class="{active: settingFlag.f}" v-watchMouse="settingFlag">
                 <h3>聊天设置</h3>
-                <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag = false" color="#323232" :size="24" cursor="pointer"></v-icon>
+                <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag.f = false" color="#323232" :size="24" cursor="pointer"></v-icon>
                 <h5>聊天壁纸</h5>
                 <ul class="bg">
                     <li class="vchat-bg bg-li" v-for="(v, i) in bgList" :key="i" :style="{backgroundImage: `url(${v.url})`}">
@@ -73,7 +73,9 @@
                 contactsList: [], // 会话列表
                 IMGURL: process.env.IMG_URL,
                 one: true,
-                settingFlag: false // 设置面板
+                settingFlag: {
+                    f: false
+                } // 设置面板
             }
         },
         sockets:{
@@ -122,7 +124,7 @@
         computed: {
             ...mapState(['user', 'conversationsList', 'unRead']),
             bgList() {
-                return [{name: '风景', url: '/img/wallpaper.jpg', id: 1}, {name: '昨日青空', url: '/img/0055.jpg', id: 2}, {name: '自定义', url: this.user.wallpaper.split(',')[1] || '', id: 3}];
+                return [{name: '远方', url: '/img/wallpaper.jpg', id: 1}, {name: '昨日青空', url: '/img/0055.jpg', id: 2}, {name: '自定义', url: this.user.wallpaper.split(',')[1] || '', id: 3}];
             }
         },
         methods: {
@@ -167,7 +169,7 @@
                 this.$refs['wallpaperFile'].value = '';
             },
             setChatBg(v) { // 设置壁纸
-                if (this.user.wallpaper.split(',')[0] === v.url) {
+                if (this.user.wallpaper.split(',')[0] === v.url || !v.url) {
                     return;
                 }
                 let params = {
@@ -187,9 +189,6 @@
                         })
                     }
                 });
-            },
-            setting() { // 打开设置
-                this.settingFlag = true;
             },
             close() {
                 this.$emit('closeChat');
@@ -376,7 +375,7 @@
         .chat-setting{
             position: absolute;
             right:0;
-            top:0;
+            top:1px;
             width:250px;
             height: 500px;
             background-color: #f5f5f5;

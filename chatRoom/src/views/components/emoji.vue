@@ -11,11 +11,11 @@
                     </li>
                 </ul>
             </el-tab-pane>
-            <el-tab-pane v-for="v in myEmojiList" :key="v.code" :name="v.code">
+            <el-tab-pane v-for="v in myEmojiList" :key="v.code" :name="v.code + ''">
                 <span slot="label" class="emoji-tap" :lazy="true">
                     <img :src="IMG_URL + v.list[0]" alt="" class="emoji-tap-img">
                 </span>
-                <ul class="emoji-ul" v-if="activeName === v.code">
+                <ul class="emoji-ul" v-if="activeName === v.code + ''">
                     <li v-for="(m, n) in v.list" :key="n" @click.stop="chooseEmoji(m)">
                         <img :src="IMG_URL + m">
                     </li>

@@ -73,11 +73,13 @@
                 </div>
                 <div class="chat-send">
                     <div class="tool">
-                        <span class="tool-item" :class="{active: showEmoji.f}" v-watchMouse="showEmoji">
+                        <span class="tool-item" v-watchMouse="showEmoji">
                             <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showEmoji.f = !showEmoji.f" cursor="pointer" title="发送表情"></v-icon>
-                            <div class="emoji-container">
-                                <emoji @chooseEmoji="chooseEmoji" @chooseEmojiDefault="chooseEmojiDefault"></emoji>
-                            </div>
+                            <el-collapse-transition>
+                                <div class="emoji-container" v-show="showEmoji.f">
+                                    <emoji @chooseEmoji="chooseEmoji" @chooseEmojiDefault="chooseEmojiDefault"></emoji>
+                                </div>
+                            </el-collapse-transition>
                         </span>
                         <span class="tool-item">
                             <v-icon name="tupian2" color="#f5f5f5"></v-icon>
@@ -328,11 +330,11 @@
             },
             chooseEmojiDefault(em) {
                 this.message += em;
-                this.currTool = '';
+                this.showEmoji.f = false;
             },
             chooseEmoji(url) {
                 this.send(url, 'emoji');
-                this.currTool = '';
+                this.showEmoji.f = false;
             },
             clear() { // 清空
                 this.message = '';
@@ -601,8 +603,8 @@
                                 left:0;
                                 z-index: 10;
                                 transition: all 0.2s;
-                                transform: scaleX(0);
-                                opacity: 0;
+                                /*transform: scaleX(0);*/
+                                /*opacity: 0;*/
                             }
                             input{
                                 position: absolute;

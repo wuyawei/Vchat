@@ -31,7 +31,7 @@
 </template>
 <script>
     import api from '@/api';
-    import cropper from '@/views/components/cropper';
+    import cropper from '@/views/components/cropper/cropper';
     import vApheader from '@/views/components/header/vApheader';
     export  default {
         name: 'setGroup',

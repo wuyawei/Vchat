@@ -68,7 +68,7 @@
 
 <script>
     import api from '@/api';
-    import chat from '@/views/components/vChat';
+    import chat from '@/views/components/chat/vChat';
     import VueDraggableResizable from 'vue-draggable-resizable';
     import utils from '@/utils/utils';
     import { mapState, mapGetters } from 'vuex';

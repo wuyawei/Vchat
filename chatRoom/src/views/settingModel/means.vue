@@ -39,7 +39,7 @@
 </template>
 <script>
     import api from '@/api';
-    import cropper from '../components/cropper';
+    import cropper from '@/views/components/cropper/cropper';
     export default{
         name: 'means',
         data() {

@@ -119,19 +119,9 @@ export default new Router({
                     component: _import('settingModel/means')
                 },
                 {
-                    path: 'bubble',
-                    name: 'bubble',
-                    component: _import('settingModel/bubble')
-                },
-                {
                     path: 'theme',
                     name: 'theme',
                     component: _import('settingModel/theme')
-                },
-                {
-                    path: 'wallpaper',
-                    name: 'wallpaper',
-                    component: _import('settingModel/wallpaper')
                 }
             ]
         },

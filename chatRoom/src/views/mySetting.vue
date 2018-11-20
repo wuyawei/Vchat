@@ -33,16 +33,6 @@
                         name: '主题设置',
                         link: '/mySetting/theme',
                         class: 'icon-zhuti'
-                    },
-                    {
-                        name: '聊天壁纸',
-                        link: '/mySetting/wallpaper',
-                        class: 'icon-huanbeijing'
-                    },
-                    {
-                        name: '聊天气泡',
-                        link: '/mySetting/bubble',
-                        class: 'icon-yuyin'
                     }
                 ]
             }

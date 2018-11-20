@@ -1,11 +1,11 @@
 <template>
-    <div class="vchat-chatRoom vchat-bg" :style="{backgroundImage: `url(${user.wallpaper.split(',')[0]})`}">
+    <div class="vchat-chatRoom" v-bgInmage="user.wallpaper.split(',')[0]" v-fontColor="user.chatColor">
         <div class="vchat-chatRoom-bg">
             <div class="chat-header">
-                <a>{{currSation.name}}</a>
+                <a v-fontColor="user.chatColor">{{currSation.name}}</a>
                 <div class="chat-handel">
-                    <v-icon class="el-icon-minus" color="#fff" cursor="pointer" @clickIcon="close"></v-icon>
-                    <v-icon class="el-icon-setting" color="#fff" cursor="pointer" @clickIcon="settingFlag.f = true"></v-icon>
+                    <v-icon class="el-icon-minus" :color="user.chatColor" cursor="pointer" @clickIcon="close"></v-icon>
+                    <v-icon class="el-icon-setting" :color="user.chatColor" cursor="pointer" @clickIcon="settingFlag.f = true"></v-icon>
                 </div>
             </div>
             <div class="chat-container">
@@ -31,7 +31,7 @@
                         </div>
                         <p class="delete" @click.stop="remove(v, i)">
                             <el-tooltip class="item" effect="dark" :content="v.type === 'vchat' ? '从会话列表移除' : '从列表移除后，需要再次添加才能收到消息！'" placement="top-start">
-                                <v-icon class="el-icon-circle-close" color="#323232" cursor="pointer" :size="18"></v-icon>
+                                <v-icon class="el-icon-circle-close" :color="user.chatColor" cursor="pointer" :size="18"></v-icon>
                             </el-tooltip>
                         </p>
                     </li>
@@ -58,12 +58,13 @@
                 <h5>文字颜色</h5>
                 <p class="isColor-container">
                     <span>当前颜色:</span>
-                    <span class="isColor"></span>
+                    <span class="isColor" v-bgColor="user.chatColor"></span>
                 </p>
                 <div class="color-container">
                     <span v-for="(v, i) in colorList" :key="i" v-bgColor="v" class="colorList"></span>
                     <span v-bgColor="chooseColor" class="colorList">
-                        <input type="color" v-model="chooseColor">
+                        自定义
+                        <input type="color" v-model="chooseColor" @change="colorChange">
                     </span>
                 </div>
             </div>
@@ -140,6 +141,9 @@
             }
         },
         methods: {
+            colorChange() {
+                this.$store.commit('setUser', {chatColor: this.chooseColor});
+            },
             fileChange() {
                 let f = this.$refs['wallpaperFile'].files[0];
                 const isLt1M = f.size / 1024 / 1024 < 1;
@@ -276,7 +280,6 @@
         .chat-header{
             width:100%;
             height: 40px;
-            color: #fff;
             text-align: center;
             position: relative;
             line-height: 40px;
@@ -332,13 +335,12 @@
                     position: absolute;
                     right: 5px;
                     top:32px;
-                    background-color: #fff;
                     border-radius: 50%;
                     width:18px;
                     height: 18px;
                     line-height: 18px;
                     text-align: center;
-                    transition: transform 0.3s cubic-bezier(.76,.27,.09,.7);
+                    /*transition: transform 0.3s;*/
                     transform: scale(0);
                     i{
                         margin: 0;
@@ -351,32 +353,26 @@
             .chat-conversation-li-center{
                 min-width: 100px;
                 font-size: 14px;
-                color: #fff;
                 p{
                     margin-bottom: 5px;
                 }
                 p:nth-of-type(2) {
                     font-size: 12px;
-                    color: #d5d5d5;
                 }
             }
             .chat-conversation-li-right{
                 min-width: 36px;
                 font-size: 12px;
-                color: #d5d5d5;
                 text-align: right;
                 p{
                     margin-bottom: 5px;
                 }
             }
-            .chat-conversation-li:hover{
+            .chat-conversation-li:hover, .chat-conversation-li.active{
                 background-color: rgba(255,255,255,0.2);
             }
             .chat-conversation-li:hover .delete{
                 transform: scale(1);
-            }
-            .chat-conversation-li.active{
-                background-color: rgba(255,255,255,0.2);
             }
             .chat-content-box{
                 width: 80%;
@@ -397,6 +393,7 @@
             border-radius: 5px 2px 0 5px;
             box-shadow: -1px 0 5px #bdafaf;
             overflow-y: auto;
+            color: #111;
             h3{
                 height: 36px;
                 line-height: 36px;
@@ -495,6 +492,9 @@
                 position: relative;
                 border: 1px solid #d5d5d5;
                 box-sizing: border-box;
+                line-height: 32px;
+                font-size: 12px;
+                text-align: center;
                 input{
                     width:100%;
                     height: 100%;

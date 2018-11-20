@@ -31,7 +31,7 @@
                                                 <a :href="v.emoji" download>下载</a>
                                             </div>
                                         </div>
-                                        <p class="mes" v-if="v.style === 'mess'">{{v.mes}}</p>
+                                        <p class="mes" v-if="v.style === 'mess'" v-fontColor="user.chatColor">{{v.mes}}</p>
                                     </div>
                                 </div>
                             </template>
@@ -58,7 +58,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <p class="mes"  v-if="v.style === 'mess'">{{v.mes}}</p>
+                                        <p class="mes"  v-if="v.style === 'mess'" v-fontColor="user.chatColor">{{v.mes}}</p>
                                     </div>
                                     <p>
                                         <img :src="IMG_URL + v.avatar" alt="">
@@ -74,7 +74,7 @@
                 <div class="chat-send">
                     <div class="tool">
                         <span class="tool-item" v-watchMouse="showEmoji">
-                            <v-icon name="biaoqing1" color="#f5f5f5" @clickIcon="showEmoji.f = !showEmoji.f" cursor="pointer" title="发送表情"></v-icon>
+                            <v-icon name="biaoqing1" :color="user.chatColor" @clickIcon="showEmoji.f = !showEmoji.f" cursor="pointer" title="发送表情"></v-icon>
                             <el-collapse-transition>
                                 <div class="emoji-container" v-show="showEmoji.f">
                                     <emoji @chooseEmoji="chooseEmoji" @chooseEmojiDefault="chooseEmojiDefault"></emoji>
@@ -82,16 +82,16 @@
                             </el-collapse-transition>
                         </span>
                         <span class="tool-item">
-                            <v-icon name="tupian2" color="#f5f5f5"></v-icon>
+                            <v-icon name="tupian2" :color="user.chatColor"></v-icon>
                             <input type="file" title="选择图片" @change="InmageChange" ref="chooseInmage" accept="image/png, image/jpeg, image/gif, image/jpg">
                         </span>
                         <span class="tool-item" >
                             <v-upload-popover :visible="uplaodVisible.f" @handleSuccess="uploadFileSuccess" v-watchMouse="uplaodVisible">
-                                <v-icon name="wenjian2" color="#f5f5f5" @clickIcon="uplaodVisible.f = !uplaodVisible.f"></v-icon>
+                                <v-icon name="wenjian2" :color="user.chatColor" @clickIcon="uplaodVisible.f = !uplaodVisible.f"></v-icon>
                             </v-upload-popover>
                         </span>
                     </div>
-                    <textarea v-model="message" @keyup.enter="send"></textarea>
+                    <textarea v-model="message" @keyup.enter="send" v-fontColor="user.chatColor"></textarea>
                     <div class="enter">
                         <button class="vchat-button-mini info" @click="clear">清空</button>
                         <button class="vchat-button-mini" @click="send">发送</button>
@@ -109,7 +109,7 @@
                 <div class="handel-member">
                     <h3>
                         <span>群成员 ( {{groupUsers.length}} )</span>
-                        <v-icon class="el-icon-search" color="#fff" :size="18" @clickIcon="spreadInput"></v-icon>
+                        <v-icon class="el-icon-search" :color="user.chatColor" :size="18" @clickIcon="spreadInput"></v-icon>
                     </h3>
                     <input type="text" v-show="spread" ref="searchMember">
                     <ul>
@@ -362,9 +362,10 @@
                 padding: 0 5px;
                 margin-right: 10px;
                 box-sizing: border-box;
-                color: #cccccc;
                 cursor: pointer;
                 position: relative;
+                opacity: 0.8;
+                overflow: hidden;
             }
             span:before{
                 content: '';
@@ -375,14 +376,11 @@
                 position: absolute;
                 left:0;
                 bottom:0;
-                transition: transform 0.2s;
+                /*transition: transform 0.2s;*/
                 transform: scale(0);
             }
-            span:hover{
-                color: #fff;
-            }
-            span.active{
-                color: #fff;
+            span:hover, span.active{
+                opacity: 1;
             }
             span.active:before{
                 transform: scale(1);
@@ -393,7 +391,6 @@
             height: calc(100% - 32px);
             display: flex;
             justify-content: flex-start;
-            color: #fff;
             .container-chat{
                 width:100%;
                 height: 100%;
@@ -449,7 +446,7 @@
                                 }
                             }
                             p.mes{
-                                background-color: #27cac7;
+                                background-color: rgb(164, 245, 231);
                                 border-radius: 5px;
                                 padding: 10px;
                                 box-sizing: border-box;
@@ -558,7 +555,7 @@
                     }
                     .mine p.mes:after{
                         right:-10px;
-                        border-bottom: 5px solid #27cac7;
+                        border-bottom: 5px solid rgb(164, 245, 231);
                         border-left: 5px solid transparent;
                         border-right: 10px solid transparent;
                         transform: rotate(-45deg);
@@ -571,7 +568,7 @@
                         box-sizing: border-box;
                     }
                     .org span{
-                        color: #27cac7;
+                        color: rgb(164, 245, 231);
                         margin: 0 5px;
                     }
                 }
@@ -635,7 +632,6 @@
                         background-color: transparent;
                         resize: none;
                         outline: none;
-                        color: #fff;
                         font-size: 14px;
                         padding: 5px 10px;
                         box-sizing: border-box;
@@ -657,7 +653,6 @@
                 min-width: 164.864px;
                 height: 100%;
                 h3{
-                    color: #fff;
                     font-weight: normal;
                     font-size: 16px;
                     text-align: left;
@@ -674,7 +669,6 @@
                     border-bottom: 1px solid rgba(255,255,255,0.3);
                     padding: 8px 10px;
                     overflow-y: auto;
-                    color: #d5d5d5;
                     font-size: 12px;
                     text-align: left;
                     ul{
@@ -695,7 +689,6 @@
                     height: 60%;
                     box-sizing: border-box;
                     padding: 8px 10px;
-                    color: #fff;
                     font-size: 12px;
                     ul{
                         overflow-y: auto;

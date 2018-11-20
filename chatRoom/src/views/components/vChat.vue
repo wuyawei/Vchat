@@ -58,10 +58,10 @@
                 <h5>文字颜色</h5>
                 <p class="isColor-container">
                     <span>当前颜色:</span>
-                    <span class="isColor" v-bgColor="user.chatColor"></span>
+                    <span class="isColor" v-bgColor="user.chatColor">{{user.chatColor}}</span>
                 </p>
                 <div class="color-container">
-                    <span v-for="(v, i) in colorList" :key="i" v-bgColor="v" class="colorList"></span>
+                    <span v-for="(v, i) in colorList" :key="i" v-bgColor="v" class="colorList" @click="setFontColor(v)">{{v}}</span>
                     <span v-bgColor="chooseColor" class="colorList">
                         自定义
                         <input type="color" v-model="chooseColor" @change="colorChange">
@@ -142,7 +142,10 @@
         },
         methods: {
             colorChange() {
-                this.$store.commit('setUser', {chatColor: this.chooseColor});
+                this.upUserInfo({chatColor: this.chooseColor});
+            },
+            setFontColor(color) {
+                this.upUserInfo({chatColor: color});
             },
             fileChange() {
                 let f = this.$refs['wallpaperFile'].files[0];
@@ -191,6 +194,9 @@
                 let params = {
                     wallpaper: v.url + ',' + this.user.wallpaper.split(',')[1] || ''
                 };
+                this.upUserInfo(params);
+            },
+            upUserInfo(params) {
                 api.upUserInfo(params).then(r => {
                     if (r.code === 0) {
                         this.$store.commit('setUser', params);
@@ -474,6 +480,8 @@
                     display: inline-block;
                     border: 1px solid #d5d5d5;
                     margin-left: 10px;
+                    color: #323232;
+                    text-align: center;
                 }
             }
             .color-container{
@@ -495,6 +503,7 @@
                 line-height: 32px;
                 font-size: 12px;
                 text-align: center;
+                color: #323232;
                 input{
                     width:100%;
                     height: 100%;

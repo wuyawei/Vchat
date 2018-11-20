@@ -446,7 +446,7 @@
                                 }
                             }
                             p.mes{
-                                background-color: rgb(164, 245, 231);
+                                background-color: rgb(214, 251, 251);
                                 border-radius: 5px;
                                 padding: 10px;
                                 box-sizing: border-box;
@@ -555,7 +555,7 @@
                     }
                     .mine p.mes:after{
                         right:-10px;
-                        border-bottom: 5px solid rgb(164, 245, 231);
+                        border-bottom: 5px solid rgb(214, 251, 251);
                         border-left: 5px solid transparent;
                         border-right: 10px solid transparent;
                         transform: rotate(-45deg);

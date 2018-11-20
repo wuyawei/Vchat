@@ -1,5 +1,5 @@
 <template>
-    <div class="vchatMessage">
+    <div class="vchatMessage" v-fontColor="user.chatColor">
         <ul v-if="InfoList.length">
             <template v-for="v in InfoList">
                 <li v-if="v.type === 'validate'" :key="v['_id']">
@@ -117,10 +117,8 @@
         padding: 15px 30px 10px 15px;
         box-sizing: border-box;
         overflow-y: auto;
-        color: #fff;
         li{
             text-align: left;
-            color: #fff;
             display: flex;
             justify-content: space-between;
             font-size: 14px;

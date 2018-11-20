@@ -41,7 +41,7 @@
                         class: 'icon-people',
                         activeClass: 'icon-people_fill',
                         id: 2,
-                        link: 'p'
+                        link: 'application'
                     }
                 ]
             };

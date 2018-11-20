@@ -18,11 +18,12 @@
             </div>
         </div>
         <div class="vchat-content-right-view">
-            应用空间
+            <app-center></app-center>
         </div>
     </div>
 </template>
 <script>
+    import appCenter from './personalModel/appCenter.vue';
     export default{
         name: '',
         data() {
@@ -44,6 +45,9 @@
                     }
                 ]
             }
+        },
+        components: {
+            appCenter
         },
         methods: {
         },

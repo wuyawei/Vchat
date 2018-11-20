@@ -99,6 +99,11 @@ export default new Router({
                             ]
                         }
                     ]
+                },
+                {
+                    path: 'application',
+                    name: 'application',
+                    component: _import('application')
                 }
             ]
         },

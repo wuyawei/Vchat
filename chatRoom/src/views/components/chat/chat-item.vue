@@ -31,7 +31,7 @@
                                                 <a :href="v.emoji" download>下载</a>
                                             </div>
                                         </div>
-                                        <p class="mes" v-if="v.style === 'mess'" v-fontColor="user.chatColor">{{v.mes}}</p>
+                                        <p class="mes" v-if="v.style === 'mess'">{{v.mes}}</p>
                                     </div>
                                 </div>
                             </template>
@@ -58,7 +58,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <p class="mes"  v-if="v.style === 'mess'" v-fontColor="user.chatColor">{{v.mes}}</p>
+                                        <p class="mes"  v-if="v.style === 'mess'">{{v.mes}}</p>
                                     </div>
                                     <p>
                                         <img :src="IMG_URL + v.avatar" alt="">
@@ -243,7 +243,6 @@
             InmageChange() { // 发送图片
                 let f = this.$refs['chooseInmage'].files[0];
                 const isLt1M = f.size / 1024 / 1024 < 1;
-                console.log(isLt1M);
                 if (!isLt1M) {
                     this.$message.error('图片大小不能超过 1MB!');
                     return;
@@ -446,7 +445,7 @@
                                 }
                             }
                             p.mes{
-                                background-color: rgb(214, 251, 251);
+                                background-color: #acd9f8;
                                 border-radius: 5px;
                                 padding: 10px;
                                 box-sizing: border-box;
@@ -457,6 +456,7 @@
                                 word-break: break-all;
                                 color: #fff;
                                 display: inline-block;
+                                color: #323232;
                             }
                             p.emoji{
                                 max-width: 160px;
@@ -555,7 +555,7 @@
                     }
                     .mine p.mes:after{
                         right:-10px;
-                        border-bottom: 5px solid rgb(214, 251, 251);
+                        border-bottom: 5px solid #acd9f8;
                         border-left: 5px solid transparent;
                         border-right: 10px solid transparent;
                         transform: rotate(-45deg);

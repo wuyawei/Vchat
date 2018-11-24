@@ -186,7 +186,7 @@
                 justify-content: space-between;
                 align-items: center;
                 position: relative;
-                background-color: #27cac7;
+                background-color: #28828f;
                 z-index: 102;
             }
             .vchat-logo {

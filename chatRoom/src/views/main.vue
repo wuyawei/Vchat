@@ -12,7 +12,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="vchat-personalMain">
+            <div class="vchat-content-sub">
                 <router-view/>
             </div>
         </div>
@@ -125,7 +125,7 @@
         height: calc(100% - 80px);
         min-height: 600px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         .vchat-content-nav {
             width: 120px;
             height: 100%;
@@ -148,14 +148,10 @@
                 }
             }
         }
-        .vchat-personalMain {
-            width: calc(100% - 150px);
+        .vchat-content-sub{
+            width: calc(100% - 120px);
             height: 100%;
-            display: flex;
-            justify-content: flex-start;
-            /*background-image: url("../assets/img/1.jpg");*/
-            /*background-repeat: no-repeat;*/
-            /*background-position: center;*/
+            min-width: 1170px;
         }
     }
 }

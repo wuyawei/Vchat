@@ -56,12 +56,19 @@
     }
 </script>
 <style scoped lang="scss">
+    .vchat-personalMain {
+        width: calc(100% - 30px);
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
     .vchat-content-left-view {
         width: 320px;
         height: 100%;
         padding: 20px 0 30px;
         box-sizing: border-box;
         margin-left: 20px;
+        min-width: 300px;
         .vchat-content-left-box{
             width:100%;
             height: 100%;

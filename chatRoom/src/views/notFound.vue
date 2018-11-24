@@ -16,9 +16,10 @@
     .Not-found{
         width: 100vw;
         height: 100vh;
-        background-image: url("../assets/img/404.jpg");
-        background-size: cover;
+        background-image: url("../assets/img/404.gif");
+        background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
+        background-color: #0691d2;
     }
 </style>

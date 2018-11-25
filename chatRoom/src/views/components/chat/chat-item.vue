@@ -87,7 +87,7 @@
                         </span>
                         <span class="tool-item" >
                             <v-upload-popover :visible="uplaodVisible.f" @handleSuccess="uploadFileSuccess" v-watchMouse="uplaodVisible">
-                                <v-icon name="wenjian2" :color="user.chatColor" @clickIcon="uplaodVisible.f = !uplaodVisible.f"></v-icon>
+                                <v-icon name="wenjian2" :color="user.chatColor" @clickIcon="uplaodVisible.f = !uplaodVisible.f" title="选择文件"></v-icon>
                             </v-upload-popover>
                         </span>
                     </div>

@@ -152,6 +152,7 @@
                 const isLt1M = f.size / 1024 / 1024 < 1;
                 if (!isLt1M) {
                     this.$message.error('图片大小不能超过 1MB!');
+                    this.$refs['wallpaperFile'].value = '';
                     return;
                 }
                 let formdata = new FormData();

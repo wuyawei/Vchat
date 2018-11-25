@@ -103,7 +103,15 @@ export default new Router({
                 {
                     path: 'application',
                     name: 'application',
-                    component: _import('application')
+                    component: _import('application'),
+                    redirect: 'application/space',
+                    children: [
+                        {
+                            path: 'space',
+                            name: 'appSpace',
+                            component: _import('applicationModel/appSpace'),
+                        }
+                    ]
                 }
             ]
         },

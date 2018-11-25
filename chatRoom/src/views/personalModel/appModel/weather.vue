@@ -132,6 +132,8 @@
     height: 250px;
     background-image: url("../../../assets/img/weather_b1.jpg");
     position: relative;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
     .weather-container{
         position: absolute;
         top:0;

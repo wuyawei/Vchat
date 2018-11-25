@@ -6,7 +6,7 @@
                 <ul>
                     <li v-for="v in nav" :key="v.id" :class="{active: $route.path.indexOf(v.link) > -1}">
                         <router-link :to="{name: v.link}">
-                            <i class="iconfont" :class="[$route.path !== v.link ? v.class : v.activeClass]"></i>
+                            <i class="iconfont" :class="[v.class]"></i>
                             <p>{{v.name}}</p>
                         </router-link>
                     </li>
@@ -30,15 +30,15 @@
             return {
                 nav: [
                     {
-                        name: '首页',
-                        class: 'icon-group',
+                        name: '主页',
+                        class: 'icon-daohangshouye',
                         activeClass: 'icon-group_fill',
                         id: 3,
                         link: 'personalMain'
                     },
                     {
                         name: '应用空间',
-                        class: 'icon-people',
+                        class: 'icon-yingyong',
                         activeClass: 'icon-people_fill',
                         id: 2,
                         link: 'application'

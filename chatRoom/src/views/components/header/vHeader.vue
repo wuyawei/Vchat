@@ -92,7 +92,7 @@
                     },
                     {
                         name: '日程管理',
-                        icon: 'icon-clock',
+                        icon: 'icon-huihuajilu',
                         link: '/todo'
                     },
                     {

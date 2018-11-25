@@ -31,7 +31,8 @@ body, html {
     height: 100%;
     box-sizing: border-box;
     background-color: #fff;
-    overflow: hidden;
+    min-width: 1200px;
+    //overflow: hidden;
 }
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/

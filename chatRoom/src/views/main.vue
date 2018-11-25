@@ -126,6 +126,7 @@
         min-height: 600px;
         display: flex;
         justify-content: flex-start;
+        background-color: #fff;
         .vchat-content-nav {
             width: 120px;
             height: 100%;

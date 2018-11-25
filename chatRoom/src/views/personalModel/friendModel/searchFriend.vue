@@ -38,7 +38,7 @@
             <v-nodata v-show="!friendList.length && !loadingSearch">
                 <p class="vchat-no-have">
                     没有搜索到想要的!
-            </p>
+                </p>
             </v-nodata>
         </div>
     </div>

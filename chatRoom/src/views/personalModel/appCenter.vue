@@ -26,6 +26,8 @@
         width:100%;
         height: 100%;
         border-radius: 5px;
-        overflow: hidden;
+        background-color: #eff1f4;
+        box-shadow: 0 0 1px 1px #d5d5d5;
+        box-sizing: border-box;
     }
 </style>

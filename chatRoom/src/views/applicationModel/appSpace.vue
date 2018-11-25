@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-appSpace">
         <el-carousel trigger="click" height="100%" arrow="never" indicator-position="none"  :interval="300000">
-            <el-carousel-item v-for="item in bgList" :key="item">
+            <el-carousel-item v-for="(item, i) in bgList" :key="i">
                 <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + item +')'}">
                 </a>
             </el-carousel-item>
@@ -42,7 +42,13 @@
         data() {
             return {
                 IMG_URL: process.env.IMG_URL,
-                bgList: ['/img/app9.jpg', '/img/app3.jpg', '/img/app4.jpg', '/img/app5.jpg', '/img/app6.jpg', '/img/app7.jpg', '/img/app8.jpg']
+                List: ['/img/app9.jpg', '/img/app3.jpg', '/img/app4.jpg', '/img/app5.jpg', '/img/app6.jpg', '/img/app8.jpg']
+            }
+        },
+        computed: {
+            bgList() { // 随机排序
+                this.List.sort(function(){ return 0.5 - Math.random() });
+                return this.List;
             }
         }
     }

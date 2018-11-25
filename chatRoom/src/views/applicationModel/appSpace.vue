@@ -70,7 +70,7 @@
             z-index: 2;
             background-color: rgba(0,0,0,0.2);
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-around;
             flex-wrap: wrap;
             padding: 10px;
             box-sizing: border-box;
@@ -86,7 +86,6 @@
                 position: relative;
                 overflow: hidden;
                 cursor: pointer;
-                margin-right: 20px;
                 border-radius: 5px;
                 p{
                     line-height: 26px;

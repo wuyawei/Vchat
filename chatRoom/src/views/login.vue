@@ -234,7 +234,7 @@
     .vchat-login{
         width:100%;
         height: 100%;
-        background-image: url('/img/0073.jpg');
+        background-image: url('/img/0076.jpg');
         background-position-y: -140px;
         overflow: hidden;
         position: relative;

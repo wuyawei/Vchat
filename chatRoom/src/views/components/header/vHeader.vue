@@ -8,7 +8,7 @@
                         <!--class="animated" :class="{bounceIn: hover}" @mouseover="mouseover" ref="showChat"-->
                         <div>
                             <el-badge :value="unReadCount" :max="99" :hidden="unReadCount === 0" class="headerBadg">
-                                <span>消息</span>
+                                <span class="nav-btn">消息</span>
                             </el-badge>
                             <ul class="handleList">
                                 <li @click="showChat = !showChat"><span>会话列表</span></li>
@@ -25,7 +25,7 @@
                                 <router-link :to="v.link">
                                     <i class="iconfont" :class="[v.icon ? v.icon : '']"></i>
                                     {{v.name}}
-                            </router-link>
+                                </router-link>
                             </li>
                         </ul>
                     </div>
@@ -86,9 +86,14 @@
                 draggable: true, // 允许拖拽
                 handleList: [
                     {
-                        name: '个人主页',
+                        name: '个人空间',
                         icon: 'icon-zhanghaoguanli1',
                         link: '/mine'
+                    },
+                    {
+                        name: '日程管理',
+                        icon: 'icon-clock',
+                        link: '/todo'
                     },
                     {
                         name: '设置',
@@ -334,12 +339,15 @@
                             font-size: 13px;
                         }
                         li:hover{
-                            color: #fff;
+                            color: #52d5d2;
                         }
                     }
                     >div:hover{
                         background-color: #f5f5f5;
-                        color: #27cac7;
+                        color: #323232;
+                    }
+                    >div:hover .nav-btn{
+                        color: #52d5d2;
                     }
                 }
             }

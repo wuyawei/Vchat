@@ -113,6 +113,11 @@ export default new Router({
             component: _import('mine')
         },
         {
+            path: '/todo',
+            name: 'todo',
+            component: _import('todo')
+        },
+        {
             path: '/mySetting',
             name: 'mySetting',
             component: _import('mySetting'),

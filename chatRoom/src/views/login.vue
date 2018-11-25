@@ -1,5 +1,8 @@
 <template>
     <div class="vchat-login vchat-bg">
+        <div class="fork-me-on-github">
+            <a href="https://github.com/wuyawei" target="_blank"></a>
+        </div>
         <div class="logo" :class="{active: showSign}">
             <h3 class="title">Hi, Vchat !</h3>
             <span class="begain" @click="experience">立即体验</span>
@@ -234,6 +237,21 @@
         background-image: url('/img/0073.jpg');
         background-position-y: -140px;
         overflow: hidden;
+        position: relative;
+    }
+    .fork-me-on-github{
+        width: 150px;
+        height: 150px;
+        background-image: url("../assets/img/github.png");
+        position: absolute;
+        right: 0;
+        top:0;
+        background-size: contain;
+        a{
+            display: block;
+            width: 150px;
+            height: 150px;
+        }
     }
     .logo{
         margin-top: 15%;

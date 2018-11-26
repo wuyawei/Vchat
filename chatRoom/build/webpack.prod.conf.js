@@ -54,8 +54,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
       cssProcessorOptions: config.build.productionSourceMap
-        ? { safe: true, map: { inline: false } }
-        : { safe: true }
+        ? { safe: true, map: { inline: false }, autoprefixer: false } // 打包时禁止将css前缀去除
+        : { safe: true , autoprefixer: false}
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html

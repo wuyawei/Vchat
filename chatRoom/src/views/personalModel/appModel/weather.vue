@@ -23,7 +23,7 @@
                         <p>{{getWeek(v.week)}}</p>
                         <p>{{v.date}}</p>
                         <p>
-                            <v-icon :name="iconName" color="#fff" :size="36"></v-icon>
+                            <v-icon :name="getWeatherType(v.dayWeather, '2')" color="#fff" :size="36"></v-icon>
                         </p>
                         <p>{{v.nightTemp}}℃ ~ {{v.dayTemp}}℃</p>
                         <p>{{v.dayWeather}}</p>
@@ -43,8 +43,7 @@
             return {
                 WeatherInfo: [{}],
                 LiveWeather: {},
-                type: 'sunny', // 天气类型
-                iconName: ''
+                type: 'sunny' // 天气类型
             }
         },
         components: {
@@ -96,27 +95,42 @@
                 }
                 return week;
             },
-            getWeatherType(t) {
+            getWeatherType(t, type='1') {
                 let reg1 = /多云|阴/;
                 let reg2 = /雷/;
                 let reg3 = /雨/;
                 let reg4 = /晴/;
                 let reg5 = /雪/;
                 if (reg1.test(t)) {
-                    this.type = 'cloudy';
-                    this.iconName = 'yintian';
+                    if (type === '1') {
+                        this.type = 'cloudy';
+                    } else {
+                        return 'yintian';
+                    }
                 } else if (reg2.test(t)) {
-                    this.type = 'thunder-storm';
-                    this.iconName = 'leidian';
+                    if (type === '1') {
+                        this.type = 'thunder-storm';
+                    } else {
+                        return 'leidian';
+                    }
                 } else if (reg3.test(t)) {
-                    this.type = 'rainy';
-                    this.iconName = 'xiaoyu';
+                    if (type === '1') {
+                        this.type = 'rainy';
+                    } else {
+                        return 'xiaoyu';
+                    }
                 } else if (reg4.test(t)) {
-                    this.type = 'sunny';
-                    this.iconName = 'qing';
+                    if (type === '1') {
+                        this.type = 'sunny';
+                    } else {
+                        return 'qing';
+                    }
                 } else if (reg5.test(t)) {
-                    this.type = 'flurries';
-                    this.iconName = 'xue';
+                    if (type === '1') {
+                        this.type = 'flurries';
+                    } else {
+                        return 'xue';
+                    }
                 }
             }
         },

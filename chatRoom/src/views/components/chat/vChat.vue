@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-chatRoom" v-bgInmage="user.wallpaper.split(',')[0]" v-fontColor="user.chatColor">
+    <div class="vchat-chatRoom" v-bgInmage="IMGURL + user.wallpaper.split(',')[0]" v-fontColor="user.chatColor">
         <div class="vchat-chatRoom-bg">
             <div class="chat-header">
                 <a v-fontColor="user.chatColor">{{currSation.name}}</a>
@@ -46,7 +46,7 @@
                 <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag.f = false" color="#323232" :size="24" cursor="pointer"></v-icon>
                 <h5>聊天壁纸</h5>
                 <ul class="bg">
-                    <li class="bg-li" v-for="(v, i) in bgList" :key="i" v-bgInmage="v.url">
+                    <li class="bg-li" v-for="(v, i) in bgList" :key="i" v-bgInmage="IMGURL + v.url">
                         <p @click="setChatBg(v)">{{v.name}}</p>
                         <v-icon class="el-icon-circle-check-outline" color="rgb(80, 243, 0)" v-if="user.wallpaper.split(',')[0] === v.url"></v-icon>
                     </li>

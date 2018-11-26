@@ -1,13 +1,69 @@
-.move-leave-active, .move-enter-active {
+// 进入
+.moveIn-enter-active, .moveIn-leave-active {
   position: absolute;
   left:0;
   top:0;
-  transition: all .5s;
+  transition: all .3s cubic-bezier(.81,.35,.3,.71);
 }
-.move-enter{
-  left:100%;
+.moveIn-enter{
   transform: translateX(100%);
 }
-.move-leave-to {
-  transform: translateX(-100%);
+.moveIn-enter-to{
+    transform: translateX(0);
+}
+.moveIn-leave{
+    transform: translateX(0);
+}
+.moveIn-leave-to{
+    transform: translateX(-100%);
+}
+// 离开
+.moveOut-enter-active, .moveOut-leave-active {
+  position: absolute;
+  left:0;
+  top:0;
+  transition: all .3s cubic-bezier(.81,.35,.3,.71);
+}
+.moveOut-enter{
+    transform: translateX(-100%);
+}
+.moveOut-enter-to {
+  transform: translateX(0);
+}
+.moveOut-leave{
+    transform: translateX(0);
+}
+.moveOut-leave-to{
+    transform: translateX(100%);
+}
+// chat展示动画
+//.chat-enter-active{
+//     transition: all .5s cubic-bezier(.71,.21,.28,.82);
+//}
+.chat-leave-active {
+    transition: all .5s cubic-bezier(.51,1.91,.49,-0.97);
+}
+.chat-enter{
+    transform: translate(0, -100%) scale(0.5);
+}
+.chat-enter-to {
+    animation: chat-enter 0.5s cubic-bezier(.71,.21,.28,.82);
+}
+.chat-leave{
+    transform: scale(1, 1);
+}
+.chat-leave-to{
+    transform: scale(0, 1);
+}
+@keyframes chat-enter {
+    0% {
+        transform: translate(0, -100%) scale(0.5);
+    }
+    40% {
+        transform: translate(0, 0) scale(0.5, 1);
+    }
+    100% {
+
+        transform: translate(0, 0) scale(1, 1);
+    }
 }

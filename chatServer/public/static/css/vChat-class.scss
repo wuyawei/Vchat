@@ -3,7 +3,33 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.vchat-bg{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 
+.DetailImage-a{
+    width:100%;
+    height: 100%;
+    display: block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.vchat-photo{
+    display: block;
+    width:40px;
+    height: 40px;
+    border:1px solid #f5f5f5;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 50%;
+    img{
+        width:100%;
+    }
+}
 .vchat-line2 { // 2行文字超出省略号
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -22,33 +48,57 @@
     user-select: none;
 }
 
-.Vchat-button { // 按钮样式
+.vchat-button { // 按钮样式
     display: inline-block;
-    padding: 12px 20px;
-    line-height: 1;
-    background-color: #3aa1ca;
-    border-radius: 4px;
+    padding: 0 20px;
+    background-color: #27cac7;
+    border-radius: 2px;
     color: #fff;
     cursor: pointer;
     font-size: 14px;
+    border: none;
+    outline: none;
 }
-.Vchat-full-button{
+.vchat-button-mini{
+    display: inline-block;
+    padding: 0 12px;
+    background-color: #27cac7;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    line-height: 26px;
+    height: 26px;
+}
+.vchat-full-button{
     width:100%;
-    background-color: #3aa1ca;
+    background-color: #27cac7;
     border: none;
     outline: none;
     height: 36px;
     color: #fff;
-    border-radius: 25px;
+    border-radius: 2px;
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.Vchat-full-button:hover{
-    background-color: #43B6DF;
-    color: #fff;
+
+.vchat-button:hover,.vchat-button-mini:hover, .vchat-full-button:hover {
+    opacity: 0.9;
 }
-.Vchat-no-have { // 没有想要的样式
+.vchat-full-button.minor, .vchat-button.minor, .vchat-button-mini.minor{
+    background-color: #3aa1ca;
+}
+.vchat-full-button.error, .vchat-button.error, .vchat-button-mini.error{
+    background-color: #f56c6c;
+}
+.vchat-button.info, .vchat-button-mini.info, .vchat-full-button.info{
+    background-color: #bdbdbd;
+}
+
+.vchat-no-have { // 没有想要的样式
     font-size: 12px;
     text-align: left;
     padding: 5px 15px;
@@ -59,9 +109,6 @@
     }
 }
 
-.Vchat-button:hover {
-    opacity: 0.8;
-}
 
 .vchat-breakAll { // 强制换行 只对英文起作用，以字母作为换行依据。
     word-break: break-all;
@@ -94,4 +141,99 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.vchat-linkman-list{
+    li{
+        width:100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px 15px 6px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #e5e5e5;
+        cursor: pointer;
+        >a{
+            width:42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+            border: 1px solid #d5d5d5;
+            box-sizing: border-box;
+            img{
+                width:42px;
+            }
+        }
+        >div{
+            width:calc(100% - 52px);
+            font-size: 12px;
+            color: #a3a3a3;
+            p{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 5px;
+                span{
+                    max-width: 160px;
+                }
+            }
+            p:nth-of-type(1) {
+                span:first-child{
+                    font-size: 14px;
+                    color: #323232;
+                }
+            }
+        }
+    }
+    li:hover{
+        background-color: #f5f5f5;
+        opacity: 0.8;
+    }
+}
+
+.vchat-linkman-container{
+    height: 32px;
+    overflow: hidden;
+    h3{
+        font-weight: 400;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px;
+        font-size: 14px;
+        color: #323232;
+        line-height: 32px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        .list-icon{
+            transition: transform 0.2s;
+            transform: rotate(0deg);
+        }
+        >span{
+            color: #acabab;
+            font-size: 12px;
+        }
+    }
+}
+.vchat-linkman-container.active{
+    height: auto;
+    h3{
+        .list-icon{
+            transform: rotate(-90deg);
+        }
+    }
+    .vchat-linkman-list{
+        animation: scaleH 0.6s cubic-bezier(.11,.74,.83,1.45);
+    }
+}
+@keyframes scaleH {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }

@@ -2,7 +2,7 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   dev: {
@@ -11,8 +11,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/': {
+        '/v': {
             target: 'http://localhost:9988',
+            changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
+        },
+        '/api': {
+            target: 'http://api.budejie.com',
             changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
         }
     },
@@ -43,10 +47,10 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../../chatServer/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../../chatServer/public'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
 

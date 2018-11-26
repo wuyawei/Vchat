@@ -12,27 +12,19 @@ export default {
             }
         }
     },
-    bgColor: { // v-bgColor="#ff6000"
-        update: function (el, binding) {
-            el.style.backgroundColor = binding.value;
-        }
+    bgColor: function (el, binding) { // v-bgColor="#ff6000"
+        el.style.backgroundColor = binding.value;
     },
-    fontColor: { // v-fontColor="#ff6000"
-        update: function (el, binding) {
-            el.style.color = binding.value;
-        }
+    fontColor: function (el, binding) {  // v-fontColor="#ff6000"
+        el.style.color = binding.value;
     },
-    bgInmage: { // v-bgInmage="1.jpg"
-        update: function (el, binding) {
-            el.style.backgroundImage = `url(${binding.value})`;
-            el.style.backgroundRepeat = 'no-repeat';
-            el.style.backgroundSize = 'cover';
-            el.style.backgroundPosition = 'center';
-        }
+    bgInmage: function (el, binding) { // v-bgInmage="1.jpg"
+        el.style.backgroundImage = `url(${binding.value})`;
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
     },
-    focus: { // v-focus
-        update: function (el, binding) {
-            el.focus();
-        }
+    focus: function (el, binding) { // v-focus
+        el.focus();
     }
 }

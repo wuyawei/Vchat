@@ -1,8 +1,8 @@
 import fetch from './fetch';
 
 export default {
-    getExpression(params) { //新建群
-        return fetch.post('expre/getExpression', params);
+    getExpression(params) { //获取表情库
+        return fetch.post('v/expre/getExpression', params);
     }
 }
 

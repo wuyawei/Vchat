@@ -44,11 +44,11 @@ app.use(session({
 //     res.header('Access-Control-Allow-Headers', 'Content-Type');
 //     next();
 // });
-app.use('/*', (req, res, next) => {
+app.use('/v*', (req, res, next) => {
     if (req.session.login) {
         next();
     } else {
-        if (req.originalUrl === '/user/login' || req.originalUrl === '/user/signUp') {
+        if (req.originalUrl === '/v/user/login' || req.originalUrl === '/v/user/signUp') {
             next();
         } else {
             res.json({
@@ -57,11 +57,11 @@ app.use('/*', (req, res, next) => {
         }
     }
 });
-app.use('/api', api);
-app.use('/user', user);
-app.use('/group', group);
-app.use('/friend', friend);
-app.use('/expre', expression);
+app.use('/v/api', api);
+app.use('/v/user', user);
+app.use('/v/group', group);
+app.use('/v/friend', friend);
+app.use('/v/expre', expression);
 
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');

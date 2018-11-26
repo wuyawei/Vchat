@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-login vchat-bg">
+    <div class="vchat-login" v-bgInmage="IMGURL + '/img/0076.jpg'">
         <div class="fork-me-on-github">
             <a href="https://github.com/wuyawei" target="_blank"></a>
         </div>
@@ -109,6 +109,7 @@
                     regcode: '',
                     repass: ''
                 },
+                IMGURL: process.env.IMG_URL,
                 islogin: true, // 登录 or 注册
                 showSign: false, // 登录框显示
                 regcode: '', // 验证码
@@ -226,6 +227,7 @@
                 }
             });*/
             /*api.getUser().then(r => {console.log(r)});*/
+            api.getJokes();
         }
     }
 </script>
@@ -234,8 +236,6 @@
     .vchat-login{
         width:100%;
         height: 100%;
-        background-image: url('/img/0076.jpg');
-        background-position-y: -140px;
         overflow: hidden;
         position: relative;
     }

@@ -227,7 +227,6 @@
                 }
             });*/
             /*api.getUser().then(r => {console.log(r)});*/
-            api.getJokes();
         }
     }
 </script>

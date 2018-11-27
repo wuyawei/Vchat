@@ -7,29 +7,9 @@
             </el-carousel-item>
         </el-carousel>
         <div class="vchat-appSpace-container">
-            <div class="space-item one">
-                <img src="../../assets/img/film-icon.png" alt="">
-                <p>看视频</p>
-                <div class="bg"></div>
-            </div>
-            <div class="space-item two">
-                <img src="../../assets/img/music-icon.png" alt="">
-                <p>听音乐</p>
-                <div class="bg"></div>
-            </div>
-            <div class="space-item thr">
-                <img src="../../assets/img/game-icon.png" alt="">
-                <p>玩游戏</p>
-                <div class="bg"></div>
-            </div>
-            <div class="space-item four">
-                <img src="../../assets/img/news-icon.png" alt="">
-                <p>看头条</p>
-                <div class="bg"></div>
-            </div>
-            <div class="space-item fif">
-                <img src="../../assets/img/duanzi-icon.png" alt="">
-                <p>聊段子</p>
+            <div class="space-item" v-for="(v, i) in appList" :key="i" :class="[v.name]" @click="toCenter(v.link)">
+                <img :src="v.src" alt="">
+                <p>{{v.title}}</p>
                 <div class="bg"></div>
             </div>
         </div>
@@ -42,13 +22,50 @@
         data() {
             return {
                 IMG_URL: process.env.IMG_URL,
-                List: ['/img/app9.jpg', '/img/app3.jpg', '/img/app4.jpg', '/img/app5.jpg', '/img/app6.jpg', '/img/app8.jpg']
+                List: ['/img/app9.jpg', '/img/app3.jpg', '/img/app4.jpg', '/img/app5.jpg', '/img/app6.jpg', '/img/app8.jpg'],
+                appList: [
+                    {
+                        name: 'one',
+                        title: '看电影',
+                        src: require('../../assets/img/film-icon.png'),
+                        link: ''
+                    },
+                    {
+                        name: 'two',
+                        title: '听音乐',
+                        src: require('../../assets/img/music-icon.png'),
+                        link: ''
+                    },
+                    {
+                        name: 'thr',
+                        title: '玩游戏',
+                        src: require('../../assets/img/game-icon.png'),
+                        link: ''
+                    },
+                    {
+                        name: 'four',
+                        title: '看头条',
+                        src: require('../../assets/img/news-icon.png'),
+                        link: ''
+                    },
+                    {
+                        name: 'fif',
+                        title: '聊段子',
+                        src: require('../../assets/img/duanzi-icon.png'),
+                        link: 'jokes'
+                    }
+                ]
             }
         },
         computed: {
             bgList() { // 随机排序
                 this.List.sort(function(){ return 0.5 - Math.random() });
                 return this.List;
+            }
+        },
+        methods: {
+            toCenter(link) {
+                this.$router.push({path: link});
             }
         }
     }

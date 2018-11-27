@@ -110,6 +110,11 @@ export default new Router({
                             path: 'space',
                             name: 'appSpace',
                             component: _import('applicationModel/appSpace'),
+                        },
+                        {
+                            path: 'jokes',
+                            name: 'Jokes',
+                            component: _import('applicationModel/Jokes'),
                         }
                     ]
                 }

@@ -8,12 +8,14 @@
             <el-tab-pane label="声音" name="31"></el-tab-pane>
         </el-tabs>
         <dplayer></dplayer>
+        <aplayer></aplayer>
     </div>
 </template>
 
 <script>
     import api from '@/api';
     import dplayer from '@/views/components/DPlayer/dplayer';
+    import aplayer from '@/views/components/APlayer/aplayer';
     export default{
         name: 'Jokes',
         data() {
@@ -22,13 +24,14 @@
             }
         },
         components: {
-            dplayer
+            dplayer,
+            aplayer
         },
         methods: {
             handleClick() {}
         },
         mounted() {
-            api.getJokes();
+            api.getJokes('31');
         }
     }
 </script>

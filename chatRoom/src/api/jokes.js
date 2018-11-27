@@ -4,7 +4,7 @@
 import fetch from './fetch';
 
 export default {
-    getJokes() { //获取段子
-        return fetch.get('api/api_open.php?a=list&c=data&type=1');
+    getJokes(type) { //获取段子
+        return fetch.get(`api/api_open.php?a=list&c=data&type=${type}`);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div :id="playerName" class="dpalyer"></div>
+    <div :id="playerName" class="vchat-dplayer"></div>
 </template>
 
 <script>
@@ -16,7 +16,7 @@
         },
         computed: {
             playerName() { // 随机id
-                return 'dpalyer-' + Math.random();
+                return 'dplayer-' + Math.random();
             }
         },
         methods: {
@@ -45,9 +45,8 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .dpalyer{
+<style lang="scss">
+    .vchat-dplayer{
         width:500px;
-        height: 300px;
     }
 </style>

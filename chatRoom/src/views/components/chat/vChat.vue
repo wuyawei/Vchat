@@ -61,11 +61,12 @@
                     <span class="isColor" v-bgColor="user.chatColor">{{user.chatColor}}</span>
                 </p>
                 <div class="color-container">
-                    <span v-for="(v, i) in colorList" :key="i" v-bgColor="v" class="colorList" @click="setFontColor(v)">{{v}}</span>
-                    <span v-bgColor="chooseColor" class="colorList">
-                        自定义
-                        <input type="color" v-model="chooseColor" @change="colorChange">
-                    </span>
+                    <el-color-picker
+                            v-model="chooseColor"
+                            show-alpha
+                            :predefine="predefineColors"
+                            @change="colorChange"
+                    ></el-color-picker>
                 </div>
             </div>
         </div>
@@ -87,8 +88,23 @@
                 settingFlag: { // 设置面板
                     f: false
                 },
-                colorList: ['#96d0a5', '#b4d9ce', '#dbf2e0', '#94cad7', '#f6c8ca'],
                 chooseColor: '#ffffff', // 自定义颜色
+                predefineColors: [ // 预置颜色
+                    '#ff4500',
+                    '#ff8c00',
+                    '#ffd700',
+                    '#90ee90',
+                    '#00ced1',
+                    '#1e90ff',
+                    '#c71585',
+                    'rgba(255, 69, 0, 0.68)',
+                    'rgb(255, 120, 0)',
+                    'hsv(51, 100, 98)',
+                    'hsva(120, 40, 94, 0.5)',
+                    'hsl(181, 100%, 37%)',
+                    'hsla(209, 100%, 56%, 0.73)',
+                    '#c7158577'
+                ]
             }
         },
         sockets:{
@@ -143,9 +159,6 @@
         methods: {
             colorChange() {
                 this.upUserInfo({chatColor: this.chooseColor});
-            },
-            setFontColor(color) {
-                this.upUserInfo({chatColor: color});
             },
             fileChange() {
                 let f = this.$refs['wallpaperFile'].files[0];
@@ -476,7 +489,7 @@
                 box-sizing: border-box;
                 margin-bottom: 10px;
                 .isColor{
-                    width:50px;
+                    width:150px;
                     height: 24px;
                     display: inline-block;
                     border: 1px solid #d5d5d5;
@@ -491,28 +504,6 @@
                 flex-wrap: wrap;
                 padding-left: 5px;
                 box-sizing: border-box;
-            }
-            .colorList{
-                width:76px;
-                height: 32px;
-                display: inline-block;
-                margin-bottom: 5px;
-                margin-right: 5px;
-                position: relative;
-                border: 1px solid #d5d5d5;
-                box-sizing: border-box;
-                line-height: 32px;
-                font-size: 12px;
-                text-align: center;
-                color: #323232;
-                input{
-                    width:100%;
-                    height: 100%;
-                    position: absolute;
-                    left:0;
-                    right: 0;
-                    opacity: 0;
-                }
             }
         }
         .chat-setting.active{

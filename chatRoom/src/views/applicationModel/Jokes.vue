@@ -7,17 +7,22 @@
             <el-tab-pane label="段子" name="29"></el-tab-pane>
             <el-tab-pane label="声音" name="31"></el-tab-pane>
         </el-tabs>
+        <dplayer></dplayer>
     </div>
 </template>
 
 <script>
     import api from '@/api';
+    import dplayer from '@/views/components/DPlayer/dplayer';
     export default{
         name: 'Jokes',
         data() {
             return {
                 activeName: '1'
             }
+        },
+        components: {
+            dplayer
         },
         methods: {
             handleClick() {}

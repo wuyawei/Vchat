@@ -12,7 +12,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cropperjs": "^1.4.1",
+    "dplayer": "^1.25.0",
     "element-ui": "^2.4.3",
+    "hls.js": "^0.11.0",
     "nprogress": "^0.2.0",
     "vchat-regcode": "^0.0.3",
     "vue": "^2.5.2",

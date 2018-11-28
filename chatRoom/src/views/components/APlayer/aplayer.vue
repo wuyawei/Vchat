@@ -7,7 +7,7 @@
     import APlayer from 'APlayer';
     export default{
         name: 'aplayer',
-        props: [],
+        props: ['src', 'pic'],
         data() {
             return {
 
@@ -35,10 +35,10 @@
                     lrcType: 3,
                     audio: [
                         {
-                            name: '音乐汇',
-                            artist: '音乐汇',
-                            url: 'http://wvoice.spriteapp.cn/voice/2018/1104/5bdf1680b98f5.mp3',
-                            cover: 'http://wimg.spriteapp.cn/picture/2018/1104/5bdf1680ade30.jpg',
+                            name: '',
+                            artist: '',
+                            url: this.src,
+                            cover: this.pic,
                             theme: '#ebd0c2'
                         }
                     ]

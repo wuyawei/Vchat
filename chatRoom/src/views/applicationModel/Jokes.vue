@@ -7,31 +7,36 @@
             <el-tab-pane label="段子" name="29"></el-tab-pane>
             <el-tab-pane label="声音" name="31"></el-tab-pane>
         </el-tabs>
-        <dplayer></dplayer>
-        <aplayer></aplayer>
+        <jokes-item v-for="(v, i) in jokesList" :key="i" :item="v"></jokes-item>
     </div>
 </template>
 
 <script>
     import api from '@/api';
-    import dplayer from '@/views/components/DPlayer/dplayer';
-    import aplayer from '@/views/components/APlayer/aplayer';
+    import jokesItem from './jokesItem.vue';
     export default{
         name: 'Jokes',
         data() {
             return {
-                activeName: '1'
+                activeName: '1',
+                jokesList: []
             }
         },
         components: {
-            dplayer,
-            aplayer
+            jokesItem
         },
         methods: {
-            handleClick() {}
+            handleClick() {
+                this.getJokes();
+            },
+            getJokes() {
+                api.getJokes(this.activeName).then(r => {
+                    this.jokesList = r.list;
+                });
+            }
         },
         mounted() {
-            api.getJokes('31');
+            this.getJokes();
         }
     }
 </script>
@@ -42,5 +47,6 @@
         height: 100%;
         padding: 5px 15px 15px;
         box-sizing: border-box;
+        overflow-y: auto;
     }
 </style>

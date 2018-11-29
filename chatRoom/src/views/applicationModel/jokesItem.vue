@@ -9,7 +9,7 @@
                 <p class="time">{{item.create_time}}</p>
             </div>
         </div>
-        <div class="contentt">
+        <div class="content">
             <p class="text">{{item.text}}</p>
             <a class="image" v-if="item.image1 && !item.videouri && !item.voiceuri">
                 <img :src="item.image1" :style="{width: item.width + 'px', height: item.height + 'px'}">
@@ -39,5 +39,52 @@
     .vchat-jokesContent{
         width:800px;
         margin: 0 auto;
+        background-color: #fff;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        text-align: left;
+        padding: 10px;
+        box-sizing: border-box;
+        .top{
+            display: flex;
+            border-bottom: 1px solid #d5d5d5;
+            margin-bottom: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+            .avator{
+                width:40px;
+                overflow: hidden;
+                display: block;
+                img{
+                    width:100%;
+                }
+            }
+            .info{
+                margin-left: 10px;
+            }
+            .name{
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            .time{
+                font-size: 12px;
+                color: #666;
+            }
+        }
+        .content{
+            width: 100%;
+            .text{
+                line-height: 32px;
+                margin-bottom: 10px;
+            }
+            .image{
+                max-width: 700px;
+                margin: 0 auto;
+                display: block;
+                img{
+                    max-width: 700px;
+                }
+            }
+        }
     }
 </style>

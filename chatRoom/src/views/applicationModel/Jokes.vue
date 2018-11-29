@@ -7,7 +7,9 @@
             <el-tab-pane label="段子" name="29"></el-tab-pane>
             <el-tab-pane label="声音" name="31"></el-tab-pane>
         </el-tabs>
-        <jokes-item v-for="(v, i) in jokesList" :key="i" :item="v"></jokes-item>
+        <div class="jokes-content"  v-loading="loading">
+            <jokes-item v-for="(v, i) in jokesList" :key="i" :item="v"></jokes-item>
+        </div>
     </div>
 </template>
 
@@ -19,7 +21,8 @@
         data() {
             return {
                 activeName: '1',
-                jokesList: []
+                jokesList: [],
+                loading: false
             }
         },
         components: {
@@ -30,8 +33,10 @@
                 this.getJokes();
             },
             getJokes() {
+                this.loading = true;
                 api.getJokes(this.activeName).then(r => {
                     this.jokesList = r.list;
+                    this.loading = false;
                 });
             }
         },
@@ -48,5 +53,9 @@
         padding: 5px 15px 15px;
         box-sizing: border-box;
         overflow-y: auto;
+        background-color: #f7f7f7;
+        .jokes-content{
+            height: calc(100% - 60px);
+        }
     }
 </style>

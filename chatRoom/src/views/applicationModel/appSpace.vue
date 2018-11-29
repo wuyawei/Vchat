@@ -28,7 +28,7 @@
                         name: 'one',
                         title: '看电影',
                         src: require('../../assets/img/film-icon.png'),
-                        link: ''
+                        link: 'videoGallery'
                     },
                     {
                         name: 'two',

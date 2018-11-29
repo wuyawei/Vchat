@@ -8,7 +8,7 @@
     import DPlayer from 'DPlayer';
     export default{
         name: 'dplayer',
-        props: [],
+        props: ['src'],
         data() {
             return {
 
@@ -24,7 +24,7 @@
                 const dp = new DPlayer({
                     container: document.getElementById(this.playerName),
                     video: {
-                        url: 'http://tvideo.spriteapp.cn/video/2018/1127/3d84d7e0f1f411e8857f842b2b4c75ab_wpd.mp4',
+                        url: this.src,
                         type: 'customHls',
                         customType: {
                             'customHls': function (video, player) {
@@ -33,16 +33,6 @@
                                 hls.attachMedia(video);
                             }
                         }
-                    }
-                });
-            },
-            initMp4Player() {
-                const dp = new DPlayer({
-                    container: document.getElementById(this.playerName),
-                    screenshot: true,
-                    video: {
-                        url: 'http://tvideo.spriteapp.cn/video/2018/1127/3d84d7e0f1f411e8857f842b2b4c75ab_wpd.mp4',
-                        pic: 'http://wimg.spriteapp.cn/picture/2018/1127/28940047_688.jpg'
                     }
                 });
             }
@@ -57,6 +47,6 @@
 
 <style lang="scss">
     .vchat-dplayer{
-        width:500px;
+        width:100%;
     }
 </style>

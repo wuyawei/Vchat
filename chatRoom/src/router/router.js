@@ -115,6 +115,11 @@ export default new Router({
                             path: 'jokes',
                             name: 'Jokes',
                             component: _import('applicationModel/Jokes'),
+                        },
+                        {
+                            path: 'videoGallery',
+                            name: 'videoGallery',
+                            component: _import('applicationModel/videoGallery'),
                         }
                     ]
                 }

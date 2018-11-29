@@ -5,7 +5,6 @@ import App from './App';
 import router from './router';
 import store from './store';
 import './api/fetch';
-import 'video.js/dist/video-js.css'
 import ElementUI from 'element-ui';
 import '../static/css/element_ui.scss';
 import VueSocketio from 'vue-socket.io';

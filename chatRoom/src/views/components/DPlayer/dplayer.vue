@@ -8,10 +8,9 @@
     import DPlayer from 'DPlayer';
     export default{
         name: 'dplayer',
-        props: ['src'],
+        props: ['type', 'src', 'pic'],
         data() {
             return {
-
             }
         },
         computed: {
@@ -35,11 +34,26 @@
                         }
                     }
                 });
+            },
+            initMp4Player() {
+                const dp = new DPlayer({
+                    container: document.getElementById(this.playerName),
+                    video: {
+                        url: this.src,
+                        type: 'auto',
+                        pic: this.pic
+                    },
+                    mutex: true
+                });
             }
         },
         mounted() {
             this.$nextTick(_ => {
-                this.initHlsPlayer();
+                if (this.type === 'hls') {
+                    this.initHlsPlayer();
+                } else if (this.type === 'mp4') {
+                    this.initMp4Player();
+                }
             })
         }
     }

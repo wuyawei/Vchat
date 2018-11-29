@@ -20,7 +20,7 @@
                 </el-col>
                 <el-col :span="15">
                     <div class="video-container">
-                        <dplayer :src="currVideo"></dplayer>
+                        <dplayer :src="currVideo" type="hls"></dplayer>
                     </div>
                 </el-col>
             </el-row>

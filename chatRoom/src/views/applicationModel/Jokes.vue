@@ -34,6 +34,7 @@
             },
             getJokes() {
                 this.loading = true;
+                this.jokesList = [];
                 api.getJokes(this.activeName).then(r => {
                     this.jokesList = r.list;
                     this.loading = false;

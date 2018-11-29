@@ -15,12 +15,14 @@
                 <img :src="item.image1" :style="{width: item.width + 'px', height: item.height + 'px'}">
             </a>
             <aplayer v-if="item.voiceuri" :src="item.voiceuri" :pic="item.bimageuri"></aplayer>
+            <vplayer v-if="item.videouri" :src="item.videouri" :pic="item.bimageuri"></vplayer>
         </div>
     </div>
 </template>
 
 <script>
     import aplayer from '@/views/components/APlayer/aplayer';
+    import vplayer from '@/views/components/VPlayer/vplayer';
     export default{
         props: ['item'],
         name: 'jokesItem',
@@ -30,7 +32,8 @@
             }
         },
         components: {
-            aplayer
+            aplayer,
+            vplayer
         }
     }
 </script>

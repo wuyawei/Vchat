@@ -16,7 +16,7 @@
                     </p>
                     <weather-icon :type="type"></weather-icon>
                     <p>空气湿度：{{LiveWeather.humidity}}%</p>
-                    <p>风向：{{LiveWeather.windDirection}}； 风力：{{LiveWeather.windPower}}</p>
+                    <p>风向：{{LiveWeather.windDirection}}； 风力：{{LiveWeather.windPower || '暂无'}}</p>
                 </li>
                 <template v-for="(v, i) in WeatherInfo">
                     <li v-if="i > 0">
@@ -57,13 +57,13 @@
                     let weather = new AMap.Weather();
                     //执行实时天气信息查询
                     weather.getLive(city, function(err, data) {
-                        console.log(err, data);
+//                        console.log(err, data);
                         that.LiveWeather = data;
                         that.getWeatherType(data.weather);
                     });
                     // 查询三天天气
                     weather.getForecast(city, function(err, data) {
-                        console.log(err, data);
+//                        console.log(err, data);
                         that.WeatherInfo = data.forecasts;
                     });
                 });

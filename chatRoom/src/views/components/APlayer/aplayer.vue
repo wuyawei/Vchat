@@ -27,7 +27,7 @@
                     theme: '#FADFA3',
                     loop: 'all',
                     order: 'random',
-                    preload: 'auto',
+                    preload: 'metadata',
                     volume: 0.7,
                     mutex: true,
                     listFolded: false,

@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-Jokes">
+    <div class="vchat-Jokes vchat-application">
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="全部" name="1"></el-tab-pane>
             <el-tab-pane label="视频" name="41"></el-tab-pane>
@@ -9,6 +9,13 @@
         </el-tabs>
         <div class="jokes-content"  v-loading="loading">
             <jokes-item v-for="(v, i) in jokesList" :key="i" :item="v"></jokes-item>
+            <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :current-page.sync="page"
+                    @current-change="getJokes"
+                    :total="count">
+            </el-pagination>
         </div>
     </div>
 </template>
@@ -22,7 +29,10 @@
             return {
                 activeName: '1',
                 jokesList: [],
-                loading: false
+                loading: false,
+                page: 1,
+                maxtime: '',
+                count: 0
             }
         },
         components: {
@@ -30,14 +40,18 @@
         },
         methods: {
             handleClick() {
+                this.page = 1;
+                this.maxtime = '';
                 this.getJokes();
             },
             getJokes() {
                 this.loading = true;
                 this.jokesList = [];
-                api.getJokes(this.activeName).then(r => {
+                api.getJokes(this.activeName, this.page, this.maxtime).then(r => {
                     this.jokesList = r.list;
                     this.loading = false;
+                    this.maxtime = r.info.maxtime;
+                    this.count = r.info.count;
                 });
             }
         },
@@ -49,12 +63,6 @@
 
 <style lang="scss" scoped>
     .vchat-Jokes{
-        width:100%;
-        height: 100%;
-        padding: 5px 15px 15px;
-        box-sizing: border-box;
-        overflow-y: auto;
-        background-color: #f7f7f7;
         .jokes-content{
             height: calc(100% - 60px);
         }

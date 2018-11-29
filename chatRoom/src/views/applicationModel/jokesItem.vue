@@ -46,7 +46,7 @@
         margin-bottom: 10px;
         border-radius: 5px;
         text-align: left;
-        padding: 10px;
+        padding: 15px;
         box-sizing: border-box;
         .top{
             display: flex;

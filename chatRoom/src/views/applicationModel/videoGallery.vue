@@ -5,13 +5,14 @@
         </el-tabs>
         <div class="videoGallery-content"  v-loading="loading">
             <el-row class="tac">
-                <el-col :span="3">
+                <el-col :span="3" class="tac">
             <el-menu
-                    :default-active="activeMenu"
+                    default-active="0"
                     class="el-menu-vertical-demo"
                     background-color="#545c64"
                     text-color="#fff"
                     active-text-color="#27c2bf"
+                    @select="selectMenu"
             >
                 <el-menu-item :index="i + ''" v-for="(v, i) in videoList" :key="i">
                     <span slot="title">{{v.name}}</span>
@@ -20,7 +21,7 @@
                 </el-col>
                 <el-col :span="15">
                     <div class="video-container">
-                        <dplayer :src="currVideo" type="hls"></dplayer>
+                        <dplayer :src="videoList[activeMenu].url" type="hls"></dplayer>
                     </div>
                 </el-col>
             </el-row>
@@ -35,7 +36,7 @@
         data() {
             return {
                 activeName: '1',
-                activeMenu: '0',
+                activeMenu: 0,
                 loading: false,
                 currVideo: 'http://ivi.bupt.edu.cn/hls/zjhd.m3u8',
                 videoList: [
@@ -88,6 +89,9 @@
         },
         methods: {
             handleClick() {
+            },
+            selectMenu(index) {
+                this.activeMenu = Number(index);
             }
         },
         components: {
@@ -100,6 +104,16 @@
     .vchat-videoGallery{
         .videoGallery-content{
             height: calc(100% - 60px);
+        }
+        .tac{
+            height: 100%;
+            overflow-y: auto;
+            ::-webkit-scrollbar
+            {
+                width: 4px;
+                background-color: #F5F5F5;
+                border-radius: 10px;
+            }
         }
         .video-container{
             width:800px;

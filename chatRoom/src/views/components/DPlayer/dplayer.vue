@@ -13,6 +13,20 @@
             return {
             }
         },
+        watch: {
+            src: {
+                handler(src) {
+                    this.$nextTick(_ => {
+                        if (this.type === 'hls') {
+                            this.initHlsPlayer();
+                        } else if (this.type === 'mp4') {
+                            this.initMp4Player();
+                        }
+                    })
+                },
+                immediate: true
+            }
+        },
         computed: {
             playerName() { // 随机id
                 return 'dplayer-' + Math.random();
@@ -48,13 +62,6 @@
             }
         },
         mounted() {
-            this.$nextTick(_ => {
-                if (this.type === 'hls') {
-                    this.initHlsPlayer();
-                } else if (this.type === 'mp4') {
-                    this.initMp4Player();
-                }
-            })
         }
     }
 </script>

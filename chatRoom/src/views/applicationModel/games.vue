@@ -6,7 +6,7 @@
                     <img :src="v.url" alt="" class="pd">
                     <div class="pd">
                         <p class="title">{{v.title}}</p>
-                        <p>进入游戏</p>
+                        <p class="enter">进入游戏</p>
                     </div>
                 </router-link>
             </li>
@@ -16,6 +16,7 @@
 
 <script>
     import h2048 from '../../assets/img/2048.png';
+    import txz from '../../assets/img/txz.png';
     export default{
         data() {
             return {
@@ -24,6 +25,11 @@
                         title: '2048',
                         url: h2048,
                         name: 'h2048'
+                    },
+                    {
+                        title: '推箱子',
+                        url: txz,
+                        name: 'txz'
                     }
                 ]
             }
@@ -46,8 +52,10 @@
         .vchat-games-item{
             width:300px;
             height: 169px;
-            margin: 20px;
+            margin: 15px;
             overflow: hidden;
+            border: 2px solid #ffdba3;
+            border-radius: 5px;
             .pd{
                 width:100%;
                 height: 100%;
@@ -74,8 +82,11 @@
                 padding-top: 50px;
                 box-sizing: border-box;
                 .title{
-                    font-size: 18px;
+                    font-size: 22px;
                     margin-bottom: 5px;
+                }
+                .enter{
+                    color: #27cac7;
                 }
             }
         }

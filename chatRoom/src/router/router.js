@@ -150,6 +150,15 @@ export default new Router({
                                 title: '2048',
                                 name: 'h2048'
                             }
+                        },
+                        {
+                            path: 'txz',
+                            name: 'txz',
+                            component: _import('applicationModel/games/txz/txz'),
+                            meta: {
+                                title: '推箱子',
+                                name: 'txz'
+                            }
                         }
                     ]
                 }

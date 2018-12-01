@@ -1,5 +1,5 @@
 <template>
-    <div class="h2048">
+    <div class="vchat-h2048">
         <header>
             <div class="container">
                 <h1><span>2</span><span>0</span><span>4</span><span>8</span></h1>
@@ -55,7 +55,7 @@
 </script>
 
 <style lang="scss">
-    .h2048{
+    .vchat-h2048{
         @import "css/style.scss";
     }
 </style>

@@ -238,7 +238,7 @@
                 } else {
                     this.send(file, 'file');
                 }
-                this.uplaodVisible = false;
+                this.uplaodVisible.f = false;
             },
             InmageChange() { // 发送图片
                 let f = this.$refs['chooseInmage'].files[0];

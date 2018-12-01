@@ -8,7 +8,7 @@
                 <el-upload
                         class="upload-demo"
                         ref="upload"
-                        action="/api/uploadFile"
+                        action="/v/api/uploadFile"
                         :file-list="fileList"
                         :on-success="handleSuccess"
                         :on-error="handleError"

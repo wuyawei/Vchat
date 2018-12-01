@@ -47,7 +47,7 @@ app.use(session({
 // });
 
 
-app.use('/api*', proxy({ // 配置代理转发
+app.use('^/api*', proxy({ // 配置代理转发
     target: "http://api.budejie.com",
     changeOrigin: true
 }));

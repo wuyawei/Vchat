@@ -15,7 +15,7 @@ module.exports = {
             target: 'http://localhost:9988',
             changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
         },
-        '/api': {
+        '^/api': {
             target: 'http://api.budejie.com',
             changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
         },

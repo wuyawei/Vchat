@@ -120,6 +120,16 @@ export default new Router({
                             path: 'videoGallery',
                             name: 'videoGallery',
                             component: _import('applicationModel/videoGallery'),
+                        },
+                        {
+                            path: 'games',
+                            name: 'games',
+                            component: _import('applicationModel/games'),
+                        },
+                        {
+                            path: '2048',
+                            name: 'h2048',
+                            component: _import('applicationModel/games/HTML5_2048/2048'),
                         }
                     ]
                 }

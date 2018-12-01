@@ -40,7 +40,7 @@
                         name: 'thr',
                         title: '玩游戏',
                         src: require('../../assets/img/game-icon.png'),
-                        link: ''
+                        link: 'games'
                     },
                     {
                         name: 'four',

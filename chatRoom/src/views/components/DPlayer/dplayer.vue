@@ -56,7 +56,6 @@
                 this.dp = new DPlayer({
                     container: document.getElementById(this.playerName),
                     autoplay: this.videoInfo.autoplay || false,
-                    preload: 'none',
                     video: {
                         url: this.videoInfo.src,
                         type: 'customHls',

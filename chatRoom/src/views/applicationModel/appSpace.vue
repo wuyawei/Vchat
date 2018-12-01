@@ -26,7 +26,7 @@
                 appList: [
                     {
                         name: 'one',
-                        title: '看电影',
+                        title: '看视频',
                         src: require('../../assets/img/film-icon.png'),
                         link: 'videoGallery'
                     },
@@ -50,7 +50,7 @@
                     },
                     {
                         name: 'fif',
-                        title: '聊段子',
+                        title: '侃段子',
                         src: require('../../assets/img/duanzi-icon.png'),
                         link: 'jokes'
                     }

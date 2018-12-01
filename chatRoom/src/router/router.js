@@ -105,6 +105,10 @@ export default new Router({
                     name: 'application',
                     component: _import('application'),
                     redirect: 'application/space',
+                    meta: {
+                        title: '应用空间',
+                        name: 'appSpace'
+                    },
                     children: [
                         {
                             path: 'space',
@@ -115,21 +119,37 @@ export default new Router({
                             path: 'jokes',
                             name: 'Jokes',
                             component: _import('applicationModel/Jokes'),
+                            meta: {
+                                title: '侃段子',
+                                name: 'Jokes'
+                            }
                         },
                         {
                             path: 'videoGallery',
                             name: 'videoGallery',
                             component: _import('applicationModel/videoGallery'),
+                            meta: {
+                                title: '看视频',
+                                name: 'videoGallery'
+                            }
                         },
                         {
                             path: 'games',
                             name: 'games',
                             component: _import('applicationModel/games'),
+                            meta: {
+                                title: '玩游戏',
+                                name: 'games'
+                            }
                         },
                         {
                             path: '2048',
                             name: 'h2048',
                             component: _import('applicationModel/games/HTML5_2048/2048'),
+                            meta: {
+                                title: '2048',
+                                name: 'h2048'
+                            }
                         }
                     ]
                 }

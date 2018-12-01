@@ -18,6 +18,14 @@ module.exports = {
         '/api': {
             target: 'http://api.budejie.com',
             changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
+        },
+        '/touch': {
+            target: 'https://3g.163.com',
+            changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
+        },
+        '/ent': {
+            target: 'https://3g.163.com',
+            changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
         }
     },
 

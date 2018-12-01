@@ -6,6 +6,7 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser'); // cookie
 let bodyParser = require('body-parser'); // post请求需要的中间件
 let session = require("express-session"); // session
+let proxy = require('http-proxy-middleware');
 
 let app = express();
 let server = require('http').Server(app);
@@ -44,6 +45,13 @@ app.use(session({
 //     res.header('Access-Control-Allow-Headers', 'Content-Type');
 //     next();
 // });
+
+
+app.use('/api*', proxy({ // 配置代理转发
+    target: "http://api.budejie.com",
+    changeOrigin: true
+}));
+
 app.use('/v*', (req, res, next) => {
     if (req.session.login) {
         next();

@@ -4,6 +4,7 @@ import comm from './comm';
 import friendly from './friendly';
 import expression from './expression';
 import jokes from './jokes';
+import news from './news';
 
 export default {
     ...user,
@@ -11,5 +12,6 @@ export default {
     ...comm,
     ...friendly,
     ...expression,
-    ...jokes
+    ...jokes,
+    ...news
 }

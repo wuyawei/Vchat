@@ -143,6 +143,15 @@ export default new Router({
                             }
                         },
                         {
+                            path: 'news',
+                            name: 'news',
+                            component: _import('applicationModel/news'),
+                            meta: {
+                                title: '看头条',
+                                name: 'news'
+                            }
+                        },
+                        {
                             path: '2048',
                             name: 'h2048',
                             component: _import('applicationModel/games/HTML5_2048/2048'),

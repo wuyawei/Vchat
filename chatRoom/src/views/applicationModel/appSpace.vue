@@ -46,7 +46,7 @@
                         name: 'four',
                         title: '看头条',
                         src: require('../../assets/img/news-icon.png'),
-                        link: ''
+                        link: 'news'
                     },
                     {
                         name: 'fif',

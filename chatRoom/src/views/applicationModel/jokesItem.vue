@@ -16,7 +16,7 @@
             </a>
             <aplayer v-if="item.voiceuri" :src="item.voiceuri" :pic="item.bimageuri"></aplayer>
             <div class="dplayer-container">
-                <dplayer v-if="item.videouri" :src="item.videouri" :pic="item.bimageuri" type="mp4"></dplayer>
+                <dplayer v-if="item.videouri" :videoInfo="videoInfo"></dplayer>
             </div>
         </div>
     </div>
@@ -31,6 +31,16 @@
         data() {
             return {
 
+            }
+        },
+        computed: {
+            videoInfo() {
+                return {
+                    src: this.item.videouri,
+                    type: 'mp4',
+                    autoplay: false,
+                    pic: this.item.bimageuri
+                }
             }
         },
         components: {

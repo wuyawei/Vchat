@@ -8,24 +8,43 @@
     import DPlayer from 'DPlayer';
     export default{
         name: 'dplayer',
-        props: ['type', 'src', 'pic'],
+        props: ['videoInfo'],
         data() {
             return {
+                dp: null,
+                hls: null
             }
         },
         watch: {
-            src: {
+            'videoInfo.src': { // 切换视频
                 handler(src) {
-                    this.$nextTick(_ => {
-                        if (this.type === 'hls') {
-                            this.initHlsPlayer();
-                        } else if (this.type === 'mp4') {
-                            this.initMp4Player();
+                    if (this.videoInfo.type === 'hls') {
+                        if (this.hls) {
+                            this.hls.destroy();
                         }
-                    })
-                },
-                immediate: true
+                        this.dp.switchVideo({
+                            url: src,
+                            type: 'customHls',
+                            customType: {
+                                'customHls': (video, player) => {
+                                    this.hls = new Hls();
+                                    this.hls.loadSource(video.src);
+                                    this.hls.attachMedia(video);
+                                }
+                            }
+                        });
+                        this.dp.on('canplaythrough', () => {
+                            this.dp.play();
+                        });
+                    }
+                }
             }
+        },
+        beforeDestroy() { // 离开页面销毁播放器
+            if (this.hls) {
+                this.hls.destroy();
+            }
+            this.dp.destroy();
         },
         computed: {
             playerName() { // 随机id
@@ -34,34 +53,45 @@
         },
         methods: {
             initHlsPlayer() {
-                const dp = new DPlayer({
+                this.dp = new DPlayer({
                     container: document.getElementById(this.playerName),
+                    autoplay: this.videoInfo.autoplay || false,
+                    preload: 'none',
                     video: {
-                        url: this.src,
+                        url: this.videoInfo.src,
                         type: 'customHls',
                         customType: {
-                            'customHls': function (video, player) {
-                                const hls = new Hls();
-                                hls.loadSource(video.src);
-                                hls.attachMedia(video);
+                            'customHls': (video, player) => {
+                                this.hls = new Hls();
+                                this.hls.loadSource(video.src);
+                                this.hls.attachMedia(video);
                             }
                         }
                     }
                 });
             },
             initMp4Player() {
-                const dp = new DPlayer({
+                this.dp = new DPlayer({
                     container: document.getElementById(this.playerName),
+                    autoplay: this.videoInfo.autoplay || false,
+                    preload: 'none',
                     video: {
-                        url: this.src,
+                        url: this.videoInfo.src,
                         type: 'auto',
-                        pic: this.pic
+                        pic: this.videoInfo.pic
                     },
                     mutex: true
                 });
             }
         },
         mounted() {
+            this.$nextTick(_ => {
+                if (this.videoInfo.type === 'hls') {
+                    this.initHlsPlayer();
+                } else if (this.videoInfo.type === 'mp4') {
+                    this.initMp4Player();
+                }
+            })
         }
     }
 </script>

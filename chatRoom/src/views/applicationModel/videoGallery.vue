@@ -21,7 +21,7 @@
                 </el-col>
                 <el-col :span="15">
                     <div class="video-container">
-                        <dplayer :src="videoList[activeMenu].url" type="hls"></dplayer>
+                        <dplayer :videoInfo="videoInfo"></dplayer>
                     </div>
                 </el-col>
             </el-row>
@@ -85,6 +85,15 @@
                         url: 'http://ivi.bupt.edu.cn/hls/lnhd.m3u8'
                     }
                 ]
+            }
+        },
+        computed: {
+            videoInfo() {
+                return {
+                    src: this.videoList[this.activeMenu].url,
+                    type: 'hls',
+                    autoplay: true
+                }
             }
         },
         methods: {

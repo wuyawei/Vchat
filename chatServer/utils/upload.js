@@ -6,7 +6,10 @@ let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         let date = utils.formatTime(new Date()).split(' ')[0];
         let path = './public/uploads/' + date;
-        fs.mkdirSync(path);
+        let stat = fs.existsSync(path);
+        if (!stat) { // 不存在就创建
+            fs.mkdirSync(path);
+        }
         cb(null, path)
     },
     //给上传文件重命名，获取添加后缀名

@@ -6,6 +6,7 @@
         <div class="vchat-item-container" v-show="currNav === 0">
             <div class="container-chat">
                 <div class="chat-room">
+                    <v-message :chatList="chatList" @lookPhoto="lookPhoto"></v-message>
                 </div>
                 <div class="chat-send">
                     <div class="tool">
@@ -71,6 +72,7 @@
     import api from '@/api';
     import utils from '@/utils/utils';
     import emoji from './emoji.vue';
+    import vMessage from './message.vue';
     export default{
         name: 'chatItem',
         props: ['currSation'],
@@ -95,7 +97,8 @@
             };
         },
         components: {
-            emoji
+            emoji,
+            vMessage
         },
         sockets:{
             org(r) {
@@ -129,11 +132,6 @@
             ...mapState(['user', 'OnlineUser'])
         },
         watch: {
-            chatList(){
-                this.$nextTick(_ => {
-                    this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
-                });
-            },
             currSation: { // 当前会话
                 handler(v) {
                     if (v.type === 'group' || v.type === 'friend') {
@@ -332,181 +330,13 @@
                 min-width: 423.936px;
                 box-sizing: border-box;
                 border-right: 1px solid rgba(255,255,255,0.3);
-                .chat-room{
-                    width:100%;
+                .chat-room {
+                    width: 100%;
                     height: 65%;
                     min-height: 252.2px;
                     box-sizing: border-box;
-                    border-bottom: 1px solid rgba(255,255,255,0.3);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
                     overflow-y: auto;
-                    ul{
-                        width:100%;
-                        height: 100%;
-                        overflow-y: auto;
-                        padding: 5px 10px;
-                        box-sizing: border-box;
-                        position: relative;
-                        li{
-                            width:100%;
-                            margin: 15px 0;
-                        }
-                    }
-                    .mes-box{
-                        width:350px;
-                        display: flex;
-                        >p{
-                            width:42px;
-                            height: 42px;
-                            color: #fff;
-                            font-size: 14px;
-                            text-align: center;
-                            line-height: 42px;
-                            border-radius: 50%;
-                            overflow: hidden;
-                            img{
-                                width:100%;
-                            }
-                        }
-                        >div{
-                            max-width:298px;
-                            p.info{
-                                font-size: 14px;
-                                color: #f5f5f5;
-                                margin-bottom: 5px;
-                                i{
-                                    font-size: 10px;
-                                    color: #b3b3b3;
-                                    font-style: normal;
-                                    margin-left: 5px;
-                                }
-                            }
-                            p.mes{
-                                background-color: #acd9f8;
-                                border-radius: 5px;
-                                padding: 10px;
-                                box-sizing: border-box;
-                                position: relative;
-                                text-align: left;
-                                word-wrap:break-word;
-                                font-size: 14px;
-                                word-break: break-all;
-                                color: #fff;
-                                display: inline-block;
-                                color: #323232;
-                            }
-                            p.emoji{
-                                max-width: 160px;
-                                overflow: hidden;
-                                border-radius: 5px;
-                                img{
-                                    width:100%;
-                                }
-                            }
-                            p.image{
-                                max-width: 300px;
-                                overflow: hidden;
-                                border-radius: 5px;
-                                img{
-                                    width:100%;
-                                }
-                            }
-                            div.file{
-                                width:300px;
-                                height: 80px;
-                                display: flex;
-                                justify-content: flex-start;
-                                align-content: center;
-                                color: #323232;
-                                background-color: #fff;
-                                text-align: left;
-                                padding: 10px;
-                                box-sizing: border-box;
-                                border-radius: 5px;
-                                img{
-                                    width:60px;
-                                    height: 60px;
-                                    margin-right: 10px;
-                                }
-                                p:nth-of-type(1){
-                                    font-size: 16px;
-                                    margin-bottom: 8px;
-                                }
-                                p:nth-of-type(2){
-                                    font-size: 12px;
-                                    line-height: 13px;
-                                    color: #888;
-                                    i{
-                                        vertical-align: text-bottom;
-                                    }
-                                }
-                                a{
-                                    color: #27cac7;
-                                    font-size: 12px;
-                                }
-                            }
-                        }
-                    }
-                    .other .mes-box>div{
-                        text-align: left;
-                        margin-left: 10px;
-                        p.emoji{
-                            margin-left: 20px;
-                        }
-                    }
-                    .other .mes-box{
-                        justify-content: flex-start;
-                    }
-                    .mine .mes-box{
-                        justify-content: flex-end;
-                    }
-                    .mine .mes-box>div{
-                        text-align: right;
-                        margin-right: 10px;
-                        p.emoji{
-                            margin-right: 20px;
-                        }
-                    }
-                    .mine{
-                        display: flex;
-                        justify-content: flex-end;
-                    }
-                    .other .mes-box>div p.mes{
-                        background-color: #9cbeca;
-                    }
-                    .other p.mes:before, .mine p.mes:after{
-                        width:0;
-                        height:0;
-                        content: '';
-                        display: block;
-                        position:absolute;
-                        top:10px;
-                    }
-                    .other p.mes:before{
-                        left:-11px;
-                        border-bottom: 5px solid #9cbeca;
-                        border-left: 10px solid transparent;
-                        border-right: 5px solid transparent;
-                        border-top: 0;
-                        transform: rotate(45deg);
-                    }
-                    .mine p.mes:after{
-                        right:-10px;
-                        border-bottom: 5px solid #acd9f8;
-                        border-left: 5px solid transparent;
-                        border-right: 10px solid transparent;
-                        transform: rotate(-45deg);
-                    }
-                    .org{
-                        width:100%;
-                        margin: 20px 0;
-                        font-size: 12px;
-                        color: #e4e4e4;
-                        box-sizing: border-box;
-                    }
-                    .org span{
-                        color: rgb(164, 245, 231);
-                        margin: 0 5px;
-                    }
                 }
                 .chat-send{
                     width:100%;

@@ -74,7 +74,7 @@
 </template>
 <script>
     import chatItem from './chat-item.vue';
-    import vchatMessage from './vchatMessage.vue';
+    import vchatMessage from './vchatSystemMessage.vue';
     import { mapState } from 'vuex';
     import api from '@/api';
     export default{

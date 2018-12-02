@@ -51,6 +51,10 @@ app.use('^/api*', proxy({ // 配置代理转发
     target: "http://api.budejie.com",
     changeOrigin: true
 }));
+app.use('^/touch*', proxy({ // 配置代理转发
+    target: "https://3g.163.com",
+    changeOrigin: true
+}));
 
 app.use('/v*', (req, res, next) => {
     if (req.session.login) {

@@ -1,5 +1,5 @@
 <template>
-    <div class="vchatMessage" v-fontColor="user.chatColor">
+    <div class="vchat-system-Message" v-fontColor="user.chatColor">
         <ul v-if="InfoList.length">
             <template v-for="v in InfoList">
                 <li v-if="v.type === 'validate'" :key="v['_id']">
@@ -48,7 +48,7 @@
     import api from '@/api';
     export default{
         props: ['currSation'],
-        name: 'vchatMessage',
+        name: 'vchatSystemMessage',
         data() {
             return {
                 IMGURL: process.env.IMG_URL,
@@ -112,7 +112,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .vchatMessage{
+    .vchat-system-Message{
         width:100%;
         padding: 15px 30px 10px 15px;
         box-sizing: border-box;

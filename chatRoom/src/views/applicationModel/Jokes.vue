@@ -22,7 +22,7 @@
 
 <script>
     import api from '@/api';
-    import jokesItem from './jokesItem.vue';
+    import jokesItem from './sub/jokesItem.vue';
     export default{
         name: 'Jokes',
         data() {

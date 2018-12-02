@@ -152,7 +152,16 @@ export default new Router({
                             }
                         },
                         {
-                            path: '2048',
+                            path: 'newsDetailSub',
+                            name: 'newsDetail',
+                            component: _import('applicationModel/newsDetail'),
+                            meta: {
+                                title: '新闻详情',
+                                name: 'newsDetail'
+                            }
+                        },
+                        {
+                            path: '2048Sub',
                             name: 'h2048',
                             component: _import('applicationModel/games/HTML5_2048/2048'),
                             meta: {
@@ -161,7 +170,7 @@ export default new Router({
                             }
                         },
                         {
-                            path: 'txz',
+                            path: 'txzSub',
                             name: 'txz',
                             component: _import('applicationModel/games/txz/txz'),
                             meta: {

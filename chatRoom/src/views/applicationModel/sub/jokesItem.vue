@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-jokesContent">
+    <div class="vchat-jokes-item">
         <div class="top">
             <a class="avator">
                 <img :src="item.profile_image" alt="">
@@ -51,7 +51,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .vchat-jokesContent{
+    .vchat-jokes-item{
         width:800px;
         margin: 0 auto;
         background-color: #fff;

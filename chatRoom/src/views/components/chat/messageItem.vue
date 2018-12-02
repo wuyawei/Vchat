@@ -9,10 +9,10 @@
                 <i>{{v.time}}</i>
             </p>
             <p v-if="v.style === 'emoji'" class="emoji">
-                <img :src="IMG_URL + v.emoji" alt="">
+                <img v-lazy="IMG_URL + v.emoji" alt="">
             </p>
             <p v-if="v.style === 'img'" class="image">
-                <img :src="IMG_URL + v.emoji" alt="" @dblclick="$emit('lookPhoto', v.emoji)" title="双击查看原图">
+                <img v-lazy="IMG_URL + v.emoji" alt="" @dblclick="$emit('lookPhoto', v.emoji)" title="双击查看原图">
             </p>
             <div v-if="v.style === 'file'" class="file">
                 <img src="../../../assets/img/file.png" alt="">

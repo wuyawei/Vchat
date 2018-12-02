@@ -12,7 +12,7 @@
         <div class="content">
             <p class="text">{{item.text}}</p>
             <a class="image" v-if="item.image1 && !item.videouri && !item.voiceuri">
-                <img :src="item.image1" :style="{width: item.width + 'px', height: item.height + 'px'}">
+                <img v-lazy="item.image1">
             </a>
             <aplayer v-if="item.voiceuri" :src="item.voiceuri" :pic="item.bimageuri"></aplayer>
             <div class="dplayer-container">

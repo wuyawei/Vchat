@@ -2,7 +2,7 @@
     <div class="vchat-news-item">
         <div class="news-detail-1" v-if="!item.imgextra"  @click="clickNews">
             <a>
-                <img :src="item.imgsrc" alt="">
+                <img v-lazy="item.imgsrc" alt="">
             </a>
             <div class="info">
                 <p class="title vchat-line2">{{item.title}}</p>
@@ -16,7 +16,7 @@
             <p class="title vchat-line2">{{item.title}}</p>
             <div class="imgtra">
                 <a v-for="(v, i) in item.imgextra" :key="i">
-                    <img :src="v.imgsrc" alt="">
+                    <img v-lazy="v.imgsrc" alt="">
                 </a>
             </div>
             <p class="mark">

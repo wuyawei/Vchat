@@ -17,7 +17,7 @@
                 </span>
                 <ul class="emoji-ul" v-if="activeName === v.code + ''">
                     <li v-for="(m, n) in v.list" :key="n" @click.stop="chooseEmoji(m)">
-                        <img :src="IMG_URL + m">
+                        <img v-lazy="IMG_URL + m">
                     </li>
                 </ul>
             </el-tab-pane>
@@ -30,7 +30,7 @@
                     <ul class="emoji-shop-ul">
                         <li v-for="(m, n) in expressionList" :key="n" @click.stop="emojiDetail(m)">
                             <a>
-                                <img :src="IMG_URL + m.list[0]" alt="">
+                                <img v-lazy="IMG_URL + m.list[0]" alt="">
                             </a>
                             <p class="vchat-line1">{{m.name}}</p>
                         </li>
@@ -40,7 +40,7 @@
                         <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="currEmojiDetail = {}" color="#323232" :size="24" cursor="pointer"></v-icon>
                         <ul class="emoji-detail">
                             <li v-for="(m, n) in currEmojiDetail.list" :key="n">
-                                <img :src="IMG_URL + m" alt="">
+                                <img v-lazy="IMG_URL + m" alt="">
                             </li>
                         </ul>
                         <p class="vchat-button addEmoji" v-if="user.emoji.indexOf(currEmojiDetail.code) === -1" @click.stop="addEmoji(currEmojiDetail.code)">添加</p>

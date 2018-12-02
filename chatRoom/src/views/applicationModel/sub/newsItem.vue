@@ -1,6 +1,6 @@
 <template>
-    <div class="vchat-news-item" @click="clickNews">
-        <div class="news-detail-1" v-if="!item.imgextra">
+    <div class="vchat-news-item">
+        <div class="news-detail-1" v-if="!item.imgextra"  @click="clickNews">
             <a>
                 <img :src="item.imgsrc" alt="">
             </a>
@@ -12,7 +12,7 @@
                 </p>
             </div>
         </div>
-        <div class="news-detail-2" v-if="item.imgextra && item.imgextra.length > 1">
+        <div class="news-detail-2" v-if="item.imgextra && item.imgextra.length > 1"  @click="clickNews">
             <p class="title vchat-line2">{{item.title}}</p>
             <div class="imgtra">
                 <a v-for="(v, i) in item.imgextra" :key="i">

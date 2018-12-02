@@ -12,6 +12,7 @@
   "dependencies": {
     "aplayer": "^1.10.1",
     "axios": "^0.18.0",
+    "better-scroll": "^1.13.2",
     "cropperjs": "^1.4.1",
     "dplayer": "^1.25.0",
     "element-ui": "^2.4.3",

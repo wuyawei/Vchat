@@ -7,6 +7,7 @@ import dropdown from './dropdown/dropdown.vue';
 import dropdownItem from './dropdown/dropdownItem.vue';
 import uploadPopover from './uploadPopover/uploadPopover.vue';
 import PhotoSwipe from './PhotoSwipe/PhotoSwipe.vue';
+import scroll from './scroll/scroll.vue';
 const install = {
     install:function(Vue){
         Vue.component('vNodata', noData);
@@ -15,6 +16,7 @@ const install = {
         Vue.component('vDropdownItem', dropdownItem);
         Vue.component('vUploadPopover', uploadPopover);
         Vue.component('vPhotoSwipe', PhotoSwipe);
+        Vue.component('vScroll', scroll);
     }
 };
 export default install;

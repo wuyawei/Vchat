@@ -5,7 +5,13 @@
         </el-tabs>
 
         <div class="news-content"  v-loading="loading">
-            <news-item v-for="(v, i) in newsList" :key="i" :item="v"></news-item>
+            <v-scroll :data="newsList">
+                <div class="content">
+                    <news-item v-for="(v, i) in newsList" :key="i" :item="v"></news-item>
+                    <el-button type="info" size="medium" :loading="loadMoreFlag" @click="loadMore" class="loadmore" v-if="!nodata">{{loadMoreFlag ? '加载中' : '加载更多'}}</el-button>
+                    <p v-else>没有更多数据了</p>
+                </div>
+            </v-scroll>
         </div>
     </div>
 </template>
@@ -49,34 +55,48 @@
                     }
                 ],
                 loading: false,
-                page: 1,
-                newsList: []
+                loadMoreFlag: false,
+                page: 0,
+                newsList: [],
+                scroll: null,
+                nodata: false
             }
         },
         components: {
             newsItem
         },
+        computed: {
+            limit() {
+                return this.page * 10 + '-' + (this.page + 1) *10;
+            }
+        },
         methods: {
             handleClick() {
+                this.page = 0;
                 this.getHotNews();
             },
-            getHotNews() {
-                this.loading = true;
-                api.getHotNews(this.activeName).then(r => {
-                    let data = JSON.parse(r.slice(r.indexOf('(') + 1, r.lastIndexOf(')'))); // 截取回调数据
-                    this.newsList = data[this.activeName];
-                    this.loading = false;
-                });
+            loadMore() {
+                this.page ++;
+                this.loadMoreFlag = true;
+                this.getHotNews(true);
             },
-            getNewsDetail() {
-                api.getNewsDetail().then(r => {
-//                    console.log(r);
-                })
+            getHotNews(More) {
+                if (!More) { this.loading = true }
+                api.getHotNews(this.activeName, this.limit).then(r => {
+                    let data = JSON.parse(r.slice(r.indexOf('(') + 1, r.lastIndexOf(')'))); // 截取回调数据
+                    if (!More) {
+                        this.newsList = data[this.activeName];
+                    } else {
+                        this.newsList = this.newsList.concat(data[this.activeName]);
+                    }
+                    this.nodata = data[this.activeName].length === 0;
+                    this.loading = false;
+                    this.loadMoreFlag = false;
+                });
             }
         },
         mounted() {
             this.getHotNews();
-            this.getNewsDetail();
         }
     }
 </script>
@@ -84,7 +104,10 @@
 <style lang="scss" scoped>
     .news-content{
         height: calc(100% - 60px);
-        padding-bottom: 20px;
-        overflow-y: auto;
+        box-sizing: border-box;
+        .loadmore{
+            display: block;
+            margin-left: 260px;
+        }
     }
 </style>

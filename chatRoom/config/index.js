@@ -22,10 +22,6 @@ module.exports = {
         '/touch': {
             target: 'https://3g.163.com',
             changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
-        },
-        '/ent': {
-            target: 'https://3g.163.com',
-            changeOrigin: true // 是否在本机创建target地址的虚拟服务，避免跨域问题
         }
     },
 
@@ -74,7 +70,7 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    productionGzip: true,
     productionGzipExtensions: ['js', 'css'],
 
     // Run the build command with an extra argument to

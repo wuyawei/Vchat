@@ -42,32 +42,7 @@
                 </div>
             </div>
             <div class="chat-setting" :class="{active: settingFlag.f}" v-watchMouse="settingFlag">
-                <h3>聊天设置</h3>
-                <v-icon class="el-icon-circle-close-outline deClose" @clickIcon="settingFlag.f = false" color="#323232" :size="24" cursor="pointer"></v-icon>
-                <h5>聊天壁纸</h5>
-                <ul class="bg">
-                    <li class="bg-li" v-for="(v, i) in bgList" :key="i" v-bgInmage="IMGURL + v.url">
-                        <p @click="setChatBg(v)">{{v.name}}</p>
-                        <v-icon class="el-icon-circle-check-outline" color="rgb(80, 243, 0)" v-if="user.wallpaper.split(',')[0] === v.url"></v-icon>
-                    </li>
-                    <li class="upload-btn">
-                        上传
-                        <input type="file" @change="fileChange" ref="wallpaperFile" accept="image/png, image/jpeg, image/gif, image/jpg">
-                    </li>
-                </ul>
-                <h5>文字颜色</h5>
-                <p class="isColor-container">
-                    <span>当前颜色:</span>
-                    <span class="isColor" v-bgColor="user.chatColor">{{user.chatColor}}</span>
-                </p>
-                <div class="color-container">
-                    <el-color-picker
-                            v-model="chooseColor"
-                            show-alpha
-                            :predefine="predefineColors"
-                            @change="colorChange"
-                    ></el-color-picker>
-                </div>
+                <chat-setting @clickIcon="settingFlag.f = false"></chat-setting>
             </div>
         </div>
     </div>
@@ -75,6 +50,7 @@
 <script>
     import chatItem from './chat-item.vue';
     import vchatMessage from './vchatSystemMessage.vue';
+    import chatSetting from './chatSetting.vue';
     import { mapState } from 'vuex';
     import api from '@/api';
     export default{
@@ -87,31 +63,15 @@
                 one: true,
                 settingFlag: { // 设置面板
                     f: false
-                },
-                chooseColor: '#ffffff', // 自定义颜色
-                predefineColors: [ // 预置颜色
-                    '#ff4500',
-                    '#ff8c00',
-                    '#ffd700',
-                    '#90ee90',
-                    '#00ced1',
-                    '#1e90ff',
-                    '#c71585',
-                    'rgba(255, 69, 0, 0.68)',
-                    'rgb(255, 120, 0)',
-                    'hsv(51, 100, 98)',
-                    'hsva(120, 40, 94, 0.5)',
-                    'hsl(181, 100%, 37%)',
-                    'hsla(209, 100%, 56%, 0.73)',
-                    '#c7158577'
-                ]
+                }
             }
         },
         sockets:{
         },
         components: {
             chatItem,
-            vchatMessage
+            vchatMessage,
+            chatSetting
         },
         watch: {
             conversationsList: {
@@ -151,81 +111,9 @@
             }
         },
         computed: {
-            ...mapState(['user', 'conversationsList', 'unRead']),
-            bgList() {
-                return [{name: '远方', url: '/img/wallpaper.jpg', id: 1}, {name: '昨日青空', url: '/img/0055.jpg', id: 2}, {name: '自定义', url: this.user.wallpaper.split(',')[1] || '', id: 3}];
-            }
+            ...mapState(['user', 'conversationsList', 'unRead'])
         },
         methods: {
-            colorChange() {
-                this.upUserInfo({chatColor: this.chooseColor});
-            },
-            fileChange() {
-                let f = this.$refs['wallpaperFile'].files[0];
-                const isLt1M = f.size / 1024 / 1024 < 1;
-                if (!isLt1M) {
-                    this.$message.error('图片大小不能超过 1MB!');
-                    this.$refs['wallpaperFile'].value = '';
-                    return;
-                }
-                let formdata = new FormData();
-                formdata.append('f', f);
-                api.uploadFile(formdata).then(r => {
-                    if (r.code === 0) {
-                        let params = {
-                            wallpaper:  r.data + ',' + r.data
-                        };
-                        if (this.user.wallpaper.split(',')[1]) {
-                            params.unlink = this.user.wallpaper.split(',')[1];
-                        }
-                        api.upUserInfo(params).then(res => {
-                            if (res.code === 0) {
-                                this.$store.commit('setUser', { wallpaper: r.data + ',' + r.data });
-                                this.$message({
-                                    message: '上传成功',
-                                    type: 'success'
-                                })
-                            } else {
-                                this.$message({
-                                    message: '上传失败',
-                                    type: 'warning'
-                                })
-                            }
-                        })
-                    } else {
-                        this.$message({
-                            message: '上传失败',
-                            type: 'warning'
-                        })
-                    }
-                });
-                this.$refs['wallpaperFile'].value = '';
-            },
-            setChatBg(v) { // 设置壁纸
-                if (this.user.wallpaper.split(',')[0] === v.url || !v.url) {
-                    return;
-                }
-                let params = {
-                    wallpaper: v.url + ',' + this.user.wallpaper.split(',')[1] || ''
-                };
-                this.upUserInfo(params);
-            },
-            upUserInfo(params) {
-                api.upUserInfo(params).then(r => {
-                    if (r.code === 0) {
-                        this.$store.commit('setUser', params);
-                        this.$message({
-                            message: '设置成功',
-                            type: 'success'
-                        });
-                    } else {
-                        this.$message({
-                            message: '设置失败',
-                            type: 'warning'
-                        })
-                    }
-                });
-            },
             close() {
                 this.$emit('closeChat');
             },
@@ -400,7 +288,7 @@
                 box-sizing: border-box;
             }
         }
-        .chat-setting{
+        /deep/ .chat-setting{
             position: absolute;
             right:0;
             top:0;
@@ -462,11 +350,11 @@
                     }
                 }
                 li.upload-btn{
-                    color: #28ca8b;
+                    color: #28828f;
                     position: relative;
                     height: 24px;
-                    margin-left: 10px;
-                    margin-top: 50px;
+                    margin-left: 5px;
+                    margin-bottom: 10px;
                     input{
                         width:100%;
                         height: 100%;
@@ -506,7 +394,7 @@
                 box-sizing: border-box;
             }
         }
-        .chat-setting.active{
+        /deep/ .chat-setting.active{
             transform: translateX(0);
         }
     }

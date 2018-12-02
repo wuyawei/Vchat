@@ -53,7 +53,9 @@
             return {
                 IMGURL: process.env.IMG_URL,
                 visible: false,
-                InfoList: []
+                InfoList: [],
+                offset: 1,
+                limit: 10
             }
         },
         sockets: {
@@ -82,7 +84,7 @@
                     if (v) {
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
-                        this.$socket.emit('getSystemMessages', {roomid: v.id});
+                        this.$socket.emit('getSystemMessages', {roomid: v.id, offset: this.offset, limit: this.limit});
                     }
                 },
                 deep: true,

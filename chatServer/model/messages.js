@@ -37,16 +37,19 @@ const saveMessage = (params, callback = function () {}) => { // 保存消息
     })
 };
 
-const getHistoryMessages = (params, order, callback) => { // 保存消息
-    messages.find(params)
+const getHistoryMessages = (params, reverse, callback) => { // 保存消息
+    messages.find({roomid: params.roomid})
         .populate({path: 'userM', select: 'signature photo nickname'}) // 关联用户基本信息
-        .sort({'time': order})
+        .sort({'time': -1})
+        .skip((params.offset - 1) * params.limit)
+        .limit(params.limit)
         .then(r => {
             r.forEach(v => {
                 v.nickname = v.userM.nickname;
                 v.photo =  v.userM.photo;
                 v.signature =  v.userM.signature;
             });
+            if (reverse === 1) { r.reverse(); }
             callback({code: 0, data: r});
         }).catch(err => {
             console.log(err);

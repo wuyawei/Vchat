@@ -105,7 +105,7 @@
                         avatar: this.user.photo,
                         roomid: v.id
                     };
-                    let room = {roomid: v.id};
+                    let room = {roomid: v.id, offset: 1, limit: 200};
                     this.$socket.emit('join', val);
                     this.$socket.emit('getHistoryMessages', room);
                 });

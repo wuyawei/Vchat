@@ -48,7 +48,7 @@
                                          :draggable="draggable" :resizable="true"
                                          :x="x" :y="y" :z="101"
                                          :drag-handle="'.chat-header, .chat-conversation-ul'"
-                                         :drag-cancel="'a, .chat-conversation-li, .chat-handel'"
+                                         :drag-cancel="'a, .chat-conversation-li, .chat-handel, .vchat-scroll'"
                 >
                     <chat @closeChat="showChat = false"></chat>
                 </vue-draggable-resizable>

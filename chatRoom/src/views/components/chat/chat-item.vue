@@ -93,7 +93,9 @@
                     f: false
                 },
                 photoSwipeFlag: false, //图片放大器
-                photoSwipeUrl: ''
+                photoSwipeUrl: '',
+                offset: 1,
+                limit: 2
             };
         },
         components: {
@@ -140,7 +142,7 @@
                         }
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
-                        this.$socket.emit('getHistoryMessages', {roomid: v.id});
+                        this.$socket.emit('getHistoryMessages', {roomid: v.id, offset: this.offset, limit: this.limit});
                     }
                 },
                 deep: true,
@@ -336,7 +338,11 @@
                     min-height: 252.2px;
                     box-sizing: border-box;
                     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-                    overflow-y: auto;
+                    overflow: hidden;
+                }
+                .message-content{
+                    width: 100%;
+                    height: 100%;
                 }
                 .chat-send{
                     width:100%;

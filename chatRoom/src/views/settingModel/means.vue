@@ -16,7 +16,7 @@
                 </el-input>
             </el-form-item>
             <el-form-item label="地址" prop="nickname">
-                <el-select v-model="personForm.province" filterable placeholder="请选择" style="width: 120px;margin-right: 10px;" @change="provinceChange">
+                <el-select v-model="personForm.province" filterable placeholder="请选择" style="width: 120px;margin-right: 10px;">
                     <el-option
                             v-for="item in provinces"
                             :key="item.value"
@@ -24,7 +24,7 @@
                             :value="item">
                     </el-option>
                 </el-select>
-                <el-select v-model="personForm.city" filterable placeholder="请选择" style="width: 120px;margin-right: 10px;" @change="cityChange">
+                <el-select v-model="personForm.city" filterable placeholder="请选择" style="width: 120px;margin-right: 10px;">
                     <el-option
                             v-for="item in cities"
                             :key="item.value"
@@ -158,6 +158,20 @@
         components: {
             cropper
         },
+        watch: {
+            'personForm.province': {
+                handler(v) {
+                    this.provinceChange(v);
+                },
+                deep: true
+            },
+            'personForm.city': {
+                handler(v) {
+                    this.cityChange(v);
+                },
+                deep: true
+            }
+        },
         methods: {
             MapData(data) {
                 return Object.keys(data).map(k => {
@@ -169,9 +183,11 @@
             },
             provinceChange(v) {
                 this.cities = this.MapData(pcaa[v.value]);
+                this.personForm.city = this.cities[0];
             },
             cityChange(v) {
                 this.towns = this.MapData(pcaa[v.value]);
+                this.personForm.town = this.towns[0];
             },
             getAvatar(url) { // 裁剪后的图像路径
                 this.imageUrl = process.env.IMG_URL + url;

@@ -18,7 +18,7 @@
                     <v-icon name="enter" color="#d5d5d5"></v-icon>
                 </div>
             </div>
-            <div class="vchat-linkman-container" :class="{active: showList.indexOf('mine') > -1}">
+            <div class="vchat-linkman-container" :class="{active: showList.indexOf('mine') > -1}" v-if="friendList.length">
                 <h3 @click="setShowList('mine')">
                     <p>
                         <v-icon name="fanhui" :size="16" color="#b7b6b6" class="list-icon"></v-icon>
@@ -42,6 +42,11 @@
                     </li>
                 </ul>
             </div>
+            <v-nodata v-else>
+                <p class="vchat-no-have">
+                    还没有添加好友哦，去 <router-link to="/main/personalMain/friendly/search">添加</router-link>。
+                    </p>
+            </v-nodata>
         </div>
         <v-dropdown :command="currFriend" :x="x" :y="y" :visible="visible" @upVisible="upVisible">
             <v-dropdown-item slot-scope="{command}" @dropdownClick="handleConversitionList(command)" slot="dropdown">

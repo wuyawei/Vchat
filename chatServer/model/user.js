@@ -113,7 +113,7 @@ const getUserInfo = (params, callback) => { // 获取登录用户或好友信息
     if (params.id) {
         baseList.users.find({_id: params.key}).then(r => {
             if (r.length) {
-                let response = {photo: r[0].photo, nickname: r[0].nickname, signature: r[0].signature, code: r[0].code,cover:r[0].cover,sex:r[0].sex,friend: params.friend};
+                let response = {photo: r[0].photo, nickname: r[0].nickname, signature: r[0].signature, code: r[0].code,cover:r[0].cover,sex:r[0].sex, province: r[0].province, city: r[0].city, town: r[0].town};
                 callback({code: 0, data: response});
             } else {
                 callback({code: -1});
@@ -144,7 +144,7 @@ const getVchatInfo = (callback) => { // 获取vchat官方账号信息
 const getUserDetail = (userName, callback) => { // 获取登录用户详细信息
     baseList.users.find({name: userName}).then(r => {
         if (r.length) {
-            callback({code: 0, data: { nickname: r[0].nickname, signature: r[0].signature, sex: r[0].sex, phone: r[0].phone, email: r[0].email }});
+            callback({code: 0, data: { nickname: r[0].nickname, signature: r[0].signature, sex: r[0].sex, phone: r[0].phone, email: r[0].email, province: r[0].province, city: r[0].city, town: r[0].town}});
         } else {
             callback({code: -1});
         }

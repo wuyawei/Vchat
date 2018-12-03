@@ -17,7 +17,9 @@ let users = db.model("users", { // Schema
     signature: { type: String, default: '这个人很懒，暂时没有签名哦！' },
     nickname: { type: String, default: 'vChat-' + Date.now()},
     email: { type: String, default: '' },
-    phone: { type: String, default: '' },
+    province: { type: Object}, // 省
+    city: { type: Object}, // 市
+    town: { type: Object}, // 县
     sex: { type: String, default: '3' }, // 0 男 1 女 3 保密
     bubble: { type: String, default: 'vchat' }, // 气泡
     chatColor: { type: String, default: '#ffffff' }, // 聊天文字颜色

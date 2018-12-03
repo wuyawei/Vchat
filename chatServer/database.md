@@ -20,6 +20,9 @@
 * signUpTime 注册时间
 * lastLoginTime 最后一次登录时间
 * chatColor 聊天文字颜色
+* province 省
+* city 市
+* town 县
 * conversationsList 会话列表
        * name 会话名称
        * photo 会话头像

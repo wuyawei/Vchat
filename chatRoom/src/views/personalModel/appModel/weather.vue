@@ -3,7 +3,7 @@
         <div class="weather-container">
             <div class="position">
                 <v-icon name="coordinates_fill" color="#fff" :size="28"></v-icon>
-                <p>北京</p>
+                <p>{{cityName}}</p>
                 <span>{{getWeek(WeatherInfo[0].week)}}</span>
                 <span>{{WeatherInfo[0].nightTemp}}℃ ~ {{WeatherInfo[0].dayTemp}}℃</span>
             </div>
@@ -38,16 +38,33 @@
 <script>
     import AMap from 'AMap';
     import weatherIcon from './weather-icon.vue';
+    import { mapState } from 'vuex';
     export default{
         data() {
             return {
                 WeatherInfo: [{}],
                 LiveWeather: {},
-                type: 'sunny' // 天气类型
+                type: 'sunny', // 天气类型
+                cityName: ''
             }
         },
         components: {
             weatherIcon
+        },
+        computed: {
+            ...mapState(['user'])
+        },
+        watch: {
+            user: {
+                handler(user) {
+                    if (user) {
+                        this.cityName = user.city.name === '市辖区' ? user.province.name : user.city.name;
+                        this.initWeather(this.cityName);
+                    }
+                },
+                immediate: true,
+                deep: true
+            }
         },
         methods: {
             initWeather(city) {
@@ -133,9 +150,6 @@
                     }
                 }
             }
-        },
-        mounted() {
-            this.initWeather('北京');
         }
     }
 </script>

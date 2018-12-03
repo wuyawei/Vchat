@@ -27,7 +27,7 @@
                     性别：{{friendInfo.sex === '1' ? '男' : friendInfo.sex === '2' ? '女' : '保密'}}
                 </p>
                 <p>
-                    职业：学生
+                    所在地：{{friendInfo.province.name + (friendInfo.city.name === '市辖区' ? '' : ' - ' + friendInfo.city.name) + ' - ' + friendInfo.town.name}}
                 </p>
             </div>
             <div class="detail-item" v-if="friendInfo.code === user.code" @click="toPhoto">

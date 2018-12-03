@@ -224,7 +224,7 @@
                                     message: '保存成功',
                                     type: 'success'
                                 });
-                                this.$store.commit('setUser', {nickname: this.personForm.nickname, signature: this.personForm.signature});
+                                this.$store.commit('setUser', {nickname: this.personForm.nickname, signature: this.personForm.signature, province: this.personForm.province, city: this.personForm.city, town: this.personForm.town});
                             } else {
                                 this.$message({
                                     message: '保存失败',

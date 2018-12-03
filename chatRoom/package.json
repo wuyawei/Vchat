@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "aplayer": "^1.10.1",
+    "area-data": "^5.0.6",
     "axios": "^0.18.0",
     "better-scroll": "^1.13.2",
     "cropperjs": "^1.4.1",

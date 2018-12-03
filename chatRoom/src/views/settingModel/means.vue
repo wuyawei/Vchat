@@ -15,6 +15,32 @@
                 <el-input v-model="personForm.nickname" placeholder="名称">
                 </el-input>
             </el-form-item>
+            <el-form-item label="地址" prop="nickname">
+                <el-select v-model="personForm.province" filterable placeholder="请选择" style="width: 120px;margin-right: 10px;" @change="provinceChange">
+                    <el-option
+                            v-for="item in provinces"
+                            :key="item.value"
+                            :label="item.name"
+                            :value="item">
+                    </el-option>
+                </el-select>
+                <el-select v-model="personForm.city" filterable placeholder="请选择" style="width: 120px;margin-right: 10px;" @change="cityChange">
+                    <el-option
+                            v-for="item in cities"
+                            :key="item.value"
+                            :label="item.name"
+                            :value="item">
+                    </el-option>
+                </el-select>
+                <el-select v-model="personForm.town" filterable placeholder="请选择" style="width: 120px;">
+                    <el-option
+                            v-for="item in towns"
+                            :key="item.value"
+                            :label="item.name"
+                            :value="item">
+                    </el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="手机" prop="phone">
                 <el-input v-model="personForm.phone" placeholder="手机">
                 </el-input>
@@ -40,6 +66,7 @@
 <script>
     import api from '@/api';
     import cropper from '@/views/components/cropper/cropper';
+    import { pca, pcaa } from 'area-data'; // 省市区数据
     export default{
         name: 'means',
         data() {
@@ -96,7 +123,10 @@
                     signature: '',
                     sex: '',
                     email: '',
-                    phone: ''
+                    phone: '',
+                    province: '',
+                    city: '',
+                    town: ''
                 },
                 showCrop: false, // 裁剪框开关
                 cropUrl: '', // 裁剪图片地址
@@ -113,13 +143,36 @@
                     signature: [
                         { validator: validateSignature, trigger: 'blur' }
                     ]
-                }
+                },
+                cities: [],
+                towns: []
+            }
+        },
+        computed: {
+            provinces() {
+                let arr = this.MapData(pca['86']);
+                this.personForm.province = arr[0];
+                return arr;
             }
         },
         components: {
             cropper
         },
         methods: {
+            MapData(data) {
+                return Object.keys(data).map(k => {
+                    return {
+                        name: data[k],
+                        value: k
+                    }
+                });
+            },
+            provinceChange(v) {
+                this.cities = this.MapData(pcaa[v.value]);
+            },
+            cityChange(v) {
+                this.towns = this.MapData(pcaa[v.value]);
+            },
             getAvatar(url) { // 裁剪后的图像路径
                 this.imageUrl = process.env.IMG_URL + url;
                 this.showCrop = false;

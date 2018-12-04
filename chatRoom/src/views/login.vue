@@ -39,7 +39,10 @@
                 </el-form-item>
 
             </el-form>
-            <button @click="enter(islogin)">{{islogin ? '登录' : '注册'}}</button>
+            <button @click="enter(islogin)">
+                <v-icon class="el-icon-loading" color="#fff" :size="14" v-if="loading"></v-icon>
+                {{islogin ? '登录' : '注册'}}
+            </button>
             <div class="login-foot" v-if="islogin">
                 <span></span>
                 第三方登录
@@ -131,7 +134,8 @@
                 signSuccess: { // 注册成功提示框
                     code: '',
                     Visible: false
-                }
+                },
+                loading: false
             }
         },
         watch: {
@@ -182,6 +186,7 @@
                     name: this.signForm.name,
                     pass: this.signForm.pass
                 };
+                this.loading = true;
                 api.login(params).then(r => {
                     if (r.code === 0) {
                         this.$message.success('登录成功');
@@ -191,6 +196,7 @@
                     } else {
                         this.$message.error('登录失败');
                     }
+                    this.loading = false;
                 });
             },
             signUp() {
@@ -198,9 +204,9 @@
                     name: this.signForm.name,
                     pass: this.signForm.pass
                 };
+                this.loading = true;
                 api.signUp(params).then(r => {
                     if (r.code === 0) {
-                        // this.$message.success('注册成功，请登录');
                         this.$refs['signForm'].resetFields();
                         this.$notify({
                             title: '注册成功',
@@ -213,6 +219,7 @@
                     } else {
                         this.$message.error('注册失败')
                     }
+                    this.loading = false;
                 });
             },
             handelClose(done) {
@@ -341,10 +348,10 @@
     }
     .sign button{
         width:100%;
-        background-color: #1fbeca;
         border: none;
         outline: none;
         height: 36px;
+        background-color: rgba(19, 164, 192, 0.82);
         color: #fff;
         border-radius: 25px;
         cursor: pointer;
@@ -352,7 +359,7 @@
         margin-bottom: 10px;
     }
     .sign button:hover{
-        background-color: rgba(19, 164, 192, 0.61);
+        background-color: #1fbeca;
         color: #fff;
     }
     .login-foot{

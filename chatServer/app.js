@@ -7,7 +7,7 @@ let cookieParser = require('cookie-parser'); // cookie
 let bodyParser = require('body-parser'); // post请求需要的中间件
 let session = require("express-session"); // session
 let proxy = require('http-proxy-middleware');
-
+let compression = require('compression');
 let app = express();
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
@@ -23,6 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());

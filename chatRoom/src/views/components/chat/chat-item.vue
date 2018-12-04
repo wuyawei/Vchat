@@ -120,13 +120,14 @@
                     this.$emit('NewMes', r[r.length - 1]);
                 }
                 this.chatList = r.map(v => {
-                    if (v.name === this.user.name) {
-                        v.type = 'mine';
-                        return v;
-                    } else {
-                        v.type = 'other';
-                        return v;
+                    if (v.type !== 'org') {
+                        if (v.name === this.user.name) {
+                            v.type = 'mine';
+                        } else {
+                            v.type = 'other';
+                        }
                     }
+                    return v;
                 })
             }
         },

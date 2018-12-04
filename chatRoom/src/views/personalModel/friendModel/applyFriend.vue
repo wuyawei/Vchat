@@ -50,7 +50,8 @@
                     friendRoom : this.user.id + '' + this.$route.params.id,
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
                     state: 'friend',
-                    type: 'validate'
+                    type: 'validate',
+                    status: '0'
                 };
                 this.$socket.emit('sendValidate', val);
                 this.$router.push({name: 'sendFriendValidate', query: {name: 'searchFriend'}});

@@ -10,21 +10,21 @@ let messages = db.model("messages", {
     read: Array, // 是否已读 0/1
     signature: String, // 个性签名
     emoji: String, // 表情地址
-    style: String, // 消息类型 emoji/mes
+    style: String, // 消息类型 emoji/mess/img/file
     groupId: String, // 加入群聊id
     groupName: String, // 加入群聊名称
     groupPhoto: String, //加入群聊头像
     userM: {
         type : db.Schema.ObjectId,
         ref : 'users'
-    }, // 发送人id
+    }, // 申请人id、消息发送人
     userY: String, // 好友id
     userYname: String, // 好友昵称
     userYphoto: String, // 好友头像
     friendRoom: String, // 好友房间
     state: String, // group/ frend
     type: String, // validate
-    status: {type: String, default: '0'} // 0 未操作 1 同意 2 拒绝
+    status: String // 0 未操作 1 同意 2 拒绝
 });
 
 const saveMessage = (params, callback = function () {}) => { // 保存消息
@@ -38,23 +38,38 @@ const saveMessage = (params, callback = function () {}) => { // 保存消息
 };
 
 const getHistoryMessages = (params, reverse, callback) => { // 保存消息
-    messages.find({roomid: params.roomid})
-        .populate({path: 'userM', select: 'signature photo nickname'}) // 关联用户基本信息
-        .sort({'time': -1})
-        .skip((params.offset - 1) * params.limit)
-        .limit(params.limit)
-        .then(r => {
-            r.forEach(v => {
-                v.nickname = v.userM.nickname;
-                v.photo =  v.userM.photo;
-                v.signature =  v.userM.signature;
-            });
-            if (reverse === 1) { r.reverse(); }
-            callback({code: 0, data: r});
-        }).catch(err => {
+    if (reverse === 1) {
+        messages.find({roomid: params.roomid})
+            .populate({path: 'userM', select: 'signature photo nickname'}) // 关联用户基本信息
+            .sort({'time': -1})
+            .skip((params.offset - 1) * params.limit)
+            .limit(params.limit)
+            .then(r => {
+                r.forEach(v => {
+                    if (v.userM) {
+                        v.nickname = v.userM.nickname;
+                        v.photo =  v.userM.photo;
+                        v.signature =  v.userM.signature;
+                    }
+                });
+                r.reverse();
+                callback({code: 0, data: r});
+            }).catch(err => {
             console.log(err);
             callback({code: -1});
         });
+    } else if (reverse === -1) {
+        messages.find({roomid: params.roomid})
+            .sort({'time': -1})
+            .skip((params.offset - 1) * params.limit)
+            .limit(params.limit)
+            .then(r => {
+                callback({code: 0, data: r});
+            }).catch(err => {
+            console.log(err);
+            callback({code: -1});
+        });
+    }
 };
 // updateMany 一次更新多条
 const setReadStatus = (params) => { // 消息设置为已读

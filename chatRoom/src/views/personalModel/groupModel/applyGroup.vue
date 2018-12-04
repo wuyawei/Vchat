@@ -50,7 +50,8 @@
                     read: [],
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
                     state: 'group',
-                    type: 'validate'
+                    type: 'validate',
+                    status: '0'
                 };
                 this.$socket.emit('sendValidate', val);
                 this.$router.push({name: 'sendGroupValidate', query: {name: 'searchGroup'}});

@@ -69,7 +69,8 @@
             takeValidate(r) {
                 this.$emit('NewMes', r);
                 r.visible = false;
-                this.InfoList.push(r);
+                console.log(r);
+                this.InfoList.unshift(r);
                 if (r.type === 'info') {
                     this.$store.dispatch('getUserInfo');
                 }
@@ -96,15 +97,15 @@
         },
         methods: {
             agree(v) {
-                v.userMphoto = this.user.photo;
-                v.userMnickname = this.user.nickname;
+                v.userYphoto = this.user.photo;
+                v.userYname = this.user.nickname;
                 this.$socket.emit('agreeValidate', v);
                 v.visible = !v.visible;
                 v.status = '1'; // 同意
             },
             refuse(v) {
-                v.userMphoto = this.user.photo;
-                v.userMnickname = this.user.nickname;
+                v.userYphoto = this.user.photo;
+                v.userYname = this.user.nickname;
                 this.$socket.emit('refuseValidate', v);
                 v.visible = !v.visible;
                 v.status = '2'; // 拒绝

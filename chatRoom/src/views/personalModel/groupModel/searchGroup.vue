@@ -23,7 +23,7 @@
             <ul class="search-group-list" v-show="groupList.length">
                 <li v-for="v in groupList" :key="v['_id']" @click="goGroupDetail(v['_id'])">
                     <a href="javascript:;">
-                        <img :src="v.img" alt="">
+                        <img :src="IMG_URL + v.img" alt="">
                     </a>
                     <div>
                         <p>
@@ -55,6 +55,7 @@
         name: 'searchGroup',
         data() {
             return {
+                IMG_URL: process.env.IMG_URL,
                 huntKey: '', // 搜索参数
                 groupList: [], // 群列表
                 loadingSearch: false, // 加载动画

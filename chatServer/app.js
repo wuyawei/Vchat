@@ -144,10 +144,10 @@ const onconnection = (socket) => {
                     // 通知申请人验证已同意
                     let value = {
                         name: '',
-                        mes: val.userMnickname + '同意你加入' + groupName + '!',
+                        mes: val.userYname + '同意你加入' + val.groupName + '!',
                         time: utils.formatTime(new Date()),
-                        avatar: val.userMphoto,
-                        nickname: val.userMnickname,
+                        avatar: val.userYphoto,
+                        nickname: val.userYname,
                         groupName: val.groupName,
                         groupId: val.groupId,
                         groupPhoto: val.groupPhoto,
@@ -160,8 +160,8 @@ const onconnection = (socket) => {
                     apiList.saveMessage(value); // 保存通知消息
                     let params = {
                         name: val.groupName,
-                        photo: val.groupId,
-                        id: val.groupPhoto,
+                        photo: val.groupPhoto,
+                        id: val.groupId,
                         type: 'group'
                     };
                     apiList.ServeraddConversitionList(val.name, params); // 添加到申请人会话列表
@@ -189,14 +189,11 @@ const onconnection = (socket) => {
                     // 通知申请人验证已同意
                     let value = {
                         name: '',
-                        mes: val.userMnickname + '同意了你的好友请求！',
+                        mes: val.userYname + '同意了你的好友请求！',
                         time: utils.formatTime(new Date()),
-                        avatar: val.userMphoto,
-                        nickname: val.userMnickname,
+                        avatar: val.userYphoto,
+                        nickname: val.userYname,
                         read: [],
-                        userYname: val.userYname,
-                        userYphoto: val.userYphoto,
-                        friendRoom : val.friendRoom,
                         state: 'friend',
                         type: 'info',
                         status: '1', // 同意
@@ -236,10 +233,10 @@ const onconnection = (socket) => {
         if (val.state === 'group') {
             let value = {
                 name: '',
-                mes: val.userMnickname + '拒绝了你加入 ' + groupName + ' 的申请!',
+                mes: val.userYname + '拒绝了你加入 ' + val.groupName + ' 的申请!',
                 time: utils.formatTime(new Date()),
-                avatar: val.userMphoto,
-                nickname: val.userMnickname,
+                avatar: val.userYphoto,
+                nickname: val.userYname,
                 groupName: val.groupName,
                 read: [],
                 state: 'group',
@@ -252,10 +249,10 @@ const onconnection = (socket) => {
         } else if (val.state === 'friend') {
             let value = {
                 name: '',
-                mes: val.userMnickname + '拒绝了你的好友请求！',
+                mes: val.userYname + '拒绝了你的好友请求！',
                 time: utils.formatTime(new Date()),
-                avatar: val.userMphoto,
-                nickname: val.userMnickname,
+                avatar: val.userYphoto,
+                nickname: val.userYname,
                 read: [],
                 state: 'friend',
                 status: '-1', // 拒绝

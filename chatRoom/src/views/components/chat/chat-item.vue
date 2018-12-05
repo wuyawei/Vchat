@@ -183,6 +183,10 @@
             },
             InmageChange() { // 发送图片
                 let f = this.$refs['chooseInmage'].files[0];
+                if (f.type.indexOf('image') === -1) {
+                    this.$message.error('只能上传图片!');
+                    return;
+                }
                 const isLt1M = f.size / 1024 / 1024 < 1;
                 if (!isLt1M) {
                     this.$message.error('图片大小不能超过 1MB!');

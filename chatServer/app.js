@@ -200,20 +200,20 @@ const onconnection = (socket) => {
                         roomid: val.userM + '-' + val.roomid.split('-')[1]
                     };
                     apiList.saveMessage(value); // 保存通知消息
-                    let userYparams = {
-                        name: val.userYname,
-                        photo: val.userYphoto,
+                    let userMparams = { // 申请人信息
+                        name: val.nickname,
+                        photo: val.avatar,
                         id: val.friendRoom,
                         type: 'friend'
                     };
-                    let userMparams = {
+                    let userYparams = { // 好友信息
                         name: val.userYname,
                         photo: val.userYphoto,
                         id: val.friendRoom,
                         type: 'friend'
                     };
                     apiList.ServeraddConversitionList(val.name, userYparams, () => {
-                        apiList.ServeraddConversitionList(val.userYname, userMparams, () => {
+                        apiList.ServeraddConversitionList(val.userYloginName, userMparams, () => {
                             socket.to(value.roomid).emit('takeValidate', value);
                             socket.emit('ValidateSuccess', 'ok');
                         }); // 添加到自己会话列表
@@ -231,7 +231,7 @@ const onconnection = (socket) => {
             _id: val['_id']
         };
         apiList.upMessage(pr);
-        console.log('refuseValidate', val);
+        // console.log('refuseValidate', val);
         if (val.state === 'group') {
             let value = {
                 name: '',
@@ -261,7 +261,7 @@ const onconnection = (socket) => {
                 type: 'info',
                 roomid: val.userM + '-' + val.roomid.split('-')[1]
             };
-            console.log('saveMessage', value);
+            // console.log('saveMessage', value);
             apiList.saveMessage(value); // 保存通知消息
             socket.to(value.roomid).emit('takeValidate', value);
         }

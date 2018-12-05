@@ -47,6 +47,7 @@
                     userY: this.$route.params.id,
                     userYname: friend.userYname,
                     userYphoto: friend.userYphoto,
+                    userYloginName: friend.userYloginName,
                     friendRoom : this.user.id + '' + this.$route.params.id,
                     roomid: this.$route.params.id + '-' + this.Vchat.id.split('-')[1],
                     state: 'friend',

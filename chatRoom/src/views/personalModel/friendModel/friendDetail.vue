@@ -71,6 +71,7 @@
             apply() {
                 localStorage.friend = JSON.stringify({
                     userYname: this.friendInfo.nickname,
+                    userYloginName: this.friendInfo.name,
                     userYphoto: this.friendInfo.photo
                 });
                 this.$router.push({name: 'applyFriend', params: {id: this.$route.params.id}, query: {}});

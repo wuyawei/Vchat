@@ -113,7 +113,7 @@ const getUserInfo = (params, callback) => { // 获取登录用户或好友信息
     if (params.id) {
         baseList.users.find({_id: params.key}).then(r => {
             if (r.length) {
-                let response = {photo: r[0].photo, nickname: r[0].nickname, signature: r[0].signature, code: r[0].code,cover:r[0].cover,sex:r[0].sex, province: r[0].province, city: r[0].city, town: r[0].town};
+                let response = {name: r[0].name, photo: r[0].photo, nickname: r[0].nickname, signature: r[0].signature, code: r[0].code,cover:r[0].cover,sex:r[0].sex, province: r[0].province, city: r[0].city, town: r[0].town};
                 callback({code: 0, data: response});
             } else {
                 callback({code: -1});

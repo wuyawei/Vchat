@@ -153,9 +153,6 @@
             }
         },
         mounted() {
-            setTimeout(_ => {
-                this.$store.dispatch('getUserInfo');
-            }, 2000);
         }
     }
 </script>

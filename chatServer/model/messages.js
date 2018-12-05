@@ -21,6 +21,7 @@ let messages = db.model("messages", {
     userY: String, // 好友id
     userYname: String, // 好友昵称
     userYphoto: String, // 好友头像
+    userYloginName: String, // 好友登录名
     friendRoom: String, // 好友房间
     state: String, // group/ frend
     type: String, // validate
@@ -45,7 +46,7 @@ const getHistoryMessages = (params, reverse, callback) => { // 保存消息
             .skip((params.offset - 1) * params.limit)
             .limit(params.limit)
             .then(r => {
-                r.forEach(v => {
+                r.forEach(v => { // 防止用户修改资料后，信息未更新
                     if (v.userM) {
                         v.nickname = v.userM.nickname;
                         v.photo =  v.userM.photo;

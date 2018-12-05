@@ -140,9 +140,9 @@
                                 type: 'success',
                                 message: '移除成功'
                             });
-                            this.$store.commit('setConversationsList', Object.assign({}, v, {d: true}));
-                            if (this.currSation.id === v.id && this.conversationsList.length !== 0) {
-                                this.currSation = this.conversationsList[i - 1];
+                            this.contactsList = this.contactsList.filter(m => m.id !== v.id);
+                            if (this.currSation.id === v.id && this.contactsList.length !== 0) {
+                                this.currSation = this.contactsList[i - 1];
                             }
                         } else {
                             this.$message({

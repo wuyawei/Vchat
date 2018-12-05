@@ -45,7 +45,7 @@
                 </div>
                 <div class="handel-member">
                     <h3>
-                        <span>群成员 ( {{groupUsers.length}} )</span>
+                        <span>群成员 ( {{onlineNum}}/{{groupUsers.length}} )</span>
                         <v-icon class="el-icon-search" :color="user.chatColor" :size="18" @clickIcon="spreadInput"></v-icon>
                     </h3>
                     <input type="text" v-show="spread" ref="searchMember">
@@ -95,7 +95,8 @@
                 photoSwipeFlag: false, //图片放大器
                 photoSwipeUrl: '',
                 offset: 1,
-                limit: 2
+                limit: 30,
+                onlineNum: 0 // 在线人数
             };
         },
         components: {
@@ -137,6 +138,9 @@
         watch: {
             currSation: { // 当前会话
                 handler(v) {
+                    if (!v.id) {
+                        this.chatList = [];
+                    }
                     if (v.type === 'group' || v.type === 'friend') {
                         if (v.type === 'group') {
                             this.getGroupUsers(v.id);
@@ -200,14 +204,15 @@
             },
             getGroupUserStatus(obj) { // 群成员在线状态
                 this.groupUsers.forEach((v, i) => {
-                    let k, flag = false;
-                    for (k in obj) {
+                    let flag = false;
+                    Object.keys(obj).forEach(k => {
                         if (k === v.userName) {
                             flag = true;
                         }
-                    }
+                    });
                     this.$set(this.groupUsers, i, Object.assign({}, v, {status: flag}));
-                })
+                });
+                this.onlineNum = this.groupUsers.filter(v => v.status).length;
             },
             setCurrNav(i) {
                 this.currNav = i;

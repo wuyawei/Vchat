@@ -69,7 +69,6 @@
             takeValidate(r) {
                 this.$emit('NewMes', r);
                 r.visible = false;
-                console.log(r);
                 this.InfoList.unshift(r);
                 if (r.type === 'info') {
                     this.$store.dispatch('getUserInfo');
@@ -82,10 +81,12 @@
         watch: {
             currSation: { // 当前会话
                 handler(v) {
-                    if (v) {
+                    if (v.id) {
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
                         this.$socket.emit('getSystemMessages', {roomid: v.id, offset: this.offset, limit: this.limit});
+                    } else {
+                        this.InfoList = [];
                     }
                 },
                 deep: true,
@@ -117,6 +118,7 @@
 <style lang="scss" scoped>
     .vchat-system-Message{
         width:100%;
+        height: 100%;
         padding: 15px 30px 10px 15px;
         box-sizing: border-box;
         overflow-y: auto;

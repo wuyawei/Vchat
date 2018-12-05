@@ -53,6 +53,7 @@
                     type: 'validate',
                     status: '0'
                 };
+                console.log(val);
                 this.$socket.emit('sendValidate', val);
                 this.$router.push({name: 'sendGroupValidate', query: {name: 'searchGroup'}});
             }

@@ -164,18 +164,18 @@ const onconnection = (socket) => {
                         id: val.groupId,
                         type: 'group'
                     };
-                    apiList.ServeraddConversitionList(val.name, params); // 添加到申请人会话列表
-                    socket.to(value.roomid).emit('takeValidate', value);
-                    socket.emit('ValidateSuccess', 'ok');
-                    // 通知群聊
-                    let org = {
-                        type: 'org',
-                        nickname: val.nickname,
-                        time: utils.formatTime(new Date()),
-                        roomid: val.groupId
-                    };
-                    apiList.saveMessage(org); // 保存通知消息
-                    socket.to(org.roomid).emit('org', org);
+                    apiList.ServeraddConversitionList(val.name, params, () => {
+                        socket.to(value.roomid).emit('takeValidate', value);
+                        // 通知群聊
+                        let org = {
+                            type: 'org',
+                            nickname: val.nickname,
+                            time: utils.formatTime(new Date()),
+                            roomid: val.groupId
+                        };
+                        apiList.saveMessage(org); // 保存通知消息
+                        socket.to(org.roomid).emit('org', org);
+                    }); // 添加到申请人会话列表
                 }
             });
         } else if (val.state === 'friend') { // 写入好友表
@@ -212,10 +212,12 @@ const onconnection = (socket) => {
                         id: val.friendRoom,
                         type: 'friend'
                     };
-                    apiList.ServeraddConversitionList(val.name, userYparams); // 添加到申请人会话列表
-                    apiList.ServeraddConversitionList(val.userYname, userMparams); // 添加到自己会话列表
-                    socket.to(value.roomid).emit('takeValidate', value);
-                    socket.emit('ValidateSuccess', 'ok');
+                    apiList.ServeraddConversitionList(val.name, userYparams, () => {
+                        apiList.ServeraddConversitionList(val.userYname, userMparams, () => {
+                            socket.to(value.roomid).emit('takeValidate', value);
+                            socket.emit('ValidateSuccess', 'ok');
+                        }); // 添加到自己会话列表
+                    }); // 添加到申请人会话列表
                 }else {
                     console.log('添加好友失败');
                 }

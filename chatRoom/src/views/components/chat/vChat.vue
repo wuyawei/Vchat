@@ -60,7 +60,6 @@
                 currSation: {}, //当前会话
                 contactsList: [], // 会话列表
                 IMGURL: process.env.IMG_URL,
-                one: true,
                 settingFlag: { // 设置面板
                     f: false
                 }
@@ -77,8 +76,7 @@
             conversationsList: {
                 handler(list) {
                     this.contactsList = JSON.parse(JSON.stringify(list));
-                    if (this.one && list.length) {
-                        this.one = false;
+                    if (!this.currSation.id && list.length) {
                         this.currSation = this.contactsList[0];
                     }
                     if (!list.length) {
@@ -155,6 +153,9 @@
             }
         },
         mounted() {
+            setTimeout(_ => {
+                this.$store.dispatch('getUserInfo');
+            }, 2000);
         }
     }
 </script>

@@ -56,7 +56,7 @@
         data() {
             return {
                 IMG_URL: process.env.IMG_URL,
-                friendInfo: {cover: []}, // user详情
+                friendInfo: {cover: [], province: {}, city: {}, town: {}}, // user详情
                 showFriendQr: false, // 二维码开关
                 myFriendFlag: false // 是否为我的好友
             }
@@ -70,8 +70,8 @@
         methods: {
             apply() {
                 localStorage.friend = JSON.stringify({
-                    userYname: friendInfo.nickname,
-                    userYphoto: friendInfo.photo
+                    userYname: this.friendInfo.nickname,
+                    userYphoto: this.friendInfo.photo
                 });
                 this.$router.push({name: 'applyFriend', params: {id: this.$route.params.id}, query: {}});
             },

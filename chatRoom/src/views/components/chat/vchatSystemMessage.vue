@@ -82,6 +82,7 @@
             currSation: { // 当前会话
                 handler(v) {
                     if (v.id) {
+                        console.log('vvvvvvvv', this.InfoList);
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
                         this.$socket.emit('getSystemMessages', {roomid: v.id, offset: this.offset, limit: this.limit});

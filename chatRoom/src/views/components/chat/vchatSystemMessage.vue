@@ -30,7 +30,8 @@
                                 <span class="status">{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
                             </div>
                         </div>
-                        <span slot="reference" @click="v.visible = !v.visible" class="look">查看</span>
+                        <span slot="reference" @click="v.visible = !v.visible" class="look" v-if="v.status === '0' ">查看</span>
+                        <span slot="reference" v-else>{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
                     </el-popover>
                 </li>
                 <li v-if="v.type === 'info'" :key="v['_id']">
@@ -82,7 +83,6 @@
             currSation: { // 当前会话
                 handler(v) {
                     if (v.id) {
-                        console.log('vvvvvvvv', this.InfoList);
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
                         this.$socket.emit('getSystemMessages', {roomid: v.id, offset: this.offset, limit: this.limit});
@@ -129,6 +129,7 @@
             justify-content: space-between;
             font-size: 14px;
             padding: 5px 10px;
+            line-height: 30px;
             margin-bottom: 5px;
             box-sizing: border-box;
             background-color: rgba(0,0,0,0.3);

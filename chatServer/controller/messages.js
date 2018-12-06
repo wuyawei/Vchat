@@ -7,6 +7,23 @@ const saveMessage = (params, callback) => {
     apiModel.saveMessage(params, callback);
 };
 
+const removeMessage = (req, res) => { // 删除消息
+    let params = req.body;
+    apiModel.removeMessage(params, r => {
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : '删除成功'
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '删除失败'
+            })
+        }
+    })
+};
+
 const getHistoryMessages = (params, order, callback) => {
     apiModel.getHistoryMessages(params, order, callback);
 };
@@ -23,5 +40,6 @@ module.exports = {
     saveMessage,
     getHistoryMessages,
     setReadStatus,
-    upMessage
+    upMessage,
+    removeMessage
 };

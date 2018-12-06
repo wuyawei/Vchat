@@ -33,10 +33,34 @@
                         <span slot="reference" @click="v.visible = !v.visible" class="look" v-if="v.status === '0' ">查看</span>
                         <span slot="reference" v-else>{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
                     </el-popover>
+                    <el-popover
+                            placement="top"
+                            width="160"
+                            v-model="v.delVisible">
+                        <p>确定删除吗？</p>
+                        <div style="text-align: right; margin: 0">
+                            <el-button size="mini" type="text" @click="v.delVisible = false">取消</el-button>
+                            <el-button type="primary" size="mini" @click="del(v)">确定</el-button>
+                        </div>
+                        <span slot="reference" class="del" >删除</span>
+                    </el-popover>
                 </li>
                 <li v-if="v.type === 'info'" :key="v['_id']">
-                    <span>{{v.mes}}</span>
-                    <span>{{v.time}}</span>
+                    <p>
+                        <span class="vchat-line1 info">{{v.mes}}</span>
+                        <span class="time">{{v.time}}</span>
+                    </p>
+                    <el-popover
+                            placement="top"
+                            width="160"
+                            v-model="v.delVisible">
+                        <p>确定删除吗？</p>
+                        <div style="text-align: right; margin: 0">
+                            <el-button size="mini" type="text" @click="v.delVisible = false">取消</el-button>
+                            <el-button type="primary" size="mini" @click="del(v)">确定</el-button>
+                        </div>
+                        <span slot="reference" class="del" >删除</span>
+                    </el-popover>
                 </li>
             </template>
         </ul>
@@ -64,7 +88,7 @@
                 if (r.length) {
                     this.$emit('NewMes', r[r.length - 1]);
                 }
-                r.forEach(v => v.visible = false);
+                r.forEach(v => {v.visible = false; v.delVisible = false;});
                 this.InfoList = r;
             },
             takeValidate(r) {
@@ -98,6 +122,22 @@
             ...mapState(['user', 'Vchat'])
         },
         methods: {
+            del(v) {
+                api.removeMessage({'_id': v['_id']}).then(r => {
+                    if (r.code === 0) {
+                        this.$message({
+                            message: '删除成功',
+                            type: 'success'
+                        });
+                        this.InfoList = this.InfoList.filter(m => m._id !== v._id);
+                    } else {
+                        this.$message({
+                            message: '删除失败',
+                            type: 'warning'
+                        })
+                    }
+                })
+            },
             agree(v) {
                 v.userYphoto = this.user.photo;
                 v.userYname = this.user.nickname;
@@ -149,7 +189,13 @@
                 min-width: 24px;
                 margin-left: 15px;
             }
-            span.look:hover{
+            span.del{
+                color: #ff3514;
+                opacity: 0.8;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            span.look:hover, span.del:hover{
                 opacity: 1;
             }
             span.status{

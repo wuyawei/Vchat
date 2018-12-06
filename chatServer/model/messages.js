@@ -38,6 +38,16 @@ const saveMessage = (params, callback = function () {}) => { // 保存消息
     })
 };
 
+const removeMessage = (params, callback) => { // 删除消息
+    messages.remove(params).then(raw => {
+        if (raw.n > 0) {
+            callback({code: 0});
+        } else {
+            callback({code: -1});
+        }
+    })
+};
+
 const getHistoryMessages = (params, reverse, callback) => { // 保存消息
     if (reverse === 1) {
         messages.find({roomid: params.roomid})
@@ -100,5 +110,6 @@ module.exports = {
     saveMessage,
     getHistoryMessages,
     setReadStatus,
-    upMessage
+    upMessage,
+    removeMessage
 };

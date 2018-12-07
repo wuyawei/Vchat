@@ -100,7 +100,7 @@ const setMessageStatus = (params) => { // 验证消息设置为已通过
     messages.find({'userM': params.userM})
         .then(raw => {
             raw.forEach(v => {
-                if (v.type === "type" && (v.state === 'friend' || v.state === 'group')) {
+                if (v.type === "validate" && (v.state === 'friend' || v.state === 'group')) {
                     v.status = params.status;
                     v.save();
                 }

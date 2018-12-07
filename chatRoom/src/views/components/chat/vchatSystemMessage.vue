@@ -143,9 +143,9 @@
                 v.userYname = this.user.nickname;
                 this.$socket.emit('agreeValidate', v);
                 this.InfoList.forEach(m => { // 更新同一申请人的所有相同请求
-                    if (m.userM === v.userM && m.type === "type" && (v.state === 'friend' || v.state === 'group')) {
+                    if (m.userM === v.userM && m.type === "validate" && (v.state === 'friend' || v.state === 'group')) {
                         m.status = '1';
-                        m.visible = !m.visible;
+                        m.visible = false
                     }
                 });
             },

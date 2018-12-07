@@ -96,6 +96,19 @@ const setReadStatus = (params) => { // 消息设置为已读
         .catch(err => console.log('setReadStatus失败', err));
 };
 
+const setMessageStatus = (params) => { // 验证消息设置为已通过
+    messages.find({'userM': params.userM})
+        .then(raw => {
+            raw.forEach(v => {
+                if (v.type === "type" && (v.state === 'friend' || v.state === 'group')) {
+                    v.status = params.status;
+                    v.save();
+                }
+            })
+        })
+        .catch(err => console.log('setMessageStatus失败', err));
+};
+
 const upMessage = (params, callback) => { // 更新status
     messages.update({'_id': params['_id']}, {status: params.status}).then(raw => {
         if (raw.nModified > 0) {
@@ -111,5 +124,6 @@ module.exports = {
     getHistoryMessages,
     setReadStatus,
     upMessage,
-    removeMessage
+    removeMessage,
+    setMessageStatus
 };

@@ -32,6 +32,10 @@ const setReadStatus = (params) => {
     apiModel.setReadStatus(params);
 };
 
+const setMessageStatus = (params) => {
+    apiModel.setMessageStatus(params);
+};
+
 const upMessage = (params, callback = function () {}) => {
     apiModel.upMessage(params, callback);
 };
@@ -41,5 +45,6 @@ module.exports = {
     getHistoryMessages,
     setReadStatus,
     upMessage,
-    removeMessage
+    removeMessage,
+    setMessageStatus
 };

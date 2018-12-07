@@ -140,9 +140,9 @@ const onconnection = (socket) => {
                 } else if (r.code === 0) {
                     let pr = {
                         status: '1',
-                        _id: val['_id']
+                        userM: val['userM']
                     };
-                    apiList.upMessage(pr);
+                    apiList.setMessageStatus(pr);
                     // 通知申请人验证已同意
                     let value = {
                         name: '',
@@ -185,9 +185,9 @@ const onconnection = (socket) => {
                 if (r.code === 0) {
                     let pr = {
                         status: '1',
-                        _id: val['_id']
+                        userM: val['userM']
                     };
-                    apiList.upMessage(pr);
+                    apiList.setMessageStatus(pr);
                     // 通知申请人验证已同意
                     let value = {
                         name: '',

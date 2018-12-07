@@ -142,8 +142,12 @@
                 v.userYphoto = this.user.photo;
                 v.userYname = this.user.nickname;
                 this.$socket.emit('agreeValidate', v);
-                v.visible = !v.visible;
-                v.status = '1'; // 同意
+                this.InfoList.forEach(m => { // 更新同一申请人的所有相同请求
+                    if (m.userM === v.userM && m.type === "type" && (v.state === 'friend' || v.state === 'group')) {
+                        m.status = '1';
+                        m.visible = !m.visible;
+                    }
+                });
             },
             refuse(v) {
                 v.userYphoto = this.user.photo;

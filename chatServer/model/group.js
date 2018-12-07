@@ -182,18 +182,24 @@ const InsertGroupUsers = (params, callback) => { // 添加新成员 userNum + 1 
         userName: params.name,
         userId: params.userM
     };
-    groupUser.create(val).then(r => {
-        if (r['_id']) {
-            groups.update({'_id': params.groupId}, { $inc : { "userNum" : 1}}).then(raw => {
-                if (raw.nModified > 0) {
-                    callback({code: 0});
+    groupUser.find({groupId: params.groupId, userId: params.userM}).then(res => {
+        if (!res.length) {
+            groupUser.create(val).then(r => {
+                if (r['_id']) {
+                    groups.update({'_id': params.groupId}, { $inc : { "userNum" : 1}}).then(raw => {
+                        if (raw.nModified > 0) {
+                            callback({code: 0});
+                        } else {
+                            groupUser.deleteOne({'_id': r['_id']});
+                            callback({code: -2});
+                        }
+                    });
                 } else {
-                    groupUser.deleteOne({'_id': r['_id']});
-                    callback({code: -2});
+                    callback({code: -1});
                 }
             });
         } else {
-            callback({code: -1});
+            callback({code: -3});
         }
     });
 

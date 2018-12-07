@@ -81,13 +81,24 @@ const addFriend = (params, callback) => { // 增加好友记录
         userM: params.userM,
         userY: params.userY
     };
-    friendly.create(pr).then(r => {
-        if (r['_id']) {
-            callback({code: 0});
-        } else {
-            callback({code: -1});
-        }
-    })
+    friendly.find(pr).then(m => {
+        friendly.find({
+            userM: params.userY,
+            userY: params.userM
+        }).then(y => {
+            if (!(m.length + y.length)) {
+                friendly.create(pr).then(r => {
+                    if (r['_id']) {
+                        callback({code: 0});
+                    } else {
+                        callback({code: -1});
+                    }
+                })
+            } else {
+                callback({code: -3});
+            }
+        });
+    });
 };
 
 module.exports = {

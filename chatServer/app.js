@@ -137,6 +137,8 @@ const onconnection = (socket) => {
                     console.log('加入群聊失败');
                 } else if (r.code === -2) {
                     console.log('更新群成员数量失败');
+                } else if (r.code === -3) {
+                    console.log('群成员已存在');
                 } else if (r.code === 0) {
                     let pr = {
                         status: '1',

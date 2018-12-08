@@ -1,7 +1,12 @@
 <template>
-    <div class="vchat-messageLog">
+    <div class="vchat-messageLog"
+         v-loading="chatLoading"
+         element-loading-text="拼命加载中"
+         element-loading-spinner="el-icon-loading"
+         element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
         <message-item type="other" @lookPhoto="lookPhoto" :v="v" v-for="(v, i) in messageLog" :key="i" class="other"></message-item>
-        <div class="page">
+        <div class="page" v-if="total>0">
             <el-pagination
                     layout="prev, pager, next"
                     :current-page.sync="offset"
@@ -23,7 +28,8 @@
                 messageLog: [],
                 offset: 1,
                 limit: 5,
-                total: 0
+                total: 0,
+                chatLoading: false
             }
         },
         watch: {
@@ -41,6 +47,7 @@
             },
             currNav(i) {
                 if (i === 2 && this.currSation.id) {
+                    this.total = 0;
                     this.getMessageLog();
                 }
             }
@@ -50,6 +57,7 @@
                 this.$emit('lookPhoto', url);
             },
             getMessageLog() {
+                this.chatLoading = true;
                 this.messageLog = [];
                 let params = {roomid: this.currSation.id, offset: this.offset, limit: this.limit};
                 api.loadMoreMessages(params).then(r => {
@@ -57,6 +65,7 @@
                         this.messageLog = r.data;
                         this.total = r.count;
                     }
+                    this.chatLoading = false;
                 })
             }
         },

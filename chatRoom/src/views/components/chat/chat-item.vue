@@ -5,8 +5,13 @@
         </div>
         <div class="vchat-item-container" v-show="currNav === 0">
             <div class="container-chat">
-                <div class="chat-room">
-                    <v-message :chatList="chatList" @lookPhoto="lookPhoto"></v-message>
+                <div class="chat-room"
+                     v-loading="chatLoading"
+                     element-loading-text="拼命加载中"
+                     element-loading-spinner="el-icon-loading"
+                     element-loading-background="rgba(0, 0, 0, 0.8)"
+                >
+                    <v-message :chatList="chatList" @lookPhoto="lookPhoto" @chatLoading="chatLoading = false"></v-message>
                 </div>
                 <div class="chat-send">
                     <div class="tool">
@@ -39,8 +44,7 @@
                 <div class="handel-notice">
                     <h3>群通知</h3>
                     <ul>
-                        <li class="vchat-line1">【本群须知】嗨起来 </li>
-                        <li class="vchat-line1">【公告】哈哈哈哈哈 </li>
+                        <li class="vchat-line1">【本群须知】开发中··· </li>
                     </ul>
                 </div>
                 <div class="handel-member">
@@ -98,7 +102,8 @@
                 },
                 photoSwipeFlag: false, //图片放大器
                 photoSwipeUrl: '',
-                onlineNum: 0 // 在线人数
+                onlineNum: 0, // 在线人数
+                chatLoading: false
             };
         },
         components: {
@@ -132,7 +137,7 @@
                         }
                     }
                     return v;
-                })
+                });
             }
         },
         computed: {
@@ -144,6 +149,7 @@
                     if (!v.id) {
                         this.chatList = [];
                     }
+                    this.chatLoading = true;
                     this.currNav = 0; // 标签选中第一个
                     if (v.type === 'group' || v.type === 'friend') {
                         if (v.type === 'group') {

@@ -14,6 +14,7 @@
                     layout="prev, pager, next"
                     :current-page.sync="page"
                     @current-change="getJokes"
+                    v-if="count > 0"
                     :total="count">
             </el-pagination>
         </div>
@@ -46,6 +47,7 @@
             },
             getJokes() {
                 this.loading = true;
+                this.count = 0;
                 this.jokesList = [];
                 api.getJokes(this.activeName, this.page, this.maxtime).then(r => {
                     this.jokesList = r.list;

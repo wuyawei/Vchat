@@ -29,6 +29,7 @@
             chatList(){
                 this.$nextTick(_ => {
                     setTimeout(_ => {
+                        this.$emit('chatLoading');
                         this.$refs['msglist'].scrollTop = this.$refs['msglist'].scrollHeight + 200;
                     }, 200);
                 });

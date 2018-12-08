@@ -15,7 +15,7 @@ const login = (req, res) => {
     let params = req.body;
     apiModel.login(params, (r) => { // 登录
         if (r.code === 0) {
-            req.session.login = params.name;
+            req.session.login = r.data.name;
             res.json({
                 code : 0,
                 data : r,

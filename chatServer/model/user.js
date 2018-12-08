@@ -18,7 +18,13 @@ const getUser = (callback) => { // 测试
 };
 
 const login = (params, callback) => { // 登录
-    baseList.users.find({name: params.name}).then(r => {
+    baseList.users
+        .find(
+            {
+                $or: [{"name": params.name}, {"code": params.name}]
+            }
+        )
+        .then(r => {
         if (r.length) {
             let pass = md5(params.pass);
             if (r[0]['pass'] === pass) {

@@ -60,8 +60,11 @@
                 </div>
             </div>
         </div>
-        <div class="vchat-item-container" v-show="currNav === 2">
+        <div class="vchat-item-container" v-show="currNav === 1">
             努力开发中...
+        </div>
+        <div class="vchat-item-container" v-show="currNav === 2">
+            <message-log :currSation="currSation" :currNav="currNav" @lookPhoto="lookPhoto"></message-log>
         </div>
         <v-photo-swipe :visible="photoSwipeFlag" @close="photoSwipeFlag = false" :url="photoSwipeUrl"></v-photo-swipe>
     </div>
@@ -73,6 +76,7 @@
     import utils from '@/utils/utils';
     import emoji from './emoji.vue';
     import vMessage from './message.vue';
+    import messageLog from './messageLog.vue';
     export default{
         name: 'chatItem',
         props: ['currSation'],
@@ -94,14 +98,13 @@
                 },
                 photoSwipeFlag: false, //图片放大器
                 photoSwipeUrl: '',
-                offset: 1,
-                limit: 30,
                 onlineNum: 0 // 在线人数
             };
         },
         components: {
             emoji,
-            vMessage
+            vMessage,
+            messageLog
         },
         sockets:{
             org(r) {
@@ -141,13 +144,14 @@
                     if (!v.id) {
                         this.chatList = [];
                     }
+                    this.currNav = 0; // 标签选中第一个
                     if (v.type === 'group' || v.type === 'friend') {
                         if (v.type === 'group') {
                             this.getGroupUsers(v.id);
                         }
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
-                        this.$socket.emit('getHistoryMessages', {roomid: v.id, offset: this.offset, limit: this.limit});
+                        this.$socket.emit('getHistoryMessages', {roomid: v.id, offset: 1, limit: 100});
                     }
                 },
                 deep: true,

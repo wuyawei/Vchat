@@ -24,8 +24,25 @@ const removeMessage = (req, res) => { // 删除消息
     })
 };
 
-const getHistoryMessages = (params, order, callback) => {
-    apiModel.getHistoryMessages(params, order, callback);
+const getHistoryMessages = (params, reverse, callback) => {
+    apiModel.getHistoryMessages(params, reverse, callback);
+};
+
+const loadMoreMessages = (req, res) => { // 加载更多消息
+    let params = req.body;
+    apiModel.getHistoryMessages(params, 1, r => {
+        if (r.code === 0) {
+            res.json({
+                code : 0,
+                data : r.data
+            })
+        } else {
+            res.json({
+                code : -1,
+                data : '获取失败'
+            })
+        }
+    })
 };
 
 const setReadStatus = (params) => {
@@ -46,5 +63,6 @@ module.exports = {
     setReadStatus,
     upMessage,
     removeMessage,
-    setMessageStatus
+    setMessageStatus,
+    loadMoreMessages
 };

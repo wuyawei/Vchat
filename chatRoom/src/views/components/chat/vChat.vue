@@ -135,7 +135,7 @@
                 if (v.type === 'vchat') { // 只做显示列表移除
                     this.contactsList = this.contactsList.filter(m => m.id !== v.id);
                     if (this.currSation.id === v.id && this.contactsList.length !== 0) {
-                        this.currSation = this.contactsList[i] || this.contactsList[i -1];
+                        this.currSation = this.contactsList[i] || this.contactsList[i - 1] || this.contactsList[i + 1];
                     }
                 } else {
                     api.removeConversitionList(v).then(r => {

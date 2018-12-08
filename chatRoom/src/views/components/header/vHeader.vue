@@ -38,6 +38,7 @@
                     </div>
                 </div>
             </div>
+            <!-- :parent="true"-->
             <transition name="chat">
                 <vue-draggable-resizable v-if="showChat"
                                          :w="w" :h="h"
@@ -46,7 +47,7 @@
                                          :minh="460" :minw="736"
                                          :handles = "['tl', 'tr', 'bl', 'br']"
                                          :draggable="draggable" :resizable="true"
-                                         :x="x" :y="y" :z="101"
+                                         :x="x" :y="y" :z="2001"
                                          :drag-handle="'.chat-header, .chat-conversation-ul'"
                                          :drag-cancel="'a, .chat-conversation-li, .chat-handel, .vchat-scroll'"
                 >
@@ -192,7 +193,7 @@
                 align-items: center;
                 position: relative;
                 background-color: #28828f;
-                z-index: 102;
+                z-index: 2002;
             }
             .vchat-logo {
                 width: 120px;

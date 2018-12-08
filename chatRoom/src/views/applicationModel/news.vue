@@ -5,13 +5,13 @@
         </el-tabs>
 
         <div class="news-content"  v-loading="loading">
-            <v-scroll :data="newsList">
+            <b-scroll :data="newsList">
                 <div class="content">
                     <news-item v-for="(v, i) in newsList" :key="i" :item="v"></news-item>
                     <el-button type="info" size="medium" :loading="loadMoreFlag" @click="loadMore" class="loadmore" v-if="!nodata">{{loadMoreFlag ? '加载中' : '加载更多'}}</el-button>
                     <p v-else>没有更多数据了</p>
                 </div>
-            </v-scroll>
+            </b-scroll>
         </div>
     </div>
 </template>

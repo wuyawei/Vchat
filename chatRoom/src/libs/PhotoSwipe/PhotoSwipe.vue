@@ -33,7 +33,7 @@
         height: 100%;
         left:0;
         top:0;
-        z-index: 111;
+        z-index: 2018;
         background-color: rgba(0,0,0,0.8);
         overflow: hidden;
         .img-container{

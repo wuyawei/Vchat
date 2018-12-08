@@ -1,8 +1,11 @@
 <template>
     <div class="vchat-scroll" v-loadMore="loadMore" :data-scrollWay="scrollWay" :data-nodata="nodata">
-        <slot></slot>
-        <span id="loadmoreIcon" style="overflow: hidden" v-if="nodata"><i class="el-icon-loading"></i></span>
-        <span v-else>没有更多数据了</span>
+        <slot name="down"></slot>
+        <span id="loadmoreIcon" style="overflow: hidden" v-show="!nodata">
+            <v-icon class="el-icon-loading" :size="28" color="#fff"></v-icon>
+        </span>
+        <span v-show="nodata">{{nodataText}}</span>
+        <slot name="up"></slot>
     </div>
 </template>
 
@@ -12,7 +15,7 @@
         props: {
             scrollWay: { // up 、down
                 type: String,
-                default: 'down'
+                default: 'up'
             },
             loadMore: {
                 type: Function,
@@ -23,6 +26,10 @@
             nodata: {
                 type: Boolean,
                 default: false
+            },
+            nodataText: {
+                type: String,
+                default: '没有更多数据了'
             }
         },
         data() {
@@ -36,7 +43,7 @@
                     let loadmoreIcon = document.getElementById('loadmoreIcon');
                     loadmoreIcon.style.display = 'none';
                     el.dataset.flag = 'true';
-                    function scroll() {
+                    function elscroll() {
                         /*
                              * scrollHeight 获取元素内容高度(只读)
                              * scrollTop 获取或者设置元素的偏移值,常用于, 计算滚动条的位置, 当一个元素的容器没有产生垂直方向的滚动条, 那它的scrollTop的值默认为0.
@@ -45,7 +52,7 @@
                              * ele.scrollHeight - ele.scrollTop === ele.clientHeight;
                              */
                         if (el.dataset.nodata === 'true') {
-                            el.removeEventListener('scroll', scroll)
+                            el.removeEventListener('scroll', elscroll)
                         }
                         let CONDITION;
                         if (el.dataset.scrollWay === 'up') {
@@ -62,7 +69,7 @@
                             });
                         }
                     }
-                    el.addEventListener('scroll', scroll);
+                    el.addEventListener('scroll', elscroll);
                 }
             }
         }
@@ -74,5 +81,8 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
+        span{
+            font-size: 12px;
+        }
     }
 </style>

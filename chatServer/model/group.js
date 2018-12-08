@@ -134,8 +134,7 @@ const huntGroups = (params, callback) => { // 搜索聊天群（名称/code）
                 {
                     $or: arr,
                     '_id': { $nin: ids} // 搜索时排除用户已加入的群
-                }
-                , (err, count) => {
+                }, (err, count) => {
                     if (count > 0) {
                         groups.find(
                             {

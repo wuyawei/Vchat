@@ -30,12 +30,9 @@ const getHistoryMessages = (params, reverse, callback) => {
 
 const loadMoreMessages = (req, res) => { // 加载更多消息
     let params = req.body;
-    apiModel.getHistoryMessages(params, 1, r => {
+    apiModel.getHistoryMessages(params, 2, r => {
         if (r.code === 0) {
-            res.json({
-                code : 0,
-                data : r.data
-            })
+            res.json(r);
         } else {
             res.json({
                 code : -1,

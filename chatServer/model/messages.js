@@ -48,27 +48,38 @@ const removeMessage = (params, callback) => { // 删除消息
     })
 };
 
+let getMessage = (params, callback, count = 0) => {
+    messages.find({roomid: params.roomid})
+        .populate({path: 'userM', select: 'signature photo nickname'}) // 关联用户基本信息
+        .sort({'time': -1})
+        .skip((params.offset - 1) * params.limit)
+        .limit(params.limit)
+        .then(r => {
+            r.forEach(v => { // 防止用户修改资料后，信息未更新
+                if (v.userM) {
+                    v.nickname = v.userM.nickname;
+                    v.photo = v.userM.photo;
+                    v.signature = v.userM.signature;
+                }
+            });
+            r.reverse();
+            callback({code: 0, data: r, count: count});
+        }).catch(err => {
+        console.log(err);
+        callback({code: -1});
+    });
+};
 const getHistoryMessages = (params, reverse, callback) => { // 保存消息
-    if (reverse === 1) {
-        messages.find({roomid: params.roomid})
-            .populate({path: 'userM', select: 'signature photo nickname'}) // 关联用户基本信息
-            .sort({'time': -1})
-            .skip((params.offset - 1) * params.limit)
-            .limit(params.limit)
-            .then(r => {
-                r.forEach(v => { // 防止用户修改资料后，信息未更新
-                    if (v.userM) {
-                        v.nickname = v.userM.nickname;
-                        v.photo =  v.userM.photo;
-                        v.signature =  v.userM.signature;
-                    }
-                });
-                r.reverse();
-                callback({code: 0, data: r});
-            }).catch(err => {
-            console.log(err);
-            callback({code: -1});
+    if (reverse === 2) { // 聊天记录
+        messages.count({roomid: params.roomid}, (err, count) => {
+            if (count > 0) {
+                getMessage(params, callback, count);
+            } else {
+                callback({code: 0, data: [], count: 0});
+            }
         });
+    } else if (reverse === 1) {
+        getMessage(params, callback);
     } else if (reverse === -1) {
         messages.find({roomid: params.roomid})
             .sort({'time': -1})

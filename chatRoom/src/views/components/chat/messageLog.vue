@@ -6,7 +6,7 @@
                     layout="prev, pager, next"
                     :current-page.sync="offset"
                     @current-change="getMessageLog"
-                    :total="1000">
+                    :total="total">
             </el-pagination>
         </div>
     </div>
@@ -23,7 +23,7 @@
                 messageLog: [],
                 offset: 1,
                 limit: 5,
-                total: 100
+                total: 0
             }
         },
         watch: {
@@ -55,6 +55,7 @@
                 api.loadMoreMessages(params).then(r => {
                     if (r.code === 0) {
                         this.messageLog = r.data;
+                        this.total = r.count;
                     }
                 })
             }

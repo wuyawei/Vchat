@@ -56,7 +56,10 @@
             </transition>
         </div>
         <div class="vchat-little-header" v-else>
-            <router-link to="/main/personalMain">vchat</router-link>
+            <div>
+                <router-link to="/main/personalMain">vchat</router-link>
+                <span class="logout" @click="$router.go(-1)">[返回]</span>
+            </div>
             <div class="avatar">
                 <a href="javascipt:;">
                     <img :src="avatar" alt="">
@@ -375,10 +378,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            >a{
-                font-size: 20px;
-                line-height: 40px;
-                color: #fff;
+            >div{
+                a{
+                    font-size: 20px;
+                    line-height: 40px;
+                    color: #fff;
+                }
+                span{
+                    margin-left: 10px;
+                    color: #fff;
+                    font-size: 12px;
+                }
             }
             .avatar{
                 display: flex;

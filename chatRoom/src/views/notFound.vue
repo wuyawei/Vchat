@@ -1,5 +1,7 @@
 <template>
-    <div class="Not-found"></div>
+    <div class="Not-found">
+        <span @click="$router.go(-1)">返回上一页</span>
+    </div>
 </template>
 
 <script>
@@ -21,5 +23,12 @@
         background-position: center;
         background-repeat: no-repeat;
         background-color: #0691d2;
+        display: flex;
+        justify-content: center;
+        color: #fff;
+        span{
+            margin-top: 100px;
+            cursor: pointer;
+        }
     }
 </style>

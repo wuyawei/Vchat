@@ -62,7 +62,8 @@
                 IMGURL: process.env.IMG_URL,
                 settingFlag: { // 设置面板
                     f: false
-                }
+                },
+                removeSation: {}
             }
         },
         sockets:{
@@ -81,6 +82,11 @@
                     }
                     if (!list.length) {
                         this.currSation = {};
+                    }
+                    if (!isNaN(this.removeSation.index)) {
+                        if (this.currSation.id === this.removeSation.item.id && this.contactsList.length !== 0) {
+                            this.currSation = this.contactsList[this.removeSation.index] || this.contactsList[this.removeSation.index - 1] || this.contactsList[this.removeSation.index + 1];
+                        }
                     }
                 },
                 deep: true,
@@ -129,7 +135,7 @@
                 if (v.type === 'vchat') { // 只做显示列表移除
                     this.contactsList = this.contactsList.filter(m => m.id !== v.id);
                     if (this.currSation.id === v.id && this.contactsList.length !== 0) {
-                        this.currSation = this.contactsList[i - 1];
+                        this.currSation = this.contactsList[i] || this.contactsList[i -1];
                     }
                 } else {
                     api.removeConversitionList(v).then(r => {
@@ -138,10 +144,12 @@
                                 type: 'success',
                                 message: '移除成功'
                             });
-                            this.contactsList = this.contactsList.filter(m => m.id !== v.id);
-                            if (this.currSation.id === v.id && this.contactsList.length !== 0) {
-                                this.currSation = this.contactsList[i - 1];
-                            }
+                            this.$store.commit('setConversationsList', Object.assign({d: true}, v));
+//                            this.contactsList = this.contactsList.filter(m => m.id !== v.id);
+                            this.removeSation = {
+                                item: v,
+                                index: i
+                            };
                         } else {
                             this.$message({
                                 type: 'success',

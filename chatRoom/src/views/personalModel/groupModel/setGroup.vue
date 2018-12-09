@@ -105,6 +105,17 @@
                         };
                         api.createGroup(params).then(r => {
                             if (r.code === 0) {
+                                let params = {
+                                    name: this.groupForm.groupName,
+                                    photo: this.groupImage,
+                                    id: r.data,
+                                    type: 'group'
+                                };
+                                api.addConversitionList(params).then(r => {
+                                    if (r.code === 0) {
+                                        this.$store.commit('setConversationsList', params);
+                                    }
+                                });
                                 this.$message.success('创建成功');
                                 this.$router.push('/main/personalMain/group/own');
                             } else {

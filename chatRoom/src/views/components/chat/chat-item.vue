@@ -153,6 +153,7 @@
                     this.currNav = 0; // 标签选中第一个
                     if (v.type === 'group' || v.type === 'friend') {
                         if (v.type === 'group') {
+                            console.log(v);
                             this.getGroupUsers(v.id);
                         }
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});

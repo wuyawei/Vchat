@@ -96,14 +96,14 @@ const onconnection = (socket) => {
             }
             OnlineUser[val.name] = socket.id;
             io.in(val.roomid).emit('joined', OnlineUser); // 包括发送者
-            console.log('join', val.roomid, OnlineUser);
+            // console.log('join', val.roomid, OnlineUser);
         });
     });
     socket.on('leave', (val) => {
         socket.leave(val.roomid, () => {
             delete OnlineUser[val.name];
             socket.to(val.roomid).emit('leaved', OnlineUser);
-            console.log('leave', val.roomid, OnlineUser);
+            // console.log('leave', val.roomid, OnlineUser);
         });
     });
     socket.on('mes', (val) => { // 聊天消息

@@ -34,7 +34,6 @@ instance.interceptors.response.use(
         return Promise.reject(error.response.data)
     });
 
-
 export default {
     get(url, params) {
         return new Promise((resolve, reject) => {

@@ -87,30 +87,7 @@
             },
             getWeek(k) {
                 let week = '';
-                switch(k) {
-                    case '1':
-                        week = '星期一';
-                        break;
-                    case '2':
-                        week = '星期二';
-                        break;
-                    case '3':
-                        week = '星期三';
-                        break;
-                    case '4':
-                        week = '星期四';
-                        break;
-                    case '5':
-                        week = '星期五';
-                        break;
-                    case '6':
-                        week = '星期六';
-                        break;
-                    case '7':
-                        week = '星期日';
-                        break;
-                }
-                return week;
+                return `星期${['一', '二', '三', '四', '五', '六', '日'][k -1]}`;
             },
             getWeatherType(t, type='1') {
                 let reg1 = /多云|阴/;

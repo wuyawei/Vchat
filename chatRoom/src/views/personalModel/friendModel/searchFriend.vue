@@ -16,7 +16,7 @@
                     v-model="huntKey"
                     clearable
             >
-                <i slot="append" class="el-input__icon el-icon-search" @click="huntGroups('click')"></i>
+                <i slot="append" class="el-input__icon el-icon-search" @click="huntFriends('click')"></i>
             </el-input>
         </div>
         <div class="vchat-linkman-container friend-container" v-loading="loadingSearch">

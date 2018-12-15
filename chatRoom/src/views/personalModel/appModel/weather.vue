@@ -86,7 +86,6 @@
                 });
             },
             getWeek(k) {
-                let week = '';
                 return `星期${['一', '二', '三', '四', '五', '六', '日'][k -1]}`;
             },
             getWeatherType(t, type='1') {

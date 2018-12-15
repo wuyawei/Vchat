@@ -3,8 +3,8 @@
 </template>
 
 <script>
-    import 'APlayer/dist/APlayer.min.css';
-    import APlayer from 'APlayer';
+    import 'aplayer/dist/APlayer.min.css';
+    import APlayer from 'aplayer';
     export default{
         name: 'aplayer',
         props: ['src', 'pic'],

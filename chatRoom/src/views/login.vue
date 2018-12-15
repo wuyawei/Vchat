@@ -211,9 +211,10 @@
                         this.$notify({
                             title: '注册成功',
                             message: `您的Vchat号为：${r.data}，您可以凭此登录，祝您生活愉快！`,
-                            duration: 0,
+                            duration: 5000,
                             type: 'success'
                         });
+                        this.islogin = true;
                     } else if (r.code === 1) {
                         this.$message.error('账号已存在')
                     } else {

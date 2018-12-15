@@ -1,5 +1,5 @@
 <template>
-    <div class="vchat-login" v-bgInmage="IMGURL + '/img/0076.jpg'">
+    <div class="vchat-login" v-bgInmage="bg">
         <div class="fork-me-on-github">
             <a href="https://github.com/wuyawei" target="_blank"></a>
         </div>
@@ -55,6 +55,7 @@
 <script>
     import api from '../api';
     import Canvas from 'vchat-regcode';
+    import bg from '../assets/img/0076.jpg';
     export default {
         name: 'login',
         data() {
@@ -112,6 +113,7 @@
                     regcode: '',
                     repass: ''
                 },
+                bg: bg,
                 IMGURL: process.env.IMG_URL,
                 islogin: true, // 登录 or 注册
                 showSign: false, // 登录框显示

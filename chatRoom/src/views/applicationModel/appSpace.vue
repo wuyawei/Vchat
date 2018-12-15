@@ -2,7 +2,7 @@
     <div class="vchat-appSpace">
         <el-carousel trigger="click" height="100%" arrow="never" indicator-position="none"  :interval="300000">
             <el-carousel-item v-for="(item, i) in bgList" :key="i">
-                <a class="DetailImage-a" :style="{backgroundImage: 'url('+ IMG_URL + item +')'}">
+                <a class="DetailImage-a" :style="{backgroundImage: 'url('+ item +')'}">
                 </a>
             </el-carousel-item>
         </el-carousel>
@@ -22,7 +22,7 @@
         data() {
             return {
                 IMG_URL: process.env.IMG_URL,
-                List: ['/img/app9.jpg', '/img/app3.jpg', '/img/app4.jpg', '/img/app5.jpg', '/img/app6.jpg', '/img/app8.jpg'],
+                List: [require('../../assets/img/app9.jpg'), require('../../assets/img/app3.jpg'), require('../../assets/img/app4.jpg'), require('../../assets/img/app5.jpg'), require('../../assets/img/app6.jpg'), require('../../assets/img/app8.jpg')],
                 appList: [
                     {
                         name: 'one',

@@ -5,7 +5,7 @@
 <script>
     import 'dplayer/dist/DPlayer.min.css';
     import Hls from 'hls.js';
-    import DPlayer from 'DPlayer';
+    import DPlayer from 'dplayer';
     export default{
         name: 'dplayer',
         props: ['videoInfo'],

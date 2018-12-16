@@ -57,7 +57,7 @@
         watch: {
             user: {
                 handler(user) {
-                    if (user) {
+                    if (user.city) {
                         this.cityName = user.city.name === '市辖区' ? user.province.name : user.city.name;
                         this.initWeather(this.cityName);
                     }

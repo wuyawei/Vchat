@@ -6,8 +6,6 @@ export default {
     getUserInfo({commit, state, dispatch}, that) { // 获取用户登录信息
         api.getUserInfo().then(r => {
             if (r.code === 0) {
-                commit('setUser', r.data);
-                console.log('setUser', state.user);
                 commit('setConversationsList', r.data.conversationsList);
                 document.body.id = 'theme-' + r.data.projectTheme;
                 dispatch('getVchatInfo');

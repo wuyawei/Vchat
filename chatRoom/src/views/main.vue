@@ -53,6 +53,13 @@
                 },
                 deep: true,
                 immediate: true
+            },
+            user: {
+                handler() {
+                    this.joinRoom();
+                },
+                deep: true,
+                immediate: true
             }
         },
         computed: {
@@ -74,7 +81,6 @@
                 this.$store.commit('setOnlineUser', OnlineUser)
             },
             leaved(OnlineUser) {
-                console.log('离开了', OnlineUser);
                 this.$store.commit('setOnlineUser', OnlineUser)
             },
             getHistoryMessages(mesdata) { // 获取未读消息数量

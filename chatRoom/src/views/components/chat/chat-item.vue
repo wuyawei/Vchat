@@ -153,7 +153,6 @@
                     this.currNav = 0; // 标签选中第一个
                     if (v.type === 'group' || v.type === 'friend') {
                         if (v.type === 'group') {
-                            this.getGroupUsers(v.id);
                         }
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
@@ -165,7 +164,9 @@
             },
             OnlineUser: { // 在线成员
                 handler(obj) {
-                    this.getGroupUserStatus(obj);
+                    if (this.currSation.id) {
+                        this.getGroupUsers(this.currSation.id);
+                    }
                 },
                 immediate: true,
                 deep: true

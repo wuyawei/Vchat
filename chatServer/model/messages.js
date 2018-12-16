@@ -58,7 +58,7 @@ let getMessage = (params, callback, count = 0) => {
             r.forEach(v => { // 防止用户修改资料后，信息未更新
                 if (v.userM) {
                     v.nickname = v.userM.nickname;
-                    v.photo = v.userM.photo;
+                    v.avatar = v.userM.photo;
                     v.signature = v.userM.signature;
                 }
             });

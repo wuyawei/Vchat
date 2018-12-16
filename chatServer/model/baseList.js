@@ -15,7 +15,7 @@ let users = db.model("users", { // Schema
     code: {type: String, unique: true}, // 唯一的code
     photo: {type: String, default: '/img/picture.png'}, // 默认头像
     signature: { type: String, default: '这个人很懒，暂时没有签名哦！' },
-    nickname: { type: String, default: 'vChat' + (Date.now()+'').slice(5)},
+    nickname: { type: String, default: 'vChat' + (Date.now()+'').slice(6)},
     email: { type: String, default: '' },
     province: { type: Object, default: {name: "北京市", value: "110000"} }, // 省
     city: { type: Object, default: {name: "市辖区", value: "110100"} }, // 市

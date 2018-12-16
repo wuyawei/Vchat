@@ -303,7 +303,7 @@
             background-color: #f5f5f5;
             transition: transform 0.3s;
             transform: translateX(100%);
-            z-index: 15;
+            z-index: 2005;
             border-radius: 5px 2px 0 5px;
             box-shadow: -1px 0 5px #bdafaf;
             overflow-y: auto;

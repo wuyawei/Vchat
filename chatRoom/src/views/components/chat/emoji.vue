@@ -90,11 +90,13 @@
                     if (r.code === 0) {
                         this.expressionList = r.data;
                         r.data.forEach(v => {
-                            this.user.emoji.forEach(m => {
-                                if (v.code === m) {
-                                    this.myEmojiList.push(v);
-                                }
-                            });
+                            if (this.user.emoji) {
+                                this.user.emoji.forEach(m => {
+                                    if (v.code === m) {
+                                        this.myEmojiList.push(v);
+                                    }
+                                });
+                            }
                         });
                     }
                 });

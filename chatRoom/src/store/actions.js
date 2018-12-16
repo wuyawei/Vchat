@@ -7,14 +7,15 @@ export default {
         api.getUserInfo().then(r => {
             if (r.code === 0) {
                 commit('setUser', r.data);
+                console.log('setUser', r.data);
                 commit('setConversationsList', r.data.conversationsList);
                 document.body.id = 'theme-' + r.data.projectTheme;
                 dispatch('getVchatInfo');
+                if (that) {
+                    that.$router.push('/main/personalMain');
+                }
             } else {
                 commit('setUser', '');
-            }
-            if (that) {
-                that.$router.push('/main/personalMain');
             }
         });
     },

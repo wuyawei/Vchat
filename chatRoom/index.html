@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>vChat</title>
     <link rel="shortcut icon" type="image/ico" href="/static/vchat.ico" />
-    <script src="https://webapi.amap.com/maps?v=1.4.8&key=18b8e5a3e0b8ba153ecc364eaa09c873"></script>
   </head>
   <style>
     @-webkit-keyframes enter {
@@ -62,7 +61,7 @@
       }
     }
 
-    body {
+    body, #app.acolor {
       background: #1fbeca;
     }
 
@@ -229,7 +228,7 @@
     }
   </style>
   <body id="theme-vchat">
-    <div id="app">
+    <div id="app" class="acolor">
       <div class="vchat-loading">
         <div class="loading-square" ></div>
         <div class="loading-square"></div>
@@ -258,4 +257,5 @@
       </div>
     </div>
   </body>
+  <script src="https://webapi.amap.com/maps?v=1.4.8&key=18b8e5a3e0b8ba153ecc364eaa09c873"></script>
 </html>

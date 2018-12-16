@@ -58,7 +58,7 @@
         <div class="vchat-little-header" v-else>
             <div>
                 <router-link to="/main/personalMain">vchat</router-link>
-                <span class="logout" @click="$router.go(-1)">[返回]</span>
+                <span class="logout" @click="$router.push({name: 'personalMain'})">[返回]</span>
             </div>
             <div class="avatar">
                 <a href="javascipt:;">

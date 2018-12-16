@@ -15,7 +15,10 @@
             </div>
             <div>
                 <el-button type="primary" @click="reset">重置</el-button>
-                <el-button type="primary" @click="uploadImage">上传</el-button>
+                <el-button type="primary" @click="uploadImage">
+                    <v-icon class="el-icon-loading" color="#fff" :size="14" v-if="loading"></v-icon>
+                    上传
+                </el-button>
             </div>
         </div>
     </div>
@@ -29,7 +32,8 @@
             return {
                 cropper: null,
                 cropedUrl: '',
-                cropingUrl: ''
+                cropingUrl: '',
+                loading: false
             };
         },
         watch: {
@@ -67,6 +71,7 @@
                 for(let i = 0; i < bytes.length; i++){
                     ia[i] = bytes.charCodeAt(i);
                 }
+                this.loading = true;
                 let blob = new Blob([ab], {type: 'image/png'}); // type为图片的格式
                 let formdata = new FormData();
                 formdata.append('f', blob, 'f' + Date.now() + '.png');
@@ -79,6 +84,7 @@
                             type: 'warning'
                         })
                     }
+                    this.loading = false;
                 })
             }
         },

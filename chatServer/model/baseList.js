@@ -27,7 +27,7 @@ let users = db.model("users", { // Schema
     wallpaper: { type: String, default: '/img/wallpaper.jpg' }, // 聊天壁纸
     signUpTime: { type: Date, default: Date.now() }, // 注册时间
     lastLoginTime: { type: Date, default: Date.now() }, // 最后一次登录
-    conversationsList: {tyep: Array, default: [{name: 'Vchat', photo: '/uploads/2018-12-16/f-1544929132990-f1544929134861.png', id: '5c15bf9dc2d6851b0032cbc3', type: 'group'}]}, // 会话列表 * name 会话名称 * photo 会话头像 * id 会话id * type 会话类型 group/ frend
+    conversationsList: {type: Array, default: [{name: 'Vchat', photo: '/uploads/2018-12-16/f-1544929132990-f1544929134861.png', id: '5c15bf9dc2d6851b0032cbc3', type: 'group'}]}, // 会话列表 * name 会话名称 * photo 会话头像 * id 会话id * type 会话类型 group/ frend
     cover: { type: Array, default: ['/img/cover.jpg', '/img/cover1.jpg'] }, // 封面展示
     emoji: Array // 表情包
 });

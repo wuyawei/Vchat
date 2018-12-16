@@ -40,7 +40,8 @@ const initEmoji = (filePath, objs) => {
         let isFile = states.isFile();//是文件
         let isDir = states.isDirectory();//是文件夹
         if(isFile){
-            if (filePath.slice(filePath.lastIndexOf('\\') + 1) === objs.name) {
+            // linux 路径间隔是 /
+            if (filePath.slice(filePath.lastIndexOf('/') + 1) === objs.name) {
                 objs.list.push('/expression/' + objs.name + '/' + filename);
             }
             if (i === files.length -1) {

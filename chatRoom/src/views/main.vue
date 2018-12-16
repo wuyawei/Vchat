@@ -53,13 +53,6 @@
                 },
                 deep: true,
                 immediate: true
-            },
-            user: {
-                handler() {
-                    this.joinRoom();
-                },
-                deep: true,
-                immediate: true
             }
         },
         computed: {

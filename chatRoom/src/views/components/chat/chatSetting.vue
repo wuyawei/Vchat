@@ -58,7 +58,7 @@
         computed: {
             ...mapState(['user']),
             bgList() {
-                return [{name: '远方', url: '/img/wallpaper.jpg', id: 1}, {name: '昨日青空', url: '/img/0055.jpg', id: 2}, {name: '希望', url: '/img/xiang.jpg', id: 3}, {name: '自定义', url: this.user.wallpaper && this.user.wallpaper.split(',')[1] || '', id: 4}];
+                return [{name: '远方', url: '/img/wallpaper.jpg', id: 1}, {name: '昨日青空', url: '/img/0055.jpg', id: 2}, {name: '希望', url: '/img/xiang.jpg', id: 3}, {name: '自定义', url: this.user.wallpaper && this.user.wallpaper.split(',')[1] || false, id: 4}];
             }
         },
         methods: {
@@ -79,11 +79,18 @@
                 });
             },
             setChatBg(v) { // 设置壁纸
-                if (this.user.wallpaper.split(',')[0] === v.url || !v.url) {
+                if (this.user.wallpaper.split(',')[0] === v.url) {
+                    return;
+                }
+                if (!v.url) {
+                    this.$message({
+                        message: '请先上传自定义壁纸',
+                        type: 'warning'
+                    });
                     return;
                 }
                 let params = {
-                    wallpaper: v.url + ',' + this.user.wallpaper.split(',')[1] || ''
+                    wallpaper: v.url +(this.user.wallpaper.split(',')[1] ?  ',' + this.user.wallpaper.split(',')[1] : '')
                 };
                 this.upUserInfo(params);
             },

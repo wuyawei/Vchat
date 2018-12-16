@@ -122,6 +122,9 @@
                 this.$emit('closeChat');
             },
             setCurrSation(v) {
+                if (v.id === this.currSation.id) {
+                    return;
+                }
                 this.currSation = v;
             },
             getNewMes(m) { // 获取最新一条消息

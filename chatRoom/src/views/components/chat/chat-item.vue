@@ -33,10 +33,10 @@
                             </v-upload-popover>
                         </span>
                     </div>
-                    <textarea v-model="message" @keyup.enter="send" v-fontColor="user.chatColor"></textarea>
+                    <textarea v-model="message" @keyup.enter="send(false)" v-fontColor="user.chatColor"></textarea>
                     <div class="enter">
                         <button class="vchat-button-mini info" @click="clear">清空</button>
-                        <button class="vchat-button-mini" @click="send">发送</button>
+                        <button class="vchat-button-mini" @click="send(false)">发送</button>
                     </div>
                 </div>
             </div>
@@ -250,6 +250,7 @@
                 })
             },
             send(params, type = 'mess') { // 发送消息
+                console.log(params);
                 if (!this.message && !params) {
                     return;
                 }

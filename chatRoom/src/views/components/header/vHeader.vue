@@ -144,7 +144,6 @@
             },
             loginOut() {
                 this.leaveRoom();
-                this.$socket.close();
                 api.loginOut().then(r => {
                     if (r.code === 0) {
                         this.$message.success('退出成功');

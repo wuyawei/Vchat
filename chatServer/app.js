@@ -90,18 +90,20 @@ const onconnection = (socket) => {
     console.log('启动了Socket.io');
 
     socket.on('join', (val) => {
+        if (OnlineUser[val.name]) {
+            console.log('yijiaru', val.name);
+            return;
+        }
         socket.join(val.roomid, () => {
-            if (OnlineUser[val.name]) {
-                return;
-            }
             OnlineUser[val.name] = socket.id;
             io.in(val.roomid).emit('joined', OnlineUser); // 包括发送者
             // console.log('join', val.roomid, OnlineUser);
         });
     });
     socket.on('leave', (val) => {
+        delete OnlineUser[val.name];
+        console.log('leave', OnlineUser);
         socket.leave(val.roomid, () => {
-            delete OnlineUser[val.name];
             socket.to(val.roomid).emit('leaved', OnlineUser);
             // console.log('leave', val.roomid, OnlineUser);
         });

@@ -85,18 +85,16 @@
         },
         methods: {
             getExpression() {
-                this.myEmojiList = [];
                 api.getExpression().then(r => {
                     if (r.code === 0) {
+                        this.myEmojiList = [];
                         this.expressionList = r.data;
                         r.data.forEach(v => {
-                            if (this.user.emoji) {
-                                this.user.emoji.forEach(m => {
-                                    if (v.code === m) {
-                                        this.myEmojiList.push(v);
-                                    }
-                                });
-                            }
+                            this.user.emoji.forEach(m => {
+                                if (v.code === m) {
+                                    this.myEmojiList.push(v);
+                                }
+                            });
                         });
                     }
                 });
@@ -131,7 +129,9 @@
             }
         },
         mounted() {
-            this.getExpression();
+            if (this.user.emoji) {
+                this.getExpression();
+            }
         }
     }
 </script>

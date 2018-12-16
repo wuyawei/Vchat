@@ -485,6 +485,7 @@
                     font-size: 12px;
                     ul{
                         overflow-y: auto;
+                        height: 100%;
                     }
                     input{
                         box-sizing: border-box;

@@ -7,7 +7,7 @@ export default {
         api.getUserInfo().then(r => {
             if (r.code === 0) {
                 commit('setUser', r.data);
-                console.log('setUser', r.data);
+                console.log('setUser', state.user);
                 commit('setConversationsList', r.data.conversationsList);
                 document.body.id = 'theme-' + r.data.projectTheme;
                 dispatch('getVchatInfo');

@@ -57,10 +57,17 @@ const signUp = (req, res) => {
                 data : '账号已存在'
             })
         } else if (r.code === 0) {
-            res.json({
-                code : 0,
-                data : r.data
-            })
+            let pr = {
+                groupId: '5c15bf9dc2d6851b0032cbc3',
+                name: params.name,
+                userM: r.id
+            };
+            apiModel.InsertGroupUsers(pr, () => {
+                res.json({
+                    code : 0,
+                    data : r.data
+                });
+            });
         } else {
             res.json({
                 code : -1,

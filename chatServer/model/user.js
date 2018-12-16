@@ -81,7 +81,7 @@ const signUp = (params, callback) => { // 注册
                 let pass = md5(params.pass);
                 baseList.users.create({name: params.name, pass: pass, code: code}).then(r => {
                     if (r['_id']) {
-                        callback({code: 0, data: code});
+                        callback({code: 0, data: code, id: r['_id']});
                     } else {
                         callback({code: -1});
                     }

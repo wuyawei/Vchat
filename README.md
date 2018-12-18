@@ -1,5 +1,7 @@
 ﻿## Vchat —— 从头到脚，撸一个在线聊天的web网站（vue + node + mongodb）
 
+### 说明
+> 分支代码为线上版，做了相应改动。如默认加入聊天群、后端为适应linux部分代码调整等，建议拉取master。
 ### 项目启动
 > 注意必须要有node、npm以及mongodb，项目默认mongodb IP地址为127.0.0.1:27017，可以在配置文件中修改。（chatServer\utils\database.js）
 ```
@@ -25,7 +27,7 @@
 
 ### 相关地址
 
-* 在线预览 （计划本月上线）
+* [在线预览](http://47.105.78.54:9988)
 * [掘金](https://juejin.im/post/5c0a00fb6fb9a049d4419d3a)
 * [码云](https://gitee.com/wuywd/Vchat)
 * [简书](https://www.jianshu.com/p/49165c6477e4)

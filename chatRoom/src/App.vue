@@ -9,6 +9,18 @@
         name: 'App',
         created() {
             this.$store.dispatch('getUserInfo');
+        },
+        mounted() {
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'hidden') {
+                    document.title = '咦，页面崩溃了';
+                } else {
+                    document.title = '哇，又好了';
+                    setTimeout(_ => {
+                        document.title = 'Vchat';
+                    }, 2000)
+                }
+            });
         }
     }
 </script>

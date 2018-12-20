@@ -44,7 +44,7 @@
                 <div class="handel-notice">
                     <h3>群通知</h3>
                     <ul>
-                        <li class="vchat-line1">【本群须知】开发中··· </li>
+                        <li class="vchat-line1" title="作者已经知道他的审美不行了，努力提高中··· （ps：我是第一个被diss审美的程序员吗?）">【本群须知】作者已经知道他的审美不行了，努力提高中···</li>
                     </ul>
                 </div>
                 <div class="handel-member">

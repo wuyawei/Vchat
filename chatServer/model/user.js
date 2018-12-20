@@ -79,7 +79,7 @@ const signUp = (params, callback) => { // 注册
         } else {
             function createfun(code) { // 写入数据
                 let pass = md5(params.pass);
-                baseList.users.create({name: params.name, pass: pass, code: code}).then(r => {
+                baseList.users.create({name: params.name, pass: pass, code: code, nickname: 'vChat' + (Date.now()+'').slice(6)}).then(r => {
                     if (r['_id']) {
                         callback({code: 0, data: code, id: r['_id']});
                     } else {

@@ -90,11 +90,12 @@ const onconnection = (socket) => {
     console.log('启动了Socket.io');
 
     socket.on('join', (val) => {
-        if (OnlineUser[val.name]) {
-            console.log('yijiaru', val.name);
-            return;
-        }
+        // if (OnlineUser[val.name]) {
+        //     console.log('yijiaru', val.name);
+        //     return;
+        // }
         socket.join(val.roomid, () => {
+            console.log('加入了', val.name);
             OnlineUser[val.name] = socket.id;
             io.in(val.roomid).emit('joined', OnlineUser); // 包括发送者
             // console.log('join', val.roomid, OnlineUser);
@@ -110,6 +111,7 @@ const onconnection = (socket) => {
     });
     socket.on('mes', (val) => { // 聊天消息
         apiList.saveMessage(val);
+        console.log('OnlineUser', val.roomid);
         socket.to(val.roomid).emit('mes', val);
     });
     socket.on('getHistoryMessages', (pramas) => { // 获取历史消息

@@ -212,6 +212,9 @@
             .github{
                 font-size: 12px;
                 margin-left: 10px;
+                a{
+                    color: #27aac7;
+                }
             }
             .chat-handel{
                 position: absolute;

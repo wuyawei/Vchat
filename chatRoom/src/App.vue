@@ -11,6 +11,7 @@
             this.$store.dispatch('getUserInfo');
         },
         mounted() {
+            document.getElementById('vchatLoading').remove();
             document.addEventListener('visibilitychange', function() {
                 if (document.visibilityState === 'hidden') {
                     document.title = '咦，页面崩溃了';

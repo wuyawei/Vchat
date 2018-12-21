@@ -257,5 +257,11 @@
       </div>
     </div>
   </body>
-  <script src="https://webapi.amap.com/maps?v=1.4.8&key=18b8e5a3e0b8ba153ecc364eaa09c873"></script>
+  <script>
+      var url = 'https://webapi.amap.com/maps?v=1.4.8&key=18b8e5a3e0b8ba153ecc364eaa09c873';
+      var jsapi = document.createElement('script');
+      jsapi.charset = 'utf-8';
+      jsapi.src = url;
+      document.head.appendChild(jsapi);
+  </script>
 </html>

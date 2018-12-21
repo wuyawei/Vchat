@@ -6,7 +6,7 @@ public/uploads/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-./index.html
+index.html
 # Editor directories and files
 .idea
 .vscode

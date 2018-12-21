@@ -3,6 +3,7 @@
         <div class="vchat-chatRoom-bg">
             <div class="chat-header">
                 <a v-fontColor="user.chatColor">{{currSation.name}}</a>
+                <span class="github">觉得还不错的话，给作者<a href="https://github.com/wuyawei/Vchat" target="_blank">点个小心心</a>吧！</span>
                 <div class="chat-handel">
                     <v-icon class="el-icon-minus" :color="user.chatColor" cursor="pointer" @clickIcon="close"></v-icon>
                     <v-icon class="el-icon-setting" :color="user.chatColor" cursor="pointer" @clickIcon="settingFlag.f = true"></v-icon>
@@ -207,6 +208,10 @@
                 color: #fff;
                 padding: 2px 5px;
                 display: inline-block;
+            }
+            .github{
+                font-size: 12px;
+                margin-left: 10px;
             }
             .chat-handel{
                 position: absolute;

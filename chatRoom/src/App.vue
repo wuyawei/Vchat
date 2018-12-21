@@ -15,17 +15,17 @@
                 if (document.visibilityState === 'hidden') {
                     document.title = '咦，页面崩溃了';
                     clearInterval(this.t);
-                    Notification.requestPermission(function (permission) {
-                        if (permission == "granted") {
-                            var notification = new Notification("您有一条新的消息",{
-                                dir: "auto",
-                                lang: "zh-CN",
-                                tag: "testNotice",
-                                icon:'http://192.168.16.219:80/static-server/pic/10000000/image/2018/20181129//0a3edc489efd4111ba2002345e93e0ca.png',
-                                body: '你好啊！我是蚂蚁，我在测试桌面推送'
-                            });
-                        }
-                    });
+//                    Notification.requestPermission(function (permission) {
+//                        if (permission == "granted") {
+//                            var notification = new Notification("您有一条新的消息",{
+//                                dir: "auto",
+//                                lang: "zh-CN",
+//                                tag: "testNotice",
+//                                icon:'http://192.168.16.219:80/static-server/pic/10000000/image/2018/20181129//0a3edc489efd4111ba2002345e93e0ca.png',
+//                                body: '你好啊！我是蚂蚁，我在测试桌面推送'
+//                            });
+//                        }
+//                    });
                 } else {
                     document.title = '哇，又好了';
                     this.t = setTimeout(_ => {

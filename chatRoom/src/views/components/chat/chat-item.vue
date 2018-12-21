@@ -149,10 +149,12 @@
                     if (!v.id) {
                         this.chatList = [];
                     }
+                    console.log('vvvvvvvv', v);
                     this.chatLoading = true;
                     this.currNav = 0; // 标签选中第一个
-                    if (v.type === 'group' || v.type === 'friend') {
+                    if (v.type === 'group' || v.type === 'friend'){
                         if (v.type === 'group') {
+                            this.getGroupUsers(v.id);
                         }
                         this.$socket.emit('setReadStatus', {roomid: v.id, name: this.user.name});
                         this.$store.commit('setUnRead', {roomid: v.id, clear: true});
@@ -164,7 +166,7 @@
             },
             OnlineUser: { // 在线成员
                 handler(obj) {
-                    if (this.currSation.id) {
+                    if (this.currSation.type && this.currSation.type === 'group') {
                         this.getGroupUsers(this.currSation.id);
                     }
                 },
@@ -250,7 +252,6 @@
                 })
             },
             send(params, type = 'mess') { // 发送消息
-                console.log(params);
                 if (!this.message && !params) {
                     return;
                 }

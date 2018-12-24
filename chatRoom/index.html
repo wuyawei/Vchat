@@ -60,7 +60,14 @@
         opacity: 0;
       }
     }
-
+    .loading-container{
+      position: absolute;
+      width:100%;
+      height: 100%;
+      left:0;
+      top:0;
+      background-color: #27cac7;
+    }
     .vchat-loading {
       position: absolute;
       left: 50%;
@@ -225,30 +232,32 @@
   </style>
   <body id="theme-vchat">
     <div id="app">
-      <div class="vchat-loading">
-        <div class="loading-square" ></div>
-        <div class="loading-square"></div>
-        <div class="loading-square"></div>
-        <div class="loading-square last"></div>
-        <div class="loading-square clear"></div>
-        <div class="loading-square"></div>
-        <div class="loading-square"></div>
-        <div class="loading-square last"></div>
-        <div class="loading-square clear"></div>
-        <div class="loading-square"></div>
-        <div class="loading-square"></div>
-        <div class="loading-square last"></div>
-        <div class="loading-square clear"></div>
-        <div class="loading-square"></div>
-        <div class="loading-square"></div>
-        <div class="loading-square last"></div>
-        <div class="loading-info clear">
-          <span>拼</span>
-          <span>命</span>
-          <span>加</span>
-          <span>载</span>
-          <span>中</span>
-          <span>······</span>
+      <div class="loading-container">
+        <div class="vchat-loading">
+          <div class="loading-square" ></div>
+          <div class="loading-square"></div>
+          <div class="loading-square"></div>
+          <div class="loading-square last"></div>
+          <div class="loading-square clear"></div>
+          <div class="loading-square"></div>
+          <div class="loading-square"></div>
+          <div class="loading-square last"></div>
+          <div class="loading-square clear"></div>
+          <div class="loading-square"></div>
+          <div class="loading-square"></div>
+          <div class="loading-square last"></div>
+          <div class="loading-square clear"></div>
+          <div class="loading-square"></div>
+          <div class="loading-square"></div>
+          <div class="loading-square last"></div>
+          <div class="loading-info clear">
+            <span>拼</span>
+            <span>命</span>
+            <span>加</span>
+            <span>载</span>
+            <span>中</span>
+            <span>······</span>
+          </div>
         </div>
       </div>
     </div>

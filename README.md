@@ -43,6 +43,50 @@
 * 功能概览
 ![](https://user-gold-cdn.xitu.io/2018/12/9/16791b1fce406602?w=1319&h=986&f=png&s=81227)
 
+* 目录结构
+
+```javascript
+    // 前端
+    ├─build
+    ├─config
+    ├─src
+    │  ├─api                                  // 接口api
+    │  ├─assets                               // 静态资源
+    │  │  └─img
+    │  ├─directives                           // 全局指令
+    │  ├─libs                                 // 全局组件
+    │  │  ├─bscroll
+    │  │  ├─dropdown
+    │  │  ├─icon
+    │  │  ├─nodata
+    │  │  ├─PhotoSwipe
+    │  │  ├─uploadPopover
+    │  │  └─vScroll
+    │  ├─router                                // 路由
+    │  ├─store                                 // 状态管理
+    │  ├─utils                                 // 方法
+    │  └─views
+    │      ├─applicationModel
+    │      │  ├─games                          // 游戏
+    │      │  │
+    │      │  └─sub                            // 应用
+    │      ├─components                        // 组件
+    │      │  ├─APlayer
+    │      │  ├─chat
+    │      │  ├─cropper
+    │      │  ├─DPlayer
+    │      │  └─header
+    │      ├─personalModel                     // 主页
+    │      │  ├─appModel                       // 天气等
+    │      │  ├─friendModel                    // 好友
+    │      │  └─groupModel                     // 群聊
+    │      └─settingModel                      // 设置
+    └─static
+        ├─css                                  // 样式文件
+        ├─font                                 // 字体文件
+        └─theme                                // 主题
+            └─vchat
+```
 ### 功能设计
 * 登录注册
 

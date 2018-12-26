@@ -13,6 +13,12 @@
                 <input type="file" @change="fileChange" ref="wallpaperFile" accept="image/png, image/jpeg, image/gif, image/jpg">
             </li>
         </ul>
+
+        <h5>背景透明度</h5>
+        <div class="aphSlider-container">
+            <el-slider v-model="aphSlider" :format-tooltip="formatTooltip" tooltip-class="aphTooltip"></el-slider>
+        </div>
+
         <h5>文字颜色</h5>
         <p class="isColor-container">
             <span>当前颜色:</span>
@@ -52,7 +58,8 @@
                     'hsl(181, 100%, 37%)',
                     'hsla(209, 100%, 56%, 0.73)',
                     '#c7158577'
-                ]
+                ],
+                aphSlider: 20
             }
         },
         computed: {
@@ -62,6 +69,9 @@
             }
         },
         methods: {
+            formatTooltip(val) {
+                return val / 100;
+            },
             upUserInfo(params) {
                 api.upUserInfo(params).then(r => {
                     if (r.code === 0) {
@@ -145,6 +155,10 @@
 <style lang="scss" scoped>
     .vchat-chatSetting{
         width:100%;
-        height: 100%;
+        .aphSlider-container{
+            padding: 0 5px;
+            box-sizing: border-box;
+
+        }
     }
 </style>

@@ -1,5 +1,6 @@
 <template>
     <div class="vchat-chatRoom" v-bgInmage="IMGURL + user.wallpaper.split(',')[0]" v-fontColor="user.chatColor">
+        <div class="chatRoom-before" v-bgColor="bgAph"></div>
         <div class="vchat-chatRoom-bg">
             <div class="chat-header">
                 <a v-fontColor="user.chatColor">{{currSation.name}}</a>
@@ -63,7 +64,8 @@
                 settingFlag: { // 设置面板
                     f: false
                 },
-                removeSation: {}
+                removeSation: {},
+                bgAph: 'rgba(0,0,0,0.2)'
             }
         },
         sockets:{
@@ -175,15 +177,13 @@
         border-radius: 3px;
         overflow: hidden;
         position: relative;
-        &:before{
-            content: '';
+        .chatRoom-before{
             display: block;
             position: absolute;
             left:0;
             top:0;
             width:100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.2);
             z-index: 1;
         }
         .vchat-chatRoom-bg{
@@ -302,7 +302,7 @@
             right:0;
             top:0;
             width:250px;
-            height: 500px;
+            height: 100%;
             background-color: #f5f5f5;
             transition: transform 0.3s;
             transform: translateX(100%);
@@ -339,7 +339,7 @@
                 flex-wrap: wrap;
                 box-sizing: border-box;
                 li.bg-li{
-                    width: 117px;
+                    width: 115px;
                     height: 70px;
                     background-color: #fff;
                     border-radius: 2px;
@@ -363,7 +363,7 @@
                     position: relative;
                     height: 24px;
                     margin-left: 5px;
-                    margin-bottom: 10px;
+                    margin-bottom: 5px;
                     input{
                         width:100%;
                         height: 100%;

@@ -8,9 +8,11 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
         margin-left: 0!important;
     }
 }
-.el-tooltip__popper.is-dark{
-    background: #fff;
-    color: #ff0000;
+.chat-conversation-ul{
+    .el-tooltip__popper.is-dark{
+        background: #fff;
+        color: #ff0000;
+    }
 }
 .vchat-Detail{ // 详情页
     .el-carousel__indicators{

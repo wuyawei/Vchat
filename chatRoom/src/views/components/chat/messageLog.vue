@@ -5,7 +5,9 @@
          element-loading-spinner="el-icon-loading"
          element-loading-background="rgba(0, 0, 0, 0.8)"
     >
-        <message-item type="other" @lookPhoto="lookPhoto" :v="v" v-for="(v, i) in messageLog" :key="i" class="other"></message-item>
+        <div class="messageLog-container">
+            <message-item type="other" @lookPhoto="lookPhoto" :v="v" v-for="(v, i) in messageLog" :key="i" class="other" v-if="v.type !== 'org'"></message-item>
+        </div>
         <div class="page" v-if="total>0">
             <el-pagination
                     layout="prev, pager, next"
@@ -82,5 +84,8 @@
         overflow-y: auto;
         padding: 15px;
         box-sizing: border-box;
+        .messageLog-container{
+            min-height: calc(100% - 32px);
+        }
     }
 </style>

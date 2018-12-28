@@ -11,6 +11,7 @@ export default {
                 document.body.id = 'theme-' + r.data.projectTheme;
                 dispatch('getVchatInfo');
                 if (that) {
+                    that.loading = false;
                     that.$router.replace('/main/personalMain');
                 }
             } else {

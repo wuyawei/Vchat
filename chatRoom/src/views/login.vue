@@ -195,10 +195,11 @@
                         this.$store.dispatch('getUserInfo', this);
                     } else if (r.code === -1) {
                         this.$message.error('账号不存在或密码错误');
+                        this.loading = false;
                     } else {
                         this.$message.error('登录失败');
+                        this.loading = false;
                     }
-                    this.loading = false;
                 });
             },
             signUp() {

@@ -44,7 +44,7 @@
                 <div class="handel-notice">
                     <h3>群通知</h3>
                     <ul>
-                        <li class="vchat-line1" title="求star❤❤❤">【本群须知】期待你的star❤❤❤</li>
+                        <li class="vchat-line1" title="求star❤❤❤">期待你的star <i :style="{color: 'red', fontStyle: 'normal'}">❤❤❤</i></li>
                     </ul>
                 </div>
                 <div class="handel-member">

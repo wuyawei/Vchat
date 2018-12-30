@@ -20,6 +20,7 @@
 * signUpTime 注册时间
 * lastLoginTime 最后一次登录时间
 * chatColor 聊天文字颜色
+* bgOpa 聊天窗口透明度
 * province 省
 * city 市
 * town 县

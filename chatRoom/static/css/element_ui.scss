@@ -3,7 +3,7 @@ $--color-primary: #27cac7;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
 
-.el-form-item{ // 全局
+.el-form-item{ // 全局表单
     .el-form-item__content{
         margin-left: 0!important;
     }
@@ -64,7 +64,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     }
 }
 
-.vchat-search{
+.vchat-search{ // 搜索
     .el-select{
         .el-input__suffix{
             right: -4px;
@@ -92,14 +92,19 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
         background-color: #f5faf9;
     }
 }
-.el-select-dropdown__item{
+.el-select-dropdown__item{ // 弹框
     font-size: 12px;
 }
-.el-tag{
+.el-tag{ // 标签
     padding: 0 5px;
     height: 26px;
     line-height: 26px;
     margin-right: 5px;
+}
+
+.el-slider__button{ // 滑块按钮
+    width:10px;
+    height: 10px;
 }
 
 .mesBadge{ // vchat

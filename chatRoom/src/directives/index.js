@@ -18,6 +18,9 @@ export default {
     fontColor: function (el, binding) {  // v-fontColor="#ff6000"
         el.style.color = binding.value;
     },
+    opacity: function (el, binding) {  // v-opacity=0.2
+        el.style.opacity = binding.value;
+    },
     bgInmage: function (el, binding) { // v-bgInmage="1.jpg"
         el.style.backgroundImage = `url(${binding.value})`;
         el.style.backgroundRepeat = 'no-repeat';

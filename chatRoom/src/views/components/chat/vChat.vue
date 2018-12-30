@@ -1,6 +1,6 @@
 <template>
     <div class="vchat-chatRoom" v-bgInmage="IMGURL + user.wallpaper.split(',')[0]" v-fontColor="user.chatColor">
-        <div class="chatRoom-before" v-bgColor="bgAph"></div>
+        <div class="chatRoom-before" v-opacity="bgOpa"></div>
         <div class="vchat-chatRoom-bg">
             <div class="chat-header">
                 <a v-fontColor="user.chatColor">{{currSation.name}}</a>
@@ -64,8 +64,7 @@
                 settingFlag: { // 设置面板
                     f: false
                 },
-                removeSation: {},
-                bgAph: 'rgba(0,0,0,0.2)'
+                removeSation: {}
             }
         },
         sockets:{
@@ -117,7 +116,10 @@
             }
         },
         computed: {
-            ...mapState(['user', 'conversationsList', 'unRead'])
+            ...mapState(['user', 'conversationsList', 'unRead']),
+            bgOpa() { // 兼容老用户
+                return this.user.bgOpa || 0.2;
+            }
         },
         methods: {
             close() {
@@ -185,6 +187,7 @@
             width:100%;
             height: 100%;
             z-index: 1;
+            background-color: #000;
         }
         .vchat-chatRoom-bg{
             position: absolute;

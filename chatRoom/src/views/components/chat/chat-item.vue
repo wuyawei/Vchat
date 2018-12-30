@@ -44,7 +44,7 @@
                 <div class="handel-notice">
                     <h3>群通知</h3>
                     <ul>
-                        <li class="vchat-line1" title="作者已经知道他的审美不行了，努力提高中··· （ps：我是第一个被diss审美的程序员吗?）">【本群须知】作者已经知道他的审美不行了，努力提高中···</li>
+                        <li class="vchat-line1" title="求star❤❤❤">【本群须知】期待你的star❤❤❤</li>
                     </ul>
                 </div>
                 <div class="handel-member">
@@ -54,11 +54,16 @@
                     </h3>
                     <input type="text" v-show="spread" ref="searchMember">
                     <ul>
-                        <li v-for="v in groupUsers" :key="v.userId['_id']">
+                        <li v-for="v in groupUserList" :key="v.userId['_id']">
                             <a class="vchat-photo" :class="{lineOf: !v.status}">
                                 <img :src="IMG_URL + v.userId.photo" alt="">
                             </a>
                             <span class="vchat-line1">{{v.userId.nickname}}</span>
+                        </li>
+                        <li>
+                            <p class="loadmore" v-if="groupUsers.length > groupUserList.length" @click="loadmore">
+                                <v-icon class="el-icon-loading" color="#fff" :size="14" v-if="loadmoreLoading"></v-icon>
+                                加载更多</p>
                         </li>
                     </ul>
                 </div>
@@ -103,7 +108,11 @@
                 photoSwipeFlag: false, //图片放大器
                 photoSwipeUrl: '',
                 onlineNum: 0, // 在线人数
-                chatLoading: false
+                chatLoading: false,
+                loadmoreLoading: false,
+                groupUserList: [], // 长列表渲染
+                offset: 1, // 群成员页码
+                limit: 50
             };
         },
         components: {
@@ -149,7 +158,8 @@
                     if (!v.id) {
                         this.chatList = [];
                     }
-                    console.log('vvvvvvvv', v);
+                    this.offset = 1;
+                    this.groupUserList = [];
                     this.chatLoading = true;
                     this.currNav = 0; // 标签选中第一个
                     if (v.type === 'group' || v.type === 'friend'){
@@ -240,6 +250,15 @@
                     this.$refs['searchMember'].focus();
                 });
             },
+            loadmore() {
+                this.loadmoreLoading = true;
+                this.offset += 1;
+                setTimeout(v => {
+                    let page = (this.offset - 1) * this.limit;
+                    this.groupUserList = this.groupUserList.concat(this.groupUsers.slice(page, page + this.limit));
+                    this.loadmoreLoading = false;
+                }, 1000);
+            },
             getGroupUsers(id) { // 获取群成员
                 let params = {
                     groupId: id
@@ -247,6 +266,9 @@
                 api.getGroupUsers(params).then(r => {
                     if (r.code === 0) {
                         this.groupUsers = r.data;
+                        let page = (this.offset - 1) * this.limit;
+                        this.groupUserList = this.groupUsers.slice(page, page + this.limit);
+                        console.log(this.groupUsers);
                         this.getGroupUserStatus(this.OnlineUser);
                     }
                 })
@@ -506,6 +528,11 @@
                             min-width: 110px;
                             text-align: left;
                         }
+                    }
+                    .loadmore{
+                        width: 100%;
+                        text-align: center;
+                        cursor: pointer;
                     }
                     a{
                         width:26px;

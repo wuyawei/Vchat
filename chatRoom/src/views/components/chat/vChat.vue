@@ -313,6 +313,7 @@
             border-radius: 5px 2px 0 5px;
             box-shadow: -1px 0 5px #bdafaf;
             overflow-y: auto;
+            overflow-x: hidden;
             color: #111;
             h3{
                 height: 36px;

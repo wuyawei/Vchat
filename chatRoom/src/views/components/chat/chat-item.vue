@@ -44,7 +44,7 @@
                 <div class="handel-notice">
                     <h3>群通知</h3>
                     <ul>
-                        <li class="vchat-line1" title="求star❤❤❤">期待你的star <i :style="{color: 'red', fontStyle: 'normal'}">❤❤❤</i></li>
+                        <li class="vchat-line1" title="求star❤❤❤，点击跳转源码"><a href="https://github.com/wuyawei/Vchat" target="_blank" style="color: #fff">期待你的star <i :style="{color: 'red', fontStyle: 'normal'}">❤❤❤</i></a></li>
                     </ul>
                 </div>
                 <div class="handel-member">
@@ -528,6 +528,9 @@
                             min-width: 110px;
                             text-align: left;
                         }
+                    }
+                    li:last-child{
+                        padding-bottom: 20px;
                     }
                     .loadmore{
                         width: 100%;

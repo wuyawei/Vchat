@@ -13,6 +13,10 @@
                 <input type="file" @change="fileChange" ref="wallpaperFile" accept="image/png, image/jpeg, image/gif, image/jpg">
             </li>
         </ul>
+        <h5>背景透明度</h5>
+        <div class="aphSlider-container">
+            <el-slider v-model="aphSlider" :format-tooltip="formatTooltip" tooltip-class="aphTooltip" @change="Sliderchange"></el-slider>
+        </div>
         <h5>文字颜色</h5>
         <p class="isColor-container">
             <span>当前颜色:</span>
@@ -55,6 +59,15 @@
                 ]
             }
         },
+        watch: {
+            user: {
+                handler(user) {
+                    this.aphSlider = user.bgOpa * 100 || 20;
+                },
+                deep: true,
+                immediate: true
+            }
+        },
         computed: {
             ...mapState(['user']),
             bgList() {
@@ -62,6 +75,15 @@
             }
         },
         methods: {
+            Sliderchange() {
+                let params = {
+                    bgOpa: this.aphSlider / 100
+                };
+                this.upUserInfo(params);
+            },
+            formatTooltip(val) {
+                return val / 100;
+            },
             upUserInfo(params) {
                 api.upUserInfo(params).then(r => {
                     if (r.code === 0) {

@@ -9,7 +9,7 @@
                 <v-icon class="el-icon-circle-check-outline" color="rgb(80, 243, 0)" v-if="user.wallpaper.split(',')[0] === v.url"></v-icon>
             </li>
             <li class="upload-btn">
-                上传
+                <span class="vchat-button-mini minor">上传</span>
                 <input type="file" @change="fileChange" ref="wallpaperFile" accept="image/png, image/jpeg, image/gif, image/jpg">
             </li>
         </ul>
@@ -17,8 +17,8 @@
         <h5>背景透明度</h5>
         <div class="aphSlider-container">
             <el-slider v-model="aphSlider" :format-tooltip="formatTooltip" tooltip-class="aphTooltip" @change="Sliderchange"></el-slider>
+            <span class="vchat-button-mini minor" @click="saveBgopa">保存</span>
         </div>
-
         <h5>文字颜色</h5>
         <p class="isColor-container">
             <span>当前颜色:</span>
@@ -79,6 +79,12 @@
         },
         methods: {
             Sliderchange() {
+                let params = {
+                    bgOpa: this.aphSlider / 100
+                };
+                this.$store.commit('setUser', params);
+            },
+            saveBgopa() {
                 let params = {
                     bgOpa: this.aphSlider / 100
                 };
@@ -173,7 +179,7 @@
         .aphSlider-container{
             padding: 0 5px;
             box-sizing: border-box;
-
+            text-align: left;
         }
     }
 </style>

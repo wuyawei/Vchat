@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-todo">
         <vHeader :isMainHeader="false"></vHeader>
-        日程管理
+        <full-calendar :events="fcEvents" locale="zh-cn" lang="zh"></full-calendar>
     </div>
 </template>
 
@@ -10,7 +10,7 @@
     export default{
         data() {
             return {
-
+                fcEvents: []
             }
         },
         components: {

@@ -22,6 +22,7 @@
     "vchat-regcode": "^0.0.3",
     "vue": "^2.5.2",
     "vue-draggable-resizable": "^1.7.2",
+    "vue-fullcalendar": "^1.0.9",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^2.1.1-b",
     "vuex": "^3.0.1"

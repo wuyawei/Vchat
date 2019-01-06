@@ -2,23 +2,27 @@
     <div class="vchat-todo">
         <vHeader :isMainHeader="false"></vHeader>
         <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick"></full-calendar>
+        <dialog-todo :visible="dialogVisible" @close="dialogVisible = false"></dialog-todo>
     </div>
 </template>
 
 <script>
     import vHeader from '@/views/components/header/vHeader';
+    import dialogTodo from './dialogTodo.vue';
     export default{
         data() {
             return {
-                fcEvents: []
+                fcEvents: [],
+                dialogVisible: false
             }
         },
         components: {
-            vHeader
+            vHeader,
+            dialogTodo
         },
         methods: {
             dayClick(date) {
-                console.log(date);
+                this.dialogVisible = true;
             }
         }
     }

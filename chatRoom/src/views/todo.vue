@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-todo">
         <vHeader :isMainHeader="false"></vHeader>
-        <full-calendar :events="fcEvents" locale="zh-cn" lang="zh"></full-calendar>
+        <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick"></full-calendar>
     </div>
 </template>
 
@@ -15,6 +15,11 @@
         },
         components: {
             vHeader
+        },
+        methods: {
+            dayClick(date) {
+                console.log(date);
+            }
         }
     }
 </script>

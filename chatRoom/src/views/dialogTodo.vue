@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="新增活动" :visible.sync="visible">
+    <el-dialog title="新增活动" :visible.sync="dialogVisible" @close="close">
         <el-form :model="todoForm" ref="todoForm">
             <el-form-item label="标题" label-width="100px">
                 <el-input v-model="todoForm.title"></el-input>
@@ -45,18 +45,26 @@
                     start: '',
                     end: '',
                     address: ''
-                }
+                },
+                dialogVisible: false
             }
         },
-        computed: {
+        watch: {
+            visible(f) {
+                console.log(f);
+                this.dialogVisible = f;
+            }
         },
         methods: {
-            cancel() {
+            close() {
                 this.$refs['todoForm'].resetFields();
                 this.$emit('close');
             },
-            sure() {
+            cancel() {
                 this.$emit('close');
+            },
+            sure() {
+                this.$emit('sure', this.todoForm);
             }
         }
     }

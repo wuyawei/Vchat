@@ -30,7 +30,13 @@
             sure(o) {
                 this.addTodo(o);
             },
-            getTodoList() {},
+            getTodoList() {
+                api.getTodoList().then(r => {
+                    if (r.code === 0) {
+                        this.fcEvents = r.data;
+                    }
+                });
+            },
             addTodo(o) {
                 api.addTodo(o).then(r => {
                     if (r.code === 0) {
@@ -50,6 +56,9 @@
             },
             upTodo() {},
             delTodo() {}
+        },
+        mounted() {
+            this.getTodoList();
         }
     }
 </script>

@@ -6,6 +6,7 @@ import expression from './expression';
 import messages from './messages';
 import jokes from './jokes';
 import news from './news';
+import todo from './todo';
 
 export default {
     ...user,
@@ -15,5 +16,6 @@ export default {
     ...expression,
     ...jokes,
     ...news,
-    ...messages
+    ...messages,
+    ...todo
 }

@@ -18,6 +18,7 @@ const group = require('./routes/group');
 const friend = require('./routes/friendly');
 const expression = require('./routes/expression');
 const messages = require('./routes/messages');
+const todo = require('./routes/todo');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -77,6 +78,7 @@ app.use('/v/group', group);
 app.use('/v/friend', friend);
 app.use('/v/expre', expression);
 app.use('/v/mes', messages);
+app.use('/v/todo', todo);
 
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/index.html');

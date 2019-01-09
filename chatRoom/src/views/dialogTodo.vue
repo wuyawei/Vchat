@@ -36,6 +36,9 @@
             visible: {
                 type: Boolean,
                 default: false
+            },
+            date: {
+                default: new Date()
             }
         },
         data() {
@@ -51,8 +54,11 @@
         },
         watch: {
             visible(f) {
-                console.log(f);
                 this.dialogVisible = f;
+            },
+            date(date) {
+                this.todoForm.start = date;
+                this.todoForm.end = date.getTime() + 1000 * 60 * 60 * 24;
             }
         },
         methods: {

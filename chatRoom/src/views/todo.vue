@@ -28,30 +28,14 @@
                 this.dialogVisible = true;
             },
             sure(o) {
-                this.addTodo(o);
+                this.fcEvents.push(o);
+                this.dialogVisible = false;
             },
             getTodoList() {
                 api.getTodoList().then(r => {
                     if (r.code === 0) {
                         this.fcEvents = r.data;
                     }
-                });
-            },
-            addTodo(o) {
-                api.addTodo(o).then(r => {
-                    if (r.code === 0) {
-                        this.$message({
-                            message: '新建成功',
-                            type: 'success'
-                        });
-                        this.fcEvents.push(o);
-                    } else {
-                        this.$message({
-                            message: '新建失败',
-                            type: 'warning'
-                        });
-                    }
-                    this.dialogVisible = false;
                 });
             },
             upTodo() {},

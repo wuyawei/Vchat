@@ -2,7 +2,7 @@
     <div class="vchat-todo">
         <vHeader :isMainHeader="false"></vHeader>
         <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick"></full-calendar>
-        <dialog-todo :visible="dialogVisible" @close="dialogVisible = false" @sure="sure"></dialog-todo>
+        <dialog-todo :visible="dialogVisible" @close="dialogVisible = false" @sure="sure" :date="chooseDate"></dialog-todo>
     </div>
 </template>
 
@@ -13,7 +13,8 @@
         data() {
             return {
                 fcEvents: [],
-                dialogVisible: false
+                dialogVisible: false,
+                chooseDate: ''
             }
         },
         components: {
@@ -22,6 +23,7 @@
         },
         methods: {
             dayClick(date) {
+                this.chooseDate = date;
                 this.dialogVisible = true;
             },
             sure(o) {

@@ -2,7 +2,7 @@
     <div class="backLog">
         <h3>
             <span>待办日程</span>
-            <v-icon name="jia2" color="#ff6b6b" cursor="pointer" title="前往日程管理"></v-icon>
+            <v-icon name="jia2" color="#ff6b6b" cursor="pointer" title="前往日程管理" @clickIcon="$router.push({name: 'todo'})"></v-icon>
         </h3>
         <div class="todoList">
             <ul v-if="todoList.length">

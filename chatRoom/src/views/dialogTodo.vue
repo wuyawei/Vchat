@@ -1,10 +1,10 @@
 <template>
-    <el-dialog title="新增活动" :visible.sync="dialogVisible" @close="close">
+    <el-dialog title="新建活动" :visible.sync="dialogVisible" @close="close">
         <el-form :model="todoForm" ref="todoForm">
-            <el-form-item label="标题" label-width="100px">
+            <el-form-item label="主题" label-width="100px" prop="title" :rules="[{ required: true, message: '主题不能为空'}]">
                 <el-input v-model="todoForm.title"></el-input>
             </el-form-item>
-            <el-form-item label="地点" label-width="100px">
+            <el-form-item label="地点" label-width="100px" prop="address" :rules="[{ required: true, message: '地点不能为空'}]">
                 <el-input v-model="todoForm.address"></el-input>
             </el-form-item>
             <el-form-item label="开始时间" label-width="100px">
@@ -57,8 +57,8 @@
                 this.dialogVisible = f;
             },
             date(date) {
-                this.todoForm.start = date;
-                this.todoForm.end = date.getTime() + 1000 * 60 * 60 * 24;
+                this.todoForm.start = date.getTime();
+                this.todoForm.end = date.getTime() + 1000 * 60 * 60 * 24 - 1000;
             }
         },
         methods: {
@@ -70,7 +70,13 @@
                 this.$emit('close');
             },
             sure() {
-                this.$emit('sure', this.todoForm);
+                this.$refs['todoForm'].validate((valid) => {
+                    if (valid) {
+                        this.$emit('sure', this.todoForm);
+                    } else {
+                        return false;
+                    }
+                });
             }
         }
     }

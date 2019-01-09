@@ -8,7 +8,13 @@
             <ul v-if="todoList.length">
                 <li v-for="(v, i) in todoList" :key="i">
                     <p class="title">{{v.title}}</p>
-                    <p class="date">{{v.date}}</p>
+                    <p class="date">
+                        <span>{{formatTime(v.start)}} 至 {{formatTime(v.end)}}</span>
+                        <span>
+                            <v-icon class="el-icon-delete" cursor="pointer" :size="14"></v-icon>
+                            <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
+                        </span>
+                    </p>
                 </li>
             </ul>
             <v-nodata :url="bg" v-else>
@@ -22,6 +28,8 @@
 
 <script>
     import bg from '../../../assets/img/zwsj4.png';
+    import api from '@/api';
+    import utils from '@/utils/utils';
     export default{
         name: 'backLog',
         data() {
@@ -30,10 +38,26 @@
                 todoList: [
                     {
                         title: '码字2小时',
-                        date: '11月25日'
+                        start: '11月25日',
+                        end: '11月26日'
                     }
                 ]
             }
+        },
+        methods: {
+            getTodoList() {
+                api.getTodoList().then(r => {
+                    if (r.code === 0) {
+                        this.todoList = r.data;
+                    }
+                });
+            },
+            formatTime(t) {
+                return utils.formatTime(new Date(t));
+            }
+        },
+        mounted() {
+            this.getTodoList();
         }
     }
 </script>
@@ -71,6 +95,28 @@
             .date{
                 font-size: 12px;
                 color: #888;
+                font-family: "Times New Roman", Times, serif;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                i{
+                    margin-right: 6px;
+                }
+                span:nth-of-type(2) {
+                    display: none;
+                }
+                i:nth-of-type(1):hover{
+                    color: #ff2b3a !important;
+                }
+                i:nth-of-type(2):hover{
+                    color: #1fbeca !important;
+                }
+            }
+            li:hover{
+                background-color: #f8f8f8;
+            }
+            li:hover span:nth-of-type(2) {
+                display: block;
             }
         }
     }

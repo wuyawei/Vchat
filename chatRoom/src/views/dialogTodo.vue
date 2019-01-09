@@ -24,12 +24,16 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="cancel">取 消</el-button>
-            <el-button type="primary" @click="sure">确 定</el-button>
+            <el-button type="primary" @click="sure">
+                <v-icon class="el-icon-loading" color="#fff" :size="14" v-if="loading"></v-icon>
+                确 定
+            </el-button>
         </div>
     </el-dialog>
 </template>
 
 <script>
+    import api from '@/api';
     export default{
         name: 'dialogTodo',
         props: {
@@ -49,7 +53,8 @@
                     end: '',
                     address: ''
                 },
-                dialogVisible: false
+                dialogVisible: false,
+                loading: false // 保存中
             }
         },
         watch: {
@@ -71,10 +76,28 @@
             },
             sure() {
                 this.$refs['todoForm'].validate((valid) => {
-                    if (valid) {
-                        this.$emit('sure', this.todoForm);
+                    if (valid && this.loading === false) {
+                        this.loading = true;
+                        this.addTodo(JSON.parse(JSON.stringify(this.todoForm)));
                     } else {
                         return false;
+                    }
+                });
+            },
+            addTodo(o) {
+                api.addTodo(o).then(r => {
+                    this.loading = false;
+                    if (r.code === 0) {
+                        this.$emit('sure', o);
+                        this.$message({
+                            message: '新建成功',
+                            type: 'success'
+                        });
+                    } else {
+                        this.$message({
+                            message: '新建失败',
+                            type: 'warning'
+                        });
                     }
                 });
             }

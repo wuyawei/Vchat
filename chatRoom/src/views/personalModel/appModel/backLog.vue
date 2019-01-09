@@ -11,7 +11,7 @@
                     <p class="date">
                         <span>{{formatTime(v.start)}} 至 {{formatTime(v.end)}}</span>
                         <span>
-                            <v-icon class="el-icon-delete" cursor="pointer" :size="14"></v-icon>
+                            <v-icon class="el-icon-delete" cursor="pointer" :size="14" @clickIcon="delTodo(v['_id'])"></v-icon>
                             <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
                         </span>
                     </p>
@@ -35,13 +35,7 @@
         data() {
             return {
                 bg: bg,
-                todoList: [
-                    {
-                        title: '码字2小时',
-                        start: '11月25日',
-                        end: '11月26日'
-                    }
-                ]
+                todoList: []
             }
         },
         methods: {
@@ -54,6 +48,27 @@
             },
             formatTime(t) {
                 return utils.formatTime(new Date(t));
+            },
+            delTodo(id) {
+                this.$confirm('确认删除该日程记录吗？', '确认信息')
+                    .then(() => {
+                        api.delTodo({'_id': id}).then(r => {
+                            if (r.code === 0) {
+                                this.todoList = this.todoList.filter(v => id !== v['_id']);
+                                this.$message({
+                                    message: '删除成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                this.$message({
+                                    message: '删除失败',
+                                    type: 'warning'
+                                });
+                            }
+                        })
+                    })
+                    .catch(action => {
+                    });
             }
         },
         mounted() {

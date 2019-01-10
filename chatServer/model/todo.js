@@ -45,8 +45,11 @@ const upTodo = (params, callback) => { // 编辑日程
 
 const delTodo = (params, callback) => { // 删除日程
     todo.remove({'_id': params['_id']}).then(r => {
-        console.log(r);
-        callback({code: 0, data: r});
+        if (r.n > 0) {
+            callback({code: 0, data: r});
+        } else {
+            callback({code: -1, data: '删除失败'});
+        }
     }).catch(err => {
         callback({code: -1, data: '删除失败'});
     })

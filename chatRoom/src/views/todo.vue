@@ -3,7 +3,13 @@
         <vHeader :isMainHeader="false"></vHeader>
         <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick" @eventClick="eventClick">
             <template slot="fc-event-card" slot-scope="p">
-                <p>{{p.event.title}}</p>
+                <p class="todoTitle-box">
+                    <span class="vchat-line1 todoTitle">{{p.event.title}}</span>
+                    <span>
+                        <v-icon class="el-icon-delete" cursor="pointer" :size="14" @clickIcon="delTodo(p.event['_id'])"></v-icon>
+                        <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
+                    </span>
+                </p>
             </template>
         </full-calendar>
         <dialog-todo :visible="dialogVisible" @close="dialogVisible = false" @sure="sure" :date="chooseDate"></dialog-todo>
@@ -46,7 +52,27 @@
                 });
             },
             upTodo() {},
-            delTodo() {}
+            delTodo(id) {
+                this.$confirm('确认删除该日程记录吗？', '确认信息')
+                    .then(() => {
+                        api.delTodo({'_id': id}).then(r => {
+                            if (r.code === 0) {
+                                this.fcEvents = this.fcEvents.filter(v => id !== v['_id']);
+                                this.$message({
+                                    message: '删除成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                this.$message({
+                                    message: '删除失败',
+                                    type: 'warning'
+                                });
+                            }
+                        })
+                    })
+                    .catch(action => {
+                    });
+            }
         },
         mounted() {
             this.getTodoList();
@@ -55,5 +81,17 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .todoTitle-box{
+        display: flex;
+        justify-content: space-between;
+        padding: 0 5px;
+        box-sizing: border-box;
+        i:nth-of-type(1){
+            margin-right: 3px;
+        }
+    }
+    .todoTitle{
+        max-width: 100px;
+        margin-right: 10px;
+    }
 </style>

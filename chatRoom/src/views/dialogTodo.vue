@@ -62,8 +62,8 @@
                 this.dialogVisible = f;
             },
             date(date) {
-                this.todoForm.start = date.getTime();
-                this.todoForm.end = date.getTime() + 1000 * 60 * 60 * 24 - 1000;
+                this.todoForm.start = date['_d'].getTime();
+                this.todoForm.end = date['_d'].getTime() + 1000 * 60 * 60 * 24 - 1000;
             }
         },
         methods: {

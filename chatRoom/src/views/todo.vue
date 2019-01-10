@@ -8,6 +8,15 @@
                         :title="p.event.title"
                         width="200"
                         trigger="click">
+                        <p class="todoInfo">
+                            地点：{{p.event.address}}
+                        </p>
+                        <p class="todoInfo">
+                            时间：{{formatTime(p.event.start)}} 至 {{formatTime(p.event.end)}}
+                        </p>
+                        <p class="todoInfo">
+                            内容：{{p.event.content}}
+                        </p>
                         <p class="todoTitle-box" slot="reference">
                             <span class="vchat-line1 todoTitle">{{p.event.title}}</span>
                             <span>
@@ -26,6 +35,7 @@
     import api from '@/api';
     import vHeader from '@/views/components/header/vHeader';
     import dialogTodo from './dialogTodo.vue';
+    import utils from '@/utils/utils';
     export default{
         data() {
             return {
@@ -39,6 +49,9 @@
             dialogTodo
         },
         methods: {
+            formatTime(t) {
+                return utils.formatTime(new Date(t));
+            },
             dayClick(date) {
                 this.chooseDate = date;
                 this.dialogVisible = true;
@@ -99,5 +112,10 @@
     .todoTitle{
         max-width: 100px;
         margin-right: 10px;
+    }
+    .todoInfo{
+        font-size: 12px;
+        color: #323232;
+        font-family: "Times New Roman", Times, serif;
     }
 </style>

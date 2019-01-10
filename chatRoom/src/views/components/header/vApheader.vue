@@ -1,7 +1,7 @@
 <template>
     <h3 class="vchat-apheader" :style="{backgroundColor: bgColor}">
-        <a v-if="back" @click="goBack">
-            <v-icon name="fanhui" cursor="pointer" color="#fff"></v-icon>
+        <a v-if="back">
+            <v-icon name="fanhui" cursor="pointer" color="#fff" @clickIcon="goBack"></v-icon>
         </a>
         <span v-if="title">{{title}}</span>
         <div class="icon-slot">
@@ -30,6 +30,7 @@
         },
         methods: {
             goBack() {
+                console.log(111111111111);
                 this.$store.dispatch('setTransitionName');
                 if (this.back === '-1') {
                     this.$router.go(-1);

@@ -9,7 +9,7 @@ import uploadPopover from './uploadPopover/uploadPopover.vue';
 import PhotoSwipe from './PhotoSwipe/PhotoSwipe.vue';
 import bscroll from './bscroll/bscroll.vue';
 import vScroll from './vScroll/vScroll.vue';
-import fullCalendar from 'vue-fullcalendar';
+let fullCalendar = require('./fullCalendar/fullCalendar');
 const install = {
     install:function(Vue){
         Vue.component('vNodata', noData);
@@ -20,7 +20,7 @@ const install = {
         Vue.component('vPhotoSwipe', PhotoSwipe);
         Vue.component('bScroll', bscroll);
         Vue.component('vScroll', vScroll);
-        Vue.component('full-calendar', fullCalendar)
+        Vue.component('full-calendar', fullCalendar.VueFullcalendar)
     }
 };
 export default install;

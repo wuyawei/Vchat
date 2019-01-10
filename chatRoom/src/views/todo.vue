@@ -1,7 +1,11 @@
 <template>
     <div class="vchat-todo">
         <vHeader :isMainHeader="false"></vHeader>
-        <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick"></full-calendar>
+        <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick" @eventClick="eventClick">
+            <template slot="fc-event-card" slot-scope="p">
+                <p>{{p.event.title}}</p>
+            </template>
+        </full-calendar>
         <dialog-todo :visible="dialogVisible" @close="dialogVisible = false" @sure="sure" :date="chooseDate"></dialog-todo>
     </div>
 </template>
@@ -26,6 +30,9 @@
             dayClick(date) {
                 this.chooseDate = date;
                 this.dialogVisible = true;
+            },
+            eventClick(e) {
+                console.log(e)
             },
             sure(o) {
                 this.fcEvents.push(o);

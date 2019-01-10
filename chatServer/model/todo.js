@@ -5,6 +5,7 @@ const db = require('../utils/database');
 let todo = db.model("todo", {
     title: String, // 活动名称
     address: String, // 活动地点
+    content: String, // 内容
     start: { type: Date, default: Date.now() }, // 开始时间
     end: { type: Date, default: Date.now() }, // 结束时间
     userName: String, // 用户名

@@ -3,13 +3,19 @@
         <vHeader :isMainHeader="false"></vHeader>
         <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick" @eventClick="eventClick">
             <template slot="fc-event-card" slot-scope="p">
-                <p class="todoTitle-box">
-                    <span class="vchat-line1 todoTitle">{{p.event.title}}</span>
-                    <span>
-                        <v-icon class="el-icon-delete" cursor="pointer" :size="14" @clickIcon="delTodo(p.event['_id'])"></v-icon>
-                        <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
-                    </span>
-                </p>
+                <el-popover
+                        placement="bottom"
+                        :title="p.event.title"
+                        width="200"
+                        trigger="click">
+                        <p class="todoTitle-box" slot="reference">
+                            <span class="vchat-line1 todoTitle">{{p.event.title}}</span>
+                            <span>
+                                <v-icon class="el-icon-delete" cursor="pointer" :size="14" @clickIcon="delTodo(p.event['_id'])"></v-icon>
+                                <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
+                            </span>
+                        </p>
+                </el-popover>
             </template>
         </full-calendar>
         <dialog-todo :visible="dialogVisible" @close="dialogVisible = false" @sure="sure" :date="chooseDate"></dialog-todo>

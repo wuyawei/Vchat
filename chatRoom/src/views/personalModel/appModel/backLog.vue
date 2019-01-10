@@ -8,8 +8,11 @@
             <ul v-if="todoList.length">
                 <li v-for="(v, i) in todoList" :key="i">
                     <p class="title">{{v.title}}</p>
-                    <p class="date">
-                        <span>{{formatTime(v.start)}} 至 {{formatTime(v.end)}}</span>
+                    <p class="content">
+                        {{v.content}}
+                    </p>
+                    <p class="info">
+                        <span><i class="address">{{v.address}} </i> {{formatTime(v.start)}} 至 {{formatTime(v.end)}}</span>
                         <span>
                             <v-icon class="el-icon-delete" cursor="pointer" :size="14" @clickIcon="delTodo(v['_id'])"></v-icon>
                             <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
@@ -107,13 +110,24 @@
                 color: #161616;
                 margin-bottom: 5px;
             }
-            .date{
+            .content{
+                font-size: 14px;
+                color: #323232;
+            }
+            .info{
                 font-size: 12px;
                 color: #888;
                 font-family: "Times New Roman", Times, serif;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                .address{
+                    color: #ff714f;
+                    font-style: normal;
+                    display: inline-block;
+                    border: 1px solid #ff714f;
+                    padding: 1px 5px;
+                }
                 i{
                     margin-right: 6px;
                 }

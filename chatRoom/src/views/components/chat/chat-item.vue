@@ -268,7 +268,7 @@
                         this.groupUsers = r.data;
                         let page = (this.offset - 1) * this.limit;
                         this.groupUserList = this.groupUsers.slice(page, page + this.limit);
-                        console.log(this.groupUsers);
+                        /*console.log(this.groupUsers);*/
                         this.getGroupUserStatus(this.OnlineUser);
                     }
                 })

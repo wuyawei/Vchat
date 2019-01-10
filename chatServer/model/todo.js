@@ -33,7 +33,7 @@ const addTodo = (params, callback) => { // 新增日程
 };
 
 const upTodo = (params, callback) => { // 编辑日程
-    todo.update({'_id': params['_id']}, params).then(r => {
+    todo.update({'_id': params['_id']}, params).then(raw => {
         if (raw.nModified > 0) {
             callback({code: 0});
         } else {

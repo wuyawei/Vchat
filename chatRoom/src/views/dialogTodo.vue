@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="新建活动" :visible.sync="dialogVisible" @close="close">
+    <el-dialog :title="logTitle" :visible.sync="dialogVisible" @close="close">
         <el-form :model="todoForm" ref="todoForm">
             <el-form-item label="活动主题" label-width="100px" prop="title" :rules="[{ required: true, message: '主题不能为空'}]">
                 <el-input v-model="todoForm.title"></el-input>
@@ -46,15 +46,23 @@
             },
             date: {
                 default: new Date()
+            },
+            info: {
+                type: Object,
+                default: function () {
+                    return {};
+                }
             }
         },
         data() {
             return {
+                logTitle: '新建活动',
                 todoForm: {
                     title: '',
                     start: '',
                     end: '',
-                    address: ''
+                    address: '',
+                    content: ''
                 },
                 dialogVisible: false,
                 loading: false // 保存中
@@ -67,6 +75,17 @@
             date(date) {
                 this.todoForm.start = date['_d'].getTime();
                 this.todoForm.end = date['_d'].getTime() + 1000 * 60 * 60 * 24 - 1000;
+            },
+            info(info) {
+                if (info.title) {
+                    this.logTitle = '编辑活动';
+                    Object.keys(this.todoForm).forEach(k => {
+                        this.todoForm[k] = info[k];
+                    });
+                    this.todoForm['_id'] = info['_id'];
+                } else {
+                    this.logTitle = '新建活动';
+                }
             }
         },
         methods: {
@@ -81,7 +100,11 @@
                 this.$refs['todoForm'].validate((valid) => {
                     if (valid && this.loading === false) {
                         this.loading = true;
-                        this.addTodo(JSON.parse(JSON.stringify(this.todoForm)));
+                        if (this.info.title) {
+                            this.upTodo(JSON.parse(JSON.stringify(this.todoForm)));
+                        } else {
+                            this.addTodo(JSON.parse(JSON.stringify(this.todoForm)));
+                        }
                     } else {
                         return false;
                     }
@@ -103,6 +126,23 @@
                         });
                     }
                 });
+            },
+            upTodo(o) {
+                api.upTodo(o).then(r => {
+                    this.loading = false;
+                    if (r.code === 0) {
+                        this.$emit('up', o);
+                        this.$message({
+                            message: '修改成功',
+                            type: 'success'
+                        });
+                    } else {
+                        this.$message({
+                            message: '修改失败',
+                            type: 'warning'
+                        });
+                    }
+                })
             }
         }
     }

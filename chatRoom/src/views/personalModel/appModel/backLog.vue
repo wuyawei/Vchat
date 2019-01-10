@@ -9,13 +9,13 @@
                 <li v-for="(v, i) in todoList" :key="i">
                     <p class="title">{{v.title}}</p>
                     <p class="content">
-                        {{v.content}}
+                        <v-icon name="clock" color="#686868" :size="18"></v-icon>： {{v.content}}
                     </p>
                     <p class="info">
                         <span><i class="address">{{v.address}} </i> {{formatTime(v.start)}} 至 {{formatTime(v.end)}}</span>
                         <span>
                             <v-icon class="el-icon-delete" cursor="pointer" :size="14" @clickIcon="delTodo(v['_id'])"></v-icon>
-                            <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
+                            <!--<v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>-->
                         </span>
                     </p>
                 </li>
@@ -109,14 +109,17 @@
                 font-size: 16px;
                 color: #161616;
                 margin-bottom: 5px;
+                border-left: 3px solid #28828f;
+                padding-left: 5px;
             }
             .content{
                 font-size: 14px;
-                color: #323232;
+                color: #686868;
+                margin-bottom: 5px;
             }
             .info{
                 font-size: 12px;
-                color: #888;
+                color: #9a9a9a;
                 font-family: "Times New Roman", Times, serif;
                 display: flex;
                 justify-content: space-between;

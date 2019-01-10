@@ -1,7 +1,7 @@
 <template>
     <div class="vchat-todo">
         <vHeader :isMainHeader="false"></vHeader>
-        <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick" @eventClick="eventClick">
+        <full-calendar :events="fcEvents" locale="zh-cn" lang="zh" @dayClick="dayClick">
             <template slot="fc-event-card" slot-scope="p">
                 <el-popover
                         placement="bottom"
@@ -9,10 +9,10 @@
                         width="200"
                         trigger="click">
                         <p class="todoInfo">
-                            地点：{{p.event.address}}
+                            时间：{{formatTime(p.event.start)}} 至 {{formatTime(p.event.end)}}
                         </p>
                         <p class="todoInfo">
-                            时间：{{formatTime(p.event.start)}} 至 {{formatTime(p.event.end)}}
+                            地点：{{p.event.address}}
                         </p>
                         <p class="todoInfo">
                             内容：{{p.event.content}}
@@ -21,13 +21,13 @@
                             <span class="vchat-line1 todoTitle">{{p.event.title}}</span>
                             <span>
                                 <v-icon class="el-icon-delete" cursor="pointer" :size="14" @clickIcon="delTodo(p.event['_id'])"></v-icon>
-                                <v-icon class="el-icon-edit" cursor="pointer" :size="14"></v-icon>
+                                <v-icon class="el-icon-edit" cursor="pointer" :size="14" @clickIcon="upTodo(p.event)"></v-icon>
                             </span>
                         </p>
                 </el-popover>
             </template>
         </full-calendar>
-        <dialog-todo :visible="dialogVisible" @close="dialogVisible = false" @sure="sure" :date="chooseDate"></dialog-todo>
+        <dialog-todo :visible="dialogVisible" @close="close" @sure="sure" :date="chooseDate" :info="upInfo" @up="up"></dialog-todo>
     </div>
 </template>
 
@@ -41,7 +41,8 @@
             return {
                 fcEvents: [],
                 dialogVisible: false,
-                chooseDate: ''
+                chooseDate: '',
+                upInfo: {}
             }
         },
         components: {
@@ -56,8 +57,13 @@
                 this.chooseDate = date;
                 this.dialogVisible = true;
             },
-            eventClick(e) {
-                console.log(e)
+            up(o) {
+                this.fcEvents.forEach(v => {
+                    if (v['_id'] === o['_id']) {
+                        v = o;
+                    }
+                });
+                this.dialogVisible = false;
             },
             sure(o) {
                 this.fcEvents.push(o);
@@ -70,7 +76,14 @@
                     }
                 });
             },
-            upTodo() {},
+            close() {
+                this.dialogVisible = false;
+                this.upInfo = {};
+            },
+            upTodo(info) {
+                this.upInfo = Object.assign(info);
+                this.dialogVisible = true;
+            },
             delTodo(id) {
                 this.$confirm('确认删除该日程记录吗？', '确认信息')
                     .then(() => {
@@ -117,5 +130,6 @@
         font-size: 12px;
         color: #323232;
         font-family: "Times New Roman", Times, serif;
+        margin-bottom: 5px;
     }
 </style>

@@ -317,6 +317,6 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-server.listen(9988, () => {
-    console.log('服务器在9988启动')
+server.listen(80, () => {
+    console.log('服务器在80启动')
 });

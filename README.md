@@ -27,7 +27,7 @@
 
 ### 相关地址
 
-* [在线预览](www.vchatdw.com)
+* [在线预览](http://www.vchatdw.com)
 * [掘金](https://juejin.im/post/5c0a00fb6fb9a049d4419d3a)
 * [码云](https://gitee.com/wuywd/Vchat)
 * [简书](https://www.jianshu.com/p/49165c6477e4)

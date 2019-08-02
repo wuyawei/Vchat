@@ -325,9 +325,13 @@ instance.interceptors.response.use(
 * [socket.io文档](https://www.w3cschool.cn/socket/socket-buvk2eib.html)
 * Vchat主题切换实现方案来自于 [d2-admin](https://github.com/d2-projects/d2-admin)
 
-### 交流群（qq群：960807765）
-
+### 交流群
+> qq群(960807765)
 ![](https://user-gold-cdn.xitu.io/2018/12/9/16792b974b1355eb?w=240&h=328&f=jpeg&s=41198)
+
+> 微信群请加我好友（q1324210213），回复加群
+
+![](https://raw.githubusercontent.com/wuyawei/fe-code/master/user.jpg)
 
 ### 写在后面
 > 本文主要讲了Vchat的整体设计以及一些主要功能的实现，其实写项目过程中坑还是挺多的，比如mongoose联表查询、文件上传等等，这里就不在细说，以后有时间再更新。如果Vchat对你有帮助，记得star一下哟^_^。

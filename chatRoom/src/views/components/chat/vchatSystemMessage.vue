@@ -30,7 +30,7 @@
                                 <span class="status">{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
                             </div>
                         </div>
-                        <span slot="reference" @click="v.visible = !v.visible" class="look" v-if="v.status === '0' ">查看</span>
+                        <span slot="reference" class="look" v-if="v.status === '0' ">查看</span>
                         <span slot="reference" v-else>{{v.status === '1' ? '已同意' : '已拒绝'}}</span>
                     </el-popover>
                     <el-popover

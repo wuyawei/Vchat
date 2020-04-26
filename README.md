@@ -325,9 +325,6 @@ instance.interceptors.response.use(
 * Vchat主题切换实现方案来自于 [d2-admin](https://github.com/d2-projects/d2-admin)
 
 ### 交流群
-> qq群(960807765)
-
-![](https://user-gold-cdn.xitu.io/2018/12/9/16792b974b1355eb?w=240&h=328&f=jpeg&s=41198)
 
 > 微信群请加我好友（q1324210213），回复加群
 

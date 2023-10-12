@@ -12,7 +12,7 @@
     "cookie-parser": "~1.4.3",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
-    "express": "~4.15.5",
+    "express": "~4.17.3",
     "express-session": "^1.15.6",
     "http-proxy-middleware": "^0.19.1",
     "jade": "~1.11.0",
